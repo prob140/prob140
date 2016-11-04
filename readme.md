@@ -1,5 +1,7 @@
 # Library for Probability 140
 
+[nbviewer for Examples](https://nbviewer.jupyter.org/urls/gitlab.com/probability/prob140/raw/master/Examples.ipynb)
+
 ## DiscreteDistribution
 
 Methods:
