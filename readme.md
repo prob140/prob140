@@ -3,11 +3,13 @@
 ## DiscreteDistribution
 
 Methods:
-* `p(arg)`: Finds the probability of a value or a list of values. Sums up the probabilities. Usage: `binDist.p(0)` or `binDist.p(np.arange(0,10))`
-* `P(arg)`: Same as `p(arg)` except returns a table with the probabilities rather than the sum
+* `prob_event(arg)`: Finds the probability of a value or a list of values. Sums up the probabilities. Usage: `binDist.prob_event(0)` or `binDist.prob_event(np.arange(0,10))`
+* `event(arg)`: Same as `prob_event(arg)` except returns a table with the probabilities rather than the sum
 * `expected_value()`
 * `variance()`
 * `sd()`
+* `plot(width=1, mask=None, **vargs)`: See Examples notebook
+* `plot_event(event, **vargs)`: See Examples notebook
 
 ### FiniteDistribution
 
@@ -55,3 +57,10 @@ Domain           | Probability
 ```
 
 ### JointDistribution
+
+### Recent Changelog
+* defining the domain out of order no longer messes up plots
+* negative probabilities get a warnings
+* renamed `p` to `prob_event`, `P` to `event`
+* renamed `binWidth` to `width`
+* `plot_event` and `mask` now work, but ignores width!

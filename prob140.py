@@ -32,28 +32,28 @@ class DiscreteDistribution(Table):
         rgb("cyan"),
     )
 
-    def p(self, x):
+    def prob_event(self, x):
         """
         Finds the probability that distribution takes on value x or range of values x. Returns sum.
         """
         if isinstance(x, collections.Iterable):
-            return sum(self.p(k) for k in x)
+            return sum(self.prob_event(k) for k in x)
         else:
             domain = self._columns["Domain"]
             prob = self._columns["Probability"]
             return sum(prob[np.where(domain == x)])
 
-    def P(self, x):
+    def event(self, x):
         """
         Finds the probability that distribution takes on value x or range of values x. Returns table.
         """
         if isinstance(x, collections.Iterable):
-            probabilities = [self.p(k) for k in x]
+            probabilities = [self.prob_event(k) for k in x]
             return FiniteDistribution().domain(x).probability(probabilities)
         else:
-            return FiniteDistribution().domain([x]).probability([self.p(x)])
+            return FiniteDistribution().domain([x]).probability([self.prob_event(x)])
 
-    def plot(self, binWidth=1, mask=[], **vargs):
+    def plot(self, width=1, mask=[], **vargs):
 
         domain = self["Domain"]
         prob = self["Probability"]
@@ -61,11 +61,11 @@ class DiscreteDistribution(Table):
         start = min(domain)
         end = max(domain)
 
-        end = (end // binWidth + 1) * binWidth
+        end = (end // width + 1) * width
 
         if len(mask) == 0:
             self.hist(counts="Domain",
-                      bins=np.arange(start - binWidth / 2, end + binWidth, binWidth),
+                      bins=np.arange(start - width / 2, end + width, width),
                       **vargs)
         else:
             if isinstance(mask[0], collections.Iterable):
@@ -73,23 +73,57 @@ class DiscreteDistribution(Table):
                     itertools.islice(itertools.cycle(self.chart_colors), len(mask)))
                 for i in range(len(mask)):
                     plt.bar(domain[mask[i]], prob[mask[i]], align="center",
-                            color=colors[i])
+                            color=colors[i], width=1)
             else:
-                plt.bar(domain[mask], prob[mask], align="center", color="darkblue")
+                plt.bar(domain[mask], prob[mask], align="center", color="darkblue", width=1)
                 plt.bar(domain[np.logical_not(mask)], prob[np.logical_not(mask)],
-                        align="center", color="gold")
+                        align="center", color="gold", width=1)
                 # dist1 = FiniteDistribution().domain(domain[mask]).probability(prob[mask])
                 # dist2 = FiniteDistribution().domain(domain[np.logical_not(mask)]).probability(prob[np.logical_not(mask)])
-                # DiscreteDistribution.Plot("1", dist1, "2", dist2, binWidth=binWidth, **vargs)
+                # DiscreteDistribution.Plot("1", dist1, "2", dist2, width=width, **vargs)
 
         mindistance = 0.9 * min(
             [self['Domain'][i] - self['Domain'][i - 1] for i in range(1, self.num_rows)])
 
-        plt.xlim((min(self['Domain']) - mindistance - binWidth/2, max(self['Domain'])
-                  + mindistance + binWidth / 2))
+        plt.xlim((min(self['Domain']) - mindistance - width/2, max(self['Domain'])
+                  + mindistance + width / 2))
+
+    def plot_event(self, event, width=1, **vargs):
+        if len(event) == 0:
+            self.plot(width=width, **vargs)
+
+        else:
+
+            mindistance = 0.9 * min(
+            [self['Domain'][i] - self['Domain'][i - 1] for i in range(1, self.num_rows)])
+
+            plt.xlim((min(self['Domain']) - mindistance - width/2, max(self['Domain'])
+                  + mindistance + width / 2))
+
+            domain = set(self["Domain"])
+
+            def prob(x):
+                return np.array([self.prob_event(a) for a in list(x)])
+
+
+            if isinstance(event[0], collections.Iterable):
+                colors = list(
+                    itertools.islice(itertools.cycle(self.chart_colors), len(event) + 1))
+                for i in range(len(event)):
+                    plt.bar(event[i], prob(event[i]), align="center", color=colors[i], width=1)
+                    domain -= set(event[i])
+
+                domain = np.array(list(domain))
+                plt.bar(domain, prob(domain), align="center", color=colors[-1], width=1)
+            else:
+
+                plt.bar(event, prob(event), align="center", width=1, color="gold")
+                domain = np.array(list(set(self["Domain"]) - set(event)))
+                plt.bar(domain, prob(domain), align="center", color="darkblue", width=1)
+
 
     @classmethod
-    def Plot(cls, *labels_and_dists, binWidth=1, **vargs):
+    def Plot(cls, *labels_and_dists, width=1, **vargs):
         # assert len(labels_and_dists) % 2 == 0, 'Even length sequence required'
         options = cls.default_options.copy()
         options.update(vargs)
@@ -110,7 +144,7 @@ class DiscreteDistribution(Table):
         while i < len(labels_and_dists):
             distributions.append(labels_and_dists[i])
             dist = labels_and_dists[i + 1]
-            probability = np.vectorize(dist.p, otypes=[np.float])(domain)
+            probability = np.vectorize(dist.prob_event, otypes=[np.float])(domain)
             distributions.append(probability)
             i += 2
 
@@ -120,9 +154,9 @@ class DiscreteDistribution(Table):
 
         start = min(domain)
         end = max(domain)
-        end = (end // binWidth + 1) * binWidth
+        end = (end // width + 1) * width
         result.hist(counts="Domain",
-                    bins=np.arange(start - binWidth / 2, end + binWidth, binWidth),
+                    bins=np.arange(start - width / 2, end + width, width),
                     **vargs)
 
         domain = np.sort(domain)
@@ -130,8 +164,8 @@ class DiscreteDistribution(Table):
         mindistance = 0.9 * min(
             [domain[i] - domain[i - 1] for i in range(1, len(domain))])
 
-        plt.xlim((min(domain) - mindistance - binWidth / 2, max(domain) + mindistance +
-                  binWidth / 2))
+        plt.xlim((min(domain) - mindistance - width / 2, max(domain) + mindistance +
+                  width / 2))
 
 
 plot = DiscreteDistribution.Plot
@@ -145,12 +179,12 @@ class FiniteDistribution(DiscreteDistribution):
         values = np.array(self.apply(pfunc, 'Domain')).astype(float)
         if any(values < 0):
             warnings.warn("Probability cannot be negative")
-        return self.with_column('Probability', values)
+        return self.with_column('Probability', values).sort("Domain")
 
     def probability(self, values):
         if any(np.array(values) < 0):
             warnings.warn("Probability cannot be negative")
-        return self.with_column('Probability', values)
+        return self.with_column('Probability', values).sort("Domain")
 
     def _probability(self, values):
         self['Probability'] = values
@@ -192,7 +226,7 @@ class InfiniteDistribution(DiscreteDistribution):
     def probability_function(self, pfunc):
         return self.with_column('Probability', [pfunc])
 
-    def plot(self, binWidth=1, size=20, **vargs):
+    def plot(self, width=1, size=20, **vargs):
         pfunc = self._pfunc
         start = self._start
         step = self._step
@@ -201,11 +235,11 @@ class InfiniteDistribution(DiscreteDistribution):
         probability = np.vectorize(pfunc, otypes=[np.float])(domain)
 
         FiniteDistribution().domain(domain).probability(probability).plot(
-            binWidth=binWidth, **vargs)
+            width=width, **vargs)
 
-    def p(self, x):
+    def prob_event(self, x):
         if isinstance(x, collections.Iterable):
-            return sum(self.p(k) for k in x)
+            return sum(self.p_event(k) for k in x)
         else:
             # Doesn't check if x is in domain!
             return self._pfunc(x)
@@ -360,7 +394,7 @@ class JointDistribution(FiniteDistribution):
     def marginalize(self, variable):
         pass
 
-    def p(self, **kwargs):
+    def prob_event(self, **kwargs):
         current = d
         for name, item in kwargs.items():
             current = current.where(name, item)
