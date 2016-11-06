@@ -17,7 +17,13 @@ rgb = matplotlib.colors.colorConverter.to_rgb
 
 
 class DiscreteDistribution(Table):
-    """Subclass of Table to represent distributions as a 2-column table of Domain and Probability"""
+    """
+    Subclass of Table to represent discrete distributions as a 2-column table of
+    Domain and Probability.
+
+    For constructing a Distribution, see documentation for FiniteDistribution
+    and InfiniteDistribution.
+    """
 
     # Brighter colors than the default Table class
     chart_colors = (
@@ -34,7 +40,32 @@ class DiscreteDistribution(Table):
 
     def prob_event(self, x):
         """
-        Finds the probability that distribution takes on value x or range of values x. Returns sum.
+        Finds the probability of an event x
+
+        Parameters
+        ----------
+        x : float or Iterable
+            An event represented either as a specific value in the domain or a
+            subset of the domain
+
+        Returns
+        -------
+        float
+            Probability of the event
+
+        Examples
+        --------
+
+        >>> dist = FiniteDistribution().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
+        >>> dist.prob_event(2)
+        0.25
+
+        >>> dist.prob_event([2,3])
+        0.5
+
+        >>> dist.prob_event(np.arange(1,5))
+        1.0
+
         """
         if isinstance(x, collections.Iterable):
             return sum(self.prob_event(k) for k in x)
@@ -45,7 +76,32 @@ class DiscreteDistribution(Table):
 
     def event(self, x):
         """
-        Finds the probability that distribution takes on value x or range of values x. Returns table.
+        Shows the probability that distribution takes on value x or range of
+        values x.
+
+        Parameters
+        ----------
+        x : float or Iterable
+            An event represented either as a specific value in the domain or a
+            subset of the domain
+
+        Returns
+        -------
+        FiniteDistribution
+            Shows the probabilities of each value in the event
+
+
+        Examples
+        --------
+        >>> dist = FiniteDistribution().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
+        >>> dist.event(2)
+        Domain | Probability
+        2      | 0.25
+
+        >>> dist.event([2,3])
+        Domain | Probability
+        2      | 0.25
+        3      | 0.25
         """
         if isinstance(x, collections.Iterable):
             probabilities = [self.prob_event(k) for k in x]
@@ -73,11 +129,11 @@ class DiscreteDistribution(Table):
                     itertools.islice(itertools.cycle(self.chart_colors), len(mask)))
                 for i in range(len(mask)):
                     plt.bar(domain[mask[i]], prob[mask[i]], align="center",
-                            color=colors[i], width=1)
+                            color=colors[i], width=1, alpha=0.7)
             else:
-                plt.bar(domain[mask], prob[mask], align="center", color="darkblue", width=1)
+                plt.bar(domain[mask], prob[mask], align="center", color="darkblue", width=1, alpha=0.7)
                 plt.bar(domain[np.logical_not(mask)], prob[np.logical_not(mask)],
-                        align="center", color="gold", width=1)
+                        align="center", color="gold", width=1, alpha=0.7)
                 # dist1 = FiniteDistribution().domain(domain[mask]).probability(prob[mask])
                 # dist2 = FiniteDistribution().domain(domain[np.logical_not(mask)]).probability(prob[np.logical_not(mask)])
                 # DiscreteDistribution.Plot("1", dist1, "2", dist2, width=width, **vargs)
@@ -110,16 +166,16 @@ class DiscreteDistribution(Table):
                 colors = list(
                     itertools.islice(itertools.cycle(self.chart_colors), len(event) + 1))
                 for i in range(len(event)):
-                    plt.bar(event[i], prob(event[i]), align="center", color=colors[i], width=1)
+                    plt.bar(event[i], prob(event[i]), align="center", color=colors[i], width=1, alpha=0.7)
                     domain -= set(event[i])
 
                 domain = np.array(list(domain))
-                plt.bar(domain, prob(domain), align="center", color=colors[-1], width=1)
+                plt.bar(domain, prob(domain), align="center", color=colors[-1], width=1, alpha=0.7)
             else:
 
-                plt.bar(event, prob(event), align="center", width=1, color="gold")
+                plt.bar(event, prob(event), align="center", width=1, color="gold", alpha=0.7)
                 domain = np.array(list(set(self["Domain"]) - set(event)))
-                plt.bar(domain, prob(domain), align="center", color="darkblue", width=1)
+                plt.bar(domain, prob(domain), align="center", color="darkblue", width=1, alpha=0.7)
 
 
     @classmethod
@@ -172,6 +228,41 @@ plot = DiscreteDistribution.Plot
 
 
 class FiniteDistribution(DiscreteDistribution):
+    """
+    Subclass of DiscreteDistribution to represent a Finite Probability
+    Distribution.
+
+    Construct a FiniteDistribution by specifying both the range of the domain
+    and the associated probabilities
+
+    Examples
+    --------
+    >>> FiniteDistribution().domain(make_array(2, 3, 4)).probability(make_array(0.25, 0.5, 0.25))
+    Domain | Probability
+    2      | 0.25
+    3      | 0.5
+    4      | 0.25
+
+    The `domain` method takes in an iterable. To associate each value with a
+    probability, the `probability` method takes an iterable of the same length
+
+    >>> FiniteDistribution().domain(np.arange(1,11)).probability_function(lambda x:1/10)
+    Domain | Probability
+    1      | 0.1
+    2      | 0.1
+    3      | 0.1
+    4      | 0.1
+    5      | 0.1
+    6      | 0.1
+    7      | 0.1
+    8      | 0.1
+    9      | 0.1
+    10     | 0.1
+
+    `FiniteDistribution` can also use a function on the domain to assign
+    probabilities
+    """
+
     def domain(self, values):
         return self.with_column('Domain', values)
 
@@ -220,6 +311,34 @@ class FiniteDistribution(DiscreteDistribution):
 
 
 class InfiniteDistribution(DiscreteDistribution):
+    """
+    Subclass of DiscreteDistribution to represent an Infinite Probability
+    Distribution.
+
+    Construct an `InfiniteDistribution` by specifying both the range of the domain
+    and a function for the probabilities
+
+    Examples
+    --------
+
+    >>> geometric = InfiniteDistribution().domain(0,inf).probability_function(lambda k:0.4*(0.6)**k)
+    >>> geometric
+    Domain           | Probability
+    0                | 0.4
+    1                | 0.24
+    2                | 0.144
+    3                | 0.0864
+    4                | 0.05184
+    5                | 0.031104
+    6                | 0.0186624
+    7                | 0.0111974
+    8                | 0.00671846
+    9                | 0.00403108
+    ... (Infinite rows omitted)
+
+    Use `inf` to specify infinity
+
+    """
     def domain(self, start, end, step=1):
         return self.with_column('Domain', [(start, end, step)])
 
