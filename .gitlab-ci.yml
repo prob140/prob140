@@ -6,7 +6,7 @@ pages:
   stage: deploy
   script:
   - pip install -r requirements.txt
-  - (cd sphinx && make html && cp _build ../public)
+  - (cd sphinx && make html && cp -r _build ../public)
   artifacts:
     paths:
     - public
