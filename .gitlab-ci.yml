@@ -1,0 +1,14 @@
+# This file is a template, and might need editing before it works on your project.
+# Full project: https://gitlab.com/pages/jekyll
+image: python
+
+pages:
+  stage: deploy
+  script
+  - pip install -r requirements.txt
+  - (cd sphinx && make html && cp _build ../public)
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
