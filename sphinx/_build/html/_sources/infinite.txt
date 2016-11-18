@@ -17,7 +17,6 @@ Constucting
     :toctree: _autosummary
 
     InfiniteDistribution.domain
-    InfiniteDistribution.probability
     InfiniteDistribution.probability_function
 
 Utitilies
@@ -31,7 +30,6 @@ Utitilies
     InfiniteDistribution.expected_value
     InfiniteDistribution.sd
     InfiniteDistribution.variance
-    InfiniteDistribution.normalize
 
 Plotting
 --------

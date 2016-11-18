@@ -37,6 +37,9 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="tutorial.html" title="prob140 tutorial!"
              accesskey="N">next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">prob140 0.1 documentation</a> &#187;</li> 
@@ -49,6 +52,7 @@
 <li><a class="reference internal" href="#">Welcome to prob140&#8217;s documentation!</a></li>
 <li><a class="reference internal" href="#reference">Reference</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#full-documentation">Full Documentation</a></li>
 </ul>
 
   <h4>Next topic</h4>
@@ -123,6 +127,528 @@ Download the latest version from <a class="reference external" href="https://git
 <li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
 </div>
+<div class="section" id="full-documentation">
+<h1>Full Documentation<a class="headerlink" href="#full-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-prob140"></span><dl class="class">
+<dt id="prob140.DiscreteDistribution">
+<em class="property">class </em><code class="descclassname">prob140.</code><code class="descname">DiscreteDistribution</code><span class="sig-paren">(</span><em>labels=None</em>, <em>_deprecated=None</em>, <em>*</em>, <em>formatter=&lt;datascience.formats.Formatter object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#DiscreteDistribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.DiscreteDistribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subclass of Table to represent discrete distributions as a 2-column table of
+Domain and Probability.</p>
+<p>For constructing a Distribution, see documentation for FiniteDistribution
+and InfiniteDistribution.</p>
+<dl class="classmethod">
+<dt id="prob140.DiscreteDistribution.Plot">
+<em class="property">classmethod </em><code class="descname">Plot</code><span class="sig-paren">(</span><em>*labels_and_dists</em>, <em>*</em>, <em>width=1</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#DiscreteDistribution.Plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.DiscreteDistribution.Plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class method for overlay multiple distributions</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>labels_and_dists</strong> : Even number of alternations between Strings and</p>
+<p><strong>FiniteDistributions</strong></p>
+<blockquote>
+<div><p>Each distribution must have a label associated with it</p>
+</div></blockquote>
+<p><strong>width (optional)</strong> : float</p>
+<blockquote>
+<div><p>Width of the intervals (default: 1)</p>
+</div></blockquote>
+<p><strong>vargs</strong></p>
+<blockquote class="last">
+<div><p>See pyplot&#8217;s documentation</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.DiscreteDistribution.event">
+<code class="descname">event</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#DiscreteDistribution.event"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.DiscreteDistribution.event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows the probability that distribution takes on value x or range of
+values x.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x</strong> : float or Iterable</p>
+<blockquote>
+<div><p>An event represented either as a specific value in the domain or a
+subset of the domain</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">FiniteDistribution</p>
+<blockquote class="last">
+<div><p>Shows the probabilities of each value in the event</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">Domain | Probability</span>
+<span class="go">2      | 0.25</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">event</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="go">Domain | Probability</span>
+<span class="go">2      | 0.25</span>
+<span class="go">3      | 0.25</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.DiscreteDistribution.plot">
+<code class="descname">plot</code><span class="sig-paren">(</span><em>width=1</em>, <em>mask=[]</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#DiscreteDistribution.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.DiscreteDistribution.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the histogram for a Distribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>width (optional)</strong> : float</p>
+<blockquote>
+<div><p>Width of the intervals (default: 1)</p>
+</div></blockquote>
+<p><strong>mask (optional)</strong> : boolean array or list of boolean arrays</p>
+<blockquote>
+<div><p>Colors the parts of the histogram associated with each mask (
+default: no mask)</p>
+</div></blockquote>
+<p><strong>vargs</strong></p>
+<blockquote class="last">
+<div><p>See pyplot&#8217;s additional optional arguments</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.DiscreteDistribution.plot_event">
+<code class="descname">plot_event</code><span class="sig-paren">(</span><em>event</em>, <em>width=1</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#DiscreteDistribution.plot_event"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.DiscreteDistribution.plot_event" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>event</strong> : List or List of lists</p>
+<blockquote>
+<div><p>Each list represents an event which will be colored differently
+by the plot</p>
+</div></blockquote>
+<p><strong>width (optional)</strong> : float</p>
+<blockquote>
+<div><p>Width of the intervals. Actually not implemented right now!</p>
+</div></blockquote>
+<p><strong>vargs</strong></p>
+<blockquote class="last">
+<div><p>See pyplot&#8217;s additional optional arguments</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.DiscreteDistribution.prob_event">
+<code class="descname">prob_event</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#DiscreteDistribution.prob_event"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.DiscreteDistribution.prob_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the probability of an event x</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x</strong> : float or Iterable</p>
+<blockquote>
+<div><p>An event represented either as a specific value in the domain or a
+subset of the domain</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float</p>
+<blockquote class="last">
+<div><p>Probability of the event</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">0.25</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="go">0.5</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="prob140.FiniteDistribution">
+<em class="property">class </em><code class="descclassname">prob140.</code><code class="descname">FiniteDistribution</code><span class="sig-paren">(</span><em>labels=None</em>, <em>_deprecated=None</em>, <em>*</em>, <em>formatter=&lt;datascience.formats.Formatter object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#FiniteDistribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.FiniteDistribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subclass of DiscreteDistribution to represent a Finite Probability
+Distribution.</p>
+<p>Construct a FiniteDistribution by specifying both the range of the domain
+and the associated probabilities</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+<span class="go">Domain | Probability</span>
+<span class="go">2      | 0.25</span>
+<span class="go">3      | 0.5</span>
+<span class="go">4      | 0.25</span>
+</pre></div>
+</div>
+<p>The <cite>domain</cite> method takes in an iterable. To associate each value with a
+probability, the <cite>probability</cite> method takes an iterable of the same length</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mi">1</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">Domain | Probability</span>
+<span class="go">1      | 0.1</span>
+<span class="go">2      | 0.1</span>
+<span class="go">3      | 0.1</span>
+<span class="go">4      | 0.1</span>
+<span class="go">5      | 0.1</span>
+<span class="go">6      | 0.1</span>
+<span class="go">7      | 0.1</span>
+<span class="go">8      | 0.1</span>
+<span class="go">9      | 0.1</span>
+<span class="go">10     | 0.1</span>
+</pre></div>
+</div>
+<p><cite>FiniteDistribution</cite> can also use a function on the domain to assign
+probabilities</p>
+<dl class="method">
+<dt id="prob140.FiniteDistribution.domain">
+<code class="descname">domain</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#FiniteDistribution.domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.FiniteDistribution.domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assigns domain values to a FiniteDistribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>values</strong> : List or Array</p>
+<blockquote>
+<div><p>Values to put into the domain</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">FiniteDistibution</p>
+<blockquote class="last">
+<div><p>FiniteDistribution with that domain</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.FiniteDistribution.expected_value">
+<code class="descname">expected_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#FiniteDistribution.expected_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.FiniteDistribution.expected_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds expected value of distribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float</p>
+<blockquote class="last">
+<div><p>Expected value</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.FiniteDistribution.normalize">
+<code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#FiniteDistribution.normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.FiniteDistribution.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalizes the distribution by making the proabilities sum to 1</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">FiniteDistribution</p>
+<blockquote class="last">
+<div><p>Normalized FiniteDistribution</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.FiniteDistribution.probability">
+<code class="descname">probability</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#FiniteDistribution.probability"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.FiniteDistribution.probability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assigns probabilities to domain values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>values</strong> : List or Array</p>
+<blockquote>
+<div><p>Values that must correspond to the domain in the same order</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">FiniteDistribution</p>
+<blockquote class="last">
+<div><p>FiniteDistribution with those probabilities</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.FiniteDistribution.probability_function">
+<code class="descname">probability_function</code><span class="sig-paren">(</span><em>pfunc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#FiniteDistribution.probability_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.FiniteDistribution.probability_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assigns probabilities to a FiniteDistribution via a probability
+function. The probability function is applied to each value of the
+domain</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>pfunc</strong> : univariate function</p>
+<blockquote>
+<div><p>Probability function of the FiniteDistribution</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">FiniteDistribution</p>
+<blockquote class="last">
+<div><p>FiniteDistribution with those probabilities</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.FiniteDistribution.sd">
+<code class="descname">sd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#FiniteDistribution.sd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.FiniteDistribution.sd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds standard deviation of FiniteDistribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float</p>
+<blockquote class="last">
+<div><p>Standard Deviation</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.FiniteDistribution.variance">
+<code class="descname">variance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#FiniteDistribution.variance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.FiniteDistribution.variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds variance of distribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float</p>
+<blockquote class="last">
+<div><p>Variance</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="prob140.InfiniteDistribution">
+<em class="property">class </em><code class="descclassname">prob140.</code><code class="descname">InfiniteDistribution</code><span class="sig-paren">(</span><em>labels=None</em>, <em>_deprecated=None</em>, <em>*</em>, <em>formatter=&lt;datascience.formats.Formatter object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#InfiniteDistribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.InfiniteDistribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subclass of DiscreteDistribution to represent an Infinite Probability
+Distribution.</p>
+<p>Construct an <cite>InfiniteDistribution</cite> by specifying both the range of the domain
+and a function for the probabilities</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">geometric</span> <span class="o">=</span> <span class="n">InfiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">inf</span><span class="p">)</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span><span class="mf">0.4</span><span class="o">*</span><span class="p">(</span><span class="mf">0.6</span><span class="p">)</span><span class="o">**</span><span class="n">k</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">geometric</span>
+<span class="go">Domain           | Probability</span>
+<span class="go">0                | 0.4</span>
+<span class="go">1                | 0.24</span>
+<span class="go">2                | 0.144</span>
+<span class="go">3                | 0.0864</span>
+<span class="go">4                | 0.05184</span>
+<span class="go">5                | 0.031104</span>
+<span class="go">6                | 0.0186624</span>
+<span class="go">7                | 0.0111974</span>
+<span class="go">8                | 0.00671846</span>
+<span class="go">9                | 0.00403108</span>
+<span class="gp">... </span><span class="p">(</span><span class="n">Infinite</span> <span class="n">rows</span> <span class="n">omitted</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use <cite>inf</cite> to specify infinity</p>
+<dl class="class">
+<dt id="prob140.InfiniteDistribution.Rows">
+<em class="property">class </em><code class="descname">Rows</code><span class="sig-paren">(</span><em>table</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#InfiniteDistribution.Rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.InfiniteDistribution.Rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>An iterable view over the rows in a table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.InfiniteDistribution.as_html">
+<code class="descclassname">InfiniteDistribution.</code><code class="descname">as_html</code><span class="sig-paren">(</span><em>max_rows=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#InfiniteDistribution.as_html"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.InfiniteDistribution.as_html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format table as HTML.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.InfiniteDistribution.as_text">
+<code class="descclassname">InfiniteDistribution.</code><code class="descname">as_text</code><span class="sig-paren">(</span><em>max_rows=0</em>, <em>sep=' | '</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#InfiniteDistribution.as_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.InfiniteDistribution.as_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format table as text.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.InfiniteDistribution.domain">
+<code class="descclassname">InfiniteDistribution.</code><code class="descname">domain</code><span class="sig-paren">(</span><em>start</em>, <em>end</em>, <em>step=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#InfiniteDistribution.domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.InfiniteDistribution.domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assigns domain values to InfiniteDistribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>start</strong> : float</p>
+<blockquote>
+<div><p>Smallest value in domain</p>
+</div></blockquote>
+<p><strong>end</strong> : float</p>
+<blockquote>
+<div><p>Largest value in domain. Use <cite>inf</cite> for infinity</p>
+</div></blockquote>
+<p><strong>step (optional)</strong> : float</p>
+<blockquote>
+<div><p>Step size in domain (default: 1)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">InfiniteDistribution</p>
+<blockquote class="last">
+<div><p>InfiniteDistribution with that domain</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.InfiniteDistribution.expected_value">
+<code class="descclassname">InfiniteDistribution.</code><code class="descname">expected_value</code><span class="sig-paren">(</span><em>delta=1e-25</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#InfiniteDistribution.expected_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.InfiniteDistribution.expected_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Approximates the expected value of an infinite distribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>delta (optional): float</strong></p>
+<blockquote>
+<div><p>Accepted error margin for expected value (default: 1e-25)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float</p>
+<blockquote class="last">
+<div><p>Expected Value</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.InfiniteDistribution.probability_function">
+<code class="descclassname">InfiniteDistribution.</code><code class="descname">probability_function</code><span class="sig-paren">(</span><em>pfunc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#InfiniteDistribution.probability_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.InfiniteDistribution.probability_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assigns probabilities to an InfiniteDistribution via a probability
+function. The probability function is applied to each value of the
+domain</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>pfunc</strong> : univariate function</p>
+<blockquote>
+<div><p>Probability function of the InfiniteDistribution</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">InfiniteDistribution</p>
+<blockquote class="last">
+<div><p>InfiniteDistribution with those probabilities</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.InfiniteDistribution.sd">
+<code class="descclassname">InfiniteDistribution.</code><code class="descname">sd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#InfiniteDistribution.sd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.InfiniteDistribution.sd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the Standard Deviation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Float</p>
+<blockquote class="last">
+<div><p>Standard Deviation</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="prob140.InfiniteDistribution.variance">
+<code class="descclassname">InfiniteDistribution.</code><code class="descname">variance</code><span class="sig-paren">(</span><em>delta=1e-25</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140.html#InfiniteDistribution.variance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.InfiniteDistribution.variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Approximates the variance of an InfiniteDistribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>delta (optional): float</strong></p>
+<blockquote>
+<div><p>Accepted error margin of variance approximation (default: 1e-25)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float</p>
+<blockquote class="last">
+<div><p>Variance</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 
 
           </div>
@@ -136,6 +662,9 @@ Download the latest version from <a class="reference external" href="https://git
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="tutorial.html" title="prob140 tutorial!"
              >next</a> |</li>

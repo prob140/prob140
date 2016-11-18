@@ -37,3 +37,20 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+Full Documentation
+==================
+.. toctree::
+    :maxdepth: 1
+
+.. automodule:: prob140
+
+.. autoclass:: DiscreteDistribution
+    :members:
+
+.. autoclass:: FiniteDistribution
+    :members:
+
+.. autoclass:: InfiniteDistribution
+    :members:
