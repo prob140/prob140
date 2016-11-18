@@ -22,6 +22,7 @@ import os
 import sys
 path = os.path.abspath("../")
 print(path)
+print(sys.version)
 sys.path.insert(0, path)
 
 # -- General configuration ------------------------------------------------
