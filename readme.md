@@ -2,6 +2,8 @@
 
 [nbviewer for Examples](https://nbviewer.jupyter.org/urls/gitlab.com/probability/prob140/raw/master/Examples.ipynb)
 
+[Link for documentation](https://probability.gitlab.io/prob140/html/)
+
 ## DiscreteDistribution
 
 Methods:
