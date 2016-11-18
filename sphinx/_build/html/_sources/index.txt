@@ -6,10 +6,35 @@
 Welcome to prob140's documentation!
 ===================================
 
+:Release: |release|
+:Date: |today|
+
+The ``prob140`` package was written for use in Berkeley's prob140 course.
+Download the latest version from https://gitlab.com/probability/prob140/tree/master
+
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
+
+    tutorial
+
+
+
+Reference
+=========
+.. toctree::
+    :maxdepth: 1
+
+    discrete
+    finite
+    infinite
+
+
+Unorganized Documentation
+=========================
+.. toctree::
+    :maxdepth: 1
 
 .. automodule:: prob140
 
@@ -21,7 +46,6 @@ Contents:
 
 .. autoclass:: InfiniteDistribution
     :members:
-
 Indices and tables
 ==================
 

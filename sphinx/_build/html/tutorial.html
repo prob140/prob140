@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>prob140 tutorial! &#8212; prob140 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="prob140 0.1 documentation" href="index.html" />
+    <link rel="next" title="Discrete Distribution (prob140.DiscreteDistribution)" href="discrete.html" />
+    <link rel="prev" title="Welcome to prob140’s documentation!" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="discrete.html" title="Discrete Distribution (prob140.DiscreteDistribution)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to prob140’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">prob140 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal"><span class="pre">prob140</span></code> tutorial!</a><ul>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#creating-a-finite-distribution">Creating a Finite Distribution</a></li>
+<li><a class="reference internal" href="#plotting">Plotting</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to prob140&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="discrete.html"
+                        title="next chapter">Discrete Distribution (<code class="docutils literal"><span class="pre">prob140.DiscreteDistribution</span></code>)</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tutorial.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="prob140-tutorial">
+<h1><code class="docutils literal"><span class="pre">prob140</span></code> tutorial!<a class="headerlink" href="#prob140-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>This is a brief introduction to the functionality in <code class="docutils literal"><span class="pre">prob140</span></code>! For an
+interactive guide, see the examples notebook in the GitLab directory.</p>
+<div class="contents local topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#getting-started" id="id1">Getting Started</a></li>
+<li><a class="reference internal" href="#creating-a-finite-distribution" id="id2">Creating a Finite Distribution</a></li>
+<li><a class="reference internal" href="#plotting" id="id3">Plotting</a></li>
+</ul>
+</div>
+<div class="section" id="getting-started">
+<h2><a class="toc-backref" href="#id1">Getting Started</a><a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>Make sure to download the most recent <code class="docutils literal"><span class="pre">prob140.py</span></code> file from the <a class="reference external" href="https://gitlab.com/probability/prob140/tree/master">gitlab
+repository</a></p>
+<p>Keep the file in the same directory as your notebook, and run the following
+import statements:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># HIDDEN</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">from</span> <span class="nn">datascience</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-a-finite-distribution">
+<h2><a class="toc-backref" href="#id2">Creating a Finite Distribution</a><a class="headerlink" href="#creating-a-finite-distribution" title="Permalink to this headline">¶</a></h2>
+<p>Discrete Distributions can be represented as either a <cite>FiniteDistribution</cite> or an
+<cite>InfiniteDistribution</cite>. We will start with creating a <cite>FiniteDistribution</cite>.</p>
+<p>See the <cite>FiniteDistribution</cite> documentation for more details</p>
+<p>We can construct a <cite>FiniteDistribution</cite> by explicitly assigning values for
+the <cite>domain</cite> and <cite>probability</cite></p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="gp">In [2]: </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+
+<span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="p">)</span>
+<span class="go">Domain | Probability</span>
+<span class="go">2      | 0.25</span>
+<span class="go">3      | 0.5</span>
+<span class="go">4      | 0.25</span>
+</pre></div>
+</div>
+<p>We can also construct a distribution by explicitly assigning values for the
+<cite>domain</cite> but applying a probability function to the values of the domain</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="gp">In [5]: </span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="gt">  File</span><span class="nn"> &quot;&lt;ipython-input-5-b773b833c56f&gt;&quot;</span><span class="gt">, line </span><span class="mi">1</span>
+    <span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+    <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
+</pre></div>
+</div>
+</div>
+<div class="section" id="plotting">
+<h2><a class="toc-backref" href="#id3">Plotting</a><a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="discrete.html" title="Discrete Distribution (prob140.DiscreteDistribution)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to prob140’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">prob140 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Jason Zhang, Dibya Ghosh.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
+  </body>
+</html>

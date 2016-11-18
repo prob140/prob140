@@ -111,7 +111,21 @@ class DiscreteDistribution(Table):
             return FiniteDistribution().domain([x]).probability([self.prob_event(x)])
 
     def plot(self, width=1, mask=[], **vargs):
+        """
+        Plots the histogram for a Distribution
 
+        Parameters
+        ----------
+        width (optional) : float
+            Width of the intervals (default: 1)
+        mask (optional) : boolean array or list of boolean arrays
+            Colors the parts of the histogram associated with each mask (
+            default: no mask)
+        vargs
+            See pyplot's additional optional arguments
+
+
+        """
         domain = self["Domain"]
         prob = self["Probability"]
 
@@ -146,6 +160,19 @@ class DiscreteDistribution(Table):
                   + mindistance + width / 2))
 
     def plot_event(self, event, width=1, **vargs):
+        """
+
+        Parameters
+        ----------
+        event : List or List of lists
+            Each list represents an event which will be colored differently
+            by the plot
+        width (optional) : float
+            Width of the intervals. Actually not implemented right now!
+        vargs
+            See pyplot's additional optional arguments
+
+        """
         if len(event) == 0:
             self.plot(width=width, **vargs)
 
@@ -181,6 +208,20 @@ class DiscreteDistribution(Table):
 
     @classmethod
     def Plot(cls, *labels_and_dists, width=1, **vargs):
+        """
+        Class method for overlay multiple distributions
+
+        Parameters
+        ----------
+        labels_and_dists : Even number of alternations between Strings and
+        FiniteDistributions
+            Each distribution must have a label associated with it
+        width (optional) : float
+            Width of the intervals (default: 1)
+        vargs
+            See pyplot's documentation
+
+        """
         # assert len(labels_and_dists) % 2 == 0, 'Even length sequence required'
         options = cls.default_options.copy()
         options.update(vargs)
@@ -265,15 +306,57 @@ class FiniteDistribution(DiscreteDistribution):
     """
 
     def domain(self, values):
+        """
+        Assigns domain values to a FiniteDistribution
+
+        Parameters
+        ----------
+        values : List or Array
+            Values to put into the domain
+
+        Returns
+        -------
+        FiniteDistibution
+            FiniteDistribution with that domain
+        """
         return self.with_column('Domain', values)
 
     def probability_function(self, pfunc):
+        """
+        Assigns probabilities to a FiniteDistribution via a probability
+        function. The probability function is applied to each value of the
+        domain
+
+        Parameters
+        ----------
+        pfunc : univariate function
+            Probability function of the FiniteDistribution
+
+        Returns
+        -------
+        FiniteDistribution
+            FiniteDistribution with those probabilities
+
+        """
         values = np.array(self.apply(pfunc, 'Domain')).astype(float)
         if any(values < 0):
             warnings.warn("Probability cannot be negative")
         return self.with_column('Probability', values).sort("Domain")
 
     def probability(self, values):
+        """
+        Assigns probabilities to domain values.
+
+        Parameters
+        ----------
+        values : List or Array
+            Values that must correspond to the domain in the same order
+
+        Returns
+        -------
+        FiniteDistribution
+            FiniteDistribution with those probabilities
+        """
         if any(np.array(values) < 0):
             warnings.warn("Probability cannot be negative")
         return self.with_column('Probability', values).sort("Domain")
@@ -282,6 +365,14 @@ class FiniteDistribution(DiscreteDistribution):
         self['Probability'] = values
 
     def normalize(self):
+        """
+        Normalizes the distribution by making the proabilities sum to 1
+
+        Returns
+        -------
+        FiniteDistribution
+            Normalized FiniteDistribution
+        """
         if 'Probability' not in self.labels:
             self._probability(np.ones(self.num_rows) / self.num_rows)
         else:
@@ -293,6 +384,15 @@ class FiniteDistribution(DiscreteDistribution):
         return super().as_html(max_rows)
 
     def expected_value(self):
+        """
+        Finds expected value of distribution
+
+        Returns
+        -------
+        float
+            Expected value
+
+        """
         self.normalize()
         ev = 0
         for domain, probability in self.rows:
@@ -300,7 +400,14 @@ class FiniteDistribution(DiscreteDistribution):
         return ev
 
     def variance(self):
-        self.normalize()
+        """
+        Finds variance of distribution
+
+        Returns
+        -------
+        float
+            Variance
+        """
         var = 0
         ev = self.expected_value()
         for domain, probability in self.rows:
@@ -308,6 +415,14 @@ class FiniteDistribution(DiscreteDistribution):
         return var
 
     def sd(self):
+        """
+        Finds standard deviation of FiniteDistribution
+
+        Returns
+        -------
+        float
+            Standard Deviation
+        """
         return math.sqrt(self.variance())
 
 
@@ -341,9 +456,42 @@ class InfiniteDistribution(DiscreteDistribution):
 
     """
     def domain(self, start, end, step=1):
+        """
+        Assigns domain values to InfiniteDistribution
+
+        Parameters
+        ----------
+        start : float
+            Smallest value in domain
+        end : float
+            Largest value in domain. Use `inf` for infinity
+        step (optional) : float
+            Step size in domain (default: 1)
+
+        Returns
+        -------
+        InfiniteDistribution
+            InfiniteDistribution with that domain
+        """
         return self.with_column('Domain', [(start, end, step)])
 
     def probability_function(self, pfunc):
+        """
+        Assigns probabilities to an InfiniteDistribution via a probability
+        function. The probability function is applied to each value of the
+        domain
+
+        Parameters
+        ----------
+        pfunc : univariate function
+            Probability function of the InfiniteDistribution
+
+        Returns
+        -------
+        InfiniteDistribution
+            InfiniteDistribution with those probabilities
+
+        """
         return self.with_column('Probability', [pfunc])
 
     def plot(self, width=1, size=20, **vargs):
@@ -364,20 +512,47 @@ class InfiniteDistribution(DiscreteDistribution):
             # Doesn't check if x is in domain!
             return self._pfunc(x)
 
-    def expected_value(self):
+    def expected_value(self, delta=1e-25):
+        """
+        Approximates the expected value of an infinite distribution
+
+        Parameters
+        ----------
+        delta (optional): float
+            Accepted error margin for expected value (default: 1e-25)
+
+        Returns
+        -------
+        float
+            Expected Value
+        """
         pfunc = self._pfunc
         start = self._start
         step = self._step
 
         ev = 0
         diff = pfunc(start)
-        while (diff > 1e-25):
+        while (diff > delta):
             ev += start * diff
             start += step
             diff = pfunc(start)
         return ev
 
-    def variance(self):
+    def variance(self, delta=1e-25):
+        """
+        Approximates the variance of an InfiniteDistribution
+
+        Parameters
+        ----------
+        delta (optional): float
+            Accepted error margin of variance approximation (default: 1e-25)
+
+        Returns
+        -------
+        float
+            Variance
+
+        """
         pfunc = self._pfunc
         start = self._start
         step = self._step
@@ -385,13 +560,21 @@ class InfiniteDistribution(DiscreteDistribution):
         ev = self.expected_value()
         var = 0
         diff = pfunc(start)
-        while (diff > 1e-25):
+        while (diff > delta):
             var += (ev - start) ** 2 * diff
             start += step
             diff = pfunc(start)
         return var
 
     def sd(self):
+        """
+        Finds the Standard Deviation
+
+        Returns
+        -------
+        Float
+            Standard Deviation
+        """
         return math.sqrt(self.variance())
 
     @property

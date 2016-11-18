@@ -38,8 +38,17 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
     'sphinx.ext.githubpages',
-    'numpydoc'
+    'numpydoc',
+    'IPython.sphinxext.ipython_console_highlighting',
+    'IPython.sphinxext.ipython_directive',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.viewcode'
 ]
+
+# Config autosummary
+autosummary_generate = True
+numpydoc_show_class_members = False
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -53,6 +62,18 @@ source_suffix = '.rst'
 # The encoding of source files.
 #
 # source_encoding = 'utf-8-sig'
+
+# The following lines silence the matplotlib.use warnings since we import
+# matplotlib in each ipython directive block
+ipython_mplbackend = None
+ipython_execlines = [
+  'import matplotlib',
+  'matplotlib.use("Agg", warn=False)',
+  'import numpy as np',
+  'import matplotlib.pyplot as plt',
+  'plt.style.use("fivethirtyeight")',
+]
+
 
 # The master toctree document.
 master_doc = 'index'
