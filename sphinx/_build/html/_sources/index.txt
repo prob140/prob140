@@ -31,21 +31,6 @@ Reference
     infinite
 
 
-Unorganized Documentation
-=========================
-.. toctree::
-    :maxdepth: 1
-
-.. automodule:: prob140
-
-.. autoclass:: DiscreteDistribution
-    :members:
-
-.. autoclass:: FiniteDistribution
-    :members:
-
-.. autoclass:: InfiniteDistribution
-    :members:
 Indices and tables
 ==================
 
