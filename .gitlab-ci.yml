@@ -5,7 +5,7 @@ image: python
 pages:
   stage: deploy
   script:
-  - (cd sphinx && cp -r _build ../public)
+  - (cd docs && cp -r _build ../public)
   artifacts:
     paths:
     - public
