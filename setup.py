@@ -1,5 +1,6 @@
 import sys
-from setuptools import setup
+from distutils.core import setup
+
 
 version = 0.1
 
@@ -18,7 +19,7 @@ setup(
     description = 'A probability library for Berkeley\'s Prob140 course',
     author = 'Jason Zhang, Dibya Ghosh',
     author_email = 'zhang.j@berkeley.edu',
-    url = 'prob140.org',
+    url = 'https://probability.gitlab.io/instructors/',
     download_url = 'https://gitlab.com/probability/prob140',
     keywords = ['data', 'probability', 'berkeley', 'Prob140'],
     classifiers = []
