@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Single-variable Distributions (datascience.tables.Table) &#8212; prob140 0.1.3 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="prob140 0.1.3 documentation" href="index.html" />
+    <link rel="next" title="prob140.Table.domain" href="_autosummary/prob140.Table.domain.html" />
+    <link rel="prev" title="prob140 tutorial!" href="tutorial.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="_autosummary/prob140.Table.domain.html" title="prob140.Table.domain"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="prob140 tutorial!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">prob140 0.1.3 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Single-variable Distributions (<code class="docutils literal"><span class="pre">datascience.tables.Table</span></code>)</a><ul>
+<li><a class="reference internal" href="#constucting">Constucting</a></li>
+<li><a class="reference internal" href="#utitilies">Utitilies</a></li>
+<li><a class="reference internal" href="#plotting">Plotting</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial.html"
+                        title="previous chapter"><code class="docutils literal"><span class="pre">prob140</span></code> tutorial!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="_autosummary/prob140.Table.domain.html"
+                        title="next chapter">prob140.Table.domain</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/single.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="single-variable-distributions-datascience-tables-table">
+<h1>Single-variable Distributions (<code class="docutils literal"><span class="pre">datascience.tables.Table</span></code>)<a class="headerlink" href="#single-variable-distributions-datascience-tables-table" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="constucting">
+<h2>Constucting<a class="headerlink" href="#constucting" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="gp">In [2]: </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]))</span>
+
+<span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="p">)</span>
+<span class="go">Value | Probability</span>
+<span class="go">2     | 0.25</span>
+<span class="go">3     | 0.5</span>
+<span class="go">5     | 0.25</span>
+
+<span class="gp">In [4]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist2</span><span class="p">)</span>
+<span class="go">Value | Probability</span>
+<span class="go">1     | 0.25</span>
+<span class="go">3     | 0.25</span>
+<span class="go">5     | 0.25</span>
+<span class="go">7     | 0.25</span>
+</pre></div>
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.domain.html#prob140.Table.domain" title="prob140.Table.domain"><code class="xref py py-obj docutils literal"><span class="pre">Table.domain</span></code></a>(\*args)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.Table.probability.html#prob140.Table.probability" title="prob140.Table.probability"><code class="xref py py-obj docutils literal"><span class="pre">Table.probability</span></code></a>(values)</td>
+<td>Assigns probabilities to domain values.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.probability_function.html#prob140.Table.probability_function" title="prob140.Table.probability_function"><code class="xref py py-obj docutils literal"><span class="pre">Table.probability_function</span></code></a>(pfunc)</td>
+<td>Assigns probabilities to a FiniteDistribution via a probability function.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="utitilies">
+<h2>Utitilies<a class="headerlink" href="#utitilies" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.prob_event.html#prob140.Table.prob_event" title="prob140.Table.prob_event"><code class="xref py py-obj docutils literal"><span class="pre">Table.prob_event</span></code></a>(x)</td>
+<td>Finds the probability of an event x</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.Table.event.html#prob140.Table.event" title="prob140.Table.event"><code class="xref py py-obj docutils literal"><span class="pre">Table.event</span></code></a>(x)</td>
+<td>Shows the probability that distribution takes on value x or range of values x.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.expected_value.html#prob140.Table.expected_value" title="prob140.Table.expected_value"><code class="xref py py-obj docutils literal"><span class="pre">Table.expected_value</span></code></a>()</td>
+<td>Finds expected value of distribution</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.Table.sd.html#prob140.Table.sd" title="prob140.Table.sd"><code class="xref py py-obj docutils literal"><span class="pre">Table.sd</span></code></a>()</td>
+<td>Finds standard deviation of FiniteDistribution</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.variance.html#prob140.Table.variance" title="prob140.Table.variance"><code class="xref py py-obj docutils literal"><span class="pre">Table.variance</span></code></a>()</td>
+<td>Finds variance of distribution</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.Table.normalized.html#prob140.Table.normalized" title="prob140.Table.normalized"><code class="xref py py-obj docutils literal"><span class="pre">Table.normalized</span></code></a>()</td>
+<td>Returns the distribution by making the proabilities sum to 1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.plot_dist.html#prob140.Table.plot_dist" title="prob140.Table.plot_dist"><code class="xref py py-obj docutils literal"><span class="pre">Table.plot_dist</span></code></a>([width,&nbsp;mask])</td>
+<td>Plots the histogram for a Distribution</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.Table.plot_event.html#prob140.Table.plot_event" title="prob140.Table.plot_event"><code class="xref py py-obj docutils literal"><span class="pre">Table.plot_event</span></code></a>(event[,&nbsp;width])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">plot</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="_autosummary/prob140.Table.domain.html" title="prob140.Table.domain"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="prob140 tutorial!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">prob140 0.1.3 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Jason Zhang, Dibya Ghosh.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
+  </body>
+</html>
