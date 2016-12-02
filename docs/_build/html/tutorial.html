@@ -132,24 +132,39 @@ the <cite>domain</cite> and <cite>probability</cite></p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="gp">In [2]: </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-2-803497b24dcc&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">dist1</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+
+<span class="ne">NameError</span>: name &#39;FiniteDistribution&#39; is not defined
 
 <span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="p">)</span>
-<span class="go">Domain | Probability</span>
-<span class="go">2      | 0.25</span>
-<span class="go">3      | 0.5</span>
-<span class="go">4      | 0.25</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ---------------------------------------------------------------------------</span>
+<span class="go">NameError                                 Traceback (most recent call last)</span>
+<span class="go">&lt;ipython-input-3-e601bbd0ab8e&gt; in &lt;module&gt;()</span>
+<span class="go">----&gt; 1 print(dist1)</span>
+
+<span class="go">NameError: name &#39;dist1&#39; is not defined</span>
 </pre></div>
 </div>
 <p>We can also construct a distribution by explicitly assigning values for the
 <cite>domain</cite> but applying a probability function to the values of the domain</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">&lt;ipython-input-4-841b9ced3b3c&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">dist2</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;FiniteDistribution&#39; is not defined
 
 <span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist2</span><span class="p">)</span>
-<span class="go">Domain | Probability</span>
-<span class="go">1      | 0.25</span>
-<span class="go">3      | 0.25</span>
-<span class="go">5      | 0.25</span>
-<span class="go">7      | 0.25</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ---------------------------------------------------------------------------</span>
+<span class="go">NameError                                 Traceback (most recent call last)</span>
+<span class="go">&lt;ipython-input-5-7ad900160b3b&gt; in &lt;module&gt;()</span>
+<span class="go">----&gt; 1 print(dist2)</span>
+
+<span class="go">NameError: name &#39;dist2&#39; is not defined</span>
 </pre></div>
 </div>
 <p>This can be very useful when we have a distribution with a known probability
@@ -186,7 +201,7 @@ density function, such as the binomial distribution</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Jason Zhang, Dibya Ghosh.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.9.
     </div>
   </body>
 </html>

@@ -26,10 +26,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="prob140 0.1.2 documentation" href="../index.html" />
-    <link rel="up" title="Finite Distribution (prob140.FiniteDistribution)" href="../finite.html" />
-    <link rel="next" title="prob140.DiscreteDistribution.event" href="prob140.DiscreteDistribution.event.html" />
-    <link rel="prev" title="prob140.FiniteDistribution.probability_function" href="prob140.FiniteDistribution.probability_function.html" /> 
+    <link rel="top" title="prob140 0.1.2 documentation" href="../index.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,25 +38,11 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="prob140.DiscreteDistribution.event.html" title="prob140.DiscreteDistribution.event"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="prob140.FiniteDistribution.probability_function.html" title="prob140.FiniteDistribution.probability_function"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">prob140 0.1.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../discrete.html" >Discrete Distribution (<code class="docutils literal"><span class="pre">prob140.DiscreteDistribution</span></code>)</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../finite.html" accesskey="U">Finite Distribution (<code class="docutils literal"><span class="pre">prob140.FiniteDistribution</span></code>)</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">prob140 0.1.2 documentation</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="prob140.FiniteDistribution.probability_function.html"
-                        title="previous chapter">prob140.FiniteDistribution.probability_function</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="prob140.DiscreteDistribution.event.html"
-                        title="next chapter">prob140.DiscreteDistribution.event</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -87,45 +70,6 @@
             
   <div class="section" id="prob140-discretedistribution-prob-event">
 <h1>prob140.DiscreteDistribution.prob_event<a class="headerlink" href="#prob140-discretedistribution-prob-event" title="Permalink to this headline">¶</a></h1>
-<dl class="method">
-<dt id="prob140.DiscreteDistribution.prob_event">
-<code class="descclassname">DiscreteDistribution.</code><code class="descname">prob_event</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prob140/prob140.html#DiscreteDistribution.prob_event"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.DiscreteDistribution.prob_event" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds the probability of an event x</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x</strong> : float or Iterable</p>
-<blockquote>
-<div><p>An event represented either as a specific value in the domain or a
-subset of the domain</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float</p>
-<blockquote class="last">
-<div><p>Probability of the event</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="go">0.25</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="go">0.5</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="go">1.0</span>
-</pre></div>
-</div>
-</dd></dl>
-
 </div>
 
 
@@ -143,20 +87,12 @@ subset of the domain</p>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="prob140.DiscreteDistribution.event.html" title="prob140.DiscreteDistribution.event"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="prob140.FiniteDistribution.probability_function.html" title="prob140.FiniteDistribution.probability_function"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">prob140 0.1.2 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../discrete.html" >Discrete Distribution (<code class="docutils literal"><span class="pre">prob140.DiscreteDistribution</span></code>)</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="../finite.html" >Finite Distribution (<code class="docutils literal"><span class="pre">prob140.FiniteDistribution</span></code>)</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">prob140 0.1.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Jason Zhang, Dibya Ghosh.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.9.
     </div>
   </body>
 </html>
