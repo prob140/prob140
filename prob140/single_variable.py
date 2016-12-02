@@ -261,7 +261,7 @@ def Plot(*labels_and_dists, width=1, **vargs):
               width / 2))
 
 
-def domain(self, values):
+def single_domain(self, values):
     """
     Assigns domain values to a FiniteDistribution
 
@@ -297,8 +297,8 @@ def probability_function(self, pfunc):
         FiniteDistribution with those probabilities
 
     """
-    domain_name = self.labels[0]
-    values = np.array(self.apply(pfunc, domain_name)).astype(float)
+    domain_names = self.labels
+    values = np.array(self.apply(pfunc, domain_names)).astype(float)
     if any(values < 0):
         warnings.warn("Probability cannot be negative")
     return self.with_column('Probability', values)
@@ -332,9 +332,8 @@ def normalized(self):
     FiniteDistribution
         Normalized FiniteDistribution
     """
-    check_valid_probability_table(self)
-    column_label = self.labels[1]
-    return self.with_column(column_label,self.column(1)/sum(self.column(1)))
+    column_label = self.labels[-1]
+    return self.with_column(column_label,self.column(column_label)/sum(self.column(column_label)))
 
 
 def expected_value(self):
