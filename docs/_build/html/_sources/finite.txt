@@ -15,6 +15,20 @@ Constucting
 
 .. autosummary::
     :toctree: _autosummary
+==================
+.. toctree::
+    :maxdepth: 1
+
+.. automodule:: prob140
+
+.. autoclass:: DiscreteDistribution
+    :members:
+
+.. autoclass:: FiniteDistribution
+    :members:
+
+.. autoclass:: InfiniteDistribution
+    :members:
 
     FiniteDistribution.domain
     FiniteDistribution.probability

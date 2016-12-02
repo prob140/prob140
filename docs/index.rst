@@ -3,14 +3,20 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+===================================
 Welcome to prob140's documentation!
 ===================================
 
 :Release: |release|
 :Date: |today|
 
-The ``prob140`` package was written for use in Berkeley's prob140 course.
+The ``prob140`` package was written by Jason Zhang and Dibya Ghosh for use in Berkeley's Prob140 course.
+
 Download the latest version from https://gitlab.com/probability/prob140/tree/master
+
+
+Tutorial
+========
 
 Contents:
 
@@ -26,9 +32,33 @@ Reference
 .. toctree::
     :maxdepth: 1
 
-    discrete
-    finite
-    infinite
+    single
+    multi
+
+
+Full ``Table`` documentation
+============================
+.. toctree::
+    :maxdepth: 1
+
+    table
+
+
+Installation Notes
+==================
+
+Make sure you have `pip` installed and run::
+
+    pip install prob140
+
+
+To update to the most recent version, run::
+
+    pip install prob140 --upgrade
+
+You must also have an updated installation of Berkeley's `datascience` library::
+
+    pip install datascience
 
 
 Indices and tables
@@ -37,20 +67,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-
-Full Documentation
-==================
-.. toctree::
-    :maxdepth: 1
-
-.. automodule:: prob140
-
-.. autoclass:: DiscreteDistribution
-    :members:
-
-.. autoclass:: FiniteDistribution
-    :members:
-
-.. autoclass:: InfiniteDistribution
-    :members:

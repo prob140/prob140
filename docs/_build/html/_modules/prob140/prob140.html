@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>prob140.prob140 &#8212; prob140 0.1.2 documentation</title>
+    <title>prob140.prob140 &#8212; prob140 0.1.3 documentation</title>
     
     <link rel="stylesheet" href="../../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.2',
+        VERSION:     '0.1.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="top" title="prob140 0.1.2 documentation" href="../../index.html" />
+    <link rel="top" title="prob140 0.1.3 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body role="document">
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">prob140 0.1.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">prob140 0.1.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>
@@ -83,7 +83,7 @@
 <span class="n">rgb</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">colorConverter</span><span class="o">.</span><span class="n">to_rgb</span>
 
 
-<div class="viewcode-block" id="DiscreteDistribution"><a class="viewcode-back" href="../../index.html#prob140.DiscreteDistribution">[docs]</a><span class="k">class</span> <span class="nc">DiscreteDistribution</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
+<div class="viewcode-block" id="DiscreteDistribution"><a class="viewcode-back" href="../../finite.html#prob140.DiscreteDistribution">[docs]</a><span class="k">class</span> <span class="nc">DiscreteDistribution</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Subclass of Table to represent discrete distributions as a 2-column table of</span>
 <span class="sd">    Domain and Probability.</span>
@@ -105,7 +105,7 @@
         <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;cyan&quot;</span><span class="p">),</span>
     <span class="p">)</span>
 
-<div class="viewcode-block" id="DiscreteDistribution.prob_event"><a class="viewcode-back" href="../../index.html#prob140.DiscreteDistribution.prob_event">[docs]</a>    <span class="k">def</span> <span class="nf">prob_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<div class="viewcode-block" id="DiscreteDistribution.prob_event"><a class="viewcode-back" href="../../finite.html#prob140.DiscreteDistribution.prob_event">[docs]</a>    <span class="k">def</span> <span class="nf">prob_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds the probability of an event x</span>
 
@@ -141,7 +141,7 @@
             <span class="n">prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">[</span><span class="s2">&quot;Probability&quot;</span><span class="p">]</span>
             <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">domain</span> <span class="o">==</span> <span class="n">x</span><span class="p">)])</span></div>
 
-<div class="viewcode-block" id="DiscreteDistribution.event"><a class="viewcode-back" href="../../index.html#prob140.DiscreteDistribution.event">[docs]</a>    <span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<div class="viewcode-block" id="DiscreteDistribution.event"><a class="viewcode-back" href="../../finite.html#prob140.DiscreteDistribution.event">[docs]</a>    <span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Shows the probability that distribution takes on value x or range of</span>
 <span class="sd">        values x.</span>
@@ -176,7 +176,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span></div>
 
-<div class="viewcode-block" id="DiscreteDistribution.plot"><a class="viewcode-back" href="../../index.html#prob140.DiscreteDistribution.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DiscreteDistribution.plot"><a class="viewcode-back" href="../../finite.html#prob140.DiscreteDistribution.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plots the histogram for a Distribution</span>
 
@@ -225,7 +225,7 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Domain&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">mindistance</span> <span class="o">-</span> <span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Domain&#39;</span><span class="p">])</span>
                   <span class="o">+</span> <span class="n">mindistance</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="DiscreteDistribution.plot_event"><a class="viewcode-back" href="../../index.html#prob140.DiscreteDistribution.plot_event">[docs]</a>    <span class="k">def</span> <span class="nf">plot_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DiscreteDistribution.plot_event"><a class="viewcode-back" href="../../finite.html#prob140.DiscreteDistribution.plot_event">[docs]</a>    <span class="k">def</span> <span class="nf">plot_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Parameters</span>
@@ -273,7 +273,7 @@
 
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="DiscreteDistribution.Plot"><a class="viewcode-back" href="../../index.html#prob140.DiscreteDistribution.Plot">[docs]</a>    <span class="k">def</span> <span class="nf">Plot</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">labels_and_dists</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DiscreteDistribution.Plot"><a class="viewcode-back" href="../../finite.html#prob140.DiscreteDistribution.Plot">[docs]</a>    <span class="k">def</span> <span class="nf">Plot</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">labels_and_dists</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Class method for overlay multiple distributions</span>
 
@@ -335,7 +335,7 @@
 <span class="n">plot</span> <span class="o">=</span> <span class="n">DiscreteDistribution</span><span class="o">.</span><span class="n">Plot</span>
 
 
-<div class="viewcode-block" id="FiniteDistribution"><a class="viewcode-back" href="../../index.html#prob140.FiniteDistribution">[docs]</a><span class="k">class</span> <span class="nc">FiniteDistribution</span><span class="p">(</span><span class="n">DiscreteDistribution</span><span class="p">):</span>
+<div class="viewcode-block" id="FiniteDistribution"><a class="viewcode-back" href="../../finite.html#prob140.FiniteDistribution">[docs]</a><span class="k">class</span> <span class="nc">FiniteDistribution</span><span class="p">(</span><span class="n">DiscreteDistribution</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Subclass of DiscreteDistribution to represent a Finite Probability</span>
 <span class="sd">    Distribution.</span>
@@ -371,7 +371,7 @@
 <span class="sd">    probabilities</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="FiniteDistribution.domain"><a class="viewcode-back" href="../../index.html#prob140.FiniteDistribution.domain">[docs]</a>    <span class="k">def</span> <span class="nf">domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<div class="viewcode-block" id="FiniteDistribution.domain"><a class="viewcode-back" href="../../finite.html#prob140.FiniteDistribution.domain">[docs]</a>    <span class="k">def</span> <span class="nf">domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Assigns domain values to a FiniteDistribution</span>
 
@@ -387,7 +387,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Domain&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FiniteDistribution.probability_function"><a class="viewcode-back" href="../../index.html#prob140.FiniteDistribution.probability_function">[docs]</a>    <span class="k">def</span> <span class="nf">probability_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pfunc</span><span class="p">):</span>
+<div class="viewcode-block" id="FiniteDistribution.probability_function"><a class="viewcode-back" href="../../finite.html#prob140.FiniteDistribution.probability_function">[docs]</a>    <span class="k">def</span> <span class="nf">probability_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pfunc</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Assigns probabilities to a FiniteDistribution via a probability</span>
 <span class="sd">        function. The probability function is applied to each value of the</span>
@@ -409,7 +409,7 @@
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Probability cannot be negative&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;Domain&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FiniteDistribution.probability"><a class="viewcode-back" href="../../index.html#prob140.FiniteDistribution.probability">[docs]</a>    <span class="k">def</span> <span class="nf">probability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<div class="viewcode-block" id="FiniteDistribution.probability"><a class="viewcode-back" href="../../finite.html#prob140.FiniteDistribution.probability">[docs]</a>    <span class="k">def</span> <span class="nf">probability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Assigns probabilities to domain values.</span>
 
@@ -430,7 +430,7 @@
     <span class="k">def</span> <span class="nf">_probability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
         <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
 
-<div class="viewcode-block" id="FiniteDistribution.normalize"><a class="viewcode-back" href="../../index.html#prob140.FiniteDistribution.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FiniteDistribution.normalize"><a class="viewcode-back" href="../../finite.html#prob140.FiniteDistribution.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Normalizes the distribution by making the proabilities sum to 1</span>
 
@@ -449,7 +449,7 @@
         <span class="c1"># self.normalize()</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">as_html</span><span class="p">(</span><span class="n">max_rows</span><span class="p">)</span>
 
-<div class="viewcode-block" id="FiniteDistribution.expected_value"><a class="viewcode-back" href="../../index.html#prob140.FiniteDistribution.expected_value">[docs]</a>    <span class="k">def</span> <span class="nf">expected_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FiniteDistribution.expected_value"><a class="viewcode-back" href="../../finite.html#prob140.FiniteDistribution.expected_value">[docs]</a>    <span class="k">def</span> <span class="nf">expected_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds expected value of distribution</span>
 
@@ -465,7 +465,7 @@
             <span class="n">ev</span> <span class="o">+=</span> <span class="n">domain</span> <span class="o">*</span> <span class="n">probability</span>
         <span class="k">return</span> <span class="n">ev</span></div>
 
-<div class="viewcode-block" id="FiniteDistribution.variance"><a class="viewcode-back" href="../../index.html#prob140.FiniteDistribution.variance">[docs]</a>    <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FiniteDistribution.variance"><a class="viewcode-back" href="../../finite.html#prob140.FiniteDistribution.variance">[docs]</a>    <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds variance of distribution</span>
 
@@ -480,7 +480,7 @@
             <span class="n">var</span> <span class="o">+=</span> <span class="p">(</span><span class="n">domain</span> <span class="o">-</span> <span class="n">ev</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">probability</span>
         <span class="k">return</span> <span class="n">var</span></div>
 
-<div class="viewcode-block" id="FiniteDistribution.sd"><a class="viewcode-back" href="../../index.html#prob140.FiniteDistribution.sd">[docs]</a>    <span class="k">def</span> <span class="nf">sd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FiniteDistribution.sd"><a class="viewcode-back" href="../../finite.html#prob140.FiniteDistribution.sd">[docs]</a>    <span class="k">def</span> <span class="nf">sd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds standard deviation of FiniteDistribution</span>
 
@@ -521,7 +521,7 @@
 <span class="sd">    Use `inf` to specify infinity</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="InfiniteDistribution.domain"><a class="viewcode-back" href="../../index.html#prob140.InfiniteDistribution.domain">[docs]</a>    <span class="k">def</span> <span class="nf">domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="InfiniteDistribution.domain"><a class="viewcode-back" href="../../finite.html#prob140.InfiniteDistribution.domain">[docs]</a>    <span class="k">def</span> <span class="nf">domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Assigns domain values to InfiniteDistribution</span>
 
@@ -541,7 +541,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Domain&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">step</span><span class="p">)])</span></div>
 
-<div class="viewcode-block" id="InfiniteDistribution.probability_function"><a class="viewcode-back" href="../../index.html#prob140.InfiniteDistribution.probability_function">[docs]</a>    <span class="k">def</span> <span class="nf">probability_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pfunc</span><span class="p">):</span>
+<div class="viewcode-block" id="InfiniteDistribution.probability_function"><a class="viewcode-back" href="../../finite.html#prob140.InfiniteDistribution.probability_function">[docs]</a>    <span class="k">def</span> <span class="nf">probability_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pfunc</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Assigns probabilities to an InfiniteDistribution via a probability</span>
 <span class="sd">        function. The probability function is applied to each value of the</span>
@@ -578,7 +578,7 @@
             <span class="c1"># Doesn&#39;t check if x is in domain!</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pfunc</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-<div class="viewcode-block" id="InfiniteDistribution.expected_value"><a class="viewcode-back" href="../../index.html#prob140.InfiniteDistribution.expected_value">[docs]</a>    <span class="k">def</span> <span class="nf">expected_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">25</span><span class="p">):</span>
+<div class="viewcode-block" id="InfiniteDistribution.expected_value"><a class="viewcode-back" href="../../finite.html#prob140.InfiniteDistribution.expected_value">[docs]</a>    <span class="k">def</span> <span class="nf">expected_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">25</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Approximates the expected value of an infinite distribution</span>
 
@@ -604,7 +604,7 @@
             <span class="n">diff</span> <span class="o">=</span> <span class="n">pfunc</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ev</span></div>
 
-<div class="viewcode-block" id="InfiniteDistribution.variance"><a class="viewcode-back" href="../../index.html#prob140.InfiniteDistribution.variance">[docs]</a>    <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">25</span><span class="p">):</span>
+<div class="viewcode-block" id="InfiniteDistribution.variance"><a class="viewcode-back" href="../../finite.html#prob140.InfiniteDistribution.variance">[docs]</a>    <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">25</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Approximates the variance of an InfiniteDistribution</span>
 
@@ -632,7 +632,7 @@
             <span class="n">diff</span> <span class="o">=</span> <span class="n">pfunc</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">var</span></div>
 
-<div class="viewcode-block" id="InfiniteDistribution.sd"><a class="viewcode-back" href="../../index.html#prob140.InfiniteDistribution.sd">[docs]</a>    <span class="k">def</span> <span class="nf">sd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="InfiniteDistribution.sd"><a class="viewcode-back" href="../../finite.html#prob140.InfiniteDistribution.sd">[docs]</a>    <span class="k">def</span> <span class="nf">sd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds the Standard Deviation</span>
 
@@ -657,7 +657,7 @@
     <span class="k">def</span> <span class="nf">_pfunc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">[</span><span class="s2">&quot;Probability&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
-<div class="viewcode-block" id="InfiniteDistribution.as_html"><a class="viewcode-back" href="../../index.html#prob140.InfiniteDistribution.as_html">[docs]</a>    <span class="k">def</span> <span class="nf">as_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_rows</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="InfiniteDistribution.as_html"><a class="viewcode-back" href="../../finite.html#prob140.InfiniteDistribution.as_html">[docs]</a>    <span class="k">def</span> <span class="nf">as_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_rows</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Format table as HTML.&quot;&quot;&quot;</span>
         <span class="n">omitted</span> <span class="o">=</span> <span class="s2">&quot;Infinite&quot;</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
@@ -688,7 +688,7 @@
             <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;&lt;p&gt;... (</span><span class="si">{}</span><span class="s1"> rows omitted)&lt;/p&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omitted</span><span class="p">)))</span>
         <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">indent</span> <span class="o">*</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">text</span> <span class="k">for</span> <span class="n">indent</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="InfiniteDistribution.as_text"><a class="viewcode-back" href="../../index.html#prob140.InfiniteDistribution.as_text">[docs]</a>    <span class="k">def</span> <span class="nf">as_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_rows</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; | &quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="InfiniteDistribution.as_text"><a class="viewcode-back" href="../../finite.html#prob140.InfiniteDistribution.as_text">[docs]</a>    <span class="k">def</span> <span class="nf">as_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_rows</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; | &quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Format table as text.&quot;&quot;&quot;</span>
         <span class="n">omitted</span> <span class="o">=</span> <span class="s2">&quot;Infinite&quot;</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
@@ -702,7 +702,7 @@
             <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;... (</span><span class="si">{}</span><span class="s1"> rows omitted)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omitted</span><span class="p">))</span>
         <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="InfiniteDistribution.Rows"><a class="viewcode-back" href="../../index.html#prob140.InfiniteDistribution.Rows">[docs]</a>    <span class="k">class</span> <span class="nc">Rows</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+<div class="viewcode-block" id="InfiniteDistribution.Rows"><a class="viewcode-back" href="../../finite.html#prob140.InfiniteDistribution.Rows">[docs]</a>    <span class="k">class</span> <span class="nc">Rows</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;An iterable view over the rows in a table.&quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
@@ -784,7 +784,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">prob140 0.1.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">prob140 0.1.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

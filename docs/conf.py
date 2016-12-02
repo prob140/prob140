@@ -21,6 +21,8 @@
 import os
 import sys
 from prob140.version import __version__
+from prob140 import *
+
 
 path = os.path.abspath("../")
 print(path)

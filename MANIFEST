@@ -2,5 +2,7 @@
 setup.cfg
 setup.py
 prob140/__init__.py
-prob140/prob140.py
+prob140/multi_variable.py
+prob140/rebinding.py
+prob140/single_variable.py
 prob140/version.py
