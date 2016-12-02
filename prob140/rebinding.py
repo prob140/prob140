@@ -1,4 +1,4 @@
-from .prob140 import *
+from .prob140_tables import *
 from .version import *
 from datascience import *
 
@@ -20,5 +20,3 @@ Table.sd = sd
 def ProbabilityTable():
 	return Table()
 
-def to_probability_table(table):
-	return Table.copy(table)
