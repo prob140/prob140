@@ -110,7 +110,7 @@ class DiscreteDistribution(Table):
         else:
             return FiniteDistribution().domain([x]).probability([self.prob_event(x)])
 
-    def plot(self, width=1, mask=[], **vargs):
+    def plot_dist(self, width=1, mask=[], **vargs):
         """
         Plots the histogram for a Distribution
 
@@ -126,6 +126,7 @@ class DiscreteDistribution(Table):
 
 
         """
+        self = self.sort("Domain")
         domain = self["Domain"]
         prob = self["Probability"]
 
@@ -143,18 +144,22 @@ class DiscreteDistribution(Table):
                 colors = list(
                     itertools.islice(itertools.cycle(self.chart_colors), len(mask)))
                 for i in range(len(mask)):
-                    plt.bar(domain[mask[i]], prob[mask[i]], align="center",
+                    plt.bar(domain[mask[i]], prob[mask[i]] * 100, align="center",
                             color=colors[i], width=1, alpha=0.7)
+                plt.xlabel("Domain")
+                plt.ylabel("Percent per unit")
             else:
-                plt.bar(domain[mask], prob[mask], align="center", color="darkblue", width=1, alpha=0.7)
-                plt.bar(domain[np.logical_not(mask)], prob[np.logical_not(mask)],
+                plt.bar(domain[mask], prob[mask] * 100, align="center", color="darkblue", width=1, alpha=0.7)
+                plt.bar(domain[np.logical_not(mask)], prob[np.logical_not(mask)] * 100,
                         align="center", color="gold", width=1, alpha=0.7)
+                plt.xlabel("Domain")
+                plt.ylabel("Percent per unit")
                 # dist1 = FiniteDistribution().domain(domain[mask]).probability(prob[mask])
                 # dist2 = FiniteDistribution().domain(domain[np.logical_not(mask)]).probability(prob[np.logical_not(mask)])
                 # DiscreteDistribution.Plot("1", dist1, "2", dist2, width=width, **vargs)
 
         mindistance = 0.9 * min(
-            [self['Domain'][i] - self['Domain'][i - 1] for i in range(1, self.num_rows)])
+            [self['Domain'][i] - self['Domain'][i - 1] for i in range(1, self.num_rows)] + [1])
 
         plt.xlim((min(self['Domain']) - mindistance - width/2, max(self['Domain'])
                   + mindistance + width / 2))
@@ -173,13 +178,14 @@ class DiscreteDistribution(Table):
             See pyplot's additional optional arguments
 
         """
+        self = self.sort("Domain")
         if len(event) == 0:
-            self.plot(width=width, **vargs)
+            self.plot_dist(width=width, **vargs)
 
         else:
 
-            mindistance = 0.9 * min(
-            [self['Domain'][i] - self['Domain'][i - 1] for i in range(1, self.num_rows)])
+            mindistance = 0.9 * max(min([self['Domain'][i] - self['Domain'][i - 1] for i in range(1,
+                                                                                                  self.num_rows)]), 1)
 
             plt.xlim((min(self['Domain']) - mindistance - width/2, max(self['Domain'])
                   + mindistance + width / 2))
@@ -194,16 +200,20 @@ class DiscreteDistribution(Table):
                 colors = list(
                     itertools.islice(itertools.cycle(self.chart_colors), len(event) + 1))
                 for i in range(len(event)):
-                    plt.bar(event[i], prob(event[i]), align="center", color=colors[i], width=1, alpha=0.7)
+                    plt.bar(event[i], prob(event[i]) * 100, align="center", color=colors[i], width=1, alpha=0.7)
                     domain -= set(event[i])
 
                 domain = np.array(list(domain))
-                plt.bar(domain, prob(domain), align="center", color=colors[-1], width=1, alpha=0.7)
+                plt.bar(domain, prob(domain) * 100, align="center", color=colors[-1], width=1, alpha=0.7)
+                plt.xlabel("Domain")
+                plt.ylabel("Percent per unit")
             else:
 
-                plt.bar(event, prob(event), align="center", width=1, color="gold", alpha=0.7)
+                plt.bar(event, prob(event)*100, align="center", width=1, color="gold", alpha=0.7)
                 domain = np.array(list(set(self["Domain"]) - set(event)))
-                plt.bar(domain, prob(domain), align="center", color="darkblue", width=1, alpha=0.7)
+                plt.bar(domain, prob(domain) * 100, align="center", color="darkblue", width=1, alpha=0.7)
+                plt.xlabel("Domain")
+                plt.ylabel("Percent per unit")
 
 
     @classmethod
@@ -259,8 +269,8 @@ class DiscreteDistribution(Table):
 
         domain = np.sort(domain)
 
-        mindistance = 0.9 * min(
-            [domain[i] - domain[i - 1] for i in range(1, len(domain))])
+        mindistance = 0.9 * max(min(
+            [domain[i] - domain[i - 1] for i in range(1, len(domain))]), 1)
 
         plt.xlim((min(domain) - mindistance - width / 2, max(domain) + mindistance +
                   width / 2))
@@ -494,7 +504,7 @@ class InfiniteDistribution(DiscreteDistribution):
         """
         return self.with_column('Probability', [pfunc])
 
-    def plot(self, width=1, size=20, **vargs):
+    def plot_dist(self, width=1, size=20, **vargs):
         pfunc = self._pfunc
         start = self._start
         step = self._step
@@ -502,7 +512,7 @@ class InfiniteDistribution(DiscreteDistribution):
         domain = np.arange(start, start + size * step, step)
         probability = np.vectorize(pfunc, otypes=[np.float])(domain)
 
-        FiniteDistribution().domain(domain).probability(probability).plot(
+        FiniteDistribution().domain(domain).probability(probability).plot_dist(
             width=width, **vargs)
 
     def prob_event(self, x):
@@ -697,8 +707,3 @@ class JointDistribution(FiniteDistribution):
     def marginalize(self, variable):
         pass
 
-    def prob_event(self, **kwargs):
-        current = d
-        for name, item in kwargs.items():
-            current = current.where(name, item)
-        return sum(current['Probability'])
