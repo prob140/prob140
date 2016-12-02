@@ -1,13 +1,16 @@
-# This file is a template, and might need editing before it works on your project.
-# Full project: https://gitlab.com/pages/jekyll
-image: python
+image: tsgkadot/sphinx-plantuml:latest
+
+stages:
+  - build
 
 pages:
-  stage: deploy
+  stage: build
   script:
-  - (cd docs && cp -r _build ../public)
+    - pip install -r requirements.txt -U
+    - sphinx-build -b html ./prob140 public
   artifacts:
+    expire_in: 1 week
     paths:
-    - public
-  only:
-  - master
+      - public
+  tags:
+    - docker
