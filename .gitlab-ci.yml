@@ -7,7 +7,7 @@ pages:
   stage: build
   script:
     - pip install -r requirements.txt -U
-    - sphinx-build -b html ./prob140 public
+    - sphinx-build -b html ./docs public
   artifacts:
     expire_in: 1 week
     paths:
