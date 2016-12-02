@@ -5,9 +5,7 @@ import collections
 import itertools
 import abc
 import sys
-import numbers
 import warnings
-import tkinter
 
 import matplotlib
 
@@ -48,8 +46,8 @@ def prob_event(self, x):
     if isinstance(x, collections.Iterable):
         return sum(self.prob_event(k) for k in x)
     else:
-        domain = self._columns["Domain"]
-        prob = self._columns["Probability"]
+        domain = self.column(0)
+        prob = self.column(1)
         return sum(prob[np.where(domain == x)])
 
 
@@ -82,11 +80,10 @@ def event(self, x):
     2      | 0.25
     3      | 0.25
     """
-    if isinstance(x, collections.Iterable):
-        probabilities = [self.prob_event(k) for k in x]
-        return Table().domain(x).probability(probabilities)
-    else:
-        return Table().domain([x]).probability([self.prob_event(x)])
+    if not isinstance(x, collections.Iterable):
+        x = [x]    
+    probabilities = [self.prob_event(k) for k in x]
+    return Table().with_columns('Value',x,'Probability',probabilities)
 
 
 def plot_dist(self, width=1, mask=[], **vargs):
@@ -105,9 +102,10 @@ def plot_dist(self, width=1, mask=[], **vargs):
 
 
     """
-    self = self.sort("Domain")
-    domain = self["Domain"]
-    prob = self["Probability"]
+    domain_label = self.labels[0]
+    self = self.sort(domain_label)
+    domain = self.column(0)
+    prob = self.column(1)
 
     start = min(domain)
     end = max(domain)
@@ -115,7 +113,7 @@ def plot_dist(self, width=1, mask=[], **vargs):
     end = (end // width + 1) * width
 
     if len(mask) == 0:
-        self.hist(counts="Domain",
+        self.hist(counts=domain_label,
                   bins=np.arange(start - width / 2, end + width, width),
                   **vargs)
     else:
@@ -137,9 +135,9 @@ def plot_dist(self, width=1, mask=[], **vargs):
             # dist2 = FiniteDistribution().domain(domain[np.logical_not(mask)]).probability(prob[np.logical_not(mask)])
             # DiscreteDistribution.Plot("1", dist1, "2", dist2, width=width, **vargs)
 
-    mindistance = 0.9 * max(min([self['Domain'][i] - self['Domain'][i - 1] for i in range(1, self.num_rows)]),1)
+    mindistance = 0.9 * max(min([self.column(0)[i] - self.column(0)[i - 1] for i in range(1, self.num_rows)]),1)
 
-    plt.xlim((min(self['Domain']) - mindistance - width / 2, max(self['Domain'])
+    plt.xlim((min(self.column(0)) - mindistance - width / 2, max(self.column(0))
               + mindistance + width / 2))
 
 
@@ -157,18 +155,19 @@ def plot_event(self, event, width=1, **vargs):
         See pyplot's additional optional arguments
 
     """
-    self = self.sort("Domain")
+    domain_label = self.labels[0]
+    self = self.sort(domain_label)
     if len(event) == 0:
         self.plot_dist(width=width, **vargs)
 
     else:
 
-        mindistance = 0.9 * max(min([self['Domain'][i] - self['Domain'][i - 1] for i in range(1, self.num_rows)]), 1)
+        mindistance = 0.9 * max(min([self.column(0)[i] - self.column(0)[i - 1] for i in range(1, self.num_rows)]), 1)
 
-        plt.xlim((min(self['Domain']) - mindistance - width / 2, max(self['Domain'])
+        plt.xlim((min(self.column(0)) - mindistance - width / 2, max(self.column(0))
                   + mindistance + width / 2))
 
-        domain = set(self["Domain"])
+        domain = set(self.column(0))
 
         def prob(x):
             return np.array([self.prob_event(a) for a in list(x)])
@@ -187,7 +186,7 @@ def plot_event(self, event, width=1, **vargs):
         else:
 
             plt.bar(event, prob(event) * 100, align="center", width=1, color="gold", alpha=0.7)
-            domain = np.array(list(set(self["Domain"]) - set(event)))
+            domain = np.array(list(set(self.column(0)) - set(event)))
             plt.bar(domain, prob(domain) * 100, align="center", color="darkblue", width=1, alpha=0.7)
             plt.xlabel("Domain")
             plt.ylabel("Percent per unit")
@@ -218,7 +217,7 @@ def Plot(*labels_and_dists, width=1, **vargs):
     while i < len(labels_and_dists):
         label = labels_and_dists[i]
         dist = labels_and_dists[i + 1]
-        domain = domain.union(dist._columns["Domain"])
+        domain = domain.union(dist.column(0))
         i += 2
 
     domain = np.array(list(domain))
@@ -228,7 +227,7 @@ def Plot(*labels_and_dists, width=1, **vargs):
     while i < len(labels_and_dists):
         distributions.append(labels_and_dists[i])
         dist = labels_and_dists[i + 1]
-        probability = np.vectorize(dist.prob_event, otypes=[np.float])(domain)
+        probability = np.vectorize(lambda x: prob_event(dist,x), otypes=[np.float])(domain)
         distributions.append(probability)
         i += 2
 
@@ -242,7 +241,6 @@ def Plot(*labels_and_dists, width=1, **vargs):
     result.hist(counts="Domain",
                 bins=np.arange(start - width / 2, end + width, width),
                 **vargs)
-
     domain = np.sort(domain)
 
     mindistance = 0.9 * max(min([domain[i] - domain[i - 1] for i in range(1, len(domain))]), 1)
@@ -265,7 +263,9 @@ def domain(self, values):
     FiniteDistibution
         FiniteDistribution with that domain
     """
-    return self.with_column('Domain', values)
+    table = self.with_column('Domain', values)
+    table.move_to_start('Domain')
+    return table
 
 
 def probability_function(self, pfunc):
@@ -285,10 +285,11 @@ def probability_function(self, pfunc):
         FiniteDistribution with those probabilities
 
     """
-    values = np.array(self.apply(pfunc, 'Domain')).astype(float)
+    domain_name = self.labels[0]
+    values = np.array(self.apply(pfunc, domain_name)).astype(float)
     if any(values < 0):
         warnings.warn("Probability cannot be negative")
-    return self.with_column('Probability', values).sort("Domain")
+    return self.with_column('Probability', values)
 
 
 def probability(self, values):
@@ -307,32 +308,21 @@ def probability(self, values):
     """
     if any(np.array(values) < 0):
         warnings.warn("Probability cannot be negative")
-    return self.with_column('Probability', values).sort("Domain")
+    return self.with_column('Probability', values)
 
 
-def _probability(self, values):
-    self['Probability'] = values
-
-
-def normalize(self):
+def normalized(self):
     """
-    Normalizes the distribution by making the proabilities sum to 1
+    Returns the distribution by making the proabilities sum to 1
 
     Returns
     -------
     FiniteDistribution
         Normalized FiniteDistribution
     """
-    if 'Probability' not in self.labels:
-        self._probability(np.ones(self.num_rows) / self.num_rows)
-    else:
-        self['Probability'] /= sum(self['Probability'])
-    return self
 
-
-def as_html(self, max_rows=0):
-    # self.normalize()
-    return super().as_html(max_rows)
+    column_label = self.labels[1]
+    return self.with_column(column_label,self.column(1)/sum(self.column(1)))
 
 
 def expected_value(self):
@@ -345,7 +335,7 @@ def expected_value(self):
         Expected value
 
     """
-    self.normalize()
+    self = normalized(self)
     ev = 0
     for domain, probability in self.rows:
         ev += domain * probability
@@ -361,6 +351,7 @@ def variance(self):
     float
         Variance
     """
+    self = normalized(self)
     var = 0
     ev = self.expected_value()
     for domain, probability in self.rows:
@@ -392,16 +383,4 @@ chart_colors = (
     rgb("cyan"),
 )
 
-Table.chart_colors = chart_colors
-Table.prob_event = prob_event
-Table.event = event
-Table.plot_dist = plot_dist
-Table.plot_event = plot_event
-Table.domain = domain
-Table.probability = probability
-Table.probability_function = probability_function
-Table._probability = _probability
-Table.normalize = normalize
-Table.expected_value = expected_value
-Table.variance = variance
-Table.sd = sd
+
