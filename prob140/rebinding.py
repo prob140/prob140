@@ -17,21 +17,6 @@ Table.variance = variance
 Table.sd = sd
 
 
-def to_probability_table(table):
-	"""
-		Returns the table, but with all the probability functionalities builtin
-	"""
-	table = table.copy()
-	table.chart_colors = chart_colors
-	table.prob_event = prob_event
-	table.event = event
-	table.plot_dist = plot_dist
-	table.plot_event = plot_event
-	table.domain = domain
-	table.probability = probability
-	table.probability_function = probability_function
-	table.normalized = normalized
-	table.expected_value = expected_value
-	table.variance = variance
-	table.sd = sd
-	return table
+def ProbabilityTable():
+	return Table()
+

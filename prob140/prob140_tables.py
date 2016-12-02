@@ -14,6 +14,9 @@ from datascience import *
 inf = math.inf
 rgb = matplotlib.colors.colorConverter.to_rgb
 
+def check_valid_probability_table(table):
+    assert table.num_columns == 2, "In order to run a Prob140 function, your table must have 2 columns: (1) a Values column (2) a Probability column"
+
 def prob_event(self, x):
     """
     Finds the probability of an event x
@@ -43,6 +46,7 @@ def prob_event(self, x):
     1.0
 
     """
+    check_valid_probability_table(self)
     if isinstance(x, collections.Iterable):
         return sum(self.prob_event(k) for k in x)
     else:
@@ -80,6 +84,8 @@ def event(self, x):
     2      | 0.25
     3      | 0.25
     """
+    check_valid_probability_table(self)
+
     if not isinstance(x, collections.Iterable):
         x = [x]    
     probabilities = [self.prob_event(k) for k in x]
@@ -102,6 +108,8 @@ def plot_dist(self, width=1, mask=[], **vargs):
 
 
     """
+    check_valid_probability_table(self)
+
     domain_label = self.labels[0]
     self = self.sort(domain_label)
     domain = self.column(0)
@@ -155,6 +163,8 @@ def plot_event(self, event, width=1, **vargs):
         See pyplot's additional optional arguments
 
     """
+    check_valid_probability_table(self)
+
     domain_label = self.labels[0]
     self = self.sort(domain_label)
     if len(event) == 0:
@@ -217,6 +227,8 @@ def Plot(*labels_and_dists, width=1, **vargs):
     while i < len(labels_and_dists):
         label = labels_and_dists[i]
         dist = labels_and_dists[i + 1]
+        check_valid_probability_table(dist)
+
         domain = domain.union(dist.column(0))
         i += 2
 
@@ -263,8 +275,8 @@ def domain(self, values):
     FiniteDistibution
         FiniteDistribution with that domain
     """
-    table = self.with_column('Domain', values)
-    table.move_to_start('Domain')
+    table = self.with_column('Value', values)
+    table.move_to_start('Value')
     return table
 
 
@@ -320,7 +332,7 @@ def normalized(self):
     FiniteDistribution
         Normalized FiniteDistribution
     """
-
+    check_valid_probability_table(self)
     column_label = self.labels[1]
     return self.with_column(column_label,self.column(1)/sum(self.column(1)))
 
@@ -335,6 +347,7 @@ def expected_value(self):
         Expected value
 
     """
+    check_valid_probability_table(self)
     self = normalized(self)
     ev = 0
     for domain, probability in self.rows:
@@ -351,6 +364,8 @@ def variance(self):
     float
         Variance
     """
+    check_valid_probability_table(self)
+
     self = normalized(self)
     var = 0
     ev = self.expected_value()

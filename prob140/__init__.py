@@ -1,2 +1,2 @@
 from .version import *
-from .rebinding import Table,to_probability_table,Plot
+from .rebinding import Table,ProbabilityTable,Plot
