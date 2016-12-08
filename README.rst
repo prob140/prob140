@@ -40,7 +40,7 @@ If you are using ``prob140`` in a notebook, use the following header:
 Changelog
 =========
 
-v0.1.4a
+v0.1.4.1
 -------
 
 * Single distribution plotting moved from the ``plot_dist`` method to the ``Plot`` function
