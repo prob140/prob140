@@ -14,11 +14,10 @@ def domain(self,*args):
 	return multi_domain(self,*args)
 
 ## Binding; still in debate
+
 Table.chart_colors = chart_colors
 Table.prob_event = prob_event
 Table.event = event
-Table.plot_dist = plot_dist
-Table.plot_event = plot_event
 Table.domain = domain
 Table.probability = probability
 Table.probability_function = probability_function

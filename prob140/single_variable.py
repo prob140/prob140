@@ -16,6 +16,8 @@ rgb = matplotlib.colors.colorConverter.to_rgb
 
 def check_valid_probability_table(table):
     assert table.num_columns == 2, "In order to run a Prob140 function, your table must have 2 columns: (1) a Values column (2) a Probability column"
+    assert all(table.column(1)>=0), "Probabilities must be non-negative"
+
 
 def prob_event(self, x):
     """
@@ -89,10 +91,10 @@ def event(self, x):
     if not isinstance(x, collections.Iterable):
         x = [x]    
     probabilities = [self.prob_event(k) for k in x]
-    return Table().with_columns('Value',x,'Probability',probabilities)
+    return Table().with_columns('Outcome',x,'Probability',probabilities)
 
 
-def plot_dist(self, width=1, mask=[], **vargs):
+def Plot(dist, width=1, mask=[], event=[], **vargs):
     """
     Plots the histogram for a Distribution
 
@@ -108,7 +110,11 @@ def plot_dist(self, width=1, mask=[], **vargs):
 
 
     """
-    check_valid_probability_table(self)
+    options = Table.default_options.copy()
+    options.update(vargs)
+
+    self = dist
+    check_valid_probability_table(dist)
 
     domain_label = self.labels[0]
     self = self.sort(domain_label)
@@ -120,62 +126,7 @@ def plot_dist(self, width=1, mask=[], **vargs):
 
     end = (end // width + 1) * width
 
-    if len(mask) == 0:
-        self.hist(counts=domain_label,
-                  bins=np.arange(start - width / 2, end + width, width),
-                  **vargs)
-    else:
-        if isinstance(mask[0], collections.Iterable):
-            colors = list(
-                itertools.islice(itertools.cycle(self.chart_colors), len(mask)))
-            for i in range(len(mask)):
-                plt.bar(domain[mask[i]], prob[mask[i]] * 100, align="center",
-                        color=colors[i], width=1, alpha=0.7)
-            plt.xlabel("Domain")
-            plt.ylabel("Percent per unit")
-        else:
-            plt.bar(domain[mask], prob[mask] * 100, align="center", color="darkblue", width=1, alpha=0.7)
-            plt.bar(domain[np.logical_not(mask)], prob[np.logical_not(mask)] * 100,
-                    align="center", color="gold", width=1, alpha=0.7)
-            plt.xlabel("Domain")
-            plt.ylabel("Percent per unit")
-            # dist1 = FiniteDistribution().domain(domain[mask]).probability(prob[mask])
-            # dist2 = FiniteDistribution().domain(domain[np.logical_not(mask)]).probability(prob[np.logical_not(mask)])
-            # DiscreteDistribution.Plot("1", dist1, "2", dist2, width=width, **vargs)
-
-    mindistance = 0.9 * max(min([self.column(0)[i] - self.column(0)[i - 1] for i in range(1, self.num_rows)]),1)
-
-    plt.xlim((min(self.column(0)) - mindistance - width / 2, max(self.column(0))
-              + mindistance + width / 2))
-
-
-def plot_event(self, event, width=1, **vargs):
-    """
-
-    Parameters
-    ----------
-    event : List or List of lists
-        Each list represents an event which will be colored differently
-        by the plot
-    width (optional) : float
-        Width of the intervals. Actually not implemented right now!
-    vargs
-        See pyplot's additional optional arguments
-
-    """
-    check_valid_probability_table(self)
-
-    domain_label = self.labels[0]
-    self = self.sort(domain_label)
-    if len(event) == 0:
-        self.plot_dist(width=width, **vargs)
-
-    else:
-
-        mindistance = 0.9 * max(min([self.column(0)[i] - self.column(0)[i - 1] for i in range(1, self.num_rows)]), 1)
-
-        plt.xlim((min(self.column(0)) - mindistance - width / 2, max(self.column(0))
-                  + mindistance + width / 2))
+    if len(event) != 0:
 
         domain = set(self.column(0))
 
@@ -183,26 +134,61 @@ def plot_event(self, event, width=1, **vargs):
             return np.array([self.prob_event(a) for a in list(x)])
 
         if isinstance(event[0], collections.Iterable):
+            # If event is a list of lists
+
             colors = list(
                 itertools.islice(itertools.cycle(self.chart_colors), len(event) + 1))
             for i in range(len(event)):
-                plt.bar(event[i], prob(event[i]) * 100, align="center", color=colors[i], width=1, alpha=0.7)
+                plt.bar(event[i], prob(event[i]) * 100, align="center", color=colors[i], width=1, alpha=0.7, **vargs)
                 domain -= set(event[i])
 
             domain = np.array(list(domain))
-            plt.bar(domain, prob(domain) * 100, align="center", color=colors[-1], width=1, alpha=0.7)
-            plt.xlabel("Domain")
-            plt.ylabel("Percent per unit")
+            plt.bar(domain, prob(domain) * 100, align="center", color=colors[-1], width=1, alpha=0.7, **vargs)
+
         else:
+            # If event is just a list
 
-            plt.bar(event, prob(event) * 100, align="center", width=1, color="gold", alpha=0.7)
+            plt.bar(event, prob(event) * 100, align="center", width=1, color="gold", alpha=0.7, **vargs)
             domain = np.array(list(set(self.column(0)) - set(event)))
-            plt.bar(domain, prob(domain) * 100, align="center", color="darkblue", width=1, alpha=0.7)
-            plt.xlabel("Domain")
-            plt.ylabel("Percent per unit")
+            plt.bar(domain, prob(domain) * 100, align="center", color="darkblue", width=1, alpha=0.7, **vargs)
 
 
-def Plot(*labels_and_dists, width=1, **vargs):
+    elif len(mask) == 0:
+        # no mask or event
+        self.hist(counts=domain_label,
+                  bins=np.arange(start - width / 2, end + width, width),
+                  **vargs)
+    else:
+        if isinstance(mask[0], collections.Iterable):
+            # If mask is a list of lists
+
+            colors = list(
+                itertools.islice(itertools.cycle(self.chart_colors), len(mask)))
+            for i in range(len(mask)):
+                plt.bar(domain[mask[i]], prob[mask[i]] * 100, align="center",
+                        color=colors[i], width=1, alpha=0.7, **vargs)
+
+        else:
+            # If mask is just a list
+
+            plt.bar(domain[mask], prob[mask] * 100, align="center", color="darkblue", width=1, alpha=0.7, **vargs)
+            plt.bar(domain[np.logical_not(mask)], prob[np.logical_not(mask)] * 100,
+                    align="center", color="gold", width=1, alpha=0.7, **vargs)
+
+            # dist1 = FiniteDistribution().domain(domain[mask]).probability(prob[mask])
+            # dist2 = FiniteDistribution().domain(domain[np.logical_not(mask)]).probability(prob[np.logical_not(mask)])
+            # DiscreteDistribution.Plot("1", dist1, "2", dist2, width=width, **vargs)
+
+    plt.xlabel(domain_label)
+    plt.ylabel("Percent per unit")
+
+    mindistance = 0.9 * max(min([self.column(0)[i] - self.column(0)[i - 1] for i in range(1, self.num_rows)]),1)
+
+    plt.xlim((min(self.column(0)) - mindistance - width / 2, max(self.column(0))
+              + mindistance + width / 2))
+
+
+def Plots(*labels_and_dists, width=1, **vargs):
     """
     Class method for overlay multiple distributions
 
@@ -221,6 +207,7 @@ def Plot(*labels_and_dists, width=1, **vargs):
     options = Table.default_options.copy()
     options.update(vargs)
 
+
     i = 0
 
     domain = set()
@@ -235,7 +222,7 @@ def Plot(*labels_and_dists, width=1, **vargs):
     domain = np.array(list(domain))
 
     i = 0
-    distributions = ["Domain", domain]
+    distributions = ["Value", domain]
     while i < len(labels_and_dists):
         distributions.append(labels_and_dists[i])
         dist = labels_and_dists[i + 1]
@@ -250,7 +237,7 @@ def Plot(*labels_and_dists, width=1, **vargs):
     start = min(domain)
     end = max(domain)
     end = (end // width + 1) * width
-    result.hist(counts="Domain",
+    result.hist(counts="Value",
                 bins=np.arange(start - width / 2, end + width, width),
                 **vargs)
     domain = np.sort(domain)

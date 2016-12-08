@@ -40,6 +40,20 @@ If you are using ``prob140`` in a notebook, use the following header:
 Changelog
 =========
 
+v0.1.4a
+-------
+
+* Single distribution plotting moved from the ``plot_dist`` method to the ``Plot`` function
+* Multiple distribution plotting moved from the ``Plot`` function to the ``Plots`` function
+* Events are now plotted by passing an argument to ``Plot``
+
+v0.1.3
+------
+
+* Added joint distributions
+* All ``FiniteDistribution`` objects changed to become ``datascience.tables.Table`` objects
+* Began renaming
+
 v0.1.2
 ------
 Initial Release
