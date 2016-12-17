@@ -1,3 +1,5 @@
+.. _install:
+
 ``prob140`` tutorial!
 =====================
 
@@ -8,14 +10,14 @@ interactive guide, see the examples notebook in the GitLab directory.
     :depth: 2
     :local:
 
+
 Getting Started
 ---------------
 
-Make sure to download the most recent ``prob140.py`` file from the `gitlab
-repository <https://gitlab.com/probability/prob140/tree/master>`_
+Make sure you are on the most recent version of the `prob140` library. See the
+installation guide for more directions.
 
-Keep the file in the same directory as your notebook, and run the following
-import statements:
+If you are using an `iPython` notebook, use this as your first cell:
 
 .. code-block:: python
 
@@ -31,22 +33,22 @@ import statements:
 
 
 
-Creating a Finite Distribution
-------------------------------
+Creating a Distribution
+-----------------------
 
-Discrete Distributions can be represented as either a `FiniteDistribution` or an
-`InfiniteDistribution`. We will start with creating a `FiniteDistribution`.
+The `prob140` library adds distribution methods to the default `table` class that you should
+already be familiar with. A distribution is defined as a 2-column table in which the first column
+represents the domain of the distribution while the second column represents the probabilities
+associated with each value in the domain.
 
-See the `FiniteDistribution` documentation for more details
-
-We can construct a `FiniteDistribution` by explicitly assigning values for
-the `domain` and `probability`
+You can specify a list or array to the methods `domain` and `probability` to specify those columns
+for a distribution
 
 .. ipython:: python
 
     from prob140 import *
 
-    dist1 = FiniteDistribution().domain(make_array(2, 3, 4)).probability(make_array(0.25, 0.5, 0.25))
+    dist1 = Table().domain(make_array(2, 3, 4)).probability(make_array(0.25, 0.5, 0.25))
 
     print(dist1)
 
@@ -55,7 +57,7 @@ We can also construct a distribution by explicitly assigning values for the
 
 .. ipython:: python
 
-    dist2 = FiniteDistribution().domain(np.arange(1, 8, 2)).probability_function(lambda x: 1/4)
+    dist2 = Table().domain(np.arange(1, 8, 2)).probability_function(lambda x: 1/4)
 
     print(dist2)
 
@@ -64,6 +66,22 @@ density function, such as the binomial distribution
 
 .. ipython:: python
 
+    from scipy.misc import comb
+    def pmf(x):
+        n = 10
+        p = 0.3
+        return comb(n,x) * p**x * (1-p)**(n-x)
+
+    binomial = Table().domain(np.arange(11)).probability_function(pmf)
+    print(binomial)
+
+Events
+------
+
+Utilities
+---------
+
 
 Plotting
 --------
+

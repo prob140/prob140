@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>prob140 tutorial! &#8212; prob140 0.1.3 documentation</title>
+    <title>prob140 tutorial! &#8212; prob140 0.1.4.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,10 +14,11 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.3',
+        VERSION:     '0.1.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -26,9 +27,8 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="prob140 0.1.3 documentation" href="index.html" />
-    <link rel="next" title="Single-variable Distributions" href="single.html" />
-    <link rel="prev" title="Welcome to prob140’s documentation!" href="index.html" /> 
+    <link rel="next" title="Single-variable Distributions (datascience.tables.Table)" href="single.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,12 +41,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="single.html" title="Single-variable Distributions"
+          <a href="single.html" title="Single-variable Distributions (datascience.tables.Table)"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to prob140’s documentation!"
+          <a href="install.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">prob140 0.1.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">prob140 0.1.4.2 documentation</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -55,22 +55,24 @@
   <ul>
 <li><a class="reference internal" href="#"><code class="docutils literal"><span class="pre">prob140</span></code> tutorial!</a><ul>
 <li><a class="reference internal" href="#getting-started">Getting Started</a></li>
-<li><a class="reference internal" href="#creating-a-finite-distribution">Creating a Finite Distribution</a></li>
+<li><a class="reference internal" href="#creating-a-distribution">Creating a Distribution</a></li>
+<li><a class="reference internal" href="#events">Events</a></li>
+<li><a class="reference internal" href="#utilities">Utilities</a></li>
 <li><a class="reference internal" href="#plotting">Plotting</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to prob140&#8217;s documentation!</a></p>
+  <p class="topless"><a href="install.html"
+                        title="previous chapter">Installation</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="single.html"
-                        title="next chapter">Single-variable Distributions</a></p>
+                        title="next chapter">Single-variable Distributions (<code class="docutils literal"><span class="pre">datascience.tables.Table</span></code>)</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/tutorial.txt"
+      <li><a href="_sources/tutorial.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -93,23 +95,24 @@
           <div class="body" role="main">
             
   <div class="section" id="prob140-tutorial">
-<h1><code class="docutils literal"><span class="pre">prob140</span></code> tutorial!<a class="headerlink" href="#prob140-tutorial" title="Permalink to this headline">¶</a></h1>
+<span id="install"></span><h1><code class="docutils literal"><span class="pre">prob140</span></code> tutorial!<a class="headerlink" href="#prob140-tutorial" title="Permalink to this headline">¶</a></h1>
 <p>This is a brief introduction to the functionality in <code class="docutils literal"><span class="pre">prob140</span></code>! For an
 interactive guide, see the examples notebook in the GitLab directory.</p>
 <div class="contents local topic" id="table-of-contents">
 <p class="topic-title first">Table of Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#getting-started" id="id1">Getting Started</a></li>
-<li><a class="reference internal" href="#creating-a-finite-distribution" id="id2">Creating a Finite Distribution</a></li>
-<li><a class="reference internal" href="#plotting" id="id3">Plotting</a></li>
+<li><a class="reference internal" href="#creating-a-distribution" id="id2">Creating a Distribution</a></li>
+<li><a class="reference internal" href="#events" id="id3">Events</a></li>
+<li><a class="reference internal" href="#utilities" id="id4">Utilities</a></li>
+<li><a class="reference internal" href="#plotting" id="id5">Plotting</a></li>
 </ul>
 </div>
 <div class="section" id="getting-started">
 <h2><a class="toc-backref" href="#id1">Getting Started</a><a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>Make sure to download the most recent <code class="docutils literal"><span class="pre">prob140.py</span></code> file from the <a class="reference external" href="https://gitlab.com/probability/prob140/tree/master">gitlab
-repository</a></p>
-<p>Keep the file in the same directory as your notebook, and run the following
-import statements:</p>
+<p>Make sure you are on the most recent version of the <cite>prob140</cite> library. See the
+installation guide for more directions.</p>
+<p>If you are using an <cite>iPython</cite> notebook, use this as your first cell:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># HIDDEN</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib</span>
@@ -122,56 +125,73 @@ import statements:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="creating-a-finite-distribution">
-<h2><a class="toc-backref" href="#id2">Creating a Finite Distribution</a><a class="headerlink" href="#creating-a-finite-distribution" title="Permalink to this headline">¶</a></h2>
-<p>Discrete Distributions can be represented as either a <cite>FiniteDistribution</cite> or an
-<cite>InfiniteDistribution</cite>. We will start with creating a <cite>FiniteDistribution</cite>.</p>
-<p>See the <cite>FiniteDistribution</cite> documentation for more details</p>
-<p>We can construct a <cite>FiniteDistribution</cite> by explicitly assigning values for
-the <cite>domain</cite> and <cite>probability</cite></p>
+<div class="section" id="creating-a-distribution">
+<h2><a class="toc-backref" href="#id2">Creating a Distribution</a><a class="headerlink" href="#creating-a-distribution" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>prob140</cite> library adds distribution methods to the default <cite>table</cite> class that you should
+already be familiar with. A distribution is defined as a 2-column table in which the first column
+represents the domain of the distribution while the second column represents the probabilities
+associated with each value in the domain.</p>
+<p>You can specify a list or array to the methods <cite>domain</cite> and <cite>probability</cite> to specify those columns
+for a distribution</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="gp">In [2]: </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-2-803497b24dcc&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">dist1</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
-
-<span class="ne">NameError</span>: name &#39;FiniteDistribution&#39; is not defined
+<span class="gp">In [2]: </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
 
 <span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-3-e601bbd0ab8e&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 print(dist1)</span>
-
-<span class="go">NameError: name &#39;dist1&#39; is not defined</span>
+<span class="go">Value | Probability</span>
+<span class="go">2     | 0.25</span>
+<span class="go">3     | 0.5</span>
+<span class="go">4     | 0.25</span>
 </pre></div>
 </div>
 <p>We can also construct a distribution by explicitly assigning values for the
 <cite>domain</cite> but applying a probability function to the values of the domain</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-4-841b9ced3b3c&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">dist2</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;FiniteDistribution&#39; is not defined
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
 
 <span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist2</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-5-7ad900160b3b&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 print(dist2)</span>
-
-<span class="go">NameError: name &#39;dist2&#39; is not defined</span>
+<span class="go">Value | Probability</span>
+<span class="go">1     | 0.25</span>
+<span class="go">3     | 0.25</span>
+<span class="go">5     | 0.25</span>
+<span class="go">7     | 0.25</span>
 </pre></div>
 </div>
 <p>This can be very useful when we have a distribution with a known probability
 density function, such as the binomial distribution</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="kn">import</span> <span class="n">comb</span>
+
+<span class="gp">In [7]: </span><span class="k">def</span> <span class="nf">pmf</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">   ...: </span>    <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gp">   ...: </span>    <span class="n">p</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="gp">   ...: </span>    <span class="k">return</span> <span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span><span class="o">**</span><span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">   ...: </span>
+
+<span class="gp">In [8]: </span><span class="n">binomial</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">pmf</span><span class="p">)</span>
+
+<span class="gp">In [9]: </span><span class="k">print</span><span class="p">(</span><span class="n">binomial</span><span class="p">)</span>
+<span class="go">Value | Probability</span>
+<span class="go">0     | 0.0282475</span>
+<span class="go">1     | 0.121061</span>
+<span class="go">2     | 0.233474</span>
+<span class="go">3     | 0.266828</span>
+<span class="go">4     | 0.200121</span>
+<span class="go">5     | 0.102919</span>
+<span class="go">6     | 0.0367569</span>
+<span class="go">7     | 0.00900169</span>
+<span class="go">8     | 0.0014467</span>
+<span class="go">9     | 0.000137781</span>
+<span class="go">... (1 rows omitted)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="events">
+<h2><a class="toc-backref" href="#id3">Events</a><a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="utilities">
+<h2><a class="toc-backref" href="#id4">Utilities</a><a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="plotting">
-<h2><a class="toc-backref" href="#id3">Plotting</a><a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Plotting</a><a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -191,17 +211,17 @@ density function, such as the binomial distribution</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="single.html" title="Single-variable Distributions"
+          <a href="single.html" title="Single-variable Distributions (datascience.tables.Table)"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to prob140’s documentation!"
+          <a href="install.html" title="Installation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">prob140 0.1.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">prob140 0.1.4.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Jason Zhang, Dibya Ghosh.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

@@ -37,7 +37,7 @@ def prob_event(self, x):
     Examples
     --------
 
-    >>> dist = FiniteDistribution().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
+    >>> dist = Table().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
     >>> dist.prob_event(2)
     0.25
 
@@ -70,13 +70,13 @@ def event(self, x):
 
     Returns
     -------
-    FiniteDistribution
+    Table
         Shows the probabilities of each value in the event
 
 
     Examples
     --------
-    >>> dist = FiniteDistribution().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
+    >>> dist = Table().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
     >>> dist.event(2)
     Domain | Probability
     2      | 0.25
@@ -96,10 +96,12 @@ def event(self, x):
 
 def Plot(dist, width=1, mask=[], event=[], **vargs):
     """
-    Plots the histogram for a Distribution
+    Plots the histogram for a single distribution
 
     Parameters
     ----------
+    dist : table
+        A 2-column table representing a probability distribution
     width (optional) : float
         Width of the intervals (default: 1)
     mask (optional) : boolean array or list of boolean arrays
@@ -107,7 +109,6 @@ def Plot(dist, width=1, mask=[], event=[], **vargs):
         default: no mask)
     vargs
         See pyplot's additional optional arguments
-
 
     """
     options = Table.default_options.copy()
@@ -190,17 +191,25 @@ def Plot(dist, width=1, mask=[], event=[], **vargs):
 
 def Plots(*labels_and_dists, width=1, **vargs):
     """
-    Class method for overlay multiple distributions
+    Overlays histograms for multiply probability distributions together.
 
     Parameters
     ----------
     labels_and_dists : Even number of alternations between Strings and
-    FiniteDistributions
+    Tables
         Each distribution must have a label associated with it
     width (optional) : float
         Width of the intervals (default: 1)
     vargs
         See pyplot's documentation
+
+
+    Examples
+    --------
+    >>> dist1 = Table().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
+    >>> dist2 = Table().domain([3,4,5,6]).probability([1/2,1/8,1/8,1/4])
+    >>> Plots("Distribution1", dist1,"Distribution2",dist2)
+    <histogram with dist1 and dist2>
 
     """
     # assert len(labels_and_dists) % 2 == 0, 'Even length sequence required'
@@ -250,7 +259,7 @@ def Plots(*labels_and_dists, width=1, **vargs):
 
 def single_domain(self, values):
     """
-    Assigns domain values to a FiniteDistribution
+    Assigns domain values to a single-variable distribution
 
     Parameters
     ----------
@@ -259,8 +268,17 @@ def single_domain(self, values):
 
     Returns
     -------
-    FiniteDistibution
-        FiniteDistribution with that domain
+    Table
+        Table with those domain values in its first column
+
+    Examples
+    --------
+
+    >>> Table().domain([1,2,3])
+    Value
+    1
+    2
+    3
     """
     table = self.with_column('Value', values)
     table.move_to_start('Value')
@@ -269,19 +287,19 @@ def single_domain(self, values):
 
 def probability_function(self, pfunc):
     """
-    Assigns probabilities to a FiniteDistribution via a probability
+    Assigns probabilities to a Distribution via a probability
     function. The probability function is applied to each value of the
-    domain
+    domain. Must have domain values in the first column first.
 
     Parameters
     ----------
     pfunc : univariate function
-        Probability function of the FiniteDistribution
+        Probability function of the distribution
 
     Returns
     -------
-    FiniteDistribution
-        FiniteDistribution with those probabilities
+    Table
+        Table with those probabilities in its second column
 
     """
     domain_names = self.labels
@@ -302,8 +320,8 @@ def probability(self, values):
 
     Returns
     -------
-    FiniteDistribution
-        FiniteDistribution with those probabilities
+    Table
+        A proability distribution with those probabilities
     """
     if any(np.array(values) < 0):
         warnings.warn("Probability cannot be negative")
@@ -316,8 +334,8 @@ def normalized(self):
 
     Returns
     -------
-    FiniteDistribution
-        Normalized FiniteDistribution
+    Table
+        A distribution with the probabilities normalized
     """
     column_label = self.labels[-1]
     return self.with_column(column_label,self.column(column_label)/sum(self.column(column_label)))
@@ -362,7 +380,7 @@ def variance(self):
 
 def sd(self):
     """
-    Finds standard deviation of FiniteDistribution
+    Finds standard deviation of Distribution
 
     Returns
     -------

@@ -14,6 +14,7 @@ The ``prob140`` package was written by Jason Zhang and Dibya Ghosh for use in Be
 
 Download the latest version from https://gitlab.com/probability/prob140/tree/master
 
+Also take a look at Data8's ``datascience`` `documentation <http://data8.org/datascience/>`_
 
 Tutorial
 ========
@@ -23,6 +24,7 @@ Contents:
 .. toctree::
     :maxdepth: 2
 
+    install
     tutorial
 
 
@@ -42,23 +44,6 @@ Full ``Table`` documentation
     :maxdepth: 1
 
     table
-
-
-Installation Notes
-==================
-
-Make sure you have `pip` installed and run::
-
-    pip install prob140
-
-
-To update to the most recent version, run::
-
-    pip install prob140 --upgrade
-
-You must also have an updated installation of Berkeley's `datascience` library::
-
-    pip install datascience
 
 
 Indices and tables

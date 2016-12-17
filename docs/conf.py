@@ -71,6 +71,8 @@ source_suffix = '.rst'
 # matplotlib in each ipython directive block
 ipython_mplbackend = None
 ipython_execlines = [
+  'from datascience import *',
+  'from prob140 import *',
   'import matplotlib',
   'matplotlib.use("Agg", warn=False)',
   'import numpy as np',

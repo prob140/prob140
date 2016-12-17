@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>datascience Tables &#8212; prob140 0.1.3 documentation</title>
+    <title>datascience Tables &#8212; prob140 0.1.4.2 documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,10 +14,11 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.3',
+        VERSION:     '0.1.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -26,7 +27,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="prob140 0.1.3 documentation" href="index.html" />
     <link rel="prev" title="Joint Distributions (prob140.JointDistribution)" href="multi.html" /> 
   </head>
   <body role="document">
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="multi.html" title="Joint Distributions (prob140.JointDistribution)"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">prob140 0.1.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">prob140 0.1.4.2 documentation</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -53,7 +53,7 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/table.txt"
+      <li><a href="_sources/table.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -948,59 +948,6 @@ for additional arguments that can be passed into vargs.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.plot_dist">
-<code class="descclassname">Table.</code><code class="descname">plot_dist</code><span class="sig-paren">(</span><em>width=1</em>, <em>mask=[]</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.plot_dist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots the histogram for a Distribution</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>width (optional)</strong> : float</p>
-<blockquote>
-<div><p>Width of the intervals (default: 1)</p>
-</div></blockquote>
-<p><strong>mask (optional)</strong> : boolean array or list of boolean arrays</p>
-<blockquote>
-<div><p>Colors the parts of the histogram associated with each mask (
-default: no mask)</p>
-</div></blockquote>
-<p><strong>vargs</strong></p>
-<blockquote class="last">
-<div><p>See pyplot&#8217;s additional optional arguments</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="prob140.Table.plot_event">
-<code class="descclassname">Table.</code><code class="descname">plot_event</code><span class="sig-paren">(</span><em>event</em>, <em>width=1</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.plot_event" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>event</strong> : List or List of lists</p>
-<blockquote>
-<div><p>Each list represents an event which will be colored differently
-by the plot</p>
-</div></blockquote>
-<p><strong>width (optional)</strong> : float</p>
-<blockquote>
-<div><p>Width of the intervals. Actually not implemented right now!</p>
-</div></blockquote>
-<p><strong>vargs</strong></p>
-<blockquote class="last">
-<div><p>See pyplot&#8217;s additional optional arguments</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="prob140.Table.prob_event">
 <code class="descclassname">Table.</code><code class="descname">prob_event</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.prob_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds the probability of an event x</p>
@@ -1763,15 +1710,12 @@ new column takes on values in <code class="docutils literal"><span class="pre">v
 <dt>Raises:</dt>
 <dd><dl class="first last docutils">
 <dt><code class="docutils literal"><span class="pre">ValueError</span></code>: If</dt>
-<dd><ul class="first last">
-<li><p class="first"><code class="docutils literal"><span class="pre">label</span></code> is not a valid column name</p>
-</li>
-<li><p class="first">if <code class="docutils literal"><span class="pre">label</span></code> is not of type (str)</p>
-</li>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">label</span></code> is not a valid column name</li>
+<li>if <code class="docutils literal"><span class="pre">label</span></code> is not of type (str)</li>
 <li><dl class="first docutils">
 <dt><code class="docutils literal"><span class="pre">values</span></code> is a list/array that does not have the same</dt>
-<dd><p class="first last">length as the number of rows in the table.</p>
-</dd>
+<dd>length as the number of rows in the table.</dd>
 </dl>
 </li>
 </ul>
@@ -1828,34 +1772,30 @@ every row of corresponding column takes on that value.</dd>
 <dt>Raises:</dt>
 <dd><dl class="first last docutils">
 <dt><code class="docutils literal"><span class="pre">ValueError</span></code>: If</dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li><dl class="first docutils">
 <dt>any label in <code class="docutils literal"><span class="pre">labels_and_values</span></code> is not a valid column</dt>
-<dd><p class="first last">name, i.e if label is not of type (str).</p>
-</dd>
+<dd>name, i.e if label is not of type (str).</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>if any value in <code class="docutils literal"><span class="pre">labels_and_values</span></code> is a list/array and</dt>
-<dd><p class="first last">does not have the same length as the number of rows in the
-table.</p>
-</dd>
+<dd>does not have the same length as the number of rows in the
+table.</dd>
 </dl>
 </li>
 </ul>
 </dd>
 <dt><code class="docutils literal"><span class="pre">AssertionError</span></code>:</dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li><dl class="first docutils">
 <dt>&#8216;incorrect columns format&#8217;, if passed more than one sequence</dt>
-<dd><p class="first last">(iterables) for  <code class="docutils literal"><span class="pre">labels_and_values</span></code>.</p>
-</dd>
+<dd>(iterables) for  <code class="docutils literal"><span class="pre">labels_and_values</span></code>.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>&#8216;even length sequence required&#8217; if missing a pair in</dt>
-<dd><p class="first last">label-value pairs.</p>
-</dd>
+<dd>label-value pairs.</dd>
 </dl>
 </li>
 </ul>
@@ -1959,12 +1899,12 @@ when passed only one label-value pair.</dd>
         <li class="right" >
           <a href="multi.html" title="Joint Distributions (prob140.JointDistribution)"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">prob140 0.1.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">prob140 0.1.4.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Jason Zhang, Dibya Ghosh.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>

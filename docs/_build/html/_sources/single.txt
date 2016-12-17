@@ -43,10 +43,8 @@ Plotting
 .. autosummary::
     :toctree: _autosummary
 
-    Table.plot_dist
-    Table.plot_event
-    plot
-
+    Plot
+    Plots
 
 
 
