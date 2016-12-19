@@ -78,6 +78,8 @@ ipython_execlines = [
   'import numpy as np',
   'import matplotlib.pyplot as plt',
   'plt.style.use("fivethirtyeight")',
+  'from matplotlib import rcParams',
+  "rcParams.update({'figure.autolayout': True})"
 ]
 
 

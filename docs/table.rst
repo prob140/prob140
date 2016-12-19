@@ -5,4 +5,5 @@
 
 .. autoclass:: Table
     :members:
+    :noindex:
 

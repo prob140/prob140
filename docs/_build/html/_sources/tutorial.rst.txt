@@ -75,6 +75,8 @@ density function, such as the binomial distribution
     binomial = Table().domain(np.arange(11)).probability_function(pmf)
     print(binomial)
 
+
+
 Events
 ------
 
@@ -84,4 +86,11 @@ Utilities
 
 Plotting
 --------
+
+.. ipython:: python
+
+    @savefig binomial.png
+    Plot(binomial)
+
+
 

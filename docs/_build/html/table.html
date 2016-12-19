@@ -78,25 +78,25 @@
   <div class="section" id="datascience-tables">
 <h1><code class="docutils literal"><span class="pre">datascience</span></code> Tables<a class="headerlink" href="#datascience-tables" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="prob140.Table">
-<em class="property">class </em><code class="descclassname">prob140.</code><code class="descname">Table</code><span class="sig-paren">(</span><em>labels=None</em>, <em>_deprecated=None</em>, <em>*</em>, <em>formatter=&lt;datascience.formats.Formatter object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">class </em><code class="descclassname">prob140.</code><code class="descname">Table</code><span class="sig-paren">(</span><em>labels=None</em>, <em>_deprecated=None</em>, <em>*</em>, <em>formatter=&lt;datascience.formats.Formatter object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>A sequence of string-labeled columns.</p>
 <dl class="class">
-<dt id="prob140.Table.Rows">
-<em class="property">class </em><code class="descname">Rows</code><span class="sig-paren">(</span><em>table</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.Rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.Rows" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">class </em><code class="descname">Rows</code><span class="sig-paren">(</span><em>table</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.Rows"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>An iterable view over the rows in a table.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.append">
-<code class="descclassname">Table.</code><code class="descname">append</code><span class="sig-paren">(</span><em>row_or_table</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.append" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">append</code><span class="sig-paren">(</span><em>row_or_table</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.append"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Append a row or all rows of a table. An appended table must have all
 columns of self.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.append_column">
-<code class="descclassname">Table.</code><code class="descname">append_column</code><span class="sig-paren">(</span><em>label</em>, <em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.append_column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.append_column" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">append_column</code><span class="sig-paren">(</span><em>label</em>, <em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.append_column"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Appends a column to the table or replaces a column.</p>
 <dl class="docutils">
 <dt><code class="docutils literal"><span class="pre">__setitem__</span></code> is aliased to this method:</dt>
@@ -164,8 +164,8 @@ as the number of rows in the table.</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.apply">
-<code class="descclassname">Table.</code><code class="descname">apply</code><span class="sig-paren">(</span><em>fn</em>, <em>column_label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.apply" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">apply</code><span class="sig-paren">(</span><em>fn</em>, <em>column_label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.apply"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Returns an array where <code class="docutils literal"><span class="pre">fn</span></code> is applied to each set of elements
 by row from the specified columns in <code class="docutils literal"><span class="pre">column_label</span></code>. If no
 column_label is specified, then each row is passed to fn.</p>
@@ -213,20 +213,20 @@ specified by <code class="docutils literal"><span class="pre">column_label</span
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.as_html">
-<code class="descclassname">Table.</code><code class="descname">as_html</code><span class="sig-paren">(</span><em>max_rows=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.as_html"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.as_html" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">as_html</code><span class="sig-paren">(</span><em>max_rows=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.as_html"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Format table as HTML.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.as_text">
-<code class="descclassname">Table.</code><code class="descname">as_text</code><span class="sig-paren">(</span><em>max_rows=0</em>, <em>sep=' | '</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.as_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.as_text" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">as_text</code><span class="sig-paren">(</span><em>max_rows=0</em>, <em>sep=' | '</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.as_text"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Format table as text.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.bar">
-<code class="descclassname">Table.</code><code class="descname">bar</code><span class="sig-paren">(</span><em>column_for_categories=None</em>, <em>select=None</em>, <em>overlay=True</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.bar" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">bar</code><span class="sig-paren">(</span><em>column_for_categories=None</em>, <em>select=None</em>, <em>overlay=True</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.bar"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Plot bar charts for the table.</p>
 <p>Each plot is labeled using the values in <cite>column_for_categories</cite> and
 one plot is produced for every other column (or for the columns
@@ -248,8 +248,8 @@ for additional arguments that can be passed into vargs.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.barh">
-<code class="descclassname">Table.</code><code class="descname">barh</code><span class="sig-paren">(</span><em>column_for_categories=None</em>, <em>select=None</em>, <em>overlay=True</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.barh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.barh" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">barh</code><span class="sig-paren">(</span><em>column_for_categories=None</em>, <em>select=None</em>, <em>overlay=True</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.barh"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Plot horizontal bar charts for the table.</p>
 <p>Each plot is labeled using the values in <cite>column_for_categories</cite> and
 one plot is produced for every other column (or for the columns
@@ -289,8 +289,8 @@ for additional arguments that can be passed into vargs.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.bin">
-<code class="descclassname">Table.</code><code class="descname">bin</code><span class="sig-paren">(</span><em>select=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.bin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.bin" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">bin</code><span class="sig-paren">(</span><em>select=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.bin"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Group values by bin and compute counts per bin by column.</p>
 <p>By default, bins are chosen to contain all values in all columns. The
 following named arguments from numpy.histogram can be applied to
@@ -322,8 +322,8 @@ width are chosen; it is not a probability mass function.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.boxplot">
-<code class="descclassname">Table.</code><code class="descname">boxplot</code><span class="sig-paren">(</span><em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.boxplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.boxplot" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">boxplot</code><span class="sig-paren">(</span><em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.boxplot"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Plots a boxplot for the table.</p>
 <p>Every column must be numerical.</p>
 <dl class="docutils">
@@ -362,8 +362,8 @@ for additional arguments that can be passed into vargs. These include
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.column">
-<code class="descclassname">Table.</code><code class="descname">column</code><span class="sig-paren">(</span><em>index_or_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.column" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">column</code><span class="sig-paren">(</span><em>index_or_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.column"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return the values of a column as an array.</p>
 <p>table.column(label) is equivalent to table[label].</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
@@ -388,26 +388,26 @@ for additional arguments that can be passed into vargs. These include
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.column_index">
-<code class="descclassname">Table.</code><code class="descname">column_index</code><span class="sig-paren">(</span><em>column_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.column_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.column_index" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">column_index</code><span class="sig-paren">(</span><em>column_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.column_index"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return the index of a column.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="prob140.Table.column_labels">
-<code class="descclassname">Table.</code><code class="descname">column_labels</code><a class="headerlink" href="#prob140.Table.column_labels" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">column_labels</code></dt>
 <dd><p>Return a tuple of column labels. [Deprecated]</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.copy">
-<code class="descclassname">Table.</code><code class="descname">copy</code><span class="sig-paren">(</span><em>*</em>, <em>shallow=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.copy" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">copy</code><span class="sig-paren">(</span><em>*</em>, <em>shallow=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.copy"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a copy of a Table.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.drop">
-<code class="descclassname">Table.</code><code class="descname">drop</code><span class="sig-paren">(</span><em>*column_label_or_labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.drop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.drop" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">drop</code><span class="sig-paren">(</span><em>*column_label_or_labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.drop"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a Table with only columns other than selected label or
 labels.</p>
 <dl class="docutils">
@@ -464,8 +464,8 @@ valid column index.</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="prob140.Table.empty">
-<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">empty</code><span class="sig-paren">(</span><em>labels=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.empty" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">empty</code><span class="sig-paren">(</span><em>labels=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.empty"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Create an empty table. Column labels are optional. [Deprecated]</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -482,8 +482,8 @@ If a list, each element is a column label in a table with
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.event">
-<code class="descclassname">Table.</code><code class="descname">event</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.event" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">event</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span></dt>
 <dd><p>Shows the probability that distribution takes on value x or range of
 values x.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -521,8 +521,8 @@ subset of the domain</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.exclude">
-<code class="descclassname">Table.</code><code class="descname">exclude</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.exclude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.exclude" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">exclude</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.exclude"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a new Table without a sequence of rows excluded by number.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -590,8 +590,8 @@ to be excluded.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.expected_value">
-<code class="descclassname">Table.</code><code class="descname">expected_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.expected_value" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">expected_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Finds expected value of distribution</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -608,38 +608,38 @@ to be excluded.</dd>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="prob140.Table.from_array">
-<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">from_array</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.from_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.from_array" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">from_array</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.from_array"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Convert a structured NumPy array into a Table.</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="prob140.Table.from_columns_dict">
-<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">from_columns_dict</code><span class="sig-paren">(</span><em>columns</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.from_columns_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.from_columns_dict" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">from_columns_dict</code><span class="sig-paren">(</span><em>columns</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.from_columns_dict"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Create a table from a mapping of column labels to column values. [Deprecated]</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="prob140.Table.from_df">
-<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">from_df</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.from_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.from_df" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">from_df</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.from_df"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Convert a Pandas DataFrame into a Table.</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="prob140.Table.from_records">
-<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">from_records</code><span class="sig-paren">(</span><em>records</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.from_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.from_records" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">from_records</code><span class="sig-paren">(</span><em>records</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.from_records"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Create a table from a sequence of records (dicts with fixed keys).</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="prob140.Table.from_rows">
-<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">from_rows</code><span class="sig-paren">(</span><em>rows</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.from_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.from_rows" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">from_rows</code><span class="sig-paren">(</span><em>rows</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.from_rows"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Create a table from a sequence of rows (fixed-length sequences). [Deprecated]</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.group">
-<code class="descclassname">Table.</code><code class="descname">group</code><span class="sig-paren">(</span><em>column_or_label</em>, <em>collect=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.group" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">group</code><span class="sig-paren">(</span><em>column_or_label</em>, <em>collect=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.group"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Group rows by unique values in a column; count or aggregate others.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -690,8 +690,8 @@ table.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.groups">
-<code class="descclassname">Table.</code><code class="descname">groups</code><span class="sig-paren">(</span><em>labels</em>, <em>collect=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.groups" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">groups</code><span class="sig-paren">(</span><em>labels</em>, <em>collect=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.groups"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Group rows by multiple columns, count or aggregate others.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -740,8 +740,8 @@ table.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.hist">
-<code class="descclassname">Table.</code><code class="descname">hist</code><span class="sig-paren">(</span><em>select=None</em>, <em>overlay=True</em>, <em>bins=None</em>, <em>counts=None</em>, <em>unit=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.hist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.hist" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">hist</code><span class="sig-paren">(</span><em>select=None</em>, <em>overlay=True</em>, <em>bins=None</em>, <em>counts=None</em>, <em>unit=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.hist"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Plots one histogram for each column in the table.</p>
 <p>Every column must be numerical.</p>
 <dl class="docutils">
@@ -788,15 +788,15 @@ to name a few.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.index_by">
-<code class="descclassname">Table.</code><code class="descname">index_by</code><span class="sig-paren">(</span><em>column_or_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.index_by"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.index_by" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">index_by</code><span class="sig-paren">(</span><em>column_or_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.index_by"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a dict keyed by values in a column that contains lists of
 rows corresponding to each value.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.join">
-<code class="descclassname">Table.</code><code class="descname">join</code><span class="sig-paren">(</span><em>column_label</em>, <em>other</em>, <em>other_label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.join" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">join</code><span class="sig-paren">(</span><em>column_label</em>, <em>other</em>, <em>other_label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.join"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Generate a table with the columns of self and other, containing rows
 for all values of a column that appear in both tables.
 If a join value appears more than once in self, each row will be used,
@@ -805,26 +805,26 @@ but in the other table, only the first of each will be used.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="prob140.Table.labels">
-<code class="descclassname">Table.</code><code class="descname">labels</code><a class="headerlink" href="#prob140.Table.labels" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">labels</code></dt>
 <dd><p>Return a tuple of column labels.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.move_to_end">
-<code class="descclassname">Table.</code><code class="descname">move_to_end</code><span class="sig-paren">(</span><em>column_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.move_to_end"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.move_to_end" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">move_to_end</code><span class="sig-paren">(</span><em>column_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.move_to_end"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Move a column to the last in order.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.move_to_start">
-<code class="descclassname">Table.</code><code class="descname">move_to_start</code><span class="sig-paren">(</span><em>column_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.move_to_start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.move_to_start" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">move_to_start</code><span class="sig-paren">(</span><em>column_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.move_to_start"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Move a column to the first in order.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.normalized">
-<code class="descclassname">Table.</code><code class="descname">normalized</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.normalized" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">normalized</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Returns the distribution by making the proabilities sum to 1</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -841,20 +841,20 @@ but in the other table, only the first of each will be used.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="prob140.Table.num_columns">
-<code class="descclassname">Table.</code><code class="descname">num_columns</code><a class="headerlink" href="#prob140.Table.num_columns" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">num_columns</code></dt>
 <dd><p>Number of columns.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="prob140.Table.num_rows">
-<code class="descclassname">Table.</code><code class="descname">num_rows</code><a class="headerlink" href="#prob140.Table.num_rows" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">num_rows</code></dt>
 <dd><p>Number of rows.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.percentile">
-<code class="descclassname">Table.</code><code class="descname">percentile</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.percentile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.percentile" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">percentile</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.percentile"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Returns a new table with one row containing the pth percentile for
 each column.</p>
 <p>Assumes that each column only contains one type of value.</p>
@@ -879,8 +879,8 @@ large as the p% of numbers in the column.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.pivot">
-<code class="descclassname">Table.</code><code class="descname">pivot</code><span class="sig-paren">(</span><em>columns</em>, <em>rows</em>, <em>values=None</em>, <em>collect=None</em>, <em>zero=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.pivot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.pivot" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">pivot</code><span class="sig-paren">(</span><em>columns</em>, <em>rows</em>, <em>values=None</em>, <em>collect=None</em>, <em>zero=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.pivot"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Generate a table with a column for rows (or a column for each row
 in rows list) and a column for each unique value in columns. Each row
 counts/aggregates the values that match both row and column.</p>
@@ -892,8 +892,8 @@ zero &#8211; zero value for non-existent row-column combinations</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.pivot_bin">
-<code class="descclassname">Table.</code><code class="descname">pivot_bin</code><span class="sig-paren">(</span><em>pivot_columns</em>, <em>value_column</em>, <em>bins=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.pivot_bin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.pivot_bin" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">pivot_bin</code><span class="sig-paren">(</span><em>pivot_columns</em>, <em>value_column</em>, <em>bins=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.pivot_bin"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Form a table with columns formed by the unique tuples in pivot_columns
 containing counts per bin of the values associated with each tuple in the value_column.</p>
 <p>By default, bins are chosen to contain all values in the value_column. The
@@ -919,14 +919,14 @@ the integral over the range is 1.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.pivot_hist">
-<code class="descclassname">Table.</code><code class="descname">pivot_hist</code><span class="sig-paren">(</span><em>pivot_column_label</em>, <em>value_column_label</em>, <em>overlay=True</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.pivot_hist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.pivot_hist" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">pivot_hist</code><span class="sig-paren">(</span><em>pivot_column_label</em>, <em>value_column_label</em>, <em>overlay=True</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.pivot_hist"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Draw histograms of each category in a column.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.plot">
-<code class="descclassname">Table.</code><code class="descname">plot</code><span class="sig-paren">(</span><em>column_for_xticks=None</em>, <em>select=None</em>, <em>overlay=True</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.plot" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">plot</code><span class="sig-paren">(</span><em>column_for_xticks=None</em>, <em>select=None</em>, <em>overlay=True</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.plot"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Plot line charts for the table.</p>
 <p>Each plot is labeled using the values in <cite>column_for_xticks</cite> and one
 plot is produced for every other column (or for the columns designated
@@ -948,8 +948,8 @@ for additional arguments that can be passed into vargs.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.prob_event">
-<code class="descclassname">Table.</code><code class="descname">prob_event</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.prob_event" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">prob_event</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span></dt>
 <dd><p>Finds the probability of an event x</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -987,8 +987,8 @@ subset of the domain</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.probability">
-<code class="descclassname">Table.</code><code class="descname">probability</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.probability" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">probability</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span></dt>
 <dd><p>Assigns probabilities to domain values.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1011,8 +1011,8 @@ subset of the domain</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.probability_function">
-<code class="descclassname">Table.</code><code class="descname">probability_function</code><span class="sig-paren">(</span><em>pfunc</em><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.probability_function" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">probability_function</code><span class="sig-paren">(</span><em>pfunc</em><span class="sig-paren">)</span></dt>
 <dd><p>Assigns probabilities to a FiniteDistribution via a probability
 function. The probability function is applied to each value of the
 domain</p>
@@ -1037,8 +1037,8 @@ domain</p>
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="prob140.Table.read_table">
-<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">read_table</code><span class="sig-paren">(</span><em>filepath_or_buffer</em>, <em>*args</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.read_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.read_table" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">read_table</code><span class="sig-paren">(</span><em>filepath_or_buffer</em>, <em>*args</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.read_table"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Read a table from a file or web address.</p>
 <dl class="docutils">
 <dt>filepath_or_buffer &#8211; string or file handle / StringIO; The string</dt>
@@ -1048,8 +1048,8 @@ ftp, s3, and file.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.relabel">
-<code class="descclassname">Table.</code><code class="descname">relabel</code><span class="sig-paren">(</span><em>column_label</em>, <em>new_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.relabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.relabel" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">relabel</code><span class="sig-paren">(</span><em>column_label</em>, <em>new_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.relabel"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Change the labels of columns specified by <code class="docutils literal"><span class="pre">column_label</span></code> to
 labels in <code class="docutils literal"><span class="pre">new_label</span></code>.</p>
 <dl class="docutils">
@@ -1096,8 +1096,8 @@ labels in <code class="docutils literal"><span class="pre">new_label</span></cod
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.relabeled">
-<code class="descclassname">Table.</code><code class="descname">relabeled</code><span class="sig-paren">(</span><em>label</em>, <em>new_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.relabeled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.relabeled" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">relabeled</code><span class="sig-paren">(</span><em>label</em>, <em>new_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.relabeled"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Returns a table with label changed to new_label.</p>
 <p><code class="docutils literal"><span class="pre">label</span></code> and <code class="docutils literal"><span class="pre">new_label</span></code> may be single values or lists
 specifying column labels to be changed and their new corresponding
@@ -1123,20 +1123,20 @@ labels.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.row">
-<code class="descclassname">Table.</code><code class="descname">row</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.row" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">row</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.row"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a row.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="prob140.Table.rows">
-<code class="descclassname">Table.</code><code class="descname">rows</code><a class="headerlink" href="#prob140.Table.rows" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">rows</code></dt>
 <dd><p>Return a view of all rows.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.sample">
-<code class="descclassname">Table.</code><code class="descname">sample</code><span class="sig-paren">(</span><em>k=None</em>, <em>with_replacement=True</em>, <em>weights=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.sample" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">sample</code><span class="sig-paren">(</span><em>k=None</em>, <em>with_replacement=True</em>, <em>weights=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.sample"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Returns a new table where k rows are randomly sampled from the
 original table.</p>
 <dl class="docutils">
@@ -1193,8 +1193,8 @@ sampled according the the probability distribution in
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.sample_from_distribution">
-<code class="descclassname">Table.</code><code class="descname">sample_from_distribution</code><span class="sig-paren">(</span><em>distribution</em>, <em>k</em>, <em>proportions=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.sample_from_distribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.sample_from_distribution" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">sample_from_distribution</code><span class="sig-paren">(</span><em>distribution</em>, <em>k</em>, <em>proportions=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.sample_from_distribution"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Returns a new table with the same number of rows and a new column.
 The values in the distribution column are define a multinomial.
 They are replaced by sample counts/proportions in the output.</p>
@@ -1218,8 +1218,8 @@ They are replaced by sample counts/proportions in the output.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.scatter">
-<code class="descclassname">Table.</code><code class="descname">scatter</code><span class="sig-paren">(</span><em>column_for_x</em>, <em>select=None</em>, <em>overlay=True</em>, <em>fit_line=False</em>, <em>colors=None</em>, <em>labels=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.scatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.scatter" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">scatter</code><span class="sig-paren">(</span><em>column_for_x</em>, <em>select=None</em>, <em>overlay=True</em>, <em>fit_line=False</em>, <em>colors=None</em>, <em>labels=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.scatter"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Creates scatterplots, optionally adding a line of best fit.</p>
 <p>Each plot uses the values in <cite>column_for_x</cite> for horizontal positions.
 One plot is produced for every other column as y (or for the columns
@@ -1274,8 +1274,8 @@ include: <cite>marker</cite> and <cite>norm</cite>, to name a couple.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.sd">
-<code class="descclassname">Table.</code><code class="descname">sd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.sd" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">sd</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Finds standard deviation of FiniteDistribution</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1292,8 +1292,8 @@ include: <cite>marker</cite> and <cite>norm</cite>, to name a couple.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.select">
-<code class="descclassname">Table.</code><code class="descname">select</code><span class="sig-paren">(</span><em>*column_label_or_labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.select" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">select</code><span class="sig-paren">(</span><em>*column_label_or_labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.select"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Returns a new <code class="docutils literal"><span class="pre">Table</span></code> with only the columns in
 <code class="docutils literal"><span class="pre">column_label_or_labels</span></code>.</p>
 <dl class="docutils">
@@ -1346,20 +1346,20 @@ table.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.set_format">
-<code class="descclassname">Table.</code><code class="descname">set_format</code><span class="sig-paren">(</span><em>column_label_or_labels</em>, <em>formatter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.set_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.set_format" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">set_format</code><span class="sig-paren">(</span><em>column_label_or_labels</em>, <em>formatter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.set_format"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Set the format of a column.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.show">
-<code class="descclassname">Table.</code><code class="descname">show</code><span class="sig-paren">(</span><em>max_rows=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.show" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">show</code><span class="sig-paren">(</span><em>max_rows=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.show"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Display the table.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.sort">
-<code class="descclassname">Table.</code><code class="descname">sort</code><span class="sig-paren">(</span><em>column_or_label</em>, <em>descending=False</em>, <em>distinct=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.sort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.sort" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">sort</code><span class="sig-paren">(</span><em>column_or_label</em>, <em>descending=False</em>, <em>distinct=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.sort"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a Table of rows sorted according to the values in a column.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -1424,8 +1424,8 @@ in <code class="docutils literal"><span class="pre">column_or_label</span></code
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.split">
-<code class="descclassname">Table.</code><code class="descname">split</code><span class="sig-paren">(</span><em>k</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.split" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">split</code><span class="sig-paren">(</span><em>k</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.split"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Returns a tuple of two tables where the first table contains
 <code class="docutils literal"><span class="pre">k</span></code> rows randomly sampled and the second contains the remaining rows.</p>
 <dl class="docutils">
@@ -1463,21 +1463,21 @@ in <code class="docutils literal"><span class="pre">column_or_label</span></code
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.stack">
-<code class="descclassname">Table.</code><code class="descname">stack</code><span class="sig-paren">(</span><em>key</em>, <em>labels=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.stack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.stack" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">stack</code><span class="sig-paren">(</span><em>key</em>, <em>labels=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.stack"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Takes k original columns and returns two columns, with col. 1 of
 all column names and col. 2 of all associated data.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.stats">
-<code class="descclassname">Table.</code><code class="descname">stats</code><span class="sig-paren">(</span><em>ops=(&lt;built-in function min&gt;</em>, <em>&lt;built-in function max&gt;</em>, <em>&lt;function median&gt;</em>, <em>&lt;built-in function sum&gt;)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.stats" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">stats</code><span class="sig-paren">(</span><em>ops=(&lt;built-in function min&gt;</em>, <em>&lt;built-in function max&gt;</em>, <em>&lt;function median&gt;</em>, <em>&lt;built-in function sum&gt;)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.stats"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Compute statistics for each column and place them in a table.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.take">
-<code class="descclassname">Table.</code><code class="descname">take</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.take"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.take" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">take</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.take"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a new Table of a sequence of rows taken by number.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -1541,14 +1541,14 @@ be selected.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.to_array">
-<code class="descclassname">Table.</code><code class="descname">to_array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.to_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.to_array" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">to_array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.to_array"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Convert the table to a structured NumPy array.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.to_csv">
-<code class="descclassname">Table.</code><code class="descname">to_csv</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.to_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.to_csv" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">to_csv</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.to_csv"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Creates a CSV file with the provided filename.</p>
 <p>The CSV is created in such a way that if we run
 <code class="docutils literal"><span class="pre">table.to_csv('my_table.csv')</span></code> we can recreate the same table with
@@ -1575,14 +1575,14 @@ be selected.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.to_df">
-<code class="descclassname">Table.</code><code class="descname">to_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.to_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.to_df" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">to_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.to_df"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Convert the table to a Pandas DataFrame.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="prob140.Table.values">
-<code class="descclassname">Table.</code><code class="descname">values</code><a class="headerlink" href="#prob140.Table.values" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">values</code></dt>
 <dd><p>Return data in <cite>self</cite> as a numpy array.</p>
 <p>If all columns are the same dtype, the resulting array
 will have this dtype. If there are &gt;1 dtypes in columns,
@@ -1590,8 +1590,8 @@ then the resulting array will have dtype <cite>object</cite>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.variance">
-<code class="descclassname">Table.</code><code class="descname">variance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.variance" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">variance</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Finds variance of distribution</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1608,8 +1608,8 @@ then the resulting array will have dtype <cite>object</cite>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.where">
-<code class="descclassname">Table.</code><code class="descname">where</code><span class="sig-paren">(</span><em>column_or_label</em>, <em>value_or_predicate=None</em>, <em>other=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.where"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.where" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">where</code><span class="sig-paren">(</span><em>column_or_label</em>, <em>value_or_predicate=None</em>, <em>other=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.where"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a new <code class="docutils literal"><span class="pre">Table</span></code> containing rows where <code class="docutils literal"><span class="pre">value_or_predicate</span></code>
 returns True for values in <code class="docutils literal"><span class="pre">column_or_label</span></code>.</p>
 <dl class="docutils">
@@ -1694,8 +1694,8 @@ columns.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.with_column">
-<code class="descclassname">Table.</code><code class="descname">with_column</code><span class="sig-paren">(</span><em>label</em>, <em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.with_column"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.with_column" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">with_column</code><span class="sig-paren">(</span><em>label</em>, <em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.with_column"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a new table with an additional or replaced column.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -1756,8 +1756,8 @@ new column takes on values in <code class="docutils literal"><span class="pre">v
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.with_columns">
-<code class="descclassname">Table.</code><code class="descname">with_columns</code><span class="sig-paren">(</span><em>*labels_and_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.with_columns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.with_columns" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">with_columns</code><span class="sig-paren">(</span><em>*labels_and_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.with_columns"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a table with additional or replaced columns.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -1838,8 +1838,8 @@ when passed only one label-value pair.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.with_row">
-<code class="descclassname">Table.</code><code class="descname">with_row</code><span class="sig-paren">(</span><em>row</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.with_row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.with_row" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">with_row</code><span class="sig-paren">(</span><em>row</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.with_row"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a table with an additional row.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -1857,8 +1857,8 @@ when passed only one label-value pair.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="prob140.Table.with_rows">
-<code class="descclassname">Table.</code><code class="descname">with_rows</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.with_rows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Table.with_rows" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descclassname">Table.</code><code class="descname">with_rows</code><span class="sig-paren">(</span><em>rows</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.with_rows"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a table with additional rows.</p>
 <dl class="docutils">
 <dt>Args:</dt>

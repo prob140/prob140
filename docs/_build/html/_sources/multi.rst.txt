@@ -7,6 +7,3 @@ Joint Distributions (``prob140.JointDistribution``)
 .. toctree::
     :maxdepth: 1
 .. automodule:: prob140
-
-.. autoclass:: JointDistribution
-    :members:
