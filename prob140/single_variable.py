@@ -393,13 +393,14 @@ def sd(self):
 chart_colors = (
     rgb("darkblue"),
     rgb("gold"),
-    rgb("lime"),
-    rgb("red"),
-    rgb("darkviolet"),
+    (106/256, 166/256, 53/256), # vivid green
+    (234/256, 77/256, 108/256), # rose garden
     rgb("brown"),
-    rgb("darkgreen"),
+    (240/256, 127/256, 80/256), # vivid orange
+    (53/256, 148/256, 216/256), # vivid blue
+    (122/256, 55/256, 139/256), # purple
     rgb("black"),
-    rgb("cyan"),
+    rgb("red"),
 )
 
 
