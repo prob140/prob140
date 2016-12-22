@@ -256,6 +256,8 @@ def Plots(*labels_and_dists, width=1, **vargs):
     plt.xlim((min(domain) - mindistance - width / 2, max(domain) + mindistance +
               width / 2))
 
+    plt.xlabel("Value")
+
 
 def single_domain(self, values):
     """

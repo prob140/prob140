@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.single_variable &mdash; prob140 0.1.4.2 documentation</title>
+    <title>prob140.single_variable &mdash; prob140 0.1.4.3 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.4.2',
+        VERSION:     '0.1.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" >
     <link rel="search" title="Search" href="../../search.html" >
-    <link rel="top" title="prob140 0.1.4.2 documentation" href="../../index.html" >
+    <link rel="top" title="prob140 0.1.4.3 documentation" href="../../index.html" >
     <link rel="up" title="Module code" href="../index.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="../../index.html">prob140 0.1.4.2 documentation</a></li>
+        <li class="active"><a href="../../index.html">prob140 0.1.4.3 documentation</a></li>
 	
           <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -103,7 +103,7 @@
     <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;Probabilities must be non-negative&quot;</span>
 
 
-<div class="viewcode-block" id="prob_event"><a class="viewcode-back" href="../../_autosummary/prob140.single_variable.prob_event.html#prob140.prob_event">[docs]</a><span class="k">def</span> <span class="nf">prob_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">prob_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Finds the probability of an event x</span>
 
@@ -121,7 +121,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 
-<span class="sd">    &gt;&gt;&gt; dist = FiniteDistribution().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])</span>
+<span class="sd">    &gt;&gt;&gt; dist = Table().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])</span>
 <span class="sd">    &gt;&gt;&gt; dist.prob_event(2)</span>
 <span class="sd">    0.25</span>
 
@@ -138,10 +138,10 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">domain</span> <span class="o">==</span> <span class="n">x</span><span class="p">)])</span></div>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">domain</span> <span class="o">==</span> <span class="n">x</span><span class="p">)])</span>
 
 
-<div class="viewcode-block" id="event"><a class="viewcode-back" href="../../_autosummary/prob140.single_variable.event.html#prob140.event">[docs]</a><span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Shows the probability that distribution takes on value x or range of</span>
 <span class="sd">    values x.</span>
@@ -154,13 +154,13 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    FiniteDistribution</span>
+<span class="sd">    Table</span>
 <span class="sd">        Shows the probabilities of each value in the event</span>
 
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; dist = FiniteDistribution().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])</span>
+<span class="sd">    &gt;&gt;&gt; dist = Table().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])</span>
 <span class="sd">    &gt;&gt;&gt; dist.event(2)</span>
 <span class="sd">    Domain | Probability</span>
 <span class="sd">    2      | 0.25</span>
@@ -175,15 +175,17 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>    
     <span class="n">probabilities</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;Outcome&#39;</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span><span class="n">probabilities</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;Outcome&#39;</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span><span class="n">probabilities</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Plot"><a class="viewcode-back" href="../../_autosummary/prob140.Plot.html#prob140.Plot">[docs]</a><span class="k">def</span> <span class="nf">Plot</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[],</span> <span class="n">event</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plots the histogram for a Distribution</span>
+<span class="sd">    Plots the histogram for a single distribution</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
+<span class="sd">    dist : table</span>
+<span class="sd">        A 2-column table representing a probability distribution</span>
 <span class="sd">    width (optional) : float</span>
 <span class="sd">        Width of the intervals (default: 1)</span>
 <span class="sd">    mask (optional) : boolean array or list of boolean arrays</span>
@@ -191,7 +193,6 @@
 <span class="sd">        default: no mask)</span>
 <span class="sd">    vargs</span>
 <span class="sd">        See pyplot&#39;s additional optional arguments</span>
-
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">options</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">default_options</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -274,17 +275,25 @@
 
 <div class="viewcode-block" id="Plots"><a class="viewcode-back" href="../../_autosummary/prob140.Plots.html#prob140.Plots">[docs]</a><span class="k">def</span> <span class="nf">Plots</span><span class="p">(</span><span class="o">*</span><span class="n">labels_and_dists</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Class method for overlay multiple distributions</span>
+<span class="sd">    Overlays histograms for multiply probability distributions together.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    labels_and_dists : Even number of alternations between Strings and</span>
-<span class="sd">    FiniteDistributions</span>
+<span class="sd">    Tables</span>
 <span class="sd">        Each distribution must have a label associated with it</span>
 <span class="sd">    width (optional) : float</span>
 <span class="sd">        Width of the intervals (default: 1)</span>
 <span class="sd">    vargs</span>
 <span class="sd">        See pyplot&#39;s documentation</span>
+
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; dist1 = Table().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])</span>
+<span class="sd">    &gt;&gt;&gt; dist2 = Table().domain([3,4,5,6]).probability([1/2,1/8,1/8,1/4])</span>
+<span class="sd">    &gt;&gt;&gt; Plots(&quot;Distribution1&quot;, dist1,&quot;Distribution2&quot;,dist2)</span>
+<span class="sd">    &lt;histogram with dist1 and dist2&gt;</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># assert len(labels_and_dists) % 2 == 0, &#39;Even length sequence required&#39;</span>
@@ -334,7 +343,7 @@
 
 <span class="k">def</span> <span class="nf">single_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Assigns domain values to a FiniteDistribution</span>
+<span class="sd">    Assigns domain values to a single-variable distribution</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -343,8 +352,17 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    FiniteDistibution</span>
-<span class="sd">        FiniteDistribution with that domain</span>
+<span class="sd">    Table</span>
+<span class="sd">        Table with those domain values in its first column</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; Table().domain([1,2,3])</span>
+<span class="sd">    Value</span>
+<span class="sd">    1</span>
+<span class="sd">    2</span>
+<span class="sd">    3</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
     <span class="n">table</span><span class="o">.</span><span class="n">move_to_start</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">)</span>
@@ -353,19 +371,19 @@
 
 <span class="k">def</span> <span class="nf">probability_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pfunc</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Assigns probabilities to a FiniteDistribution via a probability</span>
+<span class="sd">    Assigns probabilities to a Distribution via a probability</span>
 <span class="sd">    function. The probability function is applied to each value of the</span>
-<span class="sd">    domain</span>
+<span class="sd">    domain. Must have domain values in the first column first.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    pfunc : univariate function</span>
-<span class="sd">        Probability function of the FiniteDistribution</span>
+<span class="sd">        Probability function of the distribution</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    FiniteDistribution</span>
-<span class="sd">        FiniteDistribution with those probabilities</span>
+<span class="sd">    Table</span>
+<span class="sd">        Table with those probabilities in its second column</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">domain_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
@@ -386,8 +404,8 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    FiniteDistribution</span>
-<span class="sd">        FiniteDistribution with those probabilities</span>
+<span class="sd">    Table</span>
+<span class="sd">        A proability distribution with those probabilities</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Probability cannot be negative&quot;</span><span class="p">)</span>
@@ -400,8 +418,8 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    FiniteDistribution</span>
-<span class="sd">        Normalized FiniteDistribution</span>
+<span class="sd">    Table</span>
+<span class="sd">        A distribution with the probabilities normalized</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">column_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="n">column_label</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">column_label</span><span class="p">)</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">column_label</span><span class="p">)))</span>
@@ -446,7 +464,7 @@
 
 <span class="k">def</span> <span class="nf">sd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Finds standard deviation of FiniteDistribution</span>
+<span class="sd">    Finds standard deviation of Distribution</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -459,13 +477,14 @@
 <span class="n">chart_colors</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;darkblue&quot;</span><span class="p">),</span>
     <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;gold&quot;</span><span class="p">),</span>
-    <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;lime&quot;</span><span class="p">),</span>
-    <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">),</span>
-    <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;darkviolet&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">106</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span> <span class="mi">166</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span> <span class="mi">53</span><span class="o">/</span><span class="mi">256</span><span class="p">),</span> <span class="c1"># vivid green</span>
+    <span class="p">(</span><span class="mi">234</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span> <span class="mi">77</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span> <span class="mi">108</span><span class="o">/</span><span class="mi">256</span><span class="p">),</span> <span class="c1"># rose garden</span>
     <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;brown&quot;</span><span class="p">),</span>
-    <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;darkgreen&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">240</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span> <span class="mi">127</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span> <span class="mi">80</span><span class="o">/</span><span class="mi">256</span><span class="p">),</span> <span class="c1"># vivid orange</span>
+    <span class="p">(</span><span class="mi">53</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span> <span class="mi">148</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span> <span class="mi">216</span><span class="o">/</span><span class="mi">256</span><span class="p">),</span> <span class="c1"># vivid blue</span>
+    <span class="p">(</span><span class="mi">122</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span> <span class="mi">55</span><span class="o">/</span><span class="mi">256</span><span class="p">,</span> <span class="mi">139</span><span class="o">/</span><span class="mi">256</span><span class="p">),</span> <span class="c1"># purple</span>
     <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">),</span>
-    <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;cyan&quot;</span><span class="p">),</span>
+    <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">),</span>
 <span class="p">)</span>
 
 

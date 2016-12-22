@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140 tutorial! &mdash; prob140 0.1.4.2 documentation</title>
+    <title>prob140 tutorial! &mdash; prob140 0.1.4.3 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.4.2',
+        VERSION:     '0.1.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.1.4.2 documentation" href="index.html" >
+    <link rel="top" title="prob140 0.1.4.3 documentation" href="index.html" >
     <link rel="next" title="Single-variable Distributions (datascience.tables.Table)" href="single.html" >
     <link rel="prev" title="Installation" href="install.html" > 
   </head>
@@ -53,7 +53,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.1.4.2 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.1.4.3 documentation</a></li>
 	 
     </ul>
               
@@ -96,21 +96,25 @@ interactive guide, see the examples notebook in the GitLab directory.</p>
 <div class="contents local topic" id="table-of-contents">
 <p class="topic-title first">Table of Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#getting-started" id="id1">Getting Started</a></li>
-<li><a class="reference internal" href="#creating-a-distribution" id="id2">Creating a Distribution</a></li>
-<li><a class="reference internal" href="#events" id="id3">Events</a></li>
-<li><a class="reference internal" href="#utilities" id="id4">Utilities</a></li>
-<li><a class="reference internal" href="#plotting" id="id5">Plotting</a></li>
+<li><a class="reference internal" href="#getting-started" id="id2">Getting Started</a></li>
+<li><a class="reference internal" href="#creating-a-distribution" id="id3">Creating a Distribution</a></li>
+<li><a class="reference internal" href="#events" id="id4">Events</a></li>
+<li><a class="reference internal" href="#plotting" id="id5">Plotting</a><ul>
+<li><a class="reference internal" href="#width" id="id6">Width</a></li>
+<li><a class="reference internal" href="#id1" id="id7">Events</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#plotting-multiple-distributions" id="id8">Plotting multiple distributions</a></li>
+<li><a class="reference internal" href="#utilities" id="id9">Utilities</a></li>
 </ul>
 </div>
 <div class="section" id="getting-started">
-<h2><a class="toc-backref" href="#id1">Getting Started</a><a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id2">Getting Started</a><a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <p>Make sure you are on the most recent version of the <cite>prob140</cite> library. See the
 installation guide for more directions.</p>
 <p>If you are using an <cite>iPython</cite> notebook, use this as your first cell:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># HIDDEN</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">from</span> <span class="nn">datascience</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
@@ -119,9 +123,10 @@ installation guide for more directions.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>You may want to familiarize yourself with Data8&#8217;s <code class="docutils literal"><span class="pre">datascience</span></code> <a class="reference external" href="http://data8.org/datascience/tutorial.html">documentation</a> first</p>
 </div>
 <div class="section" id="creating-a-distribution">
-<h2><a class="toc-backref" href="#id2">Creating a Distribution</a><a class="headerlink" href="#creating-a-distribution" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Creating a Distribution</a><a class="headerlink" href="#creating-a-distribution" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>prob140</cite> library adds distribution methods to the default <cite>table</cite> class that you should
 already be familiar with. A distribution is defined as a 2-column table in which the first column
 represents the domain of the distribution while the second column represents the probabilities
@@ -141,7 +146,7 @@ for a distribution</p>
 </div>
 <p>We can also construct a distribution by explicitly assigning values for the
 <cite>domain</cite> but applying a probability function to the values of the domain</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">)</span>
 
 <span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist2</span><span class="p">)</span>
 <span class="go">Value | Probability</span>
@@ -152,7 +157,7 @@ for a distribution</p>
 </pre></div>
 </div>
 <p>This can be very useful when we have a distribution with a known probability
-density function, such as the binomial distribution</p>
+density function</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="kn">import</span> <span class="n">comb</span>
 
 <span class="gp">In [7]: </span><span class="k">def</span> <span class="nf">pmf</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
@@ -180,17 +185,154 @@ density function, such as the binomial distribution</p>
 </div>
 </div>
 <div class="section" id="events">
-<h2><a class="toc-backref" href="#id3">Events</a><a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id4">Events</a><a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
+<p>Often, we are concerned with specific values in a distribution rather than all the values.</p>
+<p>Calling <code class="docutils literal"><span class="pre">event</span></code> allows us to see a subset of the values in a distribution and the associated probabilities</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">dist1</span>
+<span class="gh">Out[10]: </span><span class="go"></span>
+<span class="go">Value | Probability</span>
+<span class="go">2     | 0.25</span>
+<span class="go">3     | 0.5</span>
+<span class="go">4     | 0.25</span>
+
+<span class="gp">In [11]: </span><span class="n">dist1</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">                                                                    Out[11]: </span>
+<span class="go">Outcome | Probability</span>
+<span class="go">1       | 0</span>
+<span class="go">2       | 0.25</span>
+<span class="go">3       | 0.5</span>
+
+<span class="gp">In [12]: </span><span class="n">dist2</span>
+<span class="go">                                                                                                                                             Out[12]: </span>
+<span class="go">Value | Probability</span>
+<span class="go">1     | 0.25</span>
+<span class="go">3     | 0.25</span>
+<span class="go">5     | 0.25</span>
+<span class="go">7     | 0.25</span>
+
+<span class="gp">In [13]: </span><span class="n">dist2</span><span class="o">.</span><span class="n">event</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="go">                                                                                                                                                                                                                               Out[13]: </span>
+<span class="go">Outcome | Probability</span>
+<span class="go">1       | 0.25</span>
+<span class="go">3       | 0.25</span>
+<span class="go">3.5     | 0</span>
+<span class="go">6       | 0</span>
+</pre></div>
 </div>
-<div class="section" id="utilities">
-<h2><a class="toc-backref" href="#id4">Utilities</a><a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
+<p>To find the probability of an event, we can call <code class="docutils literal"><span class="pre">prob_event</span></code>, which sums up the probabilities
+of each of the values</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [14]: </span><span class="n">dist1</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="gh">Out[14]: </span><span class="go">0.75</span>
+
+<span class="gp">In [15]: </span><span class="n">dist2</span><span class="o">.</span><span class="n">prob_event</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="go">              Out[15]: 0.5</span>
+
+<span class="gp">In [16]: </span><span class="n">binomial</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="go">                           Out[16]: 0.8497316673999995</span>
+
+<span class="gp">In [17]: </span><span class="n">binomial</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
+<span class="go">                                                       Out[17]: 0.99999999999999922</span>
+</pre></div>
+</div>
+<p>Note that due to the way Python handles floats, there might be some rounding errors</p>
 </div>
 <div class="section" id="plotting">
 <h2><a class="toc-backref" href="#id5">Plotting</a><a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">)</span>
+<p>To visualize our distributions, we can plot a histogram of the density using the <code class="docutils literal"><span class="pre">Plot</span></code> function.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [18]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">)</span>
+
+<span class="gp">In [19]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">dist2</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="_images/binomial.png" src="_images/binomial.png" />
+<a class="reference internal image-reference" href="_images/binomial.png"><img alt="_images/binomial.png" src="_images/binomial.png" style="width: 4in;" /></a>
+<a class="reference internal image-reference" href="_images/dist2.png"><img alt="_images/dist2.png" src="_images/dist2.png" style="width: 4in;" /></a>
+<div class="section" id="width">
+<h3><a class="toc-backref" href="#id6">Width</a><a class="headerlink" href="#width" title="Permalink to this headline">¶</a></h3>
+<p>If want to specify the width of every bar, we can use the optional parameter <code class="docutils literal"><span class="pre">width=</span></code> to specify the bin sizes.
+However, this should be used very rarely, <strong>only</strong> when there is uniform spacing between bars.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [20]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/binomial_width_2.png"><img alt="_images/binomial_width_2.png" src="_images/binomial_width_2.png" style="width: 4in;" /></a>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [21]: </span><span class="n">dist3</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">)</span>
+
+<span class="gp">In [22]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">dist3</span><span class="p">)</span>
+
+<span class="gp">In [23]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">dist3</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/dist3.png"><img alt="_images/dist3.png" src="_images/dist3.png" style="width: 4in;" /></a>
+<a class="reference internal image-reference" href="_images/dist3_width_2.png"><img alt="_images/dist3_width_2.png" src="_images/dist3_width_2.png" style="width: 4in;" /></a>
+</div>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id7">Events</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes, we want to highlight an event or events in our histogram. Do make an event a different color, we can use
+the optional parameter <code class="docutils literal"><span class="pre">event=</span></code>. An event must be a list or a list of lists.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [24]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/binomial_event_1.png"><img alt="_images/binomial_event_1.png" src="_images/binomial_event_1.png" style="width: 4in;" /></a>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [25]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/binomial_event_2.png"><img alt="_images/binomial_event_2.png" src="_images/binomial_event_2.png" style="width: 4in;" /></a>
+<p>If we use a list of lists for the event parameter, each event will be a different color.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [26]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">],[</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">],[</span><span class="mi">8</span><span class="p">],[</span><span class="mi">9</span><span class="p">],[</span><span class="mi">10</span><span class="p">]])</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/binomial_event_3.png"><img alt="_images/binomial_event_3.png" src="_images/binomial_event_3.png" style="width: 4in;" /></a>
+</div>
+</div>
+<div class="section" id="plotting-multiple-distributions">
+<h2><a class="toc-backref" href="#id8">Plotting multiple distributions</a><a class="headerlink" href="#plotting-multiple-distributions" title="Permalink to this headline">¶</a></h2>
+<p>It is often useful to plot multiple histograms on top of each other. To plot multiple distributions on the same
+graph, use the <code class="docutils literal"><span class="pre">Plots</span></code> function. <code class="docutils literal"><span class="pre">Plots</span></code> takes in an even number of arguments, alternating between the label of
+the distribution and the distribution table itself.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [27]: </span><span class="n">Plots</span><span class="p">(</span><span class="s2">&quot;Distribution 1&quot;</span><span class="p">,</span> <span class="n">dist1</span><span class="p">,</span> <span class="s2">&quot;Distribution 2&quot;</span><span class="p">,</span> <span class="n">dist2</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/dist1_binomial.png"><img alt="_images/dist1_binomial.png" src="_images/dist1_binomial.png" style="width: 4in;" /></a>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [28]: </span><span class="n">binomial2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">comb</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="o">**</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="gp">In [29]: </span><span class="n">Plots</span><span class="p">(</span><span class="s2">&quot;Bin(n=10,p=0.3)&quot;</span><span class="p">,</span> <span class="n">binomial</span><span class="p">,</span> <span class="s2">&quot;Bin(n=10,p=0.5)&quot;</span><span class="p">,</span> <span class="n">binomial2</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/2_binomials.png"><img alt="_images/2_binomials.png" src="_images/2_binomials.png" style="width: 4in;" /></a>
+<p>Try to avoid plotting too many distributions together because the graph starts to become unreadable</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [30]: </span><span class="n">Plots</span><span class="p">(</span><span class="s2">&quot;dist1&quot;</span><span class="p">,</span> <span class="n">dist1</span><span class="p">,</span> <span class="s2">&quot;dist2&quot;</span><span class="p">,</span> <span class="n">dist2</span><span class="p">,</span> <span class="s2">&quot;Bin1&quot;</span><span class="p">,</span> <span class="n">binomial</span><span class="p">,</span> <span class="s2">&quot;Bin2&quot;</span><span class="p">,</span> <span class="n">binomial2</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/bad_idea.png"><img alt="_images/bad_idea.png" src="_images/bad_idea.png" style="width: 4in;" /></a>
+</div>
+<div class="section" id="utilities">
+<h2><a class="toc-backref" href="#id9">Utilities</a><a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [31]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="o">.</span><span class="n">expected_value</span><span class="p">())</span>
+<span class="go">3.0</span>
+
+<span class="gp">In [32]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="o">.</span><span class="n">sd</span><span class="p">())</span>
+<span class="go">    0.7071067811865476</span>
+
+<span class="gp">In [33]: </span><span class="k">print</span><span class="p">(</span><span class="n">binomial</span><span class="o">.</span><span class="n">expected_value</span><span class="p">())</span>
+<span class="go">                       3.0</span>
+
+<span class="gp">In [34]: </span><span class="k">print</span><span class="p">(</span><span class="mf">0.3</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">                           3.0</span>
+
+<span class="gp">In [35]: </span><span class="k">print</span><span class="p">(</span><span class="n">binomial</span><span class="o">.</span><span class="n">sd</span><span class="p">())</span>
+<span class="go">                               1.4491376746189442</span>
+
+<span class="gp">In [36]: </span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="gp">In [37]: </span><span class="k">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="mf">0.7</span><span class="p">))</span>
+<span class="go">1.4491376746189437</span>
+
+<span class="gp">In [38]: </span><span class="k">print</span><span class="p">(</span><span class="n">binomial</span><span class="o">.</span><span class="n">variance</span><span class="p">())</span>
+<span class="go">                   2.1</span>
+
+<span class="gp">In [39]: </span><span class="k">print</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="go">                       2.0999999999999996</span>
+</pre></div>
+</div>
 </div>
 </div>
 

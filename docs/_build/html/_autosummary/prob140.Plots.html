@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.Plots &mdash; prob140 0.1.4.2 documentation</title>
+    <title>prob140.Plots &mdash; prob140 0.1.4.3 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.4.2',
+        VERSION:     '0.1.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
-    <link rel="top" title="prob140 0.1.4.2 documentation" href="../index.html" >
+    <link rel="top" title="prob140 0.1.4.3 documentation" href="../index.html" >
     <link rel="up" title="Single-variable Distributions (datascience.tables.Table)" href="../single.html" >
     <link rel="next" title="Joint Distributions (prob140.JointDistribution)" href="../multi.html" >
     <link rel="prev" title="prob140.Plot" href="prob140.Plot.html" > 
@@ -54,7 +54,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="../index.html">prob140 0.1.4.2 documentation</a></li>
+        <li class="active"><a href="../index.html">prob140 0.1.4.3 documentation</a></li>
 	
           <li class="active"><a href="../single.html" accesskey="U">Single-variable Distributions (<code class="docutils literal"><span class="pre">datascience.tables.Table</span></code>)</a></li> 
     </ul>
@@ -96,13 +96,13 @@
 <dl class="function">
 <dt id="prob140.Plots">
 <code class="descclassname">prob140.</code><code class="descname">Plots</code><span class="sig-paren">(</span><em>*labels_and_dists</em>, <em>width=1</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prob140/single_variable.html#Plots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Plots" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class method for overlay multiple distributions</p>
+<dd><p>Overlays histograms for multiply probability distributions together.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>labels_and_dists</strong> : Even number of alternations between Strings and</p>
-<p><strong>FiniteDistributions</strong></p>
+<p><strong>Tables</strong></p>
 <blockquote>
 <div><p>Each distribution must have a label associated with it</p>
 </div></blockquote>
@@ -118,6 +118,13 @@
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Plots</span><span class="p">(</span><span class="s2">&quot;Distribution1&quot;</span><span class="p">,</span> <span class="n">dist1</span><span class="p">,</span><span class="s2">&quot;Distribution2&quot;</span><span class="p">,</span><span class="n">dist2</span><span class="p">)</span>
+<span class="go">&lt;histogram with dist1 and dist2&gt;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>

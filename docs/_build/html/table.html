@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>datascience Tables &mdash; prob140 0.1.4.2 documentation</title>
+    <title>datascience Tables &mdash; prob140 0.1.4.3 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.4.2',
+        VERSION:     '0.1.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.1.4.2 documentation" href="index.html" >
+    <link rel="top" title="prob140 0.1.4.3 documentation" href="index.html" >
     <link rel="prev" title="Joint Distributions (prob140.JointDistribution)" href="multi.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.1.4.2 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.1.4.3 documentation</a></li>
 	 
     </ul>
               
@@ -506,7 +506,7 @@ subset of the domain</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">FiniteDistribution</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
 <blockquote class="last">
 <div><p>Shows the probabilities of each value in the event</p>
 </div></blockquote>
@@ -515,7 +515,7 @@ subset of the domain</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">Domain | Probability</span>
 <span class="go">2      | 0.25</span>
@@ -839,9 +839,9 @@ but in the other table, only the first of each will be used.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">FiniteDistribution</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
 <blockquote class="last">
-<div><p>Normalized FiniteDistribution</p>
+<div><p>A distribution with the probabilities normalized</p>
 </div></blockquote>
 </td>
 </tr>
@@ -980,7 +980,7 @@ subset of the domain</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">0.25</span>
 </pre></div>
@@ -1009,9 +1009,9 @@ subset of the domain</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">FiniteDistribution</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
 <blockquote class="last">
-<div><p>FiniteDistribution with those probabilities</p>
+<div><p>A proability distribution with those probabilities</p>
 </div></blockquote>
 </td>
 </tr>
@@ -1022,22 +1022,22 @@ subset of the domain</p>
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">probability_function</code><span class="sig-paren">(</span><em>pfunc</em><span class="sig-paren">)</span></dt>
-<dd><p>Assigns probabilities to a FiniteDistribution via a probability
+<dd><p>Assigns probabilities to a Distribution via a probability
 function. The probability function is applied to each value of the
-domain</p>
+domain. Must have domain values in the first column first.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>pfunc</strong> : univariate function</p>
 <blockquote>
-<div><p>Probability function of the FiniteDistribution</p>
+<div><p>Probability function of the distribution</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">FiniteDistribution</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
 <blockquote class="last">
-<div><p>FiniteDistribution with those probabilities</p>
+<div><p>Table with those probabilities in its second column</p>
 </div></blockquote>
 </td>
 </tr>
@@ -1285,7 +1285,7 @@ include: <cite>marker</cite> and <cite>norm</cite>, to name a couple.</dd>
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">sd</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
-<dd><p>Finds standard deviation of FiniteDistribution</p>
+<dd><p>Finds standard deviation of Distribution</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
