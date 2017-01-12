@@ -8,19 +8,31 @@ def conditional(array):
 class JointDistribution(pd.DataFrame):
 
     def marginal_of_Y(self):
-        copy = JointDistribution(self,copy=True)
-        copy['Sum: Marginal of Y'] = copy.sum(axis=1)
+        copy = JointDistribution(self, copy=True)
+        copy['Sum: Marginal of {0}'.format(self._Y_column_label)] = copy.sum(axis=1)
         return copy
 
     def marginal_of_X(self):
-        copy = JointDistribution(self,copy=True)
-        copy.loc['Sum: Marginal of X'] = copy.sum(axis=0)
+        copy = JointDistribution(self, copy=True)
+        copy.loc['Sum: Marginal of {0}'.format(self._X_column_label)] = copy.sum(axis=0)
+        return copy
+
+    def marginal(self, label):
+        copy = JointDistribution(self, copy=True)
+
+        if label == self._X_column_label:
+            copy.loc['Sum: Marginal of {0}'.format(self._X_column_label)] = copy.sum(axis=0)
+        elif label == self._Y_column_label:
+            copy['Sum: Marginal of {0}'.format(self._Y_column_label)] = copy.sum(axis=1)
+        else:
+            raise AssertionError("Label doesn't correspond with existing variable name")
+
         return copy
 
     def both_marginals(self):
         copy = JointDistribution(self,copy=True)
-        copy['Sum: Marginal of Y'] = copy.sum(axis=1)
-        copy.loc['Sum: Marginal of X'] = copy.sum(axis=0)
+        copy['Sum: Marginal of {0}'.format(self._Y_column_label)] = copy.sum(axis=1)
+        copy.loc['Sum: Marginal of {0}'.format(self._X_column_label)] = copy.sum(axis=0)
         return copy
 
     def conditional_dist_X_given_Y(self):
@@ -57,8 +69,16 @@ class JointDistribution(pd.DataFrame):
 import itertools as it
 
 def multi_domain(table,*args):
-    var_names = [chr(ord('X')+i) for i in range(len(args))]
-    var_values = list(zip(*it.product(*args)))
+
+    if isinstance(args[0], str):
+        assert len(args) % 2 == 0, "Must alternate between name and values"
+        var_names = [args[2 * i] for i in range(len(args) // 2)]
+        values = [args[2 * i + 1] for i in range(len(args) // 2)]
+        var_values = list(zip(*it.product(*values)))
+    else:
+        var_names = [chr(ord('X')+i) for i in range(len(args))]
+        var_values = list(zip(*it.product(*args)))
+
     new_table = table.copy()
     for column_name,column_value in reversed(list(zip(var_names,var_values))):
         new_table = new_table.with_column(column_name,column_value)
@@ -67,7 +87,8 @@ def multi_domain(table,*args):
     return new_table
 
 def toJoint(table,X_column_label=None,Y_column_label=None,probability_column_label=None):
-    assert table.num_columns >= 3, "You must have columns for your X variable, for your Y variable, and for your probabilities"
+    assert table.num_columns >= 3, \
+        "You must have columns for your X variable, for your Y variable, and for your probabilities"
     if X_column_label is None:
         X_column_label = table.labels[0]
     if Y_column_label is None:
@@ -95,6 +116,9 @@ def toJoint(table,X_column_label=None,Y_column_label=None,probability_column_lab
     realData = {'%s=%s'%(X_column_label,str(poss)):value for poss,value in data.items()}
     index = ['%s=%s'%(Y_column_label,poss) for poss in y_possibilities]
     joint_dist = JointDistribution(realData,index=index)
+
+    joint_dist._X_column_label = X_column_label
+    joint_dist._Y_column_label = Y_column_label
 
     return joint_dist
     
