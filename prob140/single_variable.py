@@ -370,6 +370,19 @@ def normalized(self):
     -------
     Table
         A distribution with the probabilities normalized
+
+    Examples
+    --------
+    >>> Table().domain([1,2,3]).probability([1,1,1])
+    Value | Probability
+    1     | 1
+    2     | 1
+    3     | 1
+    >>> Table().domain([1,2,3]).probability([1,1,1]).normalized()
+    Value | Probability
+    1     | 0.333333
+    2     | 0.333333
+    3     | 0.333333
     """
     column_label = self.labels[-1]
     return self.with_column(column_label,self.column(column_label)/sum(self.column(column_label)))
