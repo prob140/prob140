@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>datascience Tables &mdash; prob140 0.1.4.3 documentation</title>
+    <title>datascience Tables &mdash; prob140 0.1.5.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.4.3',
+        VERSION:     '0.1.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,8 +27,8 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.1.4.3 documentation" href="index.html" >
-    <link rel="prev" title="Joint Distributions (prob140.JointDistribution)" href="multi.html" > 
+    <link rel="top" title="prob140 0.1.5.1 documentation" href="index.html" >
+    <link rel="prev" title="prob140.JointDistribution.conditional_dist_given" href="_autosummary/prob140.JointDistribution.conditional_dist_given.html" > 
   </head>
   <body>
 
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.1.4.3 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.1.5.1 documentation</a></li>
 	 
     </ul>
               
@@ -63,11 +63,7 @@
            accesskey="I">index</a>
       </li>
       <li class="active">
-        <a href="py-modindex.html" title="Python Module Index"
-           >modules</a>
-      </li>
-      <li class="active">
-        <a href="multi.html" title="Joint Distributions (prob140.JointDistribution)"
+        <a href="_autosummary/prob140.JointDistribution.conditional_dist_given.html" title="prob140.JointDistribution.conditional_dist_given"
            accesskey="P">previous</a>
       </li>
     </ul>
@@ -493,7 +489,7 @@ If a list, each element is a column label in a table with
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">event</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span></dt>
-<dd><p>Shows the probability that distribution takes on value x or range of
+<dd><p>Shows the probability that distribution takes on value x or list of
 values x.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -847,6 +843,19 @@ but in the other table, only the first of each will be used.</p>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">Value | Probability</span>
+<span class="go">1     | 1</span>
+<span class="go">2     | 1</span>
+<span class="go">3     | 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>
+<span class="go">Value | Probability</span>
+<span class="go">1     | 0.333333</span>
+<span class="go">2     | 0.333333</span>
+<span class="go">3     | 0.333333</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -1551,6 +1560,57 @@ be selected.</dd>
 
 <dl class="method">
 <dt>
+<code class="descclassname">Table.</code><code class="descname">toJoint</code><span class="sig-paren">(</span><em>table</em>, <em>X_column_label=None</em>, <em>Y_column_label=None</em>, <em>probability_column_label=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Converts a table of probabilities associated with two variables into a JointDistribution object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>table</strong> : Table</p>
+<blockquote>
+<div><p>You can either call pass in a Table directly or call the toJoint() method of that Table. See examples</p>
+</div></blockquote>
+<p><strong>X_column_label (optional)</strong> : String</p>
+<blockquote>
+<div><p>Label for the first variable. Defaults to the same label as that of first variable of Table</p>
+</div></blockquote>
+<p><strong>Y_column_label (optional)</strong> : String</p>
+<blockquote>
+<div><p>Label for the second variable. Defaults to the same label as that of second variable of Table</p>
+</div></blockquote>
+<p><strong>probability_column_label (optional)</strong> : String</p>
+<blockquote>
+<div><p>Label for probabilities</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">JointDistribution</p>
+<blockquote class="last">
+<div><p>A JointDistribution object</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="go">     X=0  X=1</span>
+<span class="go">Y=3  0.2  0.4</span>
+<span class="go">Y=2  0.1  0.3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span> <span class="s2">&quot;Coin2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.4</span><span class="o">*</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="o">*</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="o">*</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="o">*</span><span class="mf">0.4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="go">         Coin1=H  Coin1=T</span>
+<span class="go">Coin2=T     0.36     0.24</span>
+<span class="go">Coin2=H     0.24     0.16</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
 <code class="descclassname">Table.</code><code class="descname">to_array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.to_array"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Convert the table to a structured NumPy array.</p>
 </dd></dl>
@@ -1889,6 +1949,144 @@ when passed only one label-value pair.</dd>
 </dd></dl>
 
 </div>
+<div class="section" id="prob140-jointdistribution">
+<h1><code class="docutils literal"><span class="pre">prob140</span></code> JointDistribution<a class="headerlink" href="#prob140-jointdistribution" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">prob140.</code><code class="descname">JointDistribution</code><span class="sig-paren">(</span><em>data=None</em>, <em>index=None</em>, <em>columns=None</em>, <em>dtype=None</em>, <em>copy=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">both_marginals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.both_marginals"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Finds the marginal distribution of both variables</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
+<span class="go">                    X=0  X=1  Sum: Marginal of Y</span>
+<span class="go">Y=3                 0.2  0.4                 0.6</span>
+<span class="go">Y=2                 0.1  0.3                 0.4</span>
+<span class="go">Sum: Marginal of X  0.3  0.7                 1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">conditional_dist_X_given_Y</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.conditional_dist_X_given_Y"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Finds the conditional distribution of the first variable given the second variable</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="o">.</span><span class="n">conditional_dist_X_given_Y</span><span class="p">()</span>
+<span class="go">                       X=0       X=1  Sum</span>
+<span class="go">Dist. of X | Y=3  0.333333  0.666667  1.0</span>
+<span class="go">Dist. of X | Y=2  0.250000  0.750000  1.0</span>
+<span class="go">Marginal of X     0.300000  0.700000  1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">conditional_dist_Y_given_X</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.conditional_dist_Y_given_X"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Finds the conditional distribution of the second variable given the first variable</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="o">.</span><span class="n">conditional_dist_Y_given_X</span><span class="p">()</span>
+<span class="go">     Dist. of Y | X=0  Dist. of Y | X=1  Marginal of Y</span>
+<span class="go">Y=3          0.666667          0.571429            0.6</span>
+<span class="go">Y=2          0.333333          0.428571            0.4</span>
+<span class="go">Sum          1.000000          1.000000            1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">conditional_dist_given</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.conditional_dist_given"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Given the random variable label, finds the conditional distribution of the other variable</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>label</strong> : String</p>
+<blockquote class="last">
+<div><p>given variable</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span><span class="s2">&quot;Coin2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.24</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.24</span><span class="p">]))</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">conditional_dist_given</span><span class="p">(</span><span class="s2">&quot;Coin2&quot;</span><span class="p">)</span>
+<span class="go">                          Coin1=H  Coin1=T  Sum</span>
+<span class="go">Dist. of Coin1 | Coin2=T      0.6      0.4  1.0</span>
+<span class="go">Dist. of Coin1 | Coin2=H      0.6      0.4  1.0</span>
+<span class="go">Marginal of Coin1             0.6      0.4  1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">marginal</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.marginal"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the marginal distribution of label</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>label</strong> : String</p>
+<p class="last"><strong>The label of the variable of which we want to find the marginal distribution</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span><span class="s2">&quot;Coin2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.24</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.24</span><span class="p">]))</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">)</span>
+<span class="go">                        Coin1=H  Coin1=T</span>
+<span class="go">Coin2=T                    0.36     0.24</span>
+<span class="go">Coin2=H                    0.24     0.16</span>
+<span class="go">Sum: Marginal of Coin1     0.60     0.40</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s2">&quot;Coin2&quot;</span><span class="p">)</span>
+<span class="go">         Coin1=H  Coin1=T  Sum: Marginal of Coin2</span>
+<span class="go">Coin2=T     0.36     0.24                     0.6</span>
+<span class="go">Coin2=H     0.24     0.16                     0.4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">marginal_of_X</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.marginal_of_X"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Finds the marginal distribution of the first variable</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="o">.</span><span class="n">marginal_of_X</span><span class="p">()</span>
+<span class="go">                    X=0  X=1</span>
+<span class="go">Y=3                 0.2  0.4</span>
+<span class="go">Y=2                 0.1  0.3</span>
+<span class="go">Sum: Marginal of X  0.3  0.7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">marginal_of_Y</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.marginal_of_Y"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Find the marginal distribution of the second variable</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="o">.</span><span class="n">marginal_of_Y</span><span class="p">()</span>
+<span class="go">     X=0  X=1  Sum: Marginal of Y</span>
+<span class="go">Y=3  0.2  0.4                 0.6</span>
+<span class="go">Y=2  0.1  0.3                 0.4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 
 
           </div>
@@ -1908,7 +2106,7 @@ when passed only one label-value pair.</dd>
     <div class="row-fluid">
     <ul class="inline pull-left">
       <li>
-        &copy; Copyright 2016, Jason Zhang, Dibya Ghosh.
+        &copy; Copyright 2016-2017, Jason Zhang, Dibya Ghosh.
       </li>
       <li>
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.5.1.

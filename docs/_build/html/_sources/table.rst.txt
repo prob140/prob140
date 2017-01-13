@@ -7,3 +7,9 @@
     :members:
     :noindex:
 
+``prob140`` JointDistribution
+=============================
+
+.. autoclass:: JointDistribution
+    :members:
+    :noindex:

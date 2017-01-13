@@ -1,6 +1,6 @@
 .. _install:
 
-``prob140`` tutorial!
+``prob140`` Tutorial!
 =====================
 
 This is a brief introduction to the functionality in ``prob140``! For an
@@ -117,6 +117,8 @@ To visualize our distributions, we can plot a histogram of the density using the
     @savefig binomial.png width=4in
     Plot(binomial)
 
+.. ipython:: python
+
     @savefig dist2.png width=4in
     Plot(dist2)
 
@@ -137,6 +139,8 @@ However, this should be used very rarely, **only** when there is uniform spacing
 
     @savefig dist3.png width=4in
     Plot(dist3)
+
+.. ipython:: python
 
     @savefig dist3_width_2.png width=4in
     Plot(dist3, width=2)

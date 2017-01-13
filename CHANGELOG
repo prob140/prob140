@@ -1,6 +1,17 @@
 Changelog
 =========
 
+v0.1.5.1 (2017-01-12)
+---------------------
+
+* Added JointDistribution to the init
+
+v0.1.5 (2017-01-12)
+-------------------
+
+* Plotting width now works with events and masks
+* JointDistribution can now be used with any variable
+
 v0.1.4.3 (2016-12-20)
 ---------------------
 
