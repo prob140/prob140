@@ -49,16 +49,19 @@ for a distribution
 
     dist1 = Table().domain(make_array(2, 3, 4)).probability(make_array(0.25, 0.5, 0.25))
 
-    print(dist1)
+    dist1
 
 We can also construct a distribution by explicitly assigning values for the
 `domain` but applying a probability function to the values of the domain
 
 .. ipython:: python
 
-    dist2 = Table().domain(np.arange(1, 8, 2)).probability_function(lambda x: 0.25)
+    def p(x):
+        return 0.25
 
-    print(dist2)
+    dist2 = Table().domain(np.arange(1, 8, 2)).probability_function(p)
+
+    dist2
 
 This can be very useful when we have a distribution with a known probability
 density function
@@ -72,7 +75,7 @@ density function
         return comb(n,x) * p**x * (1-p)**(n-x)
 
     binomial = Table().domain(np.arange(11)).probability_function(pmf)
-    print(binomial)
+    binomial
 
 
 Events

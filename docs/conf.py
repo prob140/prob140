@@ -91,7 +91,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'prob140'
-copyright = '2016-2017, Jason Zhang, Dibya Ghosh'
+copyright = '2016-2017, Prob140 under CC BY-NC 4.0'
 author = 'Jason Zhang, Dibya Ghosh'
 
 # The version info for the project you're documenting, acts as replacement for
