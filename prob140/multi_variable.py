@@ -1,6 +1,7 @@
 from datascience import *
 import numpy as np
 import pandas as pd
+import warnings
 
 def conditional(array):
     return array/sum(array[0:-1])
@@ -195,6 +196,18 @@ def multi_domain(table,*args):
         new_table.move_to_start(column_name)
 
     return new_table
+
+def multi_probability_function(table, pfunc):
+    x = table.column(0)
+    y = table.column(1)
+    values = np.zeros(len(x))
+    for i in range(len(x)):
+        values[i] = pfunc(x[i], y[i])
+    if any(values < 0):
+        warnings.warn("Probability cannot be negative")
+    return table.with_column('Probability', values)
+
+
 
 def toJoint(table,X_column_label=None,Y_column_label=None,probability_column_label=None):
     """

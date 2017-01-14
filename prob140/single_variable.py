@@ -319,7 +319,7 @@ def single_domain(self, values):
     return table
 
 
-def probability_function(self, pfunc):
+def single_probability_function(self, pfunc):
     """
     Assigns probabilities to a Distribution via a probability
     function. The probability function is applied to each value of the
