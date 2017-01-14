@@ -1,6 +1,12 @@
 Changelog
 =========
 
+v0.1.6 (2017-01-14)
+-------------------
+
+* Added probability_function for JointDistribution
+* probability_function now checks number of arguments in pfunc
+
 v0.1.5.1 (2017-01-12)
 ---------------------
 
