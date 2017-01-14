@@ -8,8 +8,8 @@ Written for `Prob140 (prob140.org) <prob140.org>`_  by Jason Zhang and Dibya Gho
 
 For documentation, visit `https://probability.gitlab.io/prob140/html/ <https://probability.gitlab.io/prob140/html/>`_
 
-See the `example notebook <https://nbviewer.jupyter.org/urls/gitlab.com/probability/prob140/raw/master/Examples.ipynb>`_
-for some samples on using the library
+For example notebooks on using the library, see `single variable notebook <https://nbviewer.jupyter.org/urls/gitlab.com/probability/prob140/raw/master/Examples.ipynb>`_
+and `multi variable notebook <https://nbviewer.jupyter.org/urls/gitlab.com/probability/prob140/raw/master/joint_distribution.ipynb>`_
 
 
 Installation
@@ -37,8 +37,16 @@ If you are using ``prob140`` in a notebook, use the following header:
     plt.style.use('fivethirtyeight')
 
 
-Changelog
-=========
+Changelog highlights
+====================
+
+See CHANGELOG for full changelog
+
+v0.1.5 (2017-01-12)
+-------------------
+
+* Plotting width now works with events and masks
+* JointDistribution can now be used with any variable
 
 v0.1.4.1
 -------
