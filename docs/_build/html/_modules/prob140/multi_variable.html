@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.multi_variable &mdash; prob140 0.1.5.1 documentation</title>
+    <title>prob140.multi_variable &mdash; prob140 0.1.6.4 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.5.1',
+        VERSION:     '0.1.6.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" >
     <link rel="search" title="Search" href="../../search.html" >
-    <link rel="top" title="prob140 0.1.5.1 documentation" href="../../index.html" >
+    <link rel="top" title="prob140 0.1.6.4 documentation" href="../../index.html" >
     <link rel="up" title="Module code" href="../index.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="../../index.html">prob140 0.1.5.1 documentation</a></li>
+        <li class="active"><a href="../../index.html">prob140 0.1.6.4 documentation</a></li>
 	
           <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -81,6 +81,8 @@
 <span></span><span class="kn">from</span> <span class="nn">datascience</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">collections</span>
 
 <span class="k">def</span> <span class="nf">conditional</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">array</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
@@ -276,7 +278,9 @@
 
     <span class="k">return</span> <span class="n">new_table</span>
 
-<span class="k">def</span> <span class="nf">toJoint</span><span class="p">(</span><span class="n">table</span><span class="p">,</span><span class="n">X_column_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">Y_column_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">probability_column_label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+
+<span class="k">def</span> <span class="nf">toJoint</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">X_column_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Y_column_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">probability_column_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts a table of probabilities associated with two variables into a JointDistribution object</span>
 
@@ -321,11 +325,14 @@
     <span class="k">if</span> <span class="n">probability_column_label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">probability_column_label</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">table</span><span class="o">.</span><span class="n">num_columns</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">probability_column_label</span><span class="p">]),</span><span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;Your probabilities don&#39;t sum to 1&quot;</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">probability_column_label</span><span class="p">]),</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">total</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Your probabilities sum to </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total</span><span class="p">))</span>
     
 
     <span class="n">x_possibilities</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">X_column_label</span><span class="p">]))</span>
-    <span class="n">y_possibilities</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">Y_column_label</span><span class="p">]),</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">y_possibilities</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">Y_column_label</span><span class="p">]),</span><span class="n">reverse</span><span class="o">=</span><span class="n">reverse</span><span class="p">)</span>
 
 
     <span class="n">xInd</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">column_index</span><span class="p">(</span><span class="n">X_column_label</span><span class="p">)</span>
@@ -337,10 +344,16 @@
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
         <span class="n">data</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">xInd</span><span class="p">]][</span><span class="n">y_possibilities</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">yInd</span><span class="p">])]</span> <span class="o">+=</span> <span class="n">row</span><span class="p">[</span><span class="n">pInd</span><span class="p">]</span>
 
+    <span class="n">x_order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">X_column_label</span><span class="p">,</span><span class="n">poss</span><span class="p">)</span> <span class="k">for</span> <span class="n">poss</span> <span class="ow">in</span> <span class="n">x_possibilities</span><span class="p">]</span>
 
     <span class="n">realData</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">X_column_label</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">poss</span><span class="p">)):</span><span class="n">value</span> <span class="k">for</span> <span class="n">poss</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
     <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">Y_column_label</span><span class="p">,</span><span class="n">poss</span><span class="p">)</span> <span class="k">for</span> <span class="n">poss</span> <span class="ow">in</span> <span class="n">y_possibilities</span><span class="p">]</span>
-    <span class="n">joint_dist</span> <span class="o">=</span> <span class="n">JointDistribution</span><span class="p">(</span><span class="n">realData</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="c1"># Reverting order back to original</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">realData</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">joint_dist</span> <span class="o">=</span> <span class="n">JointDistribution</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">x_order</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="n">joint_dist</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
 
     <span class="n">joint_dist</span><span class="o">.</span><span class="n">_X_column_label</span> <span class="o">=</span> <span class="n">X_column_label</span>
     <span class="n">joint_dist</span><span class="o">.</span><span class="n">_Y_column_label</span> <span class="o">=</span> <span class="n">Y_column_label</span>
