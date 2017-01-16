@@ -1,6 +1,21 @@
 Changelog
 =========
 
+v0.1.6.3 (2017-01-15)
+---------------------
+
+* fixed a bug in which toJoint just renamed the x-columns rather than changing the order
+
+v0.1.6.2 (2017-01-14)
+---------------------
+
+* toJoint now preserve original order
+
+v0.1.6.1 (2017-01-14)
+---------------------
+
+* JointDistribution probabilities don't have to sum to 1,
+
 v0.1.6 (2017-01-14)
 -------------------
 

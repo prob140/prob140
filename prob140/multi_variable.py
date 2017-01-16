@@ -2,6 +2,7 @@ from datascience import *
 import numpy as np
 import pandas as pd
 import warnings
+import collections
 
 def conditional(array):
     return array/sum(array[0:-1])
@@ -209,7 +210,7 @@ def multi_probability_function(table, pfunc):
 
 
 
-def toJoint(table,X_column_label=None,Y_column_label=None,probability_column_label=None):
+def toJoint(table, X_column_label=None, Y_column_label=None, probability_column_label=None, reverse=True):
     """
     Converts a table of probabilities associated with two variables into a JointDistribution object
 
@@ -254,11 +255,14 @@ def toJoint(table,X_column_label=None,Y_column_label=None,probability_column_lab
     if probability_column_label is None:
         probability_column_label = table.labels[table.num_columns-1]
 
-    assert np.allclose(sum(table[probability_column_label]),1), "Your probabilities don't sum to 1"
+    total = np.allclose(sum(table[probability_column_label]),1)
+
+    if total != 1:
+        warnings.warn("Your probabilities sum to {0}".format(total))
     
 
     x_possibilities = sorted(set(table[X_column_label]))
-    y_possibilities = sorted(set(table[Y_column_label]),reverse=True)
+    y_possibilities = sorted(set(table[Y_column_label]),reverse=reverse)
 
 
     xInd = table.column_index(X_column_label)
@@ -270,10 +274,16 @@ def toJoint(table,X_column_label=None,Y_column_label=None,probability_column_lab
     for row in table.rows:
         data[row[xInd]][y_possibilities.index(row[yInd])] += row[pInd]
 
+    x_order = ['%s=%s'%(X_column_label,poss) for poss in x_possibilities]
 
     realData = {'%s=%s'%(X_column_label,str(poss)):value for poss,value in data.items()}
     index = ['%s=%s'%(Y_column_label,poss) for poss in y_possibilities]
-    joint_dist = JointDistribution(realData,index=index)
+
+    # Reverting order back to original
+    df = pd.DataFrame(realData,index=index)
+    joint_dist = JointDistribution(df[x_order], index=index)
+
+    joint_dist.reindex(index)
 
     joint_dist._X_column_label = X_column_label
     joint_dist._Y_column_label = Y_column_label
