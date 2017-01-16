@@ -198,16 +198,6 @@ def multi_domain(table,*args):
 
     return new_table
 
-def multi_probability_function(table, pfunc):
-    x = table.column(0)
-    y = table.column(1)
-    values = np.zeros(len(x))
-    for i in range(len(x)):
-        values[i] = pfunc(x[i], y[i])
-    if any(values < 0):
-        warnings.warn("Probability cannot be negative")
-    return table.with_column('Probability', values)
-
 
 
 def toJoint(table, X_column_label=None, Y_column_label=None, probability_column_label=None, reverse=True):

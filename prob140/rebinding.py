@@ -14,23 +14,6 @@ def domain(self,*args):
 		return single_domain(self,args[0])
 	return multi_domain(self,*args)
 
-def probability_function(self, pfunc):
-
-	num_args = len(inspect.signature(pfunc).parameters)
-
-	assert num_args == 1 or num_args == 2, "probability function must have 1 or 2 arguments"
-	assert self.num_columns == 1 or self.num_columns == 2, "Table must have 1 or 2 columns"
-
-	if self.num_columns == 1:
-		if num_args == 1:
-			return single_probability_function(self, pfunc)
-		raise ValueError("Probability function must take in one argument")
-
-	elif self.num_columns == 2:
-		if num_args == 2:
-			return multi_probability_function(self, pfunc)
-		raise ValueError("Probability function must take in two arguments")
-
 ## Binding; still in debate
 
 Table.chart_colors = chart_colors
