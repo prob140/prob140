@@ -24,6 +24,7 @@ Contents:
 
     install
     tutorial
+    joint_tutorial
 
 
 Reference

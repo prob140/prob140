@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.multi_variable &mdash; prob140 0.1.6.4 documentation</title>
+    <title>prob140.multi_variable &mdash; prob140 0.1.7.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.6.4',
+        VERSION:     '0.1.7.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" >
     <link rel="search" title="Search" href="../../search.html" >
-    <link rel="top" title="prob140 0.1.6.4 documentation" href="../../index.html" >
+    <link rel="top" title="prob140 0.1.7.0 documentation" href="../../index.html" >
     <link rel="up" title="Module code" href="../index.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="../../index.html">prob140 0.1.6.4 documentation</a></li>
+        <li class="active"><a href="../../index.html">prob140 0.1.7.0 documentation</a></li>
 	
           <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -89,41 +89,7 @@
 
 <div class="viewcode-block" id="JointDistribution"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution">[docs]</a><span class="k">class</span> <span class="nc">JointDistribution</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
 
-<div class="viewcode-block" id="JointDistribution.marginal_of_Y"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.marginal_of_Y">[docs]</a>    <span class="k">def</span> <span class="nf">marginal_of_Y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Find the marginal distribution of the second variable</span>
-
-<span class="sd">        Examples</span>
-<span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; dist1 = Table().domain([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()</span>
-<span class="sd">        &gt;&gt;&gt; dist1.marginal_of_Y()</span>
-<span class="sd">             X=0  X=1  Sum: Marginal of Y</span>
-<span class="sd">        Y=3  0.2  0.4                 0.6</span>
-<span class="sd">        Y=2  0.1  0.3                 0.4</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">copy</span> <span class="o">=</span> <span class="n">JointDistribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">copy</span><span class="p">[</span><span class="s1">&#39;Sum: Marginal of </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Y_column_label</span><span class="p">)]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">copy</span></div>
-
-<div class="viewcode-block" id="JointDistribution.marginal_of_X"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.marginal_of_X">[docs]</a>    <span class="k">def</span> <span class="nf">marginal_of_X</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Finds the marginal distribution of the first variable</span>
-
-<span class="sd">        Examples</span>
-<span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; dist1 = Table().domain([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()</span>
-<span class="sd">        &gt;&gt;&gt; dist1.marginal_of_X()</span>
-<span class="sd">                            X=0  X=1</span>
-<span class="sd">        Y=3                 0.2  0.4</span>
-<span class="sd">        Y=2                 0.1  0.3</span>
-<span class="sd">        Sum: Marginal of X  0.3  0.7</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">copy</span> <span class="o">=</span> <span class="n">JointDistribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">copy</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Sum: Marginal of </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span><span class="p">)]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">copy</span></div>
-
-<div class="viewcode-block" id="JointDistribution.marginal"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.marginal">[docs]</a>    <span class="k">def</span> <span class="nf">marginal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<div class="viewcode-block" id="JointDistribution.marginal"><a class="viewcode-back" href="../../_autosummary/prob140.JointDistribution.marginal.html#prob140.JointDistribution.marginal">[docs]</a>    <span class="k">def</span> <span class="nf">marginal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the marginal distribution of label</span>
 
@@ -156,7 +122,7 @@
 
         <span class="k">return</span> <span class="n">copy</span></div>
 
-<div class="viewcode-block" id="JointDistribution.both_marginals"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.both_marginals">[docs]</a>    <span class="k">def</span> <span class="nf">both_marginals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="JointDistribution.both_marginals"><a class="viewcode-back" href="../../_autosummary/prob140.JointDistribution.both_marginals.html#prob140.JointDistribution.both_marginals">[docs]</a>    <span class="k">def</span> <span class="nf">both_marginals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds the marginal distribution of both variables</span>
 
@@ -174,64 +140,7 @@
         <span class="n">copy</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Sum: Marginal of </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span><span class="p">)]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">copy</span></div>
 
-<div class="viewcode-block" id="JointDistribution.conditional_dist_X_given_Y"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.conditional_dist_X_given_Y">[docs]</a>    <span class="k">def</span> <span class="nf">conditional_dist_X_given_Y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Finds the conditional distribution of the first variable given the second variable</span>
-
-<span class="sd">        Examples</span>
-<span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; dist1 = Table().domain([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()</span>
-<span class="sd">        &gt;&gt;&gt; dist1.conditional_dist_X_given_Y()</span>
-<span class="sd">                               X=0       X=1  Sum</span>
-<span class="sd">        Dist. of X | Y=3  0.333333  0.666667  1.0</span>
-<span class="sd">        Dist. of X | Y=2  0.250000  0.750000  1.0</span>
-<span class="sd">        Marginal of X     0.300000  0.700000  1.0</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">both</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
-        
-        <span class="n">x</span> <span class="o">=</span> <span class="n">both</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">conditional</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>\
-            <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Sum: Marginal of </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Y_column_label</span><span class="p">)</span> <span class="p">:</span><span class="s1">&#39;Sum&#39;</span><span class="p">})</span>
-        
-        <span class="n">indices</span> <span class="o">=</span> <span class="n">both</span><span class="o">.</span><span class="n">index</span>
-        <span class="n">new</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-            <span class="n">new_index</span> <span class="o">=</span> <span class="s1">&#39;Dist. of </span><span class="si">{0}</span><span class="s1"> | &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span><span class="p">)</span><span class="o">+</span><span class="n">indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">new_index</span><span class="p">)</span>
-        <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="s1">&#39;Marginal of </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span><span class="p">))</span>
-        
-        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">new</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="JointDistribution.conditional_dist_Y_given_X"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.conditional_dist_Y_given_X">[docs]</a>    <span class="k">def</span> <span class="nf">conditional_dist_Y_given_X</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Finds the conditional distribution of the second variable given the first variable</span>
-
-<span class="sd">        Examples</span>
-<span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; dist1 = Table().domain([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()</span>
-<span class="sd">        &gt;&gt;&gt; dist1.conditional_dist_Y_given_X()</span>
-<span class="sd">             Dist. of Y | X=0  Dist. of Y | X=1  Marginal of Y</span>
-<span class="sd">        Y=3          0.666667          0.571429            0.6</span>
-<span class="sd">        Y=2          0.333333          0.428571            0.4</span>
-<span class="sd">        Sum          1.000000          1.000000            1.0</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">both</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
-        
-        <span class="n">indices</span> <span class="o">=</span> <span class="n">both</span><span class="o">.</span><span class="n">index</span>
-        <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">both</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;Sum&#39;</span><span class="p">)</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">both</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">conditional</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
-        
-        <span class="n">column_names</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">columns</span>
-        <span class="n">new</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">column_names</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-            <span class="n">new_name</span> <span class="o">=</span> <span class="s1">&#39;Dist. of </span><span class="si">{0}</span><span class="s1"> | &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Y_column_label</span><span class="p">)</span><span class="o">+</span><span class="n">column_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">new_name</span><span class="p">)</span>
-        <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="s1">&#39;Marginal of </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Y_column_label</span><span class="p">))</span>
-        
-        <span class="n">y</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">new</span>
-        <span class="k">return</span> <span class="n">y</span></div>
-
-<div class="viewcode-block" id="JointDistribution.conditional_dist_given"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.conditional_dist_given">[docs]</a>    <span class="k">def</span> <span class="nf">conditional_dist_given</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<div class="viewcode-block" id="JointDistribution.conditional_dist"><a class="viewcode-back" href="../../_autosummary/prob140.JointDistribution.conditional_dist.html#prob140.JointDistribution.conditional_dist">[docs]</a>    <span class="k">def</span> <span class="nf">conditional_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">given</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given the random variable label, finds the conditional distribution of the other variable</span>
 
@@ -242,19 +151,53 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; dist2 = Table().domain(&quot;Coin1&quot;,[&#39;H&#39;,&#39;T&#39;],&quot;Coin2&quot;, [&#39;H&#39;,&#39;T&#39;]).probability(np.array([0.24, 0.36, 0.16, 0.24])).toJoint()</span>
-<span class="sd">        &gt;&gt;&gt; dist2.conditional_dist_given(&quot;Coin2&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; coins = Table().domain(&quot;Coin1&quot;,[&#39;H&#39;,&#39;T&#39;],&quot;Coin2&quot;, [&#39;H&#39;,&#39;T&#39;]).probability(np.array([0.24, 0.36, 0.16,</span>
+<span class="sd">        0.24])).toJoint()</span>
+<span class="sd">        &gt;&gt;&gt; coins.conditional_dist(&quot;Coin1&quot;,&quot;Coin2&quot;)</span>
 <span class="sd">                                  Coin1=H  Coin1=T  Sum</span>
-<span class="sd">        Dist. of Coin1 | Coin2=T      0.6      0.4  1.0</span>
 <span class="sd">        Dist. of Coin1 | Coin2=H      0.6      0.4  1.0</span>
+<span class="sd">        Dist. of Coin1 | Coin2=T      0.6      0.4  1.0</span>
 <span class="sd">        Marginal of Coin1             0.6      0.4  1.0</span>
-
+<span class="sd">        &gt;&gt;&gt; coins.conditional_dist(&quot;Coin2&quot;,&quot;Coin1&quot;)</span>
+<span class="sd">                 Dist. of Coin2 | Coin1=H  Dist. of Coin2 | Coin1=T  Marginal of Coin2</span>
+<span class="sd">        Coin2=H                       0.4                       0.4                0.4</span>
+<span class="sd">        Coin2=T                       0.6                       0.6                0.6</span>
+<span class="sd">        Sum                           1.0                       1.0                1.0</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conditional_dist_Y_given_X</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="n">label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Y_column_label</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">conditional_dist_X_given_Y</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Y_column_label</span><span class="p">:</span>
+
+            <span class="n">both</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
+
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">both</span><span class="o">.</span><span class="n">index</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">both</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;Sum&#39;</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">both</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">conditional</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
+            <span class="n">column_names</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">columns</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">column_names</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">new_name</span> <span class="o">=</span> <span class="s1">&#39;Dist. of </span><span class="si">{0}</span><span class="s1"> | &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Y_column_label</span><span class="p">)</span> <span class="o">+</span> <span class="n">column_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">new_name</span><span class="p">)</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="s1">&#39;Marginal of </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Y_column_label</span><span class="p">))</span>
+
+            <span class="n">y</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">new</span>
+            <span class="k">return</span> <span class="n">y</span>
+
+        <span class="k">elif</span> <span class="n">label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span><span class="p">:</span>
+            <span class="n">both</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
+
+            <span class="n">x</span> <span class="o">=</span> <span class="n">both</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">conditional</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> \
+                <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Sum: Marginal of </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_Y_column_label</span><span class="p">):</span> <span class="s1">&#39;Sum&#39;</span><span class="p">})</span>
+
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">both</span><span class="o">.</span><span class="n">index</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">new_index</span> <span class="o">=</span> <span class="s1">&#39;Dist. of </span><span class="si">{0}</span><span class="s1"> | &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span><span class="p">)</span> <span class="o">+</span> <span class="n">indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="n">new_index</span><span class="p">)</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">,</span> <span class="s1">&#39;Marginal of </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span><span class="p">))</span>
+
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Label doesn&#39;t correspond with existing variable name&quot;</span><span class="p">)</span></div></div>
 
@@ -293,7 +236,9 @@
 <span class="sd">    Y_column_label (optional) : String</span>
 <span class="sd">        Label for the second variable. Defaults to the same label as that of second variable of Table</span>
 <span class="sd">    probability_column_label (optional) : String</span>
-<span class="sd">        Label for probabilities</span>
+<span class="sd">        Label for probabilities\</span>
+<span class="sd">    reverse (optional) : Boolean</span>
+<span class="sd">        If True, the vertical values will be reversed</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -325,7 +270,7 @@
     <span class="k">if</span> <span class="n">probability_column_label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">probability_column_label</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">table</span><span class="o">.</span><span class="n">num_columns</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="n">total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">probability_column_label</span><span class="p">]),</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">probability_column_label</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="n">total</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Your probabilities sum to </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total</span><span class="p">))</span>

@@ -4,9 +4,44 @@ Joint Distributions (``prob140.JointDistribution``)
 .. currentmodule:: prob140
 
 
-.. toctree::
-    :maxdepth: 1
-.. automodule:: prob140
+Constucting
+-----------
 
-.. autoclass:: JointDistribution
-    :members:
+.. ipython:: python
+
+    from prob140 import *
+    dist1_table = Table().domain([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4])
+    print(dist1_table)
+    dist1 = dist1_table.toJoint()
+    print(dist1)
+    dist2_table = Table().domain("Coin1",['H','T'],"Coin2", ['H','T']).probability(np.array([0.24, 0.36, 0.16, 0.24]))
+    print(dist2_table)
+    dist2 = dist2_table.toJoint()
+    print(dist2)
+
+.. autosummary::
+    :toctree: _autosummary
+
+    Table.toJoint
+
+
+Marginal Distributions
+----------------------
+
+.. autosummary::
+    :toctree: _autosummary
+
+    JointDistribution.marginal_of_X
+    JointDistribution.marginal_of_Y
+    JointDistribution.marginal
+    JointDistribution.both_marginals
+
+Conditional Distributions
+-------------------------
+
+.. autosummary::
+    :toctree: _autosummary
+
+    JointDistribution.conditional_dist_X_given_Y
+    JointDistribution.conditional_dist_Y_given_X
+    JointDistribution.conditional_dist_given

@@ -3,6 +3,7 @@ Joint Distributions (``prob140.JointDistribution``)
 ===================================================
 .. currentmodule:: prob140
 
+See the Joint Distribution tutorial for more information
 
 Constucting
 -----------
@@ -31,8 +32,6 @@ Marginal Distributions
 .. autosummary::
     :toctree: _autosummary
 
-    JointDistribution.marginal_of_X
-    JointDistribution.marginal_of_Y
     JointDistribution.marginal
     JointDistribution.both_marginals
 
@@ -42,6 +41,4 @@ Conditional Distributions
 .. autosummary::
     :toctree: _autosummary
 
-    JointDistribution.conditional_dist_X_given_Y
-    JointDistribution.conditional_dist_Y_given_X
-    JointDistribution.conditional_dist_given
+    JointDistribution.conditional_dist

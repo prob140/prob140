@@ -1,5 +1,3 @@
-.. _install:
-
 ``prob140`` Tutorial!
 =====================
 
@@ -14,8 +12,7 @@ interactive guide, see the examples notebook in the GitLab directory.
 Getting Started
 ---------------
 
-Make sure you are on the most recent version of the `prob140` library. See the
-installation guide for more directions.
+Make sure you are on the most recent version of the `prob140` library. See the installation guide for more directions.
 
 If you are using an `iPython` notebook, use this as your first cell:
 
@@ -212,3 +209,5 @@ Utilities
     print(math.sqrt(10 * 0.3 * 0.7))
     print(binomial.variance())
     print(10 * 0.3 * 0.7)
+
+

@@ -9,40 +9,6 @@ def conditional(array):
 
 class JointDistribution(pd.DataFrame):
 
-    def marginal_of_Y(self):
-        """
-        Find the marginal distribution of the second variable
-
-        Examples
-        --------
-        >>> dist1 = Table().domain([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()
-        >>> dist1.marginal_of_Y()
-             X=0  X=1  Sum: Marginal of Y
-        Y=3  0.2  0.4                 0.6
-        Y=2  0.1  0.3                 0.4
-
-        """
-        copy = JointDistribution(self, copy=True)
-        copy['Sum: Marginal of {0}'.format(self._Y_column_label)] = copy.sum(axis=1)
-        return copy
-
-    def marginal_of_X(self):
-        """
-        Finds the marginal distribution of the first variable
-
-        Examples
-        --------
-        >>> dist1 = Table().domain([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()
-        >>> dist1.marginal_of_X()
-                            X=0  X=1
-        Y=3                 0.2  0.4
-        Y=2                 0.1  0.3
-        Sum: Marginal of X  0.3  0.7
-        """
-        copy = JointDistribution(self, copy=True)
-        copy.loc['Sum: Marginal of {0}'.format(self._X_column_label)] = copy.sum(axis=0)
-        return copy
-
     def marginal(self, label):
         """
         Returns the marginal distribution of label
@@ -94,64 +60,7 @@ class JointDistribution(pd.DataFrame):
         copy.loc['Sum: Marginal of {0}'.format(self._X_column_label)] = copy.sum(axis=0)
         return copy
 
-    def conditional_dist_X_given_Y(self):
-        """
-        Finds the conditional distribution of the first variable given the second variable
-
-        Examples
-        --------
-        >>> dist1 = Table().domain([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()
-        >>> dist1.conditional_dist_X_given_Y()
-                               X=0       X=1  Sum
-        Dist. of X | Y=3  0.333333  0.666667  1.0
-        Dist. of X | Y=2  0.250000  0.750000  1.0
-        Marginal of X     0.300000  0.700000  1.0
-
-        """
-        both = self.both_marginals()
-        
-        x = both.apply(conditional, axis=1)\
-            .rename(columns={'Sum: Marginal of {0}'.format(self._Y_column_label) :'Sum'})
-        
-        indices = both.index
-        new = make_array()
-        for i in np.arange(len(indices)-1):
-            new_index = 'Dist. of {0} | '.format(self._X_column_label)+indices[i]
-            new = np.append(new, new_index)
-        new = np.append(new, 'Marginal of {0}'.format(self._X_column_label))
-        
-        return x.set_index(new)
-
-    def conditional_dist_Y_given_X(self):
-        """
-        Finds the conditional distribution of the second variable given the first variable
-
-        Examples
-        --------
-        >>> dist1 = Table().domain([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()
-        >>> dist1.conditional_dist_Y_given_X()
-             Dist. of Y | X=0  Dist. of Y | X=1  Marginal of Y
-        Y=3          0.666667          0.571429            0.6
-        Y=2          0.333333          0.428571            0.4
-        Sum          1.000000          1.000000            1.0
-        """
-        both = self.both_marginals()
-        
-        indices = both.index
-        new = np.append(both.index[0:-1], 'Sum')
-        y = both.apply(conditional, axis=0).set_index(new)
-        
-        column_names = y.columns
-        new = make_array()
-        for i in np.arange(len(column_names)-1):
-            new_name = 'Dist. of {0} | '.format(self._Y_column_label)+column_names[i]
-            new = np.append(new, new_name)
-        new = np.append(new, 'Marginal of {0}'.format(self._Y_column_label))
-        
-        y.columns = new
-        return y
-
-    def conditional_dist_given(self, label):
+    def conditional_dist(self, label, given=""):
         """
         Given the random variable label, finds the conditional distribution of the other variable
 
@@ -162,19 +71,53 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> dist2 = Table().domain("Coin1",['H','T'],"Coin2", ['H','T']).probability(np.array([0.24, 0.36, 0.16, 0.24])).toJoint()
-        >>> dist2.conditional_dist_given("Coin2")
+        >>> coins = Table().domain("Coin1",['H','T'],"Coin2", ['H','T']).probability(np.array([0.24, 0.36, 0.16,
+        0.24])).toJoint()
+        >>> coins.conditional_dist("Coin1","Coin2")
                                   Coin1=H  Coin1=T  Sum
-        Dist. of Coin1 | Coin2=T      0.6      0.4  1.0
         Dist. of Coin1 | Coin2=H      0.6      0.4  1.0
+        Dist. of Coin1 | Coin2=T      0.6      0.4  1.0
         Marginal of Coin1             0.6      0.4  1.0
-
+        >>> coins.conditional_dist("Coin2","Coin1")
+                 Dist. of Coin2 | Coin1=H  Dist. of Coin2 | Coin1=T  Marginal of Coin2
+        Coin2=H                       0.4                       0.4                0.4
+        Coin2=T                       0.6                       0.6                0.6
+        Sum                           1.0                       1.0                1.0
         """
 
-        if label == self._X_column_label:
-            return self.conditional_dist_Y_given_X()
-        elif label == self._Y_column_label:
-            return self.conditional_dist_X_given_Y()
+        if label == self._Y_column_label:
+
+            both = self.both_marginals()
+
+            indices = both.index
+            new = np.append(both.index[0:-1], 'Sum')
+            y = both.apply(conditional, axis=0).set_index(new)
+
+            column_names = y.columns
+            new = make_array()
+            for i in np.arange(len(column_names) - 1):
+                new_name = 'Dist. of {0} | '.format(self._Y_column_label) + column_names[i]
+                new = np.append(new, new_name)
+            new = np.append(new, 'Marginal of {0}'.format(self._Y_column_label))
+
+            y.columns = new
+            return y
+
+        elif label == self._X_column_label:
+            both = self.both_marginals()
+
+            x = both.apply(conditional, axis=1) \
+                .rename(columns={'Sum: Marginal of {0}'.format(self._Y_column_label): 'Sum'})
+
+            indices = both.index
+            new = make_array()
+            for i in np.arange(len(indices) - 1):
+                new_index = 'Dist. of {0} | '.format(self._X_column_label) + indices[i]
+                new = np.append(new, new_index)
+            new = np.append(new, 'Marginal of {0}'.format(self._X_column_label))
+
+            return x.set_index(new)
+
         else:
             raise AssertionError("Label doesn't correspond with existing variable name")
 
@@ -213,7 +156,9 @@ def toJoint(table, X_column_label=None, Y_column_label=None, probability_column_
     Y_column_label (optional) : String
         Label for the second variable. Defaults to the same label as that of second variable of Table
     probability_column_label (optional) : String
-        Label for probabilities
+        Label for probabilities\
+    reverse (optional) : Boolean
+        If True, the vertical values will be reversed
 
     Returns
     -------
@@ -245,7 +190,7 @@ def toJoint(table, X_column_label=None, Y_column_label=None, probability_column_
     if probability_column_label is None:
         probability_column_label = table.labels[table.num_columns-1]
 
-    total = np.allclose(sum(table[probability_column_label]),1)
+    total = sum(table[probability_column_label])
 
     if total != 1:
         warnings.warn("Your probabilities sum to {0}".format(total))
