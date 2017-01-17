@@ -195,7 +195,7 @@ def Plot(dist, width=1, mask=[], event=[], **vargs):
 
     elif len(mask) == 0:
         # no mask or event
-        plt.bar(domain, prob, color="darkblue", **options)
+        plt.bar(domain, prob * 100, color="darkblue", **options)
         #dist.hist(counts=domain_label, bins=np.arange(start - width / 2, end + width, width), **vargs)
     else:
         if isinstance(mask[0], collections.Iterable):
