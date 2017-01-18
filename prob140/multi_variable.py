@@ -1,8 +1,9 @@
 from datascience import *
+from .rebinding import *
 import numpy as np
 import pandas as pd
 import warnings
-import collections
+import ast
 
 def conditional(array):
     return array/sum(array[0:-1])
@@ -16,7 +17,11 @@ class JointDistribution(pd.DataFrame):
         Parameters
         ----------
         label : String
-        The label of the variable of which we want to find the marginal distribution
+            The label of the variable of which we want to find the marginal distribution
+
+        Returns
+        -------
+        JointDistribution Table
 
         Examples
         --------
@@ -42,9 +47,69 @@ class JointDistribution(pd.DataFrame):
 
         return copy
 
+    def marginal_dist(self, label):
+        """
+        Finds the marginal marginal distribution of label, returns as a single variable distribution
+
+        Parameters
+        ----------
+        label
+            The label of the variable of which we want to find the marginal distribution
+
+        Returns
+        -------
+        Table
+            Single variable distribution of label
+
+        """
+
+        def evaluate(name):
+            """
+            Deletes name of RV and outputs the correct datatype, like int, float, or string
+
+            Parameters
+            ----------
+            name : String
+                in the form "rv=123123124"
+
+            Returns
+            -------
+            String, int, float
+
+            """
+            index = name.index("=")
+
+            try:
+                return ast.literal_eval(name[index+1:])
+            except:
+                return name[index+1:]
+
+        marginal = self.marginal(label).as_matrix()
+
+        if label == self._X_column_label:
+            x_labels = list(self)
+            prob = marginal[-1,:]
+
+            domain = [evaluate(lab) for lab in x_labels]
+
+            return Table().values(domain).probability(prob)
+
+        else:
+            y_labels = list(self.index)
+            prob = marginal[:,-1]
+
+            domain = [evaluate(lab) for lab in y_labels]
+
+            return Table().values(domain).probability(prob)
+
+
     def both_marginals(self):
         """
         Finds the marginal distribution of both variables
+
+        Returns
+        -------
+        JointDistribution Table
 
         Examples
         --------
@@ -68,6 +133,10 @@ class JointDistribution(pd.DataFrame):
         ----------
         label : String
             given variable
+
+        Returns
+        -------
+        JointDistribution Table
 
         Examples
         --------

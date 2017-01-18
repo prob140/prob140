@@ -140,7 +140,7 @@ def _bin(dist, width=1, start=None):
 
     return new_domain, new_prob
 
-def Plot(dist, width=1, mask=[], event=[], **vargs):
+def Plot(dist, width=1, mask=[], event=[], edges=None,**vargs):
     """
     Plots the histogram for a single distribution
 
@@ -153,19 +153,29 @@ def Plot(dist, width=1, mask=[], event=[], **vargs):
     mask (optional) : boolean array or list of boolean arrays
         Colors the parts of the histogram associated with each mask (
         default: no mask)
+    borders (optional) : boolean
+        If True, there will be a small border around the bars
+        If False, there will be no border
+        By default, there will be a small border unless there more than 75 bins
     vargs
         See pyplot's additional optional arguments
 
     """
 
+    domain_label = dist.labels[0]
+    dist = dist.sort(domain_label)
+    domain, prob = _bin(dist, width)
+
     options = {"width" : width, "lw" : 0, "alpha" : 0.7, "align" : "center"}
+    if edges == True or len(domain) < 75:
+        options["lw"] = 0.5
+    if edges == False: #edges could be none
+        options["lw"] = 0
     options.update(vargs)
 
     check_valid_probability_table(dist)
 
-    domain_label = dist.labels[0]
-    dist = dist.sort(domain_label)
-    domain, prob = _bin(dist, width)
+
 
     if len(event) != 0:
 

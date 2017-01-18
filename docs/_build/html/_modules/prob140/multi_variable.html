@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.multi_variable &mdash; prob140 0.1.7.0 documentation</title>
+    <title>prob140.multi_variable &mdash; prob140 0.1.7.3 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.7.0',
+        VERSION:     '0.1.7.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" >
     <link rel="search" title="Search" href="../../search.html" >
-    <link rel="top" title="prob140 0.1.7.0 documentation" href="../../index.html" >
+    <link rel="top" title="prob140 0.1.7.3 documentation" href="../../index.html" >
     <link rel="up" title="Module code" href="../index.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="../../index.html">prob140 0.1.7.0 documentation</a></li>
+        <li class="active"><a href="../../index.html">prob140 0.1.7.3 documentation</a></li>
 	
           <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -79,24 +79,29 @@
             
   <h1>Source code for prob140.multi_variable</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">datascience</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.rebinding</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">ast</span>
 
 <span class="k">def</span> <span class="nf">conditional</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">array</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
 <div class="viewcode-block" id="JointDistribution"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution">[docs]</a><span class="k">class</span> <span class="nc">JointDistribution</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
 
-<div class="viewcode-block" id="JointDistribution.marginal"><a class="viewcode-back" href="../../_autosummary/prob140.JointDistribution.marginal.html#prob140.JointDistribution.marginal">[docs]</a>    <span class="k">def</span> <span class="nf">marginal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<div class="viewcode-block" id="JointDistribution.marginal"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.marginal">[docs]</a>    <span class="k">def</span> <span class="nf">marginal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the marginal distribution of label</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        label : String</span>
-<span class="sd">        The label of the variable of which we want to find the marginal distribution</span>
+<span class="sd">            The label of the variable of which we want to find the marginal distribution</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        JointDistribution Table</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -122,9 +127,69 @@
 
         <span class="k">return</span> <span class="n">copy</span></div>
 
-<div class="viewcode-block" id="JointDistribution.both_marginals"><a class="viewcode-back" href="../../_autosummary/prob140.JointDistribution.both_marginals.html#prob140.JointDistribution.both_marginals">[docs]</a>    <span class="k">def</span> <span class="nf">both_marginals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="JointDistribution.marginal_dist"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.marginal_dist">[docs]</a>    <span class="k">def</span> <span class="nf">marginal_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds the marginal marginal distribution of label, returns as a single variable distribution</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        label</span>
+<span class="sd">            The label of the variable of which we want to find the marginal distribution</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Table</span>
+<span class="sd">            Single variable distribution of label</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Deletes name of RV and outputs the correct datatype, like int, float, or string</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            name : String</span>
+<span class="sd">                in the form &quot;rv=123123124&quot;</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            String, int, float</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">name</span><span class="p">[</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="n">marginal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="n">label</span><span class="p">)</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span><span class="p">:</span>
+            <span class="n">x_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">prob</span> <span class="o">=</span> <span class="n">marginal</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
+
+            <span class="n">domain</span> <span class="o">=</span> <span class="p">[</span><span class="n">evaluate</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span> <span class="k">for</span> <span class="n">lab</span> <span class="ow">in</span> <span class="n">x_labels</span><span class="p">]</span>
+
+            <span class="k">return</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">y_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+            <span class="n">prob</span> <span class="o">=</span> <span class="n">marginal</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">domain</span> <span class="o">=</span> <span class="p">[</span><span class="n">evaluate</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span> <span class="k">for</span> <span class="n">lab</span> <span class="ow">in</span> <span class="n">y_labels</span><span class="p">]</span>
+
+            <span class="k">return</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="JointDistribution.both_marginals"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.both_marginals">[docs]</a>    <span class="k">def</span> <span class="nf">both_marginals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds the marginal distribution of both variables</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        JointDistribution Table</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
@@ -140,7 +205,7 @@
         <span class="n">copy</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Sum: Marginal of </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span><span class="p">)]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">copy</span></div>
 
-<div class="viewcode-block" id="JointDistribution.conditional_dist"><a class="viewcode-back" href="../../_autosummary/prob140.JointDistribution.conditional_dist.html#prob140.JointDistribution.conditional_dist">[docs]</a>    <span class="k">def</span> <span class="nf">conditional_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">given</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="JointDistribution.conditional_dist"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.conditional_dist">[docs]</a>    <span class="k">def</span> <span class="nf">conditional_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">given</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given the random variable label, finds the conditional distribution of the other variable</span>
 
@@ -148,6 +213,10 @@
 <span class="sd">        ----------</span>
 <span class="sd">        label : String</span>
 <span class="sd">            given variable</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        JointDistribution Table</span>
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>

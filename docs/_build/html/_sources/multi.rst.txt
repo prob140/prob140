@@ -3,6 +3,7 @@ Joint Distributions (``prob140.JointDistribution``)
 ===================================================
 .. currentmodule:: prob140
 
+See the Joint Distribution tutorial for more information
 
 Constucting
 -----------

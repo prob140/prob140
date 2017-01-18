@@ -117,6 +117,23 @@ You can also call `.both_marginals()` to see both marginal distributions at once
     heads.both_marginals()
     coins.both_marginals()
 
+To get the marginal distribution of a variable as a single variable distribution for plotting, call `.marginal_dist(label)`
+
+.. ipython:: python
+
+    heads.marginal_dist("H1")
+
+.. ipython:: python
+
+    @savefig marginal_dist.png width=4in
+    Plot(heads.marginal_dist("H1"), width=0.1)
+
+.. ipython:: python
+
+    heads.marginal_dist("H2")
+    coins.marginal_dist("Coin1")
+
+
 Conditional Distributions
 -------------------------
 
@@ -126,8 +143,3 @@ You can see the conditional distribution using `.conditional_dist(label, given)`
 
     heads.conditional_dist("H1", "H2")
     heads.conditional_dist("H2", "H1")
-
-.. ipython:: python
-
-    import prob140
-    prob140.version

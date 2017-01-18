@@ -1,6 +1,18 @@
 Changelog
 =========
 
+v0.1.7.3 (2017-01-17)
+---------------------
+
+* Plot now adds edge border if there are fewer than 75 bins
+* Plot now has an optional parameter edge that accepts a boolean
+* Added marginal_dist which returns a single variable distribution
+
+v0.1.7.2 (2017-01-17)
+---------------------
+
+* .values is now an alias for .domain
+
 v0.1.7.1 (2017-01-17)
 ---------------------
 

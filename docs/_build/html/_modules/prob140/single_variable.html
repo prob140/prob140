@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.single_variable &mdash; prob140 0.1.7.0 documentation</title>
+    <title>prob140.single_variable &mdash; prob140 0.1.7.3 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.7.0',
+        VERSION:     '0.1.7.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" >
     <link rel="search" title="Search" href="../../search.html" >
-    <link rel="top" title="prob140 0.1.7.0 documentation" href="../../index.html" >
+    <link rel="top" title="prob140 0.1.7.3 documentation" href="../../index.html" >
     <link rel="up" title="Module code" href="../index.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="../../index.html">prob140 0.1.7.0 documentation</a></li>
+        <li class="active"><a href="../../index.html">prob140 0.1.7.3 documentation</a></li>
 	
           <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -220,7 +220,7 @@
 
     <span class="k">return</span> <span class="n">new_domain</span><span class="p">,</span> <span class="n">new_prob</span>
 
-<div class="viewcode-block" id="Plot"><a class="viewcode-back" href="../../_autosummary/prob140.Plot.html#prob140.Plot">[docs]</a><span class="k">def</span> <span class="nf">Plot</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[],</span> <span class="n">event</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Plot"><a class="viewcode-back" href="../../_autosummary/prob140.Plot.html#prob140.Plot">[docs]</a><span class="k">def</span> <span class="nf">Plot</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[],</span> <span class="n">event</span><span class="o">=</span><span class="p">[],</span> <span class="n">edges</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots the histogram for a single distribution</span>
 
@@ -233,19 +233,29 @@
 <span class="sd">    mask (optional) : boolean array or list of boolean arrays</span>
 <span class="sd">        Colors the parts of the histogram associated with each mask (</span>
 <span class="sd">        default: no mask)</span>
+<span class="sd">    borders (optional) : boolean</span>
+<span class="sd">        If True, there will be a small border around the bars</span>
+<span class="sd">        If False, there will be no border</span>
+<span class="sd">        By default, there will be a small border unless there more than 75 bins</span>
 <span class="sd">    vargs</span>
 <span class="sd">        See pyplot&#39;s additional optional arguments</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">domain_label</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">domain_label</span><span class="p">)</span>
+    <span class="n">domain</span><span class="p">,</span> <span class="n">prob</span> <span class="o">=</span> <span class="n">_bin</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+
     <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;width&quot;</span> <span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="s2">&quot;lw&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span> <span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span> <span class="s2">&quot;align&quot;</span> <span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">edges</span> <span class="o">==</span> <span class="kc">True</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">75</span><span class="p">:</span>
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;lw&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="k">if</span> <span class="n">edges</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="c1">#edges could be none</span>
+        <span class="n">options</span><span class="p">[</span><span class="s2">&quot;lw&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">vargs</span><span class="p">)</span>
 
     <span class="n">check_valid_probability_table</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
 
-    <span class="n">domain_label</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">dist</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">domain_label</span><span class="p">)</span>
-    <span class="n">domain</span><span class="p">,</span> <span class="n">prob</span> <span class="o">=</span> <span class="n">_bin</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
 
@@ -275,7 +285,7 @@
 
     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="c1"># no mask or event</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkblue&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">prob</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkblue&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
         <span class="c1">#dist.hist(counts=domain_label, bins=np.arange(start - width / 2, end + width, width), **vargs)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mask</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>

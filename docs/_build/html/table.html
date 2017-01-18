@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>datascience Tables &mdash; prob140 0.1.7.0 documentation</title>
+    <title>datascience Tables &mdash; prob140 0.1.7.3 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.7.0',
+        VERSION:     '0.1.7.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,8 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.1.7.0 documentation" href="index.html" > 
+    <link rel="top" title="prob140 0.1.7.3 documentation" href="index.html" >
+    <link rel="prev" title="prob140.JointDistribution.conditional_dist" href="_autosummary/prob140.JointDistribution.conditional_dist.html" > 
   </head>
   <body>
 
@@ -51,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.1.7.0 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.1.7.3 documentation</a></li>
 	 
     </ul>
               
@@ -60,6 +61,10 @@
       <li class="active">
         <a href="genindex.html" title="General Index"
            accesskey="I">index</a>
+      </li>
+      <li class="active">
+        <a href="_autosummary/prob140.JointDistribution.conditional_dist.html" title="prob140.JointDistribution.conditional_dist"
+           accesskey="P">previous</a>
       </li>
     </ul>
               
@@ -1645,15 +1650,6 @@ If True, the vertical values will be reversed</p>
 <dd><p>Convert the table to a Pandas DataFrame.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt>
-<code class="descclassname">Table.</code><code class="descname">values</code></dt>
-<dd><p>Return data in <cite>self</cite> as a numpy array.</p>
-<p>If all columns are the same dtype, the resulting array
-will have this dtype. If there are &gt;1 dtypes in columns,
-then the resulting array will have dtype <cite>object</cite>.</p>
-</dd></dl>
-
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">variance</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
@@ -1954,6 +1950,14 @@ when passed only one label-value pair.</dd>
 <dt>
 <code class="descname">both_marginals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.both_marginals"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Finds the marginal distribution of both variables</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">JointDistribution Table</td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Examples</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
@@ -1974,9 +1978,12 @@ when passed only one label-value pair.</dd>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>label</strong> : String</p>
-<blockquote class="last">
+<blockquote>
 <div><p>given variable</p>
 </div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JointDistribution Table</p>
 </td>
 </tr>
 </tbody>
@@ -2007,7 +2014,12 @@ when passed only one label-value pair.</dd>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>label</strong> : String</p>
-<p class="last"><strong>The label of the variable of which we want to find the marginal distribution</strong></p>
+<blockquote>
+<div><p>The label of the variable of which we want to find the marginal distribution</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">JointDistribution Table</p>
 </td>
 </tr>
 </tbody>
@@ -2025,6 +2037,30 @@ when passed only one label-value pair.</dd>
 <span class="go">Coin2=H     0.24     0.16                     0.4</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">marginal_dist</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.marginal_dist"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Finds the marginal marginal distribution of label, returns as a single variable distribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>label</strong></p>
+<blockquote>
+<div><p>The label of the variable of which we want to find the marginal distribution</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
+<blockquote class="last">
+<div><p>Single variable distribution of label</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
