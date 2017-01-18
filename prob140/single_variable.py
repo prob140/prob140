@@ -350,6 +350,8 @@ def probability_function(self, pfunc):
     values = np.array(self.apply(pfunc, domain_names)).astype(float)
     if any(values < 0):
         warnings.warn("Probability cannot be negative")
+    if round(sum(values), 6) != 1:
+        warnings.warn("Probabilities sum to {0}".format(sum(values)))
     return self.with_column('Probability', values)
 
 
@@ -369,6 +371,9 @@ def probability(self, values):
     """
     if any(np.array(values) < 0):
         warnings.warn("Probability cannot be negative")
+
+    if round(sum(values), 6) != 1:
+        warnings.warn("Probabilities sum to {0}".format(sum(values)))
     return self.with_column('Probability', values)
 
 
