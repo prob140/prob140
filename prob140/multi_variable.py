@@ -261,7 +261,7 @@ def toJoint(table, X_column_label=None, Y_column_label=None, probability_column_
 
     total = sum(table[probability_column_label])
 
-    if total != 1:
+    if round(total, 6) != 1:
         warnings.warn("Your probabilities sum to {0}".format(total))
     
 
