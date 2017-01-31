@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.multi_variable &mdash; prob140 0.1.7.3 documentation</title>
+    <title>prob140.multi_variable &mdash; prob140 0.1.8.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.7.3',
+        VERSION:     '0.1.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" >
     <link rel="search" title="Search" href="../../search.html" >
-    <link rel="top" title="prob140 0.1.7.3 documentation" href="../../index.html" >
+    <link rel="top" title="prob140 0.1.8.0 documentation" href="../../index.html" >
     <link rel="up" title="Module code" href="../index.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="../../index.html">prob140 0.1.7.3 documentation</a></li>
+        <li class="active"><a href="../../index.html">prob140 0.1.8.0 documentation</a></li>
 	
           <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -105,7 +105,7 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; dist2 = Table().domain(&quot;Coin1&quot;,[&#39;H&#39;,&#39;T&#39;],&quot;Coin2&quot;, [&#39;H&#39;,&#39;T&#39;]).probability(np.array([0.24, 0.36, 0.16, 0.24])).toJoint()</span>
+<span class="sd">        &gt;&gt;&gt; dist2 = Table().values(&quot;Coin1&quot;,[&#39;H&#39;,&#39;T&#39;],&quot;Coin2&quot;, [&#39;H&#39;,&#39;T&#39;]).probability(np.array([0.24, 0.36, 0.16, 0.24])).toJoint()</span>
 <span class="sd">        &gt;&gt;&gt; dist2.marginal(&quot;Coin1&quot;)</span>
 <span class="sd">                                Coin1=H  Coin1=T</span>
 <span class="sd">        Coin2=T                    0.36     0.24</span>
@@ -193,7 +193,7 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; dist1 = Table().domain([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()</span>
+<span class="sd">        &gt;&gt;&gt; dist1 = Table().values([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()</span>
 <span class="sd">        &gt;&gt;&gt; dist1.both_marginals()</span>
 <span class="sd">                            X=0  X=1  Sum: Marginal of Y</span>
 <span class="sd">        Y=3                 0.2  0.4                 0.6</span>
@@ -220,8 +220,7 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; coins = Table().domain(&quot;Coin1&quot;,[&#39;H&#39;,&#39;T&#39;],&quot;Coin2&quot;, [&#39;H&#39;,&#39;T&#39;]).probability(np.array([0.24, 0.36, 0.16,</span>
-<span class="sd">        0.24])).toJoint()</span>
+<span class="sd">        &gt;&gt;&gt; coins = Table().values(&quot;Coin1&quot;,[&#39;H&#39;,&#39;T&#39;],&quot;Coin2&quot;, [&#39;H&#39;,&#39;T&#39;]).probability(np.array([0.24, 0.36, 0.16,0.24])).toJoint()</span>
 <span class="sd">        &gt;&gt;&gt; coins.conditional_dist(&quot;Coin1&quot;,&quot;Coin2&quot;)</span>
 <span class="sd">                                  Coin1=H  Coin1=T  Sum</span>
 <span class="sd">        Dist. of Coin1 | Coin2=H      0.6      0.4  1.0</span>
@@ -316,13 +315,13 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; dist1 = Table().domain([0,1],[2,3])</span>
+<span class="sd">    &gt;&gt;&gt; dist1 = Table().values([0,1],[2,3])</span>
 <span class="sd">    &gt;&gt;&gt; dist1[&#39;Probability&#39;] = make_array(0.1, 0.2, 0.3, 0.4)</span>
 <span class="sd">    &gt;&gt;&gt; dist1.toJoint()</span>
 <span class="sd">         X=0  X=1</span>
 <span class="sd">    Y=3  0.2  0.4</span>
 <span class="sd">    Y=2  0.1  0.3</span>
-<span class="sd">    &gt;&gt;&gt; dist2 = Table().domain(&quot;Coin1&quot;,[&#39;H&#39;,&#39;T&#39;], &quot;Coin2&quot;, [&#39;H&#39;,&#39;T&#39;])</span>
+<span class="sd">    &gt;&gt;&gt; dist2 = Table().values(&quot;Coin1&quot;,[&#39;H&#39;,&#39;T&#39;], &quot;Coin2&quot;, [&#39;H&#39;,&#39;T&#39;])</span>
 <span class="sd">    &gt;&gt;&gt; dist2[&#39;Probability&#39;] = np.array([0.4*0.6, 0.6*0.6, 0.4*0.4, 0.6*0.4])</span>
 <span class="sd">    &gt;&gt;&gt; dist2.toJoint()</span>
 <span class="sd">             Coin1=H  Coin1=T</span>
@@ -341,7 +340,7 @@
 
     <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">probability_column_label</span><span class="p">])</span>
 
-    <span class="k">if</span> <span class="n">total</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">round</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Your probabilities sum to </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total</span><span class="p">))</span>
     
 
@@ -396,7 +395,7 @@
         &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
       </li>
       <li>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.5.2.
       </li>
     </ul>
     </div>

@@ -36,6 +36,7 @@ Utitilies
     Table.sd
     Table.variance
     Table.normalized
+    emp_dist
 
 Plotting
 --------

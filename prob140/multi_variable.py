@@ -25,7 +25,7 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> dist2 = Table().domain("Coin1",['H','T'],"Coin2", ['H','T']).probability(np.array([0.24, 0.36, 0.16, 0.24])).toJoint()
+        >>> dist2 = Table().values("Coin1",['H','T'],"Coin2", ['H','T']).probability(np.array([0.24, 0.36, 0.16, 0.24])).toJoint()
         >>> dist2.marginal("Coin1")
                                 Coin1=H  Coin1=T
         Coin2=T                    0.36     0.24
@@ -113,7 +113,7 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> dist1 = Table().domain([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()
+        >>> dist1 = Table().values([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()
         >>> dist1.both_marginals()
                             X=0  X=1  Sum: Marginal of Y
         Y=3                 0.2  0.4                 0.6
@@ -140,8 +140,7 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> coins = Table().domain("Coin1",['H','T'],"Coin2", ['H','T']).probability(np.array([0.24, 0.36, 0.16,
-        0.24])).toJoint()
+        >>> coins = Table().values("Coin1",['H','T'],"Coin2", ['H','T']).probability(np.array([0.24, 0.36, 0.16,0.24])).toJoint()
         >>> coins.conditional_dist("Coin1","Coin2")
                                   Coin1=H  Coin1=T  Sum
         Dist. of Coin1 | Coin2=H      0.6      0.4  1.0
@@ -236,13 +235,13 @@ def toJoint(table, X_column_label=None, Y_column_label=None, probability_column_
 
     Examples
     --------
-    >>> dist1 = Table().domain([0,1],[2,3])
+    >>> dist1 = Table().values([0,1],[2,3])
     >>> dist1['Probability'] = make_array(0.1, 0.2, 0.3, 0.4)
     >>> dist1.toJoint()
          X=0  X=1
     Y=3  0.2  0.4
     Y=2  0.1  0.3
-    >>> dist2 = Table().domain("Coin1",['H','T'], "Coin2", ['H','T'])
+    >>> dist2 = Table().values("Coin1",['H','T'], "Coin2", ['H','T'])
     >>> dist2['Probability'] = np.array([0.4*0.6, 0.6*0.6, 0.4*0.4, 0.6*0.4])
     >>> dist2.toJoint()
              Coin1=H  Coin1=T

@@ -37,7 +37,7 @@ def prob_event(self, x):
     Examples
     --------
 
-    >>> dist = Table().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
+    >>> dist = Table().values([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
     >>> dist.prob_event(2)
     0.25
 
@@ -76,7 +76,7 @@ def event(self, x):
 
     Examples
     --------
-    >>> dist = Table().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
+    >>> dist = Table().values([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
     >>> dist.event(2)
     Domain | Probability
     2      | 0.25
@@ -115,7 +115,7 @@ def _bin(dist, width=1, start=None):
 
     Examples
     --------
-    >>> x = Table().domain([0, 0.5, 1]).probability([1/3, 1/3, 1/3])
+    >>> x = Table().values([0, 0.5, 1]).probability([1/3, 1/3, 1/3])
     >>> _bin(x)
     (array([ 0.,  1.]), array([ 0.66666667,  0.33333333]))
     >>> _bin(x, width=0.5)
@@ -248,8 +248,8 @@ def Plots(*labels_and_dists, width=1, **vargs):
 
     Examples
     --------
-    >>> dist1 = Table().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
-    >>> dist2 = Table().domain([3,4,5,6]).probability([1/2,1/8,1/8,1/4])
+    >>> dist1 = Table().values([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
+    >>> dist2 = Table().values([3,4,5,6]).probability([1/2,1/8,1/8,1/4])
     >>> Plots("Distribution1", dist1, "Distribution2", dist2)
     <histogram with dist1 and dist2>
 
@@ -318,7 +318,7 @@ def single_domain(self, values):
     Examples
     --------
 
-    >>> Table().domain([1,2,3])
+    >>> Table().values([1,2,3])
     Value
     1
     2
@@ -388,12 +388,12 @@ def normalized(self):
 
     Examples
     --------
-    >>> Table().domain([1,2,3]).probability([1,1,1])
+    >>> Table().values([1,2,3]).probability([1,1,1])
     Value | Probability
     1     | 1
     2     | 1
     3     | 1
-    >>> Table().domain([1,2,3]).probability([1,1,1]).normalized()
+    >>> Table().values([1,2,3]).probability([1,1,1]).normalized()
     Value | Probability
     1     | 0.333333
     2     | 0.333333
@@ -450,6 +450,38 @@ def sd(self):
         Standard Deviation
     """
     return math.sqrt(self.variance())
+
+def emp_dist(values):
+    """
+    Takes an array of values and returns an empirical distribution
+
+    Parameters
+    ----------
+    values : array
+        Array of values that will be grouped by the distribution
+
+    Returns
+    -------
+    Table
+        A distribution
+
+    Examples
+    --------
+    >>> x = make_array(1,1,1,1,1,2,3,3,3,4)
+    >>> emp_dist(x)
+    Value | Probability
+    1     | 0.5
+    2     | 0.1
+    3     | 0.3
+    4     | 0.1
+    """
+
+    total = len(values)
+
+    position_counts = Table().with_column('position', values).group(0)
+    new_dist = Table().values(position_counts.column(0))
+    new_dist = new_dist.probability(position_counts.column(1) / total)
+    return new_dist
 
 # Brighter colors than the default Table class
 chart_colors = (

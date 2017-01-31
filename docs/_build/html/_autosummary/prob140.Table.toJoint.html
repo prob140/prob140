@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.Table.toJoint &mdash; prob140 0.1.7.3 documentation</title>
+    <title>prob140.Table.toJoint &mdash; prob140 0.1.8.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.7.3',
+        VERSION:     '0.1.8.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
-    <link rel="top" title="prob140 0.1.7.3 documentation" href="../index.html" >
+    <link rel="top" title="prob140 0.1.8.0 documentation" href="../index.html" >
     <link rel="up" title="Joint Distributions (prob140.JointDistribution)" href="../multi.html" >
     <link rel="next" title="prob140.JointDistribution.marginal" href="prob140.JointDistribution.marginal.html" >
     <link rel="prev" title="Joint Distributions (prob140.JointDistribution)" href="../multi.html" > 
@@ -54,7 +54,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="../index.html">prob140 0.1.7.3 documentation</a></li>
+        <li class="active"><a href="../index.html">prob140 0.1.8.0 documentation</a></li>
 	
           <li class="active"><a href="../multi.html" accesskey="U">Joint Distributions (<code class="docutils literal"><span class="pre">prob140.JointDistribution</span></code>)</a></li> 
     </ul>
@@ -125,13 +125,13 @@ If True, the vertical values will be reversed</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
 <span class="go">     X=0  X=1</span>
 <span class="go">Y=3  0.2  0.4</span>
 <span class="go">Y=2  0.1  0.3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span> <span class="s2">&quot;Coin2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span> <span class="s2">&quot;Coin2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.4</span><span class="o">*</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="o">*</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="o">*</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="o">*</span><span class="mf">0.4</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
 <span class="go">         Coin1=H  Coin1=T</span>
@@ -164,7 +164,7 @@ If True, the vertical values will be reversed</p>
         &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
       </li>
       <li>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.5.2.
       </li>
     </ul>
     </div>

@@ -1,6 +1,17 @@
 Changelog
 =========
 
+v0.1.8.0 (2017-01-30)
+---------------------
+
+* Added emp_dist to allow for empirical distributions
+
+
+v0.1.7.6 (2017-01-19)
+---------------------
+
+* __version__ instead of version
+
 v0.1.7.5 (2017-01-18)
 ---------------------
 

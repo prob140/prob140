@@ -16,7 +16,7 @@ def domain(self,*args):
 
 ## Binding; still in debate
 
-
+Table.value = domain
 Table.values = domain
 Table.chart_colors = chart_colors
 Table.prob_event = prob_event

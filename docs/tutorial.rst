@@ -195,6 +195,30 @@ Try to avoid plotting too many distributions together because the graph starts t
     @savefig bad_idea.png width=4in
     Plots("dist1", dist1, "dist2", dist2, "Bin1", binomial, "Bin2", binomial2)
 
+
+Empirical Distributions
+-----------------------
+
+Whenever we simulate an event, we often end up with an array of results. We can construct an empirical distribution
+of the results by grouping of the possible values and assigning the frequencies are probabilities. An easy way to do
+this is by calling `emp_dist`
+
+.. ipython:: python
+
+    x = make_array(1,1,1,1,1,2,3,3,3,4)
+    emp_dist(x)
+    values = make_array()
+    for i in range(10000):
+        num = np.random.randint(10) + np.random.randint(10) + np.random.randint(10) + np.random.randint(10)
+        values = np.append(values, num)
+
+.. ipython:: python
+
+    @savefig emp_dist.png width=4in
+    Plot(emp_dist(values))
+
+
+
 Utilities
 ---------
 
