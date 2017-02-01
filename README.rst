@@ -40,7 +40,26 @@ If you are using ``prob140`` in a notebook, use the following header:
 Changelog highlights
 ====================
 
-See CHANGELOG for full changelog
+See `CHANGELOG <https://gitlab.com/probability/prob140/blob/master/CHANGELOG>`_ for full changelog
+
+v0.1.8 (2017-01-30)
+---------------------
+
+* Added emp_dist to allow for empirical distributions
+
+v0.1.7 (2017-01-16)
+-------------------
+
+* Marginal and Conditional Distributions accept any label names
+* Can use .values instead of .domain
+* Improvements to edges for Plot
+* Sanity checks for probabilities
+
+v0.1.6 (2017-01-14)
+-------------------
+
+* toJoint preserves order
+* Various bug and usability fixes
 
 v0.1.5 (2017-01-12)
 -------------------
@@ -49,7 +68,7 @@ v0.1.5 (2017-01-12)
 * JointDistribution can now be used with any variable
 
 v0.1.4.1
--------
+--------
 
 * Single distribution plotting moved from the ``plot_dist`` method to the ``Plot`` function
 * Multiple distribution plotting moved from the ``Plot`` function to the ``Plots`` function

@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.1.8.1 (2017-02-01)
+---------------------
+
+* Renamed emp_dist values to proportions rather than probabilities
+
 v0.1.8.0 (2017-01-30)
 ---------------------
 

@@ -6,7 +6,6 @@ import itertools
 import abc
 import sys
 import warnings
-
 import matplotlib
 
 from datascience import *
@@ -469,7 +468,7 @@ def emp_dist(values):
     --------
     >>> x = make_array(1,1,1,1,1,2,3,3,3,4)
     >>> emp_dist(x)
-    Value | Probability
+    Value | Proportion
     1     | 0.5
     2     | 0.1
     3     | 0.3
@@ -480,8 +479,7 @@ def emp_dist(values):
 
     position_counts = Table().with_column('position', values).group(0)
     new_dist = Table().values(position_counts.column(0))
-    new_dist = new_dist.probability(position_counts.column(1) / total)
-    return new_dist
+    return new_dist.with_column('Proportion', position_counts.column(1) / total)
 
 # Brighter colors than the default Table class
 chart_colors = (
