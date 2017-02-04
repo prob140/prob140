@@ -29,5 +29,7 @@ Table.expected_value = expected_value
 Table.variance = variance
 Table.sd = sd
 Table.toJoint = toJoint
+Table.sample = sample
+Table.cdf = cdf
 
 

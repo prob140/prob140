@@ -3,8 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import collections
 import itertools
-import abc
-import sys
 import warnings
 import matplotlib
 
@@ -400,6 +398,33 @@ def normalized(self):
     """
     column_label = self.labels[-1]
     return self.with_column(column_label,self.column(column_label)/sum(self.column(column_label)))
+
+def sample(self, n=1):
+
+    check_valid_probability_table(self)
+
+    domain = self.column(0)
+    prob = self.column(1)
+
+    if n == 1:
+        return np.random.choice(domain, p=prob)
+
+    return np.random.choice(domain, n, p=prob)
+
+def cdf(self, x):
+
+    check_valid_probability_table(self)
+
+    dist = self.sort(0)
+
+    domain = dist.column(0)
+    prob = dist.column(1)
+
+    indices = np.where(domain <= x)
+
+    return sum(prob[indices])
+
+
 
 
 def expected_value(self):
