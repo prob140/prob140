@@ -137,7 +137,7 @@ def _bin(dist, width=1, start=None):
 
     return new_domain, new_prob
 
-def Plot(dist, width=1, mask=[], event=[], edges=None,**vargs):
+def Plot(dist, width=1, mask=[], event=[], edges=None, show_ev=False, show_sd=False, **vargs):
     """
     Plots the histogram for a single distribution
 
@@ -227,6 +227,15 @@ def Plot(dist, width=1, mask=[], event=[], edges=None,**vargs):
     plt.xlim((min(dist.column(0)) - mindistance - width / 2, max(dist.column(0))
               + mindistance + width / 2))
 
+    if show_ev:
+        plt.text(dist.expected_value(), 0, "^", horizontalalignment='center', verticalalignment='top', size=30,
+                 color="red")
+
+    if show_sd:
+        plt.text(dist.expected_value() - dist.sd(), 0, "^", horizontalalignment='center', verticalalignment='top',
+                 size=30, color="blue")
+        plt.text(dist.expected_value() + dist.sd(), 0, "^", horizontalalignment='center', verticalalignment='top',
+                 size=30, color="blue")
 
 def Plots(*labels_and_dists, width=1, **vargs):
     """
