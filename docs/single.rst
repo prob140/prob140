@@ -11,9 +11,9 @@ Constucting
 .. ipython:: python
 
     from prob140 import *
-    dist1 = Table().domain(np.array([2, 3, 5])).probability(np.array([0.25, 0.5, 0.25]))
+    dist1 = Table().values(np.array([2, 3, 5])).probability(np.array([0.25, 0.5, 0.25]))
     print(dist1)
-    dist2 = Table().domain(np.arange(1, 8, 2)).probability_function(lambda x: 1/4)
+    dist2 = Table().values(np.arange(1, 8, 2)).probability_function(lambda x: 1/4)
     print(dist2)
 
 
@@ -32,10 +32,12 @@ Utitilies
 
     Table.prob_event
     Table.event
+    Table.cdf
     Table.expected_value
     Table.sd
     Table.variance
     Table.normalized
+    Table.sample
     emp_dist
 
 Plotting

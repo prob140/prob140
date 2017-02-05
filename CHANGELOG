@@ -1,10 +1,15 @@
 Changelog
 =========
 
+v0.2.1.2 (2017-02-04)
+---------------------
+
+* Added show_ave as optional parameter
+
 v0.2.1.1 (2017-02-04)
 ---------------------
 
-* Added show_ev and show_sd as optional paramters for plot
+* Added show_ev and show_sd as optional parameters for plot
 
 v0.2.1.0 (2017-02-04)
 ---------------------

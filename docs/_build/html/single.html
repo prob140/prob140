@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>Single-variable Distributions (datascience.tables.Table) &mdash; prob140 0.1.8.0 documentation</title>
+    <title>Single-variable Distributions (datascience.tables.Table) &mdash; prob140 0.2.1.2 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.8.0',
+        VERSION:     '0.2.1.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.1.8.0 documentation" href="index.html" >
+    <link rel="top" title="prob140 0.2.1.2 documentation" href="index.html" >
     <link rel="next" title="prob140.Table.domain" href="_autosummary/prob140.Table.domain.html" >
     <link rel="prev" title="Joint Distributions" href="joint_tutorial.html" > 
   </head>
@@ -53,7 +53,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.1.8.0 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.2.1.2 documentation</a></li>
 	 
     </ul>
               
@@ -91,7 +91,7 @@
 <h2>Constucting<a class="headerlink" href="#constucting" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="gp">In [2]: </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]))</span>
+<span class="gp">In [2]: </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]))</span>
 
 <span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="p">)</span>
 <span class="go">Value | Probability</span>
@@ -99,7 +99,7 @@
 <span class="go">3     | 0.5</span>
 <span class="go">5     | 0.25</span>
 
-<span class="gp">In [4]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
 
 <span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist2</span><span class="p">)</span>
 <span class="go">Value | Probability</span>
@@ -141,17 +141,23 @@
 <tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.Table.event.html#prob140.Table.event" title="prob140.Table.event"><code class="xref py py-obj docutils literal"><span class="pre">Table.event</span></code></a>(x)</td>
 <td>Shows the probability that distribution takes on value x or list of values x.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.expected_value.html#prob140.Table.expected_value" title="prob140.Table.expected_value"><code class="xref py py-obj docutils literal"><span class="pre">Table.expected_value</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.cdf.html#prob140.Table.cdf" title="prob140.Table.cdf"><code class="xref py py-obj docutils literal"><span class="pre">Table.cdf</span></code></a>(x)</td>
+<td>Finds the cdf of the distribution</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.Table.expected_value.html#prob140.Table.expected_value" title="prob140.Table.expected_value"><code class="xref py py-obj docutils literal"><span class="pre">Table.expected_value</span></code></a>()</td>
 <td>Finds expected value of distribution</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.Table.sd.html#prob140.Table.sd" title="prob140.Table.sd"><code class="xref py py-obj docutils literal"><span class="pre">Table.sd</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.sd.html#prob140.Table.sd" title="prob140.Table.sd"><code class="xref py py-obj docutils literal"><span class="pre">Table.sd</span></code></a>()</td>
 <td>Finds standard deviation of Distribution</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.variance.html#prob140.Table.variance" title="prob140.Table.variance"><code class="xref py py-obj docutils literal"><span class="pre">Table.variance</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.Table.variance.html#prob140.Table.variance" title="prob140.Table.variance"><code class="xref py py-obj docutils literal"><span class="pre">Table.variance</span></code></a>()</td>
 <td>Finds variance of distribution</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.Table.normalized.html#prob140.Table.normalized" title="prob140.Table.normalized"><code class="xref py py-obj docutils literal"><span class="pre">Table.normalized</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.normalized.html#prob140.Table.normalized" title="prob140.Table.normalized"><code class="xref py py-obj docutils literal"><span class="pre">Table.normalized</span></code></a>()</td>
 <td>Returns the distribution by making the proabilities sum to 1</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.Table.sample.html#prob140.Table.sample" title="prob140.Table.sample"><code class="xref py py-obj docutils literal"><span class="pre">Table.sample</span></code></a>([n])</td>
+<td>Randomly samples from the distribution</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.emp_dist.html#prob140.emp_dist" title="prob140.emp_dist"><code class="xref py py-obj docutils literal"><span class="pre">emp_dist</span></code></a>(values)</td>
 <td>Takes an array of values and returns an empirical distribution</td>
@@ -167,7 +173,7 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Plot.html#prob140.Plot" title="prob140.Plot"><code class="xref py py-obj docutils literal"><span class="pre">Plot</span></code></a>(dist[,&nbsp;width,&nbsp;mask,&nbsp;event,&nbsp;edges])</td>
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Plot.html#prob140.Plot" title="prob140.Plot"><code class="xref py py-obj docutils literal"><span class="pre">Plot</span></code></a>(dist[,&nbsp;width,&nbsp;mask,&nbsp;event,&nbsp;edges,&nbsp;...])</td>
 <td>Plots the histogram for a single distribution</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.Plots.html#prob140.Plots" title="prob140.Plots"><code class="xref py py-obj docutils literal"><span class="pre">Plots</span></code></a>(*labels_and_dists[,&nbsp;width])</td>

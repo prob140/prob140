@@ -25,7 +25,8 @@ setup(
     description = 'A probability library for Berkeley\'s Prob140 course',
     author = 'Jason Zhang, Dibya Ghosh',
     author_email = 'zhang.j@berkeley.edu',
-    url = 'https://probability.gitlab.io/',
+    url = 'http://prob140.org/',
+    license = 'GPL',
     download_url = 'https://gitlab.com/probability/prob140/raw/master/dist/prob140-%s.tar.gz' % version,
     keywords = ['data', 'probability', 'berkeley', 'Prob140'],
     classifiers = []

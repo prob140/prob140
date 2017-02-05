@@ -137,7 +137,7 @@ def _bin(dist, width=1, start=None):
 
     return new_domain, new_prob
 
-def Plot(dist, width=1, mask=[], event=[], edges=None, show_ev=False, show_sd=False, **vargs):
+def Plot(dist, width=1, mask=[], event=[], edges=None, show_ev=False, show_ave=False, show_sd=False, **vargs):
     """
     Plots the histogram for a single distribution
 
@@ -148,12 +148,16 @@ def Plot(dist, width=1, mask=[], event=[], edges=None, show_ev=False, show_sd=Fa
     width (optional) : float
         Width of the intervals (default: 1)
     mask (optional) : boolean array or list of boolean arrays
-        Colors the parts of the histogram associated with each mask (
-        default: no mask)
-    borders (optional) : boolean
-        If True, there will be a small border around the bars
-        If False, there will be no border
-        By default, there will be a small border unless there more than 75 bins
+        Colors the parts of the histogram associated with each mask (default: no mask)
+    edges (optional) : boolean
+        If True, there will be a small border around the bars. If False, there will be no border. (default: small
+        border unless there more than 75 bins
+    show_ev (optional) : boolean
+        Adds a tick mark at the expected value (default : False)
+    show_ave (optional) : boolean
+        Adds a tick mark at the average of an empirical distribution (default : False)
+    show_sd (optional) : boolean
+        Adds two tick marks one sd above and one sd below the expected value (default : False)
     vargs
         See pyplot's additional optional arguments
 
@@ -227,7 +231,7 @@ def Plot(dist, width=1, mask=[], event=[], edges=None, show_ev=False, show_sd=Fa
     plt.xlim((min(dist.column(0)) - mindistance - width / 2, max(dist.column(0))
               + mindistance + width / 2))
 
-    if show_ev:
+    if show_ev or show_ave:
         plt.text(dist.expected_value(), 0, "^", horizontalalignment='center', verticalalignment='top', size=30,
                  color="red")
 
@@ -409,6 +413,28 @@ def normalized(self):
     return self.with_column(column_label,self.column(column_label)/sum(self.column(column_label)))
 
 def sample(self, n=1):
+    """
+    Randomly samples from the distribution
+
+    Parameters
+    ----------
+    n : int
+        Number of times to sample from the distribution (default: 1)
+
+    Returns
+    -------
+    float or array
+        Samples from the distribution
+
+    >>> dist = Table().with_columns('Value',make_array(2, 3, 4),'Probability',make_array(0.25, 0.5, 0.25))
+    >>> dist.sample()
+    3
+    >>> dist.sample()
+    2
+    >>> dist.sample(10)
+    array([3, 2, 2, 4, 3, 4, 3, 4, 3, 3])
+
+    """
 
     check_valid_probability_table(self)
 
@@ -421,6 +447,32 @@ def sample(self, n=1):
     return np.random.choice(domain, n, p=prob)
 
 def cdf(self, x):
+    """
+    Finds the cdf of the distribution
+
+    Parameters
+    ----------
+    x : float
+        Value in distribution
+
+    Returns
+    -------
+    float
+        Finds P(X<=x)
+
+    Examples
+    --------
+    >>> dist = Table().with_columns('Value',make_array(2, 3, 4),'Probability',make_array(0.25, 0.5, 0.25))
+    >>> dist.cdf(0)
+    0
+    >>> dist.cdf(2)
+    0.25
+    >>> dist.cdf(3.5)
+    0.75
+    >>> dist.cdf(1000)
+    1
+
+    """
 
     check_valid_probability_table(self)
 

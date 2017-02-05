@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.Table.prob_event &mdash; prob140 0.2.1.2 documentation</title>
+    <title>prob140.Table.sample &mdash; prob140 0.2.1.2 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -29,8 +29,8 @@
     <link rel="search" title="Search" href="../search.html" >
     <link rel="top" title="prob140 0.2.1.2 documentation" href="../index.html" >
     <link rel="up" title="Single-variable Distributions (datascience.tables.Table)" href="../single.html" >
-    <link rel="next" title="prob140.Table.event" href="prob140.Table.event.html" >
-    <link rel="prev" title="prob140.Table.probability_function" href="prob140.Table.probability_function.html" > 
+    <link rel="next" title="prob140.emp_dist" href="prob140.emp_dist.html" >
+    <link rel="prev" title="prob140.Table.normalized" href="prob140.Table.normalized.html" > 
   </head>
   <body>
 
@@ -66,11 +66,11 @@
            accesskey="I">index</a>
       </li>
       <li class="active">
-        <a href="prob140.Table.event.html" title="prob140.Table.event"
+        <a href="prob140.emp_dist.html" title="prob140.emp_dist"
            accesskey="N">next</a>
       </li>
       <li class="active">
-        <a href="prob140.Table.probability_function.html" title="prob140.Table.probability_function"
+        <a href="prob140.Table.normalized.html" title="prob140.Table.normalized"
            accesskey="P">previous</a>
       </li>
     </ul>
@@ -87,45 +87,45 @@
         <div class="bodywrapper">
           <div class="body" id="spc-section-body">
             
-  <div class="section" id="prob140-table-prob-event">
-<h1>prob140.Table.prob_event<a class="headerlink" href="#prob140-table-prob-event" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="prob140-table-sample">
+<h1>prob140.Table.sample<a class="headerlink" href="#prob140-table-sample" title="Permalink to this headline">¶</a></h1>
 <dl class="method">
-<dt id="prob140.Table.prob_event">
-<code class="descclassname">Table.</code><code class="descname">prob_event</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.prob_event" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds the probability of an event x</p>
+<dt id="prob140.Table.sample">
+<code class="descclassname">Table.</code><code class="descname">sample</code><span class="sig-paren">(</span><em>n=1</em><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly samples from the distribution</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x</strong> : float or Iterable</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>n</strong> : int</p>
 <blockquote>
-<div><p>An event represented either as a specific value in the domain or a
-subset of the domain</p>
+<div><p>Number of times to sample from the distribution (default: 1)</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float</p>
-<blockquote class="last">
-<div><p>Probability of the event</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float or array</p>
+<blockquote>
+<div><p>Samples from the distribution</p>
 </div></blockquote>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">,</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>3</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>2</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="last">array([3, 2, 2, 4, 3, 4, 3, 4, 3, 3])</p>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="go">0.25</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="go">0.5</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="go">1.0</span>
-</pre></div>
-</div>
 </dd></dl>
 
 </div>
