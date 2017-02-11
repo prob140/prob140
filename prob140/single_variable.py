@@ -241,7 +241,7 @@ def Plot(dist, width=1, mask=[], event=[], edges=None, show_ev=False, show_ave=F
         plt.text(dist.expected_value() + dist.sd(), 0, "^", horizontalalignment='center', verticalalignment='top',
                  size=30, color="blue")
 
-def Plots(*labels_and_dists, width=1, **vargs):
+def Plots(*labels_and_dists, width=1, edges=None, **vargs):
     """
     Overlays histograms for multiply probability distributions together.
 
@@ -266,14 +266,11 @@ def Plots(*labels_and_dists, width=1, **vargs):
     """
 
     assert len(labels_and_dists) % 2 == 0, 'Even length sequence required'
-    options = Table.default_options.copy()
-    options.update(vargs)
 
     i = 0
 
     domain = set()
     while i < len(labels_and_dists):
-        label = labels_and_dists[i]
         dist = labels_and_dists[i + 1]
         check_valid_probability_table(dist)
 
@@ -282,8 +279,15 @@ def Plots(*labels_and_dists, width=1, **vargs):
 
     domain = np.array(list(domain))
 
+    options = {"width": width, "lw": 0, "alpha": 0.7, "align": "center"}
+    if edges == True or len(domain) < 75:
+        options["lw"] = 0.5
+    if edges == False:  # edges could be none
+        options["lw"] = 0
+    options.update(vargs)
+
     i = 0
-    distributions = ["Value", domain]
+    distributions = []
     while i < len(labels_and_dists):
         distributions.append(labels_and_dists[i])
         dist = labels_and_dists[i + 1]
@@ -298,9 +302,21 @@ def Plots(*labels_and_dists, width=1, **vargs):
     start = min(domain)
     end = max(domain)
     end = (end // width + 1) * width
+
+
+    num = len(labels_and_dists) // 2
+
+    colors = list(itertools.islice(itertools.cycle(Table.chart_colors), num))
+    for i in range(num):
+        plt.bar(domain, distributions[i*2+1] * 100, color=colors[i], label=distributions[i*2], **options)
+
+    plt.legend(loc=2, bbox_to_anchor=(1.05, 1))
+    """
     result.hist(counts="Value",
                 bins=np.arange(start - width / 2, end + width, width),
                 **vargs)
+    """
+
     domain = np.sort(domain)
 
     mindistance = 0.9 * max(min([domain[i] - domain[i - 1] for i in range(1, len(domain))]), 1)
@@ -309,6 +325,7 @@ def Plots(*labels_and_dists, width=1, **vargs):
               width / 2))
 
     plt.xlabel("Value")
+    plt.ylabel("Percent per unit")
 
 
 def single_domain(self, values):
