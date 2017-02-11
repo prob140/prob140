@@ -4,6 +4,11 @@ Changelog
 v0.2.3.1 (2017-02-11)
 ---------------------
 
+* Fixed mean_first_passage_times
+
+v0.2.3.0 (2017-02-11)
+---------------------
+
 * Renamed a ton of functions
 * Implemented starting conditions
 

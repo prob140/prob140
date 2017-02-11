@@ -67,9 +67,25 @@ class MarkovChain:
     def steady_state(self):
         return self.chain.steady()
     
-    def mean_first_passage_time_to(self,target_state):
-        return vector_to_table(self.chain.mfpt_to(target_state),'Mean Time')
-    
+    def mean_first_passage_times(self):
+
+        states = self.chain.states()
+        my_dict = {}
+
+        def find_steady(x):
+            steady = self.steady_state()
+            return steady.column(1)[np.where(steady.column(0) == x)[0]][0]
+
+        for i in states:
+            mfpt_to = self.chain.mfpt_to(i)
+            for j in mfpt_to.keys():
+                my_dict[(j,i)] = mfpt_to[j]
+                my_dict[(i,i)] = 1 / find_steady(i)
+
+        return matrix_to_pandas(pykov.Matrix(my_dict))
+
+
+
     def simulate_chain(self, starting_condition, n, end=None):
 
         if isinstance(starting_condition, Table):
