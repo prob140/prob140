@@ -1,5 +1,6 @@
 import pandas as pd    
 from . import pykov
+from .single_variable import emp_dist
 from datascience import *
 import numpy as np
 
@@ -69,12 +70,26 @@ class MarkovChain:
     def mean_first_passage_time_to(self,target_state):
         return vector_to_table(self.chain.mfpt_to(target_state),'Mean Time')
     
-    def simulate_chain(self, n, start=None, stop=None):
-        return self.chain.walk(n, start, stop)
+    def simulate_chain(self, starting_condition, n, end=None):
+
+        if isinstance(starting_condition, Table):
+            start = starting_condition.sample()
+            return np.array(self.chain.walk(n, start, end))
+        else:
+            return np.array(self.chain.walk(n, starting_condition, end))
     
-    @pykov_connection
-    def probability_of_walk(self,walk):
-        return np.e**(self.chain.walk_probability(walk))
+
+    def prob_of_path(self, starting_condition, path):
+
+        if isinstance(starting_condition, Table):
+            first = path[0]
+
+            # There has to be something better than this
+            p_first = starting_condition.column(1)[np.where(starting_condition.column(0) == first)[0]][0]
+
+            return p_first * np.e**(self.chain.walk_probability(path))
+
+        return np.e ** (self.chain.walk_probability([starting_condition] + list(path)))
     
     def is_accessible(self,i,j):
         return self.chain.is_accessible(i,j)
@@ -88,6 +103,13 @@ class MarkovChain:
 
     def mixing_time(self, cutoff=.25, jump=1, p=None):
         return self.chain.mixing_time(cutoff, jump, p)
+
+    def empirical_distribution(self, starting_condition, n, repetitions):
+
+        end = []
+        for i in range(repetitions):
+            end.append(self.simulate_chain(starting_condition, n)[-1])
+        return emp_dist(end)
 
 
     
