@@ -6,6 +6,9 @@ A Berkeley library for probability theory.
 
 Written for `Prob140 (prob140.org) <prob140.org>`_  by Jason Zhang and Dibya Ghosh.
 
+Pykov Module written by `Riccardo Scalco <https://github.com/riccardoscalco/Pykov>`_. Included in library with permission.
+
+
 For documentation, visit `https://probability.gitlab.io/prob140/html/ <https://probability.gitlab.io/prob140/html/>`_
 
 For example notebooks on using the library, see `single variable notebook <https://nbviewer.jupyter.org/urls/gitlab.com/probability/prob140/raw/master/Examples.ipynb>`_
@@ -23,6 +26,7 @@ You must also have an updated installation of Berkeley's
 `Data Science library <https://github.com/data-8/datascience>`_::
 
     pip install datascience
+    
 
 If you are using ``prob140`` in a notebook, use the following header:
 
@@ -35,6 +39,12 @@ If you are using ``prob140`` in a notebook, use the following header:
     import matplotlib.pyplot as plt
     import numpy as np
     plt.style.use('fivethirtyeight')
+    
+If you wish to use the Pykov module, also include: 
+
+.. code-block:: python
+
+    from prob140.pykov import *
 
 
 Changelog highlights
