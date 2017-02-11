@@ -1,5 +1,7 @@
 from .single_variable import *
 from .multi_variable import *
+from .markov_chains import MarkovChain,toMarkovChain
+
 import inspect
 
 from .version import *
@@ -31,5 +33,11 @@ Table.sd = sd
 Table.toJoint = toJoint
 Table.sample = sample
 Table.cdf = cdf
+
+
+# Markov Chain stuff
+Table.toMarkovChain = toMarkovChain
+Table.transition_probability = transition_probability
+Table.transition_function = transition_function
 
 

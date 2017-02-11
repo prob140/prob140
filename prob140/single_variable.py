@@ -403,6 +403,61 @@ def probability(self, values):
         warnings.warn("Probabilities sum to {0}".format(sum(values)))
     return self.with_column('Probability', values)
 
+def transition_function(self, pfunc):
+    """
+    Assigns transition probabilities to a Distribution via a probability
+    function. The probability function is applied to each value of the
+    domain. Must have domain values in the first column first.
+
+    Parameters
+    ----------
+    pfunc : variate function
+        Conditional probability function of the distribution ( P(Y | X))
+
+    Returns
+    -------
+    Table
+        Table with those probabilities in its final column
+
+    """
+    domain_names = self.labels
+    values = np.array(self.apply(pfunc, domain_names)).astype(float)
+    if any(values < 0):
+        warnings.warn("Probability cannot be negative")
+    conditioned_var = self.column_labels[0]
+    all_other_vars = ",".join(self.column_labels[1:])
+    return_table = self.with_column('P(%s | %s)'%(all_other_vars,conditioned_var),values)
+    _transition_warn(return_table)
+    return return_table
+
+def transition_probability(self, values):
+    """
+    For a multivariate probability distribution, assigns transition probabilities:
+    ie P(Y | X).
+
+    Parameters
+    ----------
+    values : List or Array
+        Values that must correspond to the domain in the same order
+
+    Returns
+    -------
+    Table
+        A proability distribution with those probabilities
+    """
+    if any(np.array(values) < 0):
+        warnings.warn("Probability cannot be negative")
+
+    return_table =  self.with_column('Probability', values)
+    _transition_warn(return_table)
+    return return_table
+
+def _transition_warn(table):
+    prob_sums = table.group(0,collect=sum)
+    for row in prob_sums.rows:
+        if round(row[-1],6) != 1:
+            warnings.warn(
+                'Transition probabilities for %s sum to %.04f not 1'%(str(row[0]),row[-1]))
 
 def normalized(self):
     """
