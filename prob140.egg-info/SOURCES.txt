@@ -2,6 +2,7 @@ README.rst
 setup.cfg
 setup.py
 prob140/__init__.py
+prob140/markov_chains.py
 prob140/multi_variable.py
 prob140/pykov.py
 prob140/rebinding.py
