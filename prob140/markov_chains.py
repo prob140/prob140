@@ -44,6 +44,13 @@ def pykov_connection(function):
 class MarkovChain:
     def __init__(self,pykov_chain):
         self.chain = pykov_chain
+
+    def __repr__(self):
+        return self.chain.__repr__()
+
+    def __str__(self):
+        return self.chain.__str__()
+
     def _repr_html_(self):
         return matrix_to_pandas(self.chain)._repr_html_()
     
@@ -52,8 +59,8 @@ class MarkovChain:
         return self.chain.move(state)
     
     @pykov_connection
-    def distribution_after_time(self,initial_distribution,time):
-        return self.chain.pow(initial_distribution,time)
+    def distribution(self, starting_condition, n):
+        return self.chain.pow(starting_condition, n)
     
     @pykov_connection
     def steady_state(self):
@@ -62,8 +69,8 @@ class MarkovChain:
     def mean_first_passage_time_to(self,target_state):
         return vector_to_table(self.chain.mfpt_to(target_state),'Mean Time')
     
-    def random_walk(self,steps,start=None,stop=None):
-        return self.chain.walk(steps,start,stop)
+    def simulate_chain(self, n, start=None, stop=None):
+        return self.chain.walk(n, start, stop)
     
     @pykov_connection
     def probability_of_walk(self,walk):
@@ -78,7 +85,11 @@ class MarkovChain:
     @pykov_connection
     def accessibility_matrix(self):
         return self.chain.accessibility_matrix()
-    
+
+    def mixing_time(self, cutoff=.25, jump=1, p=None):
+        return self.chain.mixing_time(cutoff, jump, p)
+
+
     
 def toMarkovChain(table):
     assert table.num_columns == 3, \
