@@ -6,6 +6,7 @@ import itertools
 import warnings
 import matplotlib
 
+from .multi_variable import multi_domain
 from datascience import *
 
 inf = math.inf
@@ -420,6 +421,10 @@ def transition_function(self, pfunc):
         Table with those probabilities in its final column
 
     """
+    states = self.column(0)
+
+    self = multi_domain(Table(), "Source", states, "Target", states)
+
     domain_names = self.labels
     values = np.array(self.apply(pfunc, domain_names)).astype(float)
     if any(values < 0):
@@ -447,6 +452,10 @@ def transition_probability(self, values):
     """
     if any(np.array(values) < 0):
         warnings.warn("Probability cannot be negative")
+
+    states = self.column(0)
+
+    self = multi_domain(Table(), "Source", states, "Target", states)
 
     return_table =  self.with_column('Probability', values)
     _transition_warn(return_table)

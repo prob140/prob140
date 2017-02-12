@@ -19,10 +19,6 @@ def domain(self, *args):
 
 
 def states(self, values):
-
-    return multi_domain(self, "Source", values, "Target", values)
-
-def state(self, values):
     table = self.with_column('State', values)
     table.move_to_start('State')
     return table
@@ -32,7 +28,6 @@ def state(self, values):
 Table.value = domain
 Table.values = domain
 Table.states = states
-Table.state = state
 Table.chart_colors = chart_colors
 Table.prob_event = prob_event
 Table.event = event
