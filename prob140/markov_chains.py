@@ -1,49 +1,60 @@
-import pandas as pd    
+import pandas as pd
 from . import pykov
 from .single_variable import emp_dist
 from datascience import *
 import numpy as np
 
+
 def matrix_to_pandas(matrix):
-    all_states =sorted(matrix.states())
-    target_states = ['S: '+(str(label)) for label in all_states]
-    data = {source: [0]*len(all_states) for source in all_states}
-    for (source,target),probability in matrix.items():
+    all_states = sorted(matrix.states())
+    target_states = ['S: ' + (str(label)) for label in all_states]
+    data = {source: [0] * len(all_states) for source in all_states}
+    for (source, target), probability in matrix.items():
         data[target][all_states.index(source)] = probability
-    data = {'T: '+str(label): values for label,values in data.items()}
-    return pd.DataFrame(data,index=target_states)
-    
+    data = {'T: ' + str(label): values for label, values in data.items()}
+    return pd.DataFrame(data, index=target_states)
+
+
 def matrix_to_table(matrix):
-    t = Table().with_columns('Source',[],'Target',[],'Probability',[])
-    rows = [(source,target,probability) for (source,target),probability in matrix.items()]
+    t = Table().with_columns('Source', [], 'Target', [], 'Probability', [])
+    rows = [(source, target, probability)
+            for (source, target), probability in matrix.items()]
     return t.with_rows(rows)
+
 
 def table_to_vector(table):
     assert table.num_columns == 2, "You must have 2 columns for this task"
     label_column = table.column(0)
     prob_column = table.column(1)
-    return pykov.Vector({label:prob for label,prob in zip(label_column,prob_column)})
+    return pykov.Vector({label: prob for label, prob in zip(label_column, prob_column)})
 
-def vector_to_table(vector,valueLabel='Probability'):
-    t = Table().with_columns('State',[],valueLabel,[])
-    rows = sorted(vector.items(),key=lambda x:x[0])
+
+def vector_to_table(vector, valueLabel='Probability', chain=None):
+    t = Table().with_columns('State', [], valueLabel, [])
+    rows = sorted(vector.items(), key=lambda x: x[0])
+    no_value = [state for state in chain.states() if state not in vector]
+    rows.extend([(state, 0) for state in no_value])
     return t.with_rows(rows)
 
+
 def pykov_connection(function):
-    def internal(*args,**kwargs):
-        new_args = [(table_to_vector(argument) if isinstance(argument,Table) else argument) for argument in args]
-        kwargs = {key:(table_to_vector(value) if isinstance(value,Table) else value) for key,value in kwargs}
-        output = function(*new_args,**kwargs)
-        if isinstance(output,pykov.Vector):
-            return vector_to_table(output)
-        if isinstance(output,pykov.Matrix):
+    def internal(*args, **kwargs):
+        new_args = [(table_to_vector(argument) if isinstance(
+            argument, Table) else argument) for argument in args]
+        kwargs = {key: (table_to_vector(value) if isinstance(
+            value, Table) else value) for key, value in kwargs}
+        output = function(*new_args, **kwargs)
+        if isinstance(output, pykov.Vector):
+            return vector_to_table(output, chain=args[0].chain)
+        if isinstance(output, pykov.Matrix):
             return matrix_to_pandas(output)
         return output
     return internal
 
 
 class MarkovChain:
-    def __init__(self,pykov_chain):
+
+    def __init__(self, pykov_chain):
         self.chain = pykov_chain
 
     def __repr__(self):
@@ -54,7 +65,7 @@ class MarkovChain:
 
     def _repr_html_(self):
         return matrix_to_pandas(self.chain)._repr_html_()
-    
+
     @pykov_connection
     def move(self, state):
         """
@@ -81,7 +92,7 @@ class MarkovChain:
         'B'
         """
         return self.chain.move(state)
-    
+
     @pykov_connection
     def distribution(self, starting_condition, n):
         """
@@ -118,9 +129,9 @@ class MarkovChain:
         """
 
         if not isinstance(starting_condition, pykov.Vector):
-            starting_condition = pykov.Vector({starting_condition : 1})
+            starting_condition = pykov.Vector({starting_condition: 1})
         return self.chain.pow(starting_condition, n)
-    
+
     @pykov_connection
     def steady_state(self):
         """
@@ -138,7 +149,7 @@ class MarkovChain:
         B     | 0.625
         """
         return self.chain.steady()
-    
+
     def mean_first_passage_times(self):
         """
         Finds the mean time it takes to reach state j from state i
@@ -166,12 +177,10 @@ class MarkovChain:
         for i in states:
             mfpt_to = self.chain.mfpt_to(i)
             for j in mfpt_to.keys():
-                my_dict[(j,i)] = mfpt_to[j]
-                my_dict[(i,i)] = 1 / find_steady(i)
+                my_dict[(j, i)] = mfpt_to[j]
+                my_dict[(i, i)] = 1 / find_steady(i)
 
         return matrix_to_pandas(pykov.Matrix(my_dict))
-
-
 
     def simulate_chain(self, starting_condition, n, end=None):
         """
@@ -212,7 +221,6 @@ class MarkovChain:
             return np.array(self.chain.walk(n, start, end))
         else:
             return np.array(self.chain.walk(n, starting_condition, end))
-    
 
     def prob_of_path(self, starting_condition, path):
         """
@@ -247,18 +255,19 @@ class MarkovChain:
             first = path[0]
 
             # There has to be something better than this
-            p_first = starting_condition.column(1)[np.where(starting_condition.column(0) == first)[0]][0]
+            p_first = starting_condition.column(1)[np.where(
+                starting_condition.column(0) == first)[0]][0]
 
             return p_first * np.e**(self.chain.walk_probability(path))
 
         return np.e ** (self.chain.walk_probability([starting_condition] + list(path)))
-    
-    def is_accessible(self,i,j):
-        return self.chain.is_accessible(i,j)
-    
-    def communicates(self,i,j):
-        return self.chain.communicates(i,j)
-    
+
+    def is_accessible(self, i, j):
+        return self.chain.is_accessible(i, j)
+
+    def communicates(self, i, j):
+        return self.chain.communicates(i, j)
+
     @pykov_connection
     def accessibility_matrix(self):
         """
@@ -341,11 +350,10 @@ class MarkovChain:
         return ed
 
 
-    
 def toMarkovChain(table):
     assert table.num_columns == 3, \
-    'Must have columns: source,target,probability'
-    assert all([round(probsum,6)==1 for probsum in table.group(0,collect=sum).column(2)]), \
+        'Must have columns: source,target,probability'
+    assert all([round(probsum, 6) == 1 for probsum in table.group(0, collect=sum).column(2)]), \
         'Transition probabilities must sum to 1 for each source state'
-    dict_of_values = {(row[0],row[1]):row[2] for row in table.rows}
+    dict_of_values = {(row[0], row[1]): row[2] for row in table.rows}
     return MarkovChain(pykov.Chain(dict_of_values))
