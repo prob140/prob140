@@ -32,8 +32,9 @@ def table_to_vector(table):
 def vector_to_table(vector, valueLabel='Probability', chain=None):
     t = Table().with_columns('State', [], valueLabel, [])
     rows = sorted(vector.items(), key=lambda x: x[0])
-    no_value = [state for state in chain.states() if state not in vector]
-    rows.extend([(state, 0) for state in no_value])
+    if chain:
+        no_value = [state for state in chain.states() if state not in vector]
+        rows.extend([(state, 0) for state in no_value])
     return t.with_rows(rows)
 
 
