@@ -1,4 +1,4 @@
-from .version import *
+from .version import __version__
 from .rebinding import Table,ProbabilityTable,Plot,Plots,JointDistribution
 from .markov_chains import MarkovChain
 

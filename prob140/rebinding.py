@@ -2,9 +2,7 @@ from .single_variable import *
 from .multi_variable import *
 from .markov_chains import MarkovChain, toMarkovChain
 
-import inspect
 
-from .version import *
 from datascience import *
 
 

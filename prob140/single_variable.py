@@ -426,7 +426,7 @@ def transition_function(self, pfunc):
     self = multi_domain(Table(), "Source", states, "Target", states)
 
     domain_names = self.labels
-    values = np.array(self.apply(pfunc, domain_names)).astype(float)
+    values = np.array(self.apply(pfunc, *domain_names)).astype(float)
     if any(values < 0):
         warnings.warn("Probability cannot be negative")
     conditioned_var = self.labels[0]

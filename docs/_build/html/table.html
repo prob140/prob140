@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>datascience Tables &mdash; prob140 0.2.1.2 documentation</title>
+    <title>datascience Tables &mdash; prob140 0.2.3.5 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.1.2',
+        VERSION:     '0.2.3.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,8 +27,8 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.2.1.2 documentation" href="index.html" >
-    <link rel="prev" title="prob140.JointDistribution.conditional_dist" href="_autosummary/prob140.JointDistribution.conditional_dist.html" > 
+    <link rel="top" title="prob140 0.2.3.5 documentation" href="index.html" >
+    <link rel="prev" title="prob140.MarkovChain.empirical_distribution" href="_autosummary/prob140.MarkovChain.empirical_distribution.html" > 
   </head>
   <body>
 
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.2.1.2 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.2.3.5 documentation</a></li>
 	 
     </ul>
               
@@ -63,7 +63,7 @@
            accesskey="I">index</a>
       </li>
       <li class="active">
-        <a href="_autosummary/prob140.JointDistribution.conditional_dist.html" title="prob140.JointDistribution.conditional_dist"
+        <a href="_autosummary/prob140.MarkovChain.empirical_distribution.html" title="prob140.MarkovChain.empirical_distribution"
            accesskey="P">previous</a>
       </li>
     </ul>
@@ -105,8 +105,8 @@ columns of self.</p>
 <dd><p>Appends a column to the table or replaces a column.</p>
 <dl class="docutils">
 <dt><code class="docutils literal"><span class="pre">__setitem__</span></code> is aliased to this method:</dt>
-<dd><code class="docutils literal"><span class="pre">table.append_column('new_col',</span> <span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3])</span></code> is equivalent to
-<code class="docutils literal"><span class="pre">table['new_col']</span> <span class="pre">=</span> <span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3]</span></code>.</dd>
+<dd><code class="docutils literal"><span class="pre">table.append_column('new_col',</span> <span class="pre">make_array(1,</span> <span class="pre">2,</span> <span class="pre">3))</span></code> is equivalent to
+<code class="docutils literal"><span class="pre">table['new_col']</span> <span class="pre">=</span> <span class="pre">make_array(1,</span> <span class="pre">2,</span> <span class="pre">3)</span></code>.</dd>
 <dt>Args:</dt>
 <dd><p class="first"><code class="docutils literal"><span class="pre">label</span></code> (str): The label of the new column.</p>
 <dl class="last docutils">
@@ -131,17 +131,17 @@ as the number of rows in the table.</li>
 </dl>
 </dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;count&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;count&#39;</span><span class="p">,</span>  <span class="n">make_array</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">table</span>
 <span class="go">letter | count | points</span>
 <span class="go">a      | 9     | 1</span>
 <span class="go">b      | 3     | 2</span>
 <span class="go">c      | 3     | 2</span>
 <span class="go">z      | 1     | 10</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="s1">&#39;new_col1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="s1">&#39;new_col1&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">table</span>
 <span class="go">letter | count | points | new_col1</span>
 <span class="go">a      | 9     | 1      | 10</span>
@@ -155,7 +155,7 @@ as the number of rows in the table.</li>
 <span class="go">b      | 3     | 2      | 20       | hello</span>
 <span class="go">c      | 3     | 2      | 30       | hello</span>
 <span class="go">z      | 1     | 10     | 40       | hello</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="gt">Traceback (most recent call last):</span>
     <span class="o">...</span>
 <span class="gr">ValueError</span>: <span class="n">The column label must be a string, but a int was given</span>
@@ -170,34 +170,34 @@ as the number of rows in the table.</li>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">apply</code><span class="sig-paren">(</span><em>fn</em>, <em>column_label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.apply"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Returns an array where <code class="docutils literal"><span class="pre">fn</span></code> is applied to each set of elements
-by row from the specified columns in <code class="docutils literal"><span class="pre">column_label</span></code>. If no
-column_label is specified, then each row is passed to fn.</p>
+<code class="descclassname">Table.</code><code class="descname">apply</code><span class="sig-paren">(</span><em>fn</em>, <em>*column_or_columns</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.apply"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Apply <code class="docutils literal"><span class="pre">fn</span></code> to each element or elements of <code class="docutils literal"><span class="pre">column_or_columns</span></code>.
+If no <code class="docutils literal"><span class="pre">column_or_columns</span></code> provided, <cite>fn`</cite> is applied to each row.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><dl class="first last docutils">
-<dt><code class="docutils literal"><span class="pre">fn</span></code> (function): The function to be applied to elements specified</dt>
-<dd>by <code class="docutils literal"><span class="pre">column_label</span></code>.</dd>
-<dt><code class="docutils literal"><span class="pre">column_label</span></code> (single string or list of strings): Names of</dt>
-<dd>columns to be passed into function <code class="docutils literal"><span class="pre">fn</span></code>. Length must match
-number of elements <code class="docutils literal"><span class="pre">fn</span></code> takes.</dd>
-</dl>
+<dd><p class="first"><code class="docutils literal"><span class="pre">fn</span></code> (function) &#8211; The function to apply.
+<code class="docutils literal"><span class="pre">column_or_columns</span></code>: Columns containing the arguments to <code class="docutils literal"><span class="pre">fn</span></code></p>
+<blockquote class="last">
+<div>as either column labels (<code class="docutils literal"><span class="pre">str</span></code>) or column indices (<code class="docutils literal"><span class="pre">int</span></code>).
+The number of columns must match the number of arguments
+that <code class="docutils literal"><span class="pre">fn</span></code> expects.</div></blockquote>
 </dd>
 <dt>Raises:</dt>
 <dd><dl class="first last docutils">
-<dt><code class="docutils literal"><span class="pre">ValueError</span></code>: column name in <code class="docutils literal"><span class="pre">column_label</span></code> is not an existing</dt>
+<dt><code class="docutils literal"><span class="pre">ValueError</span></code> &#8211; if  <code class="docutils literal"><span class="pre">column_label</span></code> is not an existing</dt>
 <dd>column in the table.</dd>
+<dt><code class="docutils literal"><span class="pre">TypeError</span></code> &#8211; if insufficent number of <code class="docutils literal"><span class="pre">column_label</span></code> passed</dt>
+<dd>to <code class="docutils literal"><span class="pre">fn</span></code>.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
-<dd>A numpy array consisting of results of applying <code class="docutils literal"><span class="pre">fn</span></code> to elements
+<dd>An array consisting of results of applying <code class="docutils literal"><span class="pre">fn</span></code> to elements
 specified by <code class="docutils literal"><span class="pre">column_label</span></code> in each row.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;count&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;count&#39;</span><span class="p">,</span>  <span class="n">make_array</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
 <span class="go">letter | count | points</span>
 <span class="go">a      | 9     | 1</span>
@@ -206,12 +206,20 @@ specified by <code class="docutils literal"><span class="pre">column_label</span
 <span class="go">z      | 1     | 10</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;points&#39;</span><span class="p">)</span>
 <span class="go">array([0, 1, 1, 9])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;points&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;points&#39;</span><span class="p">)</span>
 <span class="go">array([ 9,  6,  6, 10])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;points&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">TypeError</span>: <span class="n">&lt;lambda&gt;() takes 1 positional argument but 2 were given</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;counts&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">The column &quot;counts&quot; is not in the table. The table contains these columns: letter, count, points</span>
 </pre></div>
 </div>
 <p>Whole rows are passed to the function if no columns are specified.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
 <span class="go">array([18,  6,  6,  2])</span>
 </pre></div>
 </div>
@@ -231,7 +239,7 @@ specified by <code class="docutils literal"><span class="pre">column_label</span
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">bar</code><span class="sig-paren">(</span><em>column_for_categories=None</em>, <em>select=None</em>, <em>overlay=True</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.bar"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descclassname">Table.</code><code class="descname">bar</code><span class="sig-paren">(</span><em>column_for_categories=None</em>, <em>select=None</em>, <em>overlay=True</em>, <em>width=6</em>, <em>height=4</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.bar"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Plot bar charts for the table.</p>
 <p>Each plot is labeled using the values in <cite>column_for_categories</cite> and
 one plot is produced for every other column (or for the columns
@@ -254,15 +262,15 @@ for additional arguments that can be passed into vargs.</dd>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">barh</code><span class="sig-paren">(</span><em>column_for_categories=None</em>, <em>select=None</em>, <em>overlay=True</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.barh"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descclassname">Table.</code><code class="descname">barh</code><span class="sig-paren">(</span><em>column_for_categories=None</em>, <em>select=None</em>, <em>overlay=True</em>, <em>width=6</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.barh"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Plot horizontal bar charts for the table.</p>
-<p>Each plot is labeled using the values in <cite>column_for_categories</cite> and
-one plot is produced for every other column (or for the columns
-designated by <cite>select</cite>).</p>
-<p>Every selected except column for <cite>column_for_categories</cite> must be numerical.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>column_for_categories (str): A column containing y-axis categories</dd>
+<dd><dl class="first last docutils">
+<dt><code class="docutils literal"><span class="pre">column_for_categories</span></code> (<code class="docutils literal"><span class="pre">str</span></code>): A column containing y-axis categories</dt>
+<dd>used to create buckets for bar chart.</dd>
+</dl>
+</dd>
 <dt>Kwargs:</dt>
 <dd><dl class="first last docutils">
 <dt>overlay (bool): create a chart with one color per data column;</dt>
@@ -272,12 +280,23 @@ designated by <cite>select</cite>).</p>
 for additional arguments that can be passed into vargs.</dd>
 </dl>
 </dd>
+<dt>Raises:</dt>
+<dd><dl class="first last docutils">
+<dt>ValueError &#8211; Every selected except column for <code class="docutils literal"><span class="pre">column_for_categories</span></code></dt>
+<dd>must be numerical.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;Furniture&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;chairs&#39;</span><span class="p">,</span> <span class="s1">&#39;tables&#39;</span><span class="p">,</span> <span class="s1">&#39;desks&#39;</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;Count&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
-<span class="gp">... </span>    <span class="p">])</span>
+</dd>
+<dt>Returns:</dt>
+<dd>Horizontal bar graph with buckets specified by <code class="docutils literal"><span class="pre">column_for_categories</span></code>.
+Each plot is labeled using the values in <code class="docutils literal"><span class="pre">column_for_categories</span></code>
+and one plot is produced for every other column (or for the columns
+designated by <code class="docutils literal"><span class="pre">select</span></code>).</dd>
+</dl>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;Furniture&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;chairs&#39;</span><span class="p">,</span> <span class="s1">&#39;tables&#39;</span><span class="p">,</span> <span class="s1">&#39;desks&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;Count&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
 <span class="go">Furniture | Count | Price</span>
 <span class="go">chairs    | 6     | 10</span>
@@ -287,7 +306,7 @@ for additional arguments that can be passed into vargs.</dd>
 <span class="go">&lt;bar graph with furniture as categories and bars for count and price&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">furniture_table</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">&#39;Furniture&#39;</span><span class="p">,</span> <span class="s1">&#39;Price&#39;</span><span class="p">)</span> 
 <span class="go">&lt;bar graph with furniture as categories and bars for price&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">furniture_table</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">&#39;Furniture&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">furniture_table</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">&#39;Furniture&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> 
 <span class="go">&lt;bar graph with furniture as categories and bars for count and price&gt;</span>
 </pre></div>
 </div>
@@ -295,7 +314,7 @@ for additional arguments that can be passed into vargs.</dd>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">bin</code><span class="sig-paren">(</span><em>select=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.bin"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descclassname">Table.</code><code class="descname">bin</code><span class="sig-paren">(</span><em>*columns</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.bin"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Group values by bin and compute counts per bin by column.</p>
 <p>By default, bins are chosen to contain all values in all columns. The
 following named arguments from numpy.histogram can be applied to
@@ -305,8 +324,8 @@ n+1 columns, where column 0 contains the lower bound of each bin.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
-<dt><code class="docutils literal"><span class="pre">select</span></code> (columns): Columns to be binned. If None, all columns</dt>
-<dd>are binned.</dd>
+<dt><code class="docutils literal"><span class="pre">columns</span></code> (str or int): Labels or indices of columns to be</dt>
+<dd>binned. If empty, all columns are binned.</dd>
 <dt><code class="docutils literal"><span class="pre">bins</span></code> (int or sequence of scalars): If bins is an int,</dt>
 <dd>it defines the number of equal-width bins in the given range
 (10, by default). If bins is a sequence, it defines the bin
@@ -345,9 +364,9 @@ for additional arguments that can be passed into vargs. These include
 <dt>Raises:</dt>
 <dd>ValueError: The Table contains columns with non-numerical values.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;test1&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">92.5</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">93</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;test2&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">89</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">94</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;test1&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">92.5</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">72</span><span class="p">,</span> <span class="mi">71</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">93</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;test2&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">89</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">74</span><span class="p">,</span> <span class="mi">66</span><span class="p">,</span> <span class="mi">92</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">94</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">table</span>
 <span class="go">test1 | test2</span>
 <span class="go">92.5  | 89</span>
@@ -411,7 +430,9 @@ for additional arguments that can be passed into vargs. These include
 <span class="gp">... </span>    <span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="s1">&#39;count&#39;</span><span class="p">,</span>  <span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
 <span class="gp">... </span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;letter&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">&#39;letter&#39;</span><span class="p">)</span>
 <span class="go">array([&#39;c&#39;, &#39;d&#39;],</span>
 <span class="go">      dtype=&#39;&lt;U1&#39;)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -430,8 +451,8 @@ for additional arguments that can be passed into vargs. These include
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">column_index</code><span class="sig-paren">(</span><em>column_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.column_index"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Return the index of a column.</p>
+<code class="descclassname">Table.</code><code class="descname">column_index</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.column_index"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return the index of a column by looking up its label.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -443,28 +464,28 @@ for additional arguments that can be passed into vargs. These include
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">copy</code><span class="sig-paren">(</span><em>*</em>, <em>shallow=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.copy"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Return a copy of a Table.</p>
+<dd><p>Return a copy of a table.</p>
 </dd></dl>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">drop</code><span class="sig-paren">(</span><em>*column_label_or_labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.drop"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descclassname">Table.</code><code class="descname">drop</code><span class="sig-paren">(</span><em>*column_or_columns</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.drop"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a Table with only columns other than selected label or
 labels.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><p class="first"><code class="docutils literal"><span class="pre">column_label_or_labels</span></code> (string or list of strings): The header
+<dd><p class="first"><code class="docutils literal"><span class="pre">column_or_columns</span></code> (string or list of strings): The header
 names or indices of the columns to be dropped.</p>
-<p class="last"><code class="docutils literal"><span class="pre">column_label_or_labels</span></code> must be an existing header name, or a
+<p class="last"><code class="docutils literal"><span class="pre">column_or_columns</span></code> must be an existing header name, or a
 valid column index.</p>
 </dd>
 <dt>Returns:</dt>
 <dd>An instance of <code class="docutils literal"><span class="pre">Table</span></code> with given columns removed.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;burgers&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="s1">&#39;cheeseburger&#39;</span><span class="p">,</span> <span class="s1">&#39;hamburger&#39;</span><span class="p">,</span> <span class="s1">&#39;veggie burger&#39;</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;prices&#39;</span><span class="p">,</span>   <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;calories&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">743</span><span class="p">,</span> <span class="mi">651</span><span class="p">,</span> <span class="mi">582</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;burgers&#39;</span><span class="p">,</span>  <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;cheeseburger&#39;</span><span class="p">,</span> <span class="s1">&#39;hamburger&#39;</span><span class="p">,</span> <span class="s1">&#39;veggie burger&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;prices&#39;</span><span class="p">,</span>   <span class="n">make_array</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;calories&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">743</span><span class="p">,</span> <span class="mi">651</span><span class="p">,</span> <span class="mi">582</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
 <span class="go">burgers       | prices | calories</span>
 <span class="go">cheeseburger  | 6      | 743</span>
@@ -507,7 +528,7 @@ valid column index.</p>
 <dl class="classmethod">
 <dt>
 <em class="property">classmethod </em><code class="descclassname">Table.</code><code class="descname">empty</code><span class="sig-paren">(</span><em>labels=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.empty"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Create an empty table. Column labels are optional. [Deprecated]</p>
+<dd><p>Creates an empty table. Column labels are optional. [Deprecated]</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
@@ -576,9 +597,9 @@ to be excluded.</dd>
 <dt>Returns:</dt>
 <dd>A new instance of <code class="docutils literal"><span class="pre">Table</span></code>.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;letter grade&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A+&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A-&#39;</span><span class="p">,</span> <span class="s1">&#39;B+&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;B-&#39;</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;gpa&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;letter grade&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;A+&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A-&#39;</span><span class="p">,</span> <span class="s1">&#39;B+&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;B-&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;gpa&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
 <span class="go">letter grade | gpa</span>
 <span class="go">A+           | 4</span>
@@ -601,7 +622,7 @@ to be excluded.</dd>
 <span class="go">A-           | 3.7</span>
 <span class="go">B+           | 3.3</span>
 <span class="go">B            | 3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">exclude</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="go">letter grade | gpa</span>
 <span class="go">A+           | 4</span>
 <span class="go">A-           | 3.7</span>
@@ -699,11 +720,11 @@ calculated by first grouping rows according to <code class="docutils literal"><s
 accept arguments with one of the column types, that column will be empty in the resulting
 table.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">marbles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>   <span class="s2">&quot;Color&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">],</span>
-<span class="gp">... </span>   <span class="s2">&quot;Shape&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Round&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Round&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Round&quot;</span><span class="p">],</span>
-<span class="gp">... </span>   <span class="s2">&quot;Amount&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-<span class="gp">... </span>   <span class="s2">&quot;Price&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.30</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">,</span> <span class="mf">2.00</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">1.40</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">marbles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>   <span class="s2">&quot;Color&quot;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">&quot;Shape&quot;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;Round&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Round&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Round&quot;</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">&quot;Amount&quot;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">&quot;Price&quot;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">1.30</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">,</span> <span class="mf">2.00</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">1.40</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">marbles</span>
 <span class="go">Color | Shape       | Amount | Price</span>
 <span class="go">Red   | Round       | 4      | 1.3</span>
@@ -751,11 +772,11 @@ grouped values in the other columns.</dd>
 accept arguments with one of the column types, that column will be empty in the resulting
 table.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">marbles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>   <span class="s2">&quot;Color&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">],</span>
-<span class="gp">... </span>   <span class="s2">&quot;Shape&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Round&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Round&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Round&quot;</span><span class="p">],</span>
-<span class="gp">... </span>   <span class="s2">&quot;Amount&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-<span class="gp">... </span>   <span class="s2">&quot;Price&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.30</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">,</span> <span class="mf">2.00</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">1.40</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">marbles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>   <span class="s2">&quot;Color&quot;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">&quot;Shape&quot;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;Round&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Round&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Round&quot;</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">&quot;Amount&quot;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">&quot;Price&quot;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">1.30</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">,</span> <span class="mf">2.00</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">1.40</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">marbles</span>
 <span class="go">Color | Shape       | Amount | Price</span>
 <span class="go">Red   | Round       | 4      | 1.3</span>
@@ -782,21 +803,25 @@ table.</dd>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">hist</code><span class="sig-paren">(</span><em>select=None</em>, <em>overlay=True</em>, <em>bins=None</em>, <em>counts=None</em>, <em>unit=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.hist"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Plots one histogram for each column in the table.</p>
-<p>Every column must be numerical.</p>
+<code class="descclassname">Table.</code><code class="descname">hist</code><span class="sig-paren">(</span><em>*columns</em>, <em>overlay=True</em>, <em>bins=None</em>, <em>bin_column=None</em>, <em>unit=None</em>, <em>counts=None</em>, <em>width=6</em>, <em>height=4</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.hist"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Plots one histogram for each column in columns. If no column is
+specificed, plot all columns.</p>
 <dl class="docutils">
 <dt>Kwargs:</dt>
-<dd><dl class="first last docutils">
+<dd><dl class="first docutils">
 <dt>overlay (bool): If True, plots 1 chart with all the histograms</dt>
 <dd>overlaid on top of each other (instead of the default behavior
 of one histogram for each column in the table). Also adds a
 legend that matches each bar color to its column.</dd>
-<dt>bins (column name or list): Lower bound for each bin in the</dt>
-<dd>histogram. If None, bins will be chosen automatically.</dd>
-<dt>counts (column name or column): A column of counted values.</dt>
-<dd>All other columns are treated as counts of these values.
+<dt>bins (list or int): Lower bound for each bin in the</dt>
+<dd>histogram or number of bins. If None, bins will
+be chosen automatically.</dd>
+<dt>bin_column (column name or index): A column of bin lower bounds.</dt>
+<dd>All other columns are treated as counts of these bins.
 If None, each value in each row is assigned a count of 1.</dd>
+</dl>
+<p>counts (column name or index): Deprecated name for bin_column.</p>
+<dl class="last docutils">
 <dt>vargs: Additional arguments that get passed into :func:plt.hist.</dt>
 <dd>See <a class="reference external" href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.hist">http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.hist</a>
 for additional arguments that can be passed into vargs. These
@@ -805,9 +830,9 @@ to name a few.</dd>
 </dl>
 </dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;count&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;count&#39;</span><span class="p">,</span>  <span class="n">make_array</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
 <span class="go">count | points</span>
 <span class="go">9     | 1</span>
@@ -819,11 +844,11 @@ to name a few.</dd>
 <span class="go">&lt;histogram of values in points&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;value&#39;</span><span class="p">,</span>      <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">103</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;proportion&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">counts</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span> 
-<span class="go">&lt;histogram of values in prop weighted by corresponding values in value&gt;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;value&#39;</span><span class="p">,</span>      <span class="n">make_array</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">103</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;proportion&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bin_column</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span> 
+<span class="go">&lt;histogram of values weighted by corresponding proportions&gt;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -838,11 +863,83 @@ rows corresponding to each value.</p>
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">join</code><span class="sig-paren">(</span><em>column_label</em>, <em>other</em>, <em>other_label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.join"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Generate a table with the columns of self and other, containing rows
-for all values of a column that appear in both tables.
-If a join value appears more than once in self, each row will be used,
-but in the other table, only the first of each will be used.</p>
-<p>If the result is empty, return None.</p>
+<dd><p>Creates a new table with the columns of self and other, containing rows
+for all values of a column that appear in both tables.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt><code class="docutils literal"><span class="pre">column_label</span></code> (<code class="docutils literal"><span class="pre">str</span></code>):  label of column in self that is used to</dt>
+<dd>join  rows of <code class="docutils literal"><span class="pre">other</span></code>.</dd>
+<dt><code class="docutils literal"><span class="pre">other</span></code>: Table object to join with self on matching values of</dt>
+<dd><code class="docutils literal"><span class="pre">column_label</span></code>.</dd>
+</dl>
+</dd>
+<dt>Kwargs:</dt>
+<dd><dl class="first last docutils">
+<dt><code class="docutils literal"><span class="pre">other_label</span></code> (<code class="docutils literal"><span class="pre">str</span></code>): default None, assumes <code class="docutils literal"><span class="pre">column_label</span></code>.</dt>
+<dd>Otherwise in <code class="docutils literal"><span class="pre">other</span></code> used to join rows.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>New table self joined with <code class="docutils literal"><span class="pre">other</span></code> by matching values in <code class="docutils literal"><span class="pre">column_label</span></code>
+and <code class="docutils literal"><span class="pre">other_label</span></code>. If the resulting join is empty, returns None. If
+a join value appears more than once in <code class="docutils literal"><span class="pre">self</span></code>, each row with that value
+will appear in resulting join, but in <code class="docutils literal"><span class="pre">other</span></code>, only the first row with
+that value will be used.</dd>
+</dl>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span>
+<span class="go">a    | b    | c</span>
+<span class="go">9    | 1    | 3</span>
+<span class="go">3    | 2    | 4</span>
+<span class="go">3    | 2    | 5</span>
+<span class="go">1    | 10   | 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<span class="gp">... </span><span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table2</span>
+<span class="go">a    | d    | e</span>
+<span class="go">9    | 1    | 3</span>
+<span class="go">1    | 2    | 4</span>
+<span class="go">1    | 2    | 5</span>
+<span class="go">1    | 10   | 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">table2</span><span class="p">)</span>
+<span class="go">a    | b    | c    | d    | e</span>
+<span class="go">1    | 10   | 6    | 2    | 4</span>
+<span class="go">9    | 1    | 3    | 1    | 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">table2</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="c1"># Equivalent to previous join</span>
+<span class="go">a    | b    | c    | d    | e</span>
+<span class="go">1    | 10   | 6    | 2    | 4</span>
+<span class="go">9    | 1    | 3    | 1    | 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">table2</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span> <span class="c1"># Repeat column labels relabeled</span>
+<span class="go">a    | b    | c    | a_2  | e</span>
+<span class="go">1    | 10   | 6    | 9    | 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table2</span> <span class="c1">#table2 has three rows with a = 1</span>
+<span class="go">a    | d    | e</span>
+<span class="go">9    | 1    | 3</span>
+<span class="go">1    | 2    | 4</span>
+<span class="go">1    | 2    | 5</span>
+<span class="go">1    | 10   | 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="c1">#table has only one row with a = 1</span>
+<span class="go">a    | b    | c</span>
+<span class="go">9    | 1    | 3</span>
+<span class="go">3    | 2    | 4</span>
+<span class="go">3    | 2    | 5</span>
+<span class="go">1    | 10   | 6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table2</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">table</span><span class="p">)</span> <span class="c1"># When we join, we get all three rows in table2 where a = 1</span>
+<span class="go">a    | d    | e    | b    | c</span>
+<span class="go">1    | 2    | 4    | 10   | 6</span>
+<span class="go">1    | 2    | 5    | 10   | 6</span>
+<span class="go">1    | 10   | 6    | 10   | 6</span>
+<span class="go">9    | 1    | 3    | 1    | 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">table2</span><span class="p">)</span> <span class="c1"># Opposite join only keeps first row in table2 with a = 1</span>
+<span class="go">a    | b    | c    | d    | e</span>
+<span class="go">1    | 10   | 6    | 2    | 4</span>
+<span class="go">9    | 1    | 3    | 1    | 3</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -909,16 +1006,16 @@ but in the other table, only the first of each will be used.</p>
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">percentile</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.percentile"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Returns a new table with one row containing the pth percentile for
+<dd><p>Return a new table with one row containing the pth percentile for
 each column.</p>
 <p>Assumes that each column only contains one type of value.</p>
 <p>Returns a new table with one row and the same column labels.
 The row contains the pth percentile of the original column, where the
 pth percentile of a column is the smallest value that at at least as
 large as the p% of numbers in the column.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;count&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;count&#39;</span><span class="p">,</span>  <span class="n">make_array</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">table</span>
 <span class="go">count | points</span>
 <span class="go">9     | 1</span>
@@ -935,14 +1032,77 @@ large as the p% of numbers in the column.</p>
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">pivot</code><span class="sig-paren">(</span><em>columns</em>, <em>rows</em>, <em>values=None</em>, <em>collect=None</em>, <em>zero=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.pivot"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Generate a table with a column for rows (or a column for each row
-in rows list) and a column for each unique value in columns. Each row
-counts/aggregates the values that match both row and column.</p>
-<p>columns &#8211; column label in self
-rows &#8211; column label or a list of column labels
-values &#8211; column label in self (or None to produce counts)
-collect &#8211; aggregation function over values
-zero &#8211; zero value for non-existent row-column combinations</p>
+<dd><p>Generate a table with a column for each unique value in <code class="docutils literal"><span class="pre">columns</span></code>,
+with rows for each unique value in <code class="docutils literal"><span class="pre">rows</span></code>. Each row counts/aggregates
+the values that match both row and column based on <code class="docutils literal"><span class="pre">collect</span></code>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">columns</span></code> &#8211; a single column label or index, (<code class="docutils literal"><span class="pre">str</span></code> or <code class="docutils literal"><span class="pre">int</span></code>),</dt>
+<dd>used to create new columns, based on its unique values.</dd>
+<dt><code class="docutils literal"><span class="pre">rows</span></code> &#8211; row labels or indices, (<code class="docutils literal"><span class="pre">str</span></code> or <code class="docutils literal"><span class="pre">int</span></code> or list),</dt>
+<dd>used to create new rows based on it&#8217;s unique values.</dd>
+<dt><code class="docutils literal"><span class="pre">values</span></code> &#8211; column label in table for use in aggregation.</dt>
+<dd>Default None.</dd>
+<dt><code class="docutils literal"><span class="pre">collect</span></code> &#8211; aggregation function, used to group <code class="docutils literal"><span class="pre">values</span></code></dt>
+<dd>over row-column combinations. Default None.</dd>
+</dl>
+<p class="last"><code class="docutils literal"><span class="pre">zero</span></code> &#8211; zero value for non-existent row-column combinations.</p>
+</dd>
+<dt>Raises:</dt>
+<dd><dl class="first last docutils">
+<dt>TypeError &#8211; if <code class="docutils literal"><span class="pre">collect</span></code> is passed in and <code class="docutils literal"><span class="pre">values</span></code> is not,</dt>
+<dd>vice versa.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd>New pivot table, with row-column combinations, as specified, with
+aggregated <code class="docutils literal"><span class="pre">values</span></code> by <code class="docutils literal"><span class="pre">collect</span></code> across the intersection of
+<code class="docutils literal"><span class="pre">columns</span></code> and <code class="docutils literal"><span class="pre">rows</span></code>. Simple counts provided if values and
+collect are None, as default.</dd>
+</dl>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">titanic</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">95</span>
+<span class="gp">... </span>   <span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="s1">&#39;survival&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s1">&#39;gender&#39;</span><span class="p">,</span>  <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s1">&#39;prediction&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">titanic</span>
+<span class="go">age  | survival | gender | prediction</span>
+<span class="go">21   | 0        | M      | 0</span>
+<span class="go">44   | 0        | M      | 0</span>
+<span class="go">56   | 0        | M      | 1</span>
+<span class="go">89   | 1        | M      | 1</span>
+<span class="go">95   | 1        | F      | 0</span>
+<span class="go">40   | 1        | F      | 1</span>
+<span class="go">80   | 0        | F      | 0</span>
+<span class="go">45   | 1        | F      | 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">titanic</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;survival&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">)</span>
+<span class="go">gender | 0    | 1</span>
+<span class="go">F      | 1    | 3</span>
+<span class="go">M      | 3    | 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">titanic</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;prediction&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">)</span>
+<span class="go">gender | 0    | 1</span>
+<span class="go">F      | 2    | 2</span>
+<span class="go">M      | 2    | 2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">titanic</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;survival&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">collect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+<span class="go">gender | 0       | 1</span>
+<span class="go">F      | 80      | 60</span>
+<span class="go">M      | 40.3333 | 89</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">titanic</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;survival&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;prediction&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">))</span>
+<span class="go">prediction | gender | 0    | 1</span>
+<span class="go">0          | F      | 1    | 1</span>
+<span class="go">0          | M      | 2    | 0</span>
+<span class="go">1          | F      | 0    | 2</span>
+<span class="go">1          | M      | 1    | 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">titanic</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;survival&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="s1">&#39;age&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+   <span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">values requires collect to be specified</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">titanic</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;survival&#39;</span><span class="p">,</span> <span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="n">collect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+   <span class="c">...</span>
+<span class="gr">TypeError</span>: <span class="n">collect requires values to be specified</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -974,31 +1134,54 @@ the integral over the range is 1.</dd>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">pivot_hist</code><span class="sig-paren">(</span><em>pivot_column_label</em>, <em>value_column_label</em>, <em>overlay=True</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.pivot_hist"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descclassname">Table.</code><code class="descname">pivot_hist</code><span class="sig-paren">(</span><em>pivot_column_label</em>, <em>value_column_label</em>, <em>overlay=True</em>, <em>width=6</em>, <em>height=4</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.pivot_hist"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Draw histograms of each category in a column.</p>
 </dd></dl>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">plot</code><span class="sig-paren">(</span><em>column_for_xticks=None</em>, <em>select=None</em>, <em>overlay=True</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.plot"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descclassname">Table.</code><code class="descname">plot</code><span class="sig-paren">(</span><em>column_for_xticks=None</em>, <em>select=None</em>, <em>overlay=True</em>, <em>width=6</em>, <em>height=4</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.plot"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Plot line charts for the table.</p>
-<p>Each plot is labeled using the values in <cite>column_for_xticks</cite> and one
-plot is produced for every other column (or for the columns designated
-by <cite>select</cite>).</p>
-<p>Every selected column except for <cite>column_for_xticks</cite> must be numerical.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd>column_for_xticks (str/array): A column containing x-axis labels</dd>
+<dd>column_for_xticks (<code class="docutils literal"><span class="pre">str/array</span></code>): A column containing x-axis labels</dd>
 <dt>Kwargs:</dt>
 <dd><dl class="first last docutils">
 <dt>overlay (bool): create a chart with one color per data column;</dt>
-<dd>if False, each will be displayed separately.</dd>
+<dd>if False, each plot will be displayed separately.</dd>
 <dt>vargs: Additional arguments that get passed into <cite>plt.plot</cite>.</dt>
 <dd>See <a class="reference external" href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot">http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot</a>
 for additional arguments that can be passed into vargs.</dd>
 </dl>
 </dd>
+<dt>Raises:</dt>
+<dd>ValueError &#8211; Every selected column must be numerical.</dd>
+<dt>Returns:</dt>
+<dd>Returns a line plot (connected scatter). Each plot is labeled using
+the values in <cite>column_for_xticks</cite> and one plot is produced for all
+other columns in self (or for the columns designated by <cite>select</cite>).</dd>
 </dl>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;days&#39;</span><span class="p">,</span>  <span class="n">make_array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">90.5</span><span class="p">,</span> <span class="mf">90.00</span><span class="p">,</span> <span class="mf">83.00</span><span class="p">,</span> <span class="mf">95.50</span><span class="p">,</span> <span class="mf">82.00</span><span class="p">,</span> <span class="mf">82.00</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;projection&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">90.75</span><span class="p">,</span> <span class="mf">82.00</span><span class="p">,</span> <span class="mf">82.50</span><span class="p">,</span> <span class="mf">82.50</span><span class="p">,</span> <span class="mf">83.00</span><span class="p">,</span> <span class="mf">82.50</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span>
+<span class="go">days | price | projection</span>
+<span class="go">0    | 90.5  | 90.75</span>
+<span class="go">1    | 90    | 82</span>
+<span class="go">2    | 83    | 82.5</span>
+<span class="go">3    | 95.5  | 82.5</span>
+<span class="go">4    | 82    | 83</span>
+<span class="go">5    | 82    | 82.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;days&#39;</span><span class="p">)</span> 
+<span class="go">&lt;line graph with days as x-axis and lines for price and projection&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;days&#39;</span><span class="p">,</span> <span class="n">overlay</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
+<span class="go">&lt;line graph with days as x-axis and line for price&gt;</span>
+<span class="go">&lt;line graph with days as x-axis and line for projection&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;days&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">)</span> 
+<span class="go">&lt;line graph with days as x-axis and line for price&gt;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -1104,47 +1287,47 @@ ftp, s3, and file.</dd>
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">relabel</code><span class="sig-paren">(</span><em>column_label</em>, <em>new_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.relabel"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Change the labels of columns specified by <code class="docutils literal"><span class="pre">column_label</span></code> to
+<dd><p>Changes the label(s) of column(s) specified by <code class="docutils literal"><span class="pre">column_label</span></code> to
 labels in <code class="docutils literal"><span class="pre">new_label</span></code>.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
-<dt><code class="docutils literal"><span class="pre">column_label</span></code> (single str or list/array of str): The label(s) of</dt>
-<dd>columns to be changed. Must be str.</dd>
-<dt><code class="docutils literal"><span class="pre">new_label</span></code> (single str or list/array of str): The new label(s)</dt>
-<dd><p class="first">of columns to be changed. Must be str.</p>
-<p class="last">Number of elements must match number of elements in
-<code class="docutils literal"><span class="pre">column_label</span></code>.</p>
+<dt><code class="docutils literal"><span class="pre">column_label</span></code> &#8211; (single str or array of str) The label(s) of</dt>
+<dd>columns to be changed to <code class="docutils literal"><span class="pre">new_label</span></code>.</dd>
+<dt><code class="docutils literal"><span class="pre">new_label</span></code> &#8211; (single str or array of str): The label name(s)</dt>
+<dd>of columns to replace <code class="docutils literal"><span class="pre">column_label</span></code>.</dd>
+</dl>
 </dd>
+<dt>Raises:</dt>
+<dd><dl class="first last docutils">
+<dt><code class="docutils literal"><span class="pre">ValueError</span></code> &#8211; if <code class="docutils literal"><span class="pre">column_label</span></code> is not in table, or if</dt>
+<dd><code class="docutils literal"><span class="pre">column_label</span></code> and <code class="docutils literal"><span class="pre">new_label</span></code> are not of equal length.</dd>
+<dt><code class="docutils literal"><span class="pre">TypeError</span></code> &#8211; if <code class="docutils literal"><span class="pre">column_label</span></code> and/or <code class="docutils literal"><span class="pre">new_label</span></code> is not</dt>
+<dd><code class="docutils literal"><span class="pre">str</span></code>.</dd>
 </dl>
 </dd>
 <dt>Returns:</dt>
-<dd>Original table with modified labels</dd>
+<dd>Original table with <code class="docutils literal"><span class="pre">new_label</span></code> in place of <code class="docutils literal"><span class="pre">column_label</span></code>.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="s1">&#39;id&#39;</span><span class="p">,</span>     <span class="p">(</span><span class="mi">12345</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">5123</span><span class="p">)])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;id&#39;</span><span class="p">,</span>     <span class="n">make_array</span><span class="p">(</span><span class="mi">12345</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="mi">5123</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">relabel</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;yolo&#39;</span><span class="p">)</span>
 <span class="go">points | yolo</span>
 <span class="go">1      | 12345</span>
 <span class="go">2      | 123</span>
 <span class="go">3      | 5123</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">relabel</span><span class="p">([</span><span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="s1">&#39;yolo&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">relabel</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;points&#39;</span><span class="p">,</span> <span class="s1">&#39;yolo&#39;</span><span class="p">),</span>
+<span class="gp">... </span>  <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">))</span>
 <span class="go">red  | blue</span>
 <span class="go">1    | 12345</span>
 <span class="go">2    | 123</span>
 <span class="go">3    | 5123</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">relabel</span><span class="p">([</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">],</span>
-<span class="gp">... </span>              <span class="p">[</span><span class="s1">&#39;cyan&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;key&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">relabel</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">),</span>
+<span class="gp">... </span>  <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;cyan&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;key&#39;</span><span class="p">))</span>
 <span class="gt">Traceback (most recent call last):</span>
     <span class="o">...</span>
-<span class="gr">ValueError</span>: <span class="n">Invalid arguments. column_label and new_label must be of</span>
-<span class="go">equal length.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span><span class="o">.</span><span class="n">relabel</span><span class="p">([</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">])</span>
-<span class="go">blue | red</span>
-<span class="go">1    | 12345</span>
-<span class="go">2    | 123</span>
-<span class="go">3    | 5123</span>
+<span class="gr">ValueError</span>: <span class="n">Invalid arguments. column_label and new_label must be of equal length.</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1152,28 +1335,60 @@ labels in <code class="docutils literal"><span class="pre">new_label</span></cod
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">relabeled</code><span class="sig-paren">(</span><em>label</em>, <em>new_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.relabeled"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Returns a table with label changed to new_label.</p>
-<p><code class="docutils literal"><span class="pre">label</span></code> and <code class="docutils literal"><span class="pre">new_label</span></code> may be single values or lists
-specifying column labels to be changed and their new corresponding
-labels.</p>
+<dd><p>Return a new table with <code class="docutils literal"><span class="pre">label</span></code> specifying column label(s)
+replaced by corresponding <code class="docutils literal"><span class="pre">new_label</span></code>.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
-<dt><code class="docutils literal"><span class="pre">label</span></code> (str or sequence of str): The label(s) of</dt>
+<dt><code class="docutils literal"><span class="pre">label</span></code> &#8211; (str or array of str) The label(s) of</dt>
 <dd>columns to be changed.</dd>
-<dt><code class="docutils literal"><span class="pre">new_label</span></code> (str or sequence of str): The new label(s) of</dt>
+<dt><code class="docutils literal"><span class="pre">new_label</span></code> &#8211; (str or array of str): The new label(s) of</dt>
 <dd>columns to be changed. Same number of elements as label.</dd>
 </dl>
 </dd>
+<dt>Raises:</dt>
+<dd><dl class="first last docutils">
+<dt><code class="docutils literal"><span class="pre">ValueError</span></code> &#8211; if <code class="docutils literal"><span class="pre">label</span></code> does not exist in</dt>
+<dd>table, or if the <code class="docutils literal"><span class="pre">label</span></code> and <code class="docutils literal"><span class="pre">new_label</span></code> are not not of
+equal length. Also, raised if <code class="docutils literal"><span class="pre">label</span></code> and/or <code class="docutils literal"><span class="pre">new_label</span></code>
+are not <code class="docutils literal"><span class="pre">str</span></code>.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">([</span><span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span> <span class="o">=</span> <span class="n">tiles</span><span class="o">.</span><span class="n">with_rows</span><span class="p">([[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+</dd>
+<dt>Returns:</dt>
+<dd>New table with <code class="docutils literal"><span class="pre">new_label</span></code> in place of <code class="docutils literal"><span class="pre">label</span></code>.</dd>
+</dl>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span>
+<span class="go">letter | count</span>
+<span class="go">c      | 2</span>
+<span class="go">d      | 4</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;number&#39;</span><span class="p">)</span>
 <span class="go">letter | number</span>
 <span class="go">c      | 2</span>
 <span class="go">d      | 4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span>  <span class="c1"># original table unmodified</span>
+<span class="go">letter | count</span>
+<span class="go">c      | 2</span>
+<span class="go">d      | 4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">),</span>
+<span class="gp">... </span>  <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;column1&#39;</span><span class="p">,</span> <span class="s1">&#39;column2&#39;</span><span class="p">))</span>
+<span class="go">column1 | column2</span>
+<span class="go">c       | 2</span>
+<span class="go">d       | 4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="s1">&#39;number&#39;</span><span class="p">),</span>
+<span class="gp">... </span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;column1&#39;</span><span class="p">,</span> <span class="s1">&#39;column2&#39;</span><span class="p">))</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">Invalid labels. Column labels must already exist in table in order to be replaced.</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Table.</code><code class="descname">remove</code><span class="sig-paren">(</span><em>row_or_row_indices</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.remove"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Removes a row or multiple rows of a table in place.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1230,7 +1445,7 @@ labels.</p>
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">sample_from_distribution</code><span class="sig-paren">(</span><em>distribution</em>, <em>k</em>, <em>proportions=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.sample_from_distribution"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Returns a new table with the same number of rows and a new column.
+<dd><p>Return a new table with the same number of rows and a new column.
 The values in the distribution column are define a multinomial.
 They are replaced by sample counts/proportions in the output.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sizes</span> <span class="o">=</span> <span class="n">Table</span><span class="p">([</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">with_rows</span><span class="p">([</span>
@@ -1254,39 +1469,48 @@ They are replaced by sample counts/proportions in the output.</p>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">scatter</code><span class="sig-paren">(</span><em>column_for_x</em>, <em>select=None</em>, <em>overlay=True</em>, <em>fit_line=False</em>, <em>colors=None</em>, <em>labels=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.scatter"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descclassname">Table.</code><code class="descname">scatter</code><span class="sig-paren">(</span><em>column_for_x</em>, <em>select=None</em>, <em>overlay=True</em>, <em>fit_line=False</em>, <em>colors=None</em>, <em>labels=None</em>, <em>sizes=None</em>, <em>width=5</em>, <em>height=5</em>, <em>s=20</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.scatter"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Creates scatterplots, optionally adding a line of best fit.</p>
-<p>Each plot uses the values in <cite>column_for_x</cite> for horizontal positions.
-One plot is produced for every other column as y (or for the columns
-designated by <cite>select</cite>).</p>
-<p>Every selected except column for <cite>column_for_categories</cite> must be numerical.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
-<dt><code class="docutils literal"><span class="pre">column_for_x</span></code> (str): The name to use for the x-axis values of the</dt>
-<dd>scatter plots.</dd>
+<dt><code class="docutils literal"><span class="pre">column_for_x</span></code> (<code class="docutils literal"><span class="pre">str</span></code>): The column to use for the x-axis values</dt>
+<dd>and label of the scatter plots.</dd>
 </dl>
 </dd>
 <dt>Kwargs:</dt>
 <dd><dl class="first docutils">
-<dt><code class="docutils literal"><span class="pre">overlay</span></code> (bool): create a chart with one color per data column;</dt>
-<dd>if False, each will be displayed separately.</dd>
+<dt><code class="docutils literal"><span class="pre">overlay</span></code> (<code class="docutils literal"><span class="pre">bool</span></code>): If true, creates a chart with one color</dt>
+<dd>per data column; if False, each plot will be displayed separately.</dd>
 </dl>
-<p><code class="docutils literal"><span class="pre">fit_line</span></code> (bool): draw a line of best fit for each set of points</p>
+<p><code class="docutils literal"><span class="pre">fit_line</span></code> (<code class="docutils literal"><span class="pre">bool</span></code>): draw a line of best fit for each set of points.</p>
 <dl class="docutils">
 <dt><code class="docutils literal"><span class="pre">vargs</span></code>: Additional arguments that get passed into <cite>plt.scatter</cite>.</dt>
 <dd>See <a class="reference external" href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.scatter">http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.scatter</a>
 for additional arguments that can be passed into vargs. These
 include: <cite>marker</cite> and <cite>norm</cite>, to name a couple.</dd>
 </dl>
-<p><code class="docutils literal"><span class="pre">colors</span></code>: A column of colors (labels or numeric values)</p>
-<p class="last"><code class="docutils literal"><span class="pre">labels</span></code>: A column of text labels to annotate dots</p>
-</dd>
+<p><code class="docutils literal"><span class="pre">colors</span></code>: A column of categories to be used for coloring dots.</p>
+<p><code class="docutils literal"><span class="pre">labels</span></code>: A column of text labels to annotate dots.</p>
+<p><code class="docutils literal"><span class="pre">sizes</span></code>:  A column of values to set the relative areas of dots.</p>
+<dl class="last docutils">
+<dt><code class="docutils literal"><span class="pre">s</span></code>: Size of dots. If sizes is also provided, then dots will be</dt>
+<dd>in the range 0 to 2 * s.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+</dd>
+<dt>Raises:</dt>
+<dd>ValueError &#8211; Every column, <code class="docutils literal"><span class="pre">column_for_x</span></code> or <code class="docutils literal"><span class="pre">select</span></code>, must be numerical</dd>
+<dt>Returns:</dt>
+<dd>Scatter plot of values of <code class="docutils literal"><span class="pre">column_for_x</span></code> plotted against
+values for all other columns in self. Each plot uses the values in
+<cite>column_for_x</cite> for horizontal positions. One plot is produced for
+all other columns in self as y (or for the columns designated by
+<cite>select</cite>).</dd>
+</dl>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">table</span>
 <span class="go">x    | y    | z</span>
 <span class="go">9    | 1    | 3</span>
@@ -1328,20 +1552,18 @@ include: <cite>marker</cite> and <cite>norm</cite>, to name a couple.</dd>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">select</code><span class="sig-paren">(</span><em>*column_label_or_labels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.select"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Returns a new <code class="docutils literal"><span class="pre">Table</span></code> with only the columns in
-<code class="docutils literal"><span class="pre">column_label_or_labels</span></code>.</p>
+<code class="descclassname">Table.</code><code class="descname">select</code><span class="sig-paren">(</span><em>*column_or_columns</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.select"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return a table with only the columns in <code class="docutils literal"><span class="pre">column_or_columns</span></code>.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><code class="docutils literal"><span class="pre">column_label_or_labels</span></code>: Columns to select from the <code class="docutils literal"><span class="pre">Table</span></code> as
+<dd><code class="docutils literal"><span class="pre">column_or_columns</span></code>: Columns to select from the <code class="docutils literal"><span class="pre">Table</span></code> as
 either column labels (<code class="docutils literal"><span class="pre">str</span></code>) or column indices (<code class="docutils literal"><span class="pre">int</span></code>).</dd>
 <dt>Returns:</dt>
-<dd>An new instance of <code class="docutils literal"><span class="pre">Table</span></code> containing only selected columns.
+<dd>A new instance of <code class="docutils literal"><span class="pre">Table</span></code> containing only selected columns.
 The columns of the new <code class="docutils literal"><span class="pre">Table</span></code> are in the order given in
-<code class="docutils literal"><span class="pre">column_label_or_labels</span></code>.</dd>
+<code class="docutils literal"><span class="pre">column_or_columns</span></code>.</dd>
 <dt>Raises:</dt>
-<dd><code class="docutils literal"><span class="pre">KeyError</span></code> if any of <code class="docutils literal"><span class="pre">column_label_or_labels</span></code> are not in the
-table.</dd>
+<dd><code class="docutils literal"><span class="pre">KeyError</span></code> if any of <code class="docutils literal"><span class="pre">column_or_columns</span></code> are not in the table.</dd>
 </dl>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flowers</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="s1">&#39;Number of petals&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
@@ -1382,7 +1604,7 @@ table.</dd>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">set_format</code><span class="sig-paren">(</span><em>column_label_or_labels</em>, <em>formatter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.set_format"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descclassname">Table.</code><code class="descname">set_format</code><span class="sig-paren">(</span><em>column_or_columns</em>, <em>formatter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.set_format"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Set the format of a column.</p>
 </dd></dl>
 
@@ -1410,11 +1632,11 @@ table.</dd>
 <dd>An instance of <code class="docutils literal"><span class="pre">Table</span></code> containing rows sorted based on the values
 in <code class="docutils literal"><span class="pre">column_or_label</span></code>.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">marbles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>   <span class="s2">&quot;Color&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">],</span>
-<span class="gp">... </span>   <span class="s2">&quot;Shape&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Round&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Round&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Round&quot;</span><span class="p">],</span>
-<span class="gp">... </span>   <span class="s2">&quot;Amount&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-<span class="gp">... </span>   <span class="s2">&quot;Price&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.30</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">,</span> <span class="mf">2.00</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">1.40</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">marbles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>   <span class="s2">&quot;Color&quot;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">&quot;Shape&quot;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;Round&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Round&quot;</span><span class="p">,</span> <span class="s2">&quot;Rectangular&quot;</span><span class="p">,</span> <span class="s2">&quot;Round&quot;</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">&quot;Amount&quot;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>   <span class="s2">&quot;Price&quot;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">1.30</span><span class="p">,</span> <span class="mf">1.30</span><span class="p">,</span> <span class="mf">2.00</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mf">1.40</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">marbles</span>
 <span class="go">Color | Shape       | Amount | Price</span>
 <span class="go">Red   | Round       | 4      | 1.3</span>
@@ -1461,7 +1683,7 @@ in <code class="docutils literal"><span class="pre">column_or_label</span></code
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">split</code><span class="sig-paren">(</span><em>k</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.split"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Returns a tuple of two tables where the first table contains
+<dd><p>Return a tuple of two tables where the first table contains
 <code class="docutils literal"><span class="pre">k</span></code> rows randomly sampled and the second contains the remaining rows.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -1475,9 +1697,9 @@ in <code class="docutils literal"><span class="pre">column_or_label</span></code
 <dt>Returns:</dt>
 <dd>A tuple containing two instances of <code class="docutils literal"><span class="pre">Table</span></code>.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jobs</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;job&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;wage&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jobs</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;job&#39;</span><span class="p">,</span>  <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;wage&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">jobs</span>
 <span class="go">job  | wage</span>
 <span class="go">a    | 10</span>
@@ -1513,19 +1735,23 @@ all column names and col. 2 of all associated data.</p>
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">take</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.take"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Return a new Table of a sequence of rows taken by number.</p>
+<dd><p>Return a new Table with selected rows taken by index.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><code class="docutils literal"><span class="pre">row_indices_or_slice</span></code> (integer or list of integers or slice):
+<dd><code class="docutils literal"><span class="pre">row_indices_or_slice</span></code> (integer or array of integers):
 The row index, list of row indices or a slice of row indices to
 be selected.</dd>
 <dt>Returns:</dt>
-<dd>A new instance of <code class="docutils literal"><span class="pre">Table</span></code>.</dd>
+<dd>A new instance of <code class="docutils literal"><span class="pre">Table</span></code> with selected rows in order
+corresponding to <code class="docutils literal"><span class="pre">row_indices_or_slice</span></code>.</dd>
+<dt>Raises:</dt>
+<dd><code class="docutils literal"><span class="pre">IndexError</span></code>, if any <code class="docutils literal"><span class="pre">row_indices_or_slice</span></code> is out of bounds
+with respect to column length.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;letter grade&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A+&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A-&#39;</span><span class="p">,</span> <span class="s1">&#39;B+&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;B-&#39;</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;gpa&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">grades</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;letter grade&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;A+&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A-&#39;</span><span class="p">,</span> <span class="s1">&#39;B+&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;B-&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;gpa&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grades</span>
 <span class="go">letter grade | gpa</span>
 <span class="go">A+           | 4</span>
 <span class="go">A            | 4</span>
@@ -1533,44 +1759,31 @@ be selected.</dd>
 <span class="go">B+           | 3.3</span>
 <span class="go">B            | 3</span>
 <span class="go">B-           | 2.7</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grades</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="go">letter grade | gpa</span>
 <span class="go">A+           | 4</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grades</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 <span class="go">letter grade | gpa</span>
 <span class="go">B-           | 2.7</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="go">letter grade | gpa</span>
-<span class="go">B-           | 2.7</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">take</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grades</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 <span class="go">letter grade | gpa</span>
 <span class="go">A-           | 3.7</span>
 <span class="go">A            | 4</span>
 <span class="go">A+           | 4</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">take</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="go">letter grade | gpa</span>
-<span class="go">A            | 4</span>
-<span class="go">B-           | 2.7</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grades</span><span class="o">.</span><span class="n">take</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
 <span class="go">letter grade | gpa</span>
 <span class="go">A+           | 4</span>
 <span class="go">A            | 4</span>
 <span class="go">A-           | 3.7</span>
-</pre></div>
-</div>
-<p>Note that <code class="docutils literal"><span class="pre">take</span></code> also supports NumPy-like indexing and slicing:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">take</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grades</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
 <span class="go">letter grade | gpa</span>
 <span class="go">A+           | 4</span>
 <span class="go">A            | 4</span>
 <span class="go">A-           | 3.7</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">take</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="go">letter grade | gpa</span>
-<span class="go">A-           | 3.7</span>
-<span class="go">A            | 4</span>
-<span class="go">A+           | 4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grades</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">IndexError</span>: <span class="n">index 10 is out of bounds for axis 0 with size 6</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1646,9 +1859,9 @@ If True, the vertical values will be reversed</p>
 <dt>Returns:</dt>
 <dd>None, outputs a file with name <code class="docutils literal"><span class="pre">filename</span></code>.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jobs</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="s1">&#39;job&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">],</span>
-<span class="gp">... </span>    <span class="s1">&#39;wage&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">jobs</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;job&#39;</span><span class="p">,</span>  <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;wage&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">jobs</span>
 <span class="go">job  | wage</span>
 <span class="go">a    | 10</span>
@@ -1665,6 +1878,57 @@ If True, the vertical values will be reversed</p>
 <dt>
 <code class="descclassname">Table.</code><code class="descname">to_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.to_df"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Convert the table to a Pandas DataFrame.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Table.</code><code class="descname">transition_function</code><span class="sig-paren">(</span><em>pfunc</em><span class="sig-paren">)</span></dt>
+<dd><p>Assigns transition probabilities to a Distribution via a probability
+function. The probability function is applied to each value of the
+domain. Must have domain values in the first column first.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>pfunc</strong> : variate function</p>
+<blockquote>
+<div><p>Conditional probability function of the distribution ( P(Y | X))</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
+<blockquote class="last">
+<div><p>Table with those probabilities in its final column</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Table.</code><code class="descname">transition_probability</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span></dt>
+<dd><p>For a multivariate probability distribution, assigns transition probabilities:
+ie P(Y | X).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>values</strong> : List or Array</p>
+<blockquote>
+<div><p>Values that must correspond to the domain in the same order</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
+<blockquote class="last">
+<div><p>A proability distribution with those probabilities</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -1773,7 +2037,7 @@ columns.</p>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">with_column</code><span class="sig-paren">(</span><em>label</em>, <em>values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.with_column"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descclassname">Table.</code><code class="descname">with_column</code><span class="sig-paren">(</span><em>label</em>, <em>values</em>, <em>*rest</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.with_column"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Return a new table with an additional or replaced column.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -1783,6 +2047,8 @@ columns.</p>
 <dt><code class="docutils literal"><span class="pre">values</span></code> (single value or sequence): If a single value, every</dt>
 <dd>value in the new column is <code class="docutils literal"><span class="pre">values</span></code>. If sequence of values,
 new column takes on values in <code class="docutils literal"><span class="pre">values</span></code>.</dd>
+<dt><code class="docutils literal"><span class="pre">rest</span></code>: An alternating list of labels and values describing</dt>
+<dd>additional columns. See with_columns for a full description.</dd>
 </dl>
 </dd>
 <dt>Raises:</dt>
@@ -1925,7 +2191,7 @@ when passed only one label-value pair.</dd>
 <dt>Raises:</dt>
 <dd><code class="docutils literal"><span class="pre">ValueError</span></code>: If the row length differs from the column count.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">([</span><span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;points&#39;</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;points&#39;</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span><span class="o">.</span><span class="n">with_row</span><span class="p">([</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">with_row</span><span class="p">([</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 <span class="go">letter | count | points</span>
 <span class="go">c      | 2     | 3</span>
@@ -1946,8 +2212,9 @@ when passed only one label-value pair.</dd>
 <dt>Raises:</dt>
 <dd><code class="docutils literal"><span class="pre">ValueError</span></code>: If a row length differs from the column count.</dd>
 </dl>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">([</span><span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;points&#39;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span><span class="o">.</span><span class="n">with_rows</span><span class="p">([[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;letter&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;points&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tiles</span><span class="o">.</span><span class="n">with_rows</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
 <span class="go">letter | count | points</span>
 <span class="go">c      | 2     | 3</span>
 <span class="go">d      | 4     | 2</span>
@@ -1988,7 +2255,7 @@ when passed only one label-value pair.</dd>
 
 <dl class="method">
 <dt>
-<code class="descname">conditional_dist</code><span class="sig-paren">(</span><em>label</em>, <em>given=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.conditional_dist"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">conditional_dist</code><span class="sig-paren">(</span><em>label</em>, <em>given=''</em>, <em>show_ev=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.conditional_dist"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Given the random variable label, finds the conditional distribution of the other variable</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

@@ -25,6 +25,7 @@ Contents:
     install
     tutorial
     joint_tutorial
+    pykov_tutorial
 
 
 Reference
@@ -34,6 +35,7 @@ Reference
 
     single
     multi
+    pykov
 
 
 Full ``Table`` documentation

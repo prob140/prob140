@@ -12,6 +12,8 @@ Welcome to prob140's documentation!
 
 The ``prob140`` package was written by Jason Zhang and Dibya Ghosh for use in Berkeley's Prob140 course.
 
+Special thanks to Riccardo Scalco for his `Pykov module <https://github.com/riccardoscalco/Pykov>`_
+
 Also take a look at Data8's ``datascience`` `documentation <http://data8.org/datascience/>`_
 
 Tutorial
@@ -25,6 +27,7 @@ Contents:
     install
     tutorial
     joint_tutorial
+    pykov_tutorial
 
 
 Reference
@@ -34,6 +37,7 @@ Reference
 
     single
     multi
+    pykov
 
 
 Full ``Table`` documentation

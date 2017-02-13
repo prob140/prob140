@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>Joint Distributions &mdash; prob140 0.2.1.2 documentation</title>
+    <title>Joint Distributions &mdash; prob140 0.2.3.5 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.1.2',
+        VERSION:     '0.2.3.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,8 +27,8 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.2.1.2 documentation" href="index.html" >
-    <link rel="next" title="Single-variable Distributions (datascience.tables.Table)" href="single.html" >
+    <link rel="top" title="prob140 0.2.3.5 documentation" href="index.html" >
+    <link rel="next" title="Markov Chains" href="pykov_tutorial.html" >
     <link rel="prev" title="prob140 Tutorial!" href="tutorial.html" > 
   </head>
   <body>
@@ -53,7 +53,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.2.1.2 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.2.3.5 documentation</a></li>
 	 
     </ul>
               
@@ -64,7 +64,7 @@
            accesskey="I">index</a>
       </li>
       <li class="active">
-        <a href="single.html" title="Single-variable Distributions (datascience.tables.Table)"
+        <a href="pykov_tutorial.html" title="Markov Chains"
            accesskey="N">next</a>
       </li>
       <li class="active">
@@ -218,7 +218,7 @@
 <span class="gp">In [16]: </span><span class="n">dice</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="s2">&quot;D1&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span><span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">joint_func</span><span class="p">)</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
 
 <span class="gp">In [17]: </span><span class="n">dice</span>
-<span class="gh">Out[17]: </span><span class="go"></span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               Out[17]: </span>
 <span class="go">          D1=1      D1=2      D1=3      D1=4      D1=5      D1=6</span>
 <span class="go">D2=6  0.027778  0.031746  0.035714  0.039683  0.043651  0.047619</span>
 <span class="go">D2=5  0.023810  0.027778  0.031746  0.035714  0.039683  0.043651</span>
