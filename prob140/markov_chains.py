@@ -2,6 +2,7 @@ import pandas as pd
 from . import pykov
 from .single_variable import emp_dist
 from datascience import *
+from .multi_variable import evaluate
 import numpy as np
 
 
@@ -66,6 +67,21 @@ class MarkovChain:
 
     def _repr_html_(self):
         return matrix_to_pandas(self.chain)._repr_html_()
+
+    def get_target(self, target):
+        df = matrix_to_pandas(self.chain)
+
+        x_labels = list(df)
+        target_values = [evaluate(lab) for lab in x_labels]
+        target_index = target_values.index(target)
+
+        y_labels = list(df.index)
+        domain = [evaluate(lab) for lab in y_labels]
+        prob = df.as_matrix()[:,target_index]
+
+        result = Table().values(domain).probability(prob)
+        result.relabel("Value", "Source")
+        return result
 
     @pykov_connection
     def move(self, state):

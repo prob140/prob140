@@ -24,7 +24,10 @@ def evaluate(name):
     String, int, float
 
     """
-    index = name.index("=")
+    try:
+        index = name.index("=")
+    except:
+        index = name.index(" ")
 
     try:
         return ast.literal_eval(name[index + 1:])
