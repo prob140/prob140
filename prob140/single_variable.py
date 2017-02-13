@@ -429,8 +429,8 @@ def transition_function(self, pfunc):
     values = np.array(self.apply(pfunc, domain_names)).astype(float)
     if any(values < 0):
         warnings.warn("Probability cannot be negative")
-    conditioned_var = self.column_labels[0]
-    all_other_vars = ",".join(self.column_labels[1:])
+    conditioned_var = self.labels[0]
+    all_other_vars = ",".join(self.labels[1:])
     return_table = self.with_column('P(%s | %s)'%(all_other_vars,conditioned_var),values)
     _transition_warn(return_table)
     return return_table

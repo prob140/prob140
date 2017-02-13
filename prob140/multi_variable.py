@@ -6,7 +6,30 @@ import warnings
 import ast
 
 def conditional(array):
-    return array/sum(array[0:-1])
+    value = array/sum(array[0:-1])
+    return value
+
+
+def evaluate(name):
+    """
+    Deletes name of RV and outputs the correct datatype, like int, float, or string
+
+    Parameters
+    ----------
+    name : String
+        in the form "rv=123123124"
+
+    Returns
+    -------
+    String, int, float
+
+    """
+    index = name.index("=")
+
+    try:
+        return ast.literal_eval(name[index + 1:])
+    except:
+        return name[index + 1:]
 
 class JointDistribution(pd.DataFrame):
 
@@ -63,26 +86,6 @@ class JointDistribution(pd.DataFrame):
 
         """
 
-        def evaluate(name):
-            """
-            Deletes name of RV and outputs the correct datatype, like int, float, or string
-
-            Parameters
-            ----------
-            name : String
-                in the form "rv=123123124"
-
-            Returns
-            -------
-            String, int, float
-
-            """
-            index = name.index("=")
-
-            try:
-                return ast.literal_eval(name[index+1:])
-            except:
-                return name[index+1:]
 
         marginal = self.marginal(label).as_matrix()
 
@@ -125,7 +128,7 @@ class JointDistribution(pd.DataFrame):
         copy.loc['Sum: Marginal of {0}'.format(self._X_column_label)] = copy.sum(axis=0)
         return copy
 
-    def conditional_dist(self, label, given=""):
+    def conditional_dist(self, label, given="", show_ev=False):
         """
         Given the random variable label, finds the conditional distribution of the other variable
 
@@ -161,6 +164,13 @@ class JointDistribution(pd.DataFrame):
             new = np.append(both.index[0:-1], 'Sum')
             y = both.apply(conditional, axis=0).set_index(new)
 
+            matrix = y.as_matrix()[:-1,:]
+            y_labels = list(self.index)
+            domain = np.array([evaluate(lab) for lab in y_labels])
+
+            exp_values = [sum(matrix[:,i] * domain) for i in range(len(matrix[0]))]
+
+
             column_names = y.columns
             new = make_array()
             for i in np.arange(len(column_names) - 1):
@@ -169,6 +179,10 @@ class JointDistribution(pd.DataFrame):
             new = np.append(new, 'Marginal of {0}'.format(self._Y_column_label))
 
             y.columns = new
+
+            if show_ev:
+                y.loc["EV"] = exp_values
+
             return y
 
         elif label == self._X_column_label:
@@ -177,14 +191,28 @@ class JointDistribution(pd.DataFrame):
             x = both.apply(conditional, axis=1) \
                 .rename(columns={'Sum: Marginal of {0}'.format(self._Y_column_label): 'Sum'})
 
+
+            matrix = x.as_matrix()[:,:-1]
+            x_labels = list(self)
+            domain = np.array([evaluate(lab) for lab in x_labels])
+            exp_values = [sum(matrix[i] * domain) for i in range(len(matrix))]
+
             indices = both.index
+
+
             new = make_array()
             for i in np.arange(len(indices) - 1):
                 new_index = 'Dist. of {0} | '.format(self._X_column_label) + indices[i]
                 new = np.append(new, new_index)
             new = np.append(new, 'Marginal of {0}'.format(self._X_column_label))
 
-            return x.set_index(new)
+
+            new_df = x.set_index(new)
+
+            if show_ev:
+                new_df["EV"] = exp_values
+
+            return new_df
 
         else:
             raise AssertionError("Label doesn't correspond with existing variable name")
