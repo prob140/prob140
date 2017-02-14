@@ -2,17 +2,19 @@ import pandas as pd
 from . import pykov
 from .single_variable import emp_dist
 from datascience import *
-from .multi_variable import evaluate
 import numpy as np
+from functools import wraps
+from collections import OrderedDict
+
 
 
 def matrix_to_pandas(matrix):
     all_states = sorted(matrix.states())
-    target_states = ['S: ' + (str(label)) for label in all_states]
+    target_states = [(str(label)) for label in all_states]
     data = {source: [0] * len(all_states) for source in all_states}
     for (source, target), probability in matrix.items():
         data[target][all_states.index(source)] = probability
-    data = {'T: ' + str(label): values for label, values in data.items()}
+    data = {str(label): values for label, values in data.items()}
     return pd.DataFrame(data, index=target_states)
 
 
@@ -36,10 +38,15 @@ def vector_to_table(vector, valueLabel='Probability', chain=None):
     if chain:
         no_value = [state for state in chain.states() if state not in vector]
         rows.extend([(state, 0) for state in no_value])
-    return t.with_rows(rows)
+    t = t.with_rows(rows)
+    return t.sort('State')
 
 
 def pykov_connection(function):
+
+    pykov_connection.__doc__ = function.__doc__
+
+    @wraps(function)
     def internal(*args, **kwargs):
         new_args = [(table_to_vector(argument) if isinstance(
             argument, Table) else argument) for argument in args]
@@ -68,20 +75,7 @@ class MarkovChain:
     def _repr_html_(self):
         return matrix_to_pandas(self.chain)._repr_html_()
 
-    def get_target(self, target):
-        df = matrix_to_pandas(self.chain)
 
-        x_labels = list(df)
-        target_values = [evaluate(lab) for lab in x_labels]
-        target_index = target_values.index(target)
-
-        y_labels = list(df.index)
-        domain = [evaluate(lab) for lab in y_labels]
-        prob = df.as_matrix()[:,target_index]
-
-        result = Table().values(domain).probability(prob)
-        result.relabel("Value", "Source")
-        return result
 
     @pykov_connection
     def move(self, state):
@@ -366,11 +360,50 @@ class MarkovChain:
         ed.relabel("Value", "State")
         return ed
 
+    def get_target(self, target):
+        df = matrix_to_pandas(self.chain)
+
+        x_labels = list(df)
+        target_index = x_labels.index(target)
+
+        y_labels = list(df.index)
+        prob = df.as_matrix()[:,target_index]
+
+        result = Table().values(y_labels).probability(prob)
+        result.relabel("Value", "Source")
+        return result
+
+    def column(self, label):
+        """
+        Returns the target with the label as an array
+
+        Parameters
+        ----------
+        label : String
+            target
+
+        Returns
+        -------
+        array
+            transition probabilities from each source
+
+        """
+        df = matrix_to_pandas(self.chain)
+        return df.loc[:,label].values
+
 
 def toMarkovChain(table):
     assert table.num_columns == 3, \
         'Must have columns: source,target,probability'
     assert all([round(probsum, 6) == 1 for probsum in table.group(0, collect=sum).column(2)]), \
         'Transition probabilities must sum to 1 for each source state'
-    dict_of_values = {(row[0], row[1]): row[2] for row in table.rows}
-    return MarkovChain(pykov.Chain(dict_of_values))
+
+    ordered_set = OrderedDict()
+    dict_of_values = {}
+    for row in table.rows:
+        dict_of_values[(row[0], row[1])] = row[2]
+        ordered_set[row[0]] = 1
+
+    mc = MarkovChain(pykov.Chain(dict_of_values))
+    mc.chain._ordered_states = list(ordered_set.keys())
+    return mc
