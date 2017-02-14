@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>Markov Chains (prob140.MarkovChain) &mdash; prob140 0.2.3.5 documentation</title>
+    <title>Markov Chains (prob140.MarkovChain) &mdash; prob140 0.2.4.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.3.5',
+        VERSION:     '0.2.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.2.3.5 documentation" href="index.html" >
+    <link rel="top" title="prob140 0.2.4.0 documentation" href="index.html" >
     <link rel="next" title="prob140.MarkovChain.distribution" href="_autosummary/prob140.MarkovChain.distribution.html" >
     <link rel="prev" title="prob140.JointDistribution.conditional_dist" href="_autosummary/prob140.JointDistribution.conditional_dist.html" > 
   </head>
@@ -53,7 +53,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.2.3.5 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.2.4.0 documentation</a></li>
 	 
     </ul>
               
@@ -117,9 +117,9 @@ transition probabilities coming out of each state must sum to 1</p>
 
 <span class="gp">In [5]: </span><span class="n">mc</span>
 <span class="gh">Out[5]: </span><span class="go"></span>
-<span class="go">      T: A  T: B</span>
-<span class="go">S: A   0.5   0.5</span>
-<span class="go">S: B   0.3   0.7</span>
+<span class="go">     A    B</span>
+<span class="go">A  0.5  0.5</span>
+<span class="go">B  0.3  0.7</span>
 </pre></div>
 </div>
 </div>
@@ -135,7 +135,7 @@ transition probabilities coming out of each state must sum to 1</p>
 <span class="gp">In [7]: </span><span class="n">transMatrix</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">transition_function</span><span class="p">(</span><span class="n">identity_transition</span><span class="p">)</span>
 
 <span class="gp">In [8]: </span><span class="n">transMatrix</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Out[8]: </span>
+<span class="gh">Out[8]: </span><span class="go"></span>
 <span class="go">Source | Target | P(Target | Source)</span>
 <span class="go">1      | 1      | 1</span>
 <span class="go">1      | 2      | 0</span>
@@ -158,11 +158,11 @@ transition probabilities coming out of each state must sum to 1</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.MarkovChain.distribution.html#prob140.MarkovChain.distribution" title="prob140.MarkovChain.distribution"><code class="xref py py-obj docutils literal"><span class="pre">MarkovChain.distribution</span></code></a>(*args,&nbsp;**kwargs)</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.MarkovChain.distribution.html#prob140.MarkovChain.distribution" title="prob140.MarkovChain.distribution"><code class="xref py py-obj docutils literal"><span class="pre">MarkovChain.distribution</span></code></a>(starting_condition,&nbsp;n)</td>
+<td>Finds the distribution of states after n steps given a starting condition</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.MarkovChain.steady_state.html#prob140.MarkovChain.steady_state" title="prob140.MarkovChain.steady_state"><code class="xref py py-obj docutils literal"><span class="pre">MarkovChain.steady_state</span></code></a>(*args,&nbsp;**kwargs)</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.MarkovChain.steady_state.html#prob140.MarkovChain.steady_state" title="prob140.MarkovChain.steady_state"><code class="xref py py-obj docutils literal"><span class="pre">MarkovChain.steady_state</span></code></a>()</td>
+<td>The stationary distribution of the markov chain</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.MarkovChain.mean_first_passage_times.html#prob140.MarkovChain.mean_first_passage_times" title="prob140.MarkovChain.mean_first_passage_times"><code class="xref py py-obj docutils literal"><span class="pre">MarkovChain.mean_first_passage_times</span></code></a>()</td>
 <td>Finds the mean time it takes to reach state j from state i</td>
@@ -173,8 +173,8 @@ transition probabilities coming out of each state must sum to 1</p>
 <tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.MarkovChain.mixing_time.html#prob140.MarkovChain.mixing_time" title="prob140.MarkovChain.mixing_time"><code class="xref py py-obj docutils literal"><span class="pre">MarkovChain.mixing_time</span></code></a>([cutoff,&nbsp;jump,&nbsp;p])</td>
 <td>Finds the mixing time</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.MarkovChain.accessibility_matrix.html#prob140.MarkovChain.accessibility_matrix" title="prob140.MarkovChain.accessibility_matrix"><code class="xref py py-obj docutils literal"><span class="pre">MarkovChain.accessibility_matrix</span></code></a>(*args,&nbsp;**kwargs)</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.MarkovChain.accessibility_matrix.html#prob140.MarkovChain.accessibility_matrix" title="prob140.MarkovChain.accessibility_matrix"><code class="xref py py-obj docutils literal"><span class="pre">MarkovChain.accessibility_matrix</span></code></a>()</td>
+<td>Return matrix showing whether state j is accessible from state i.</td>
 </tr>
 </tbody>
 </table>
@@ -187,8 +187,8 @@ transition probabilities coming out of each state must sum to 1</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.MarkovChain.move.html#prob140.MarkovChain.move" title="prob140.MarkovChain.move"><code class="xref py py-obj docutils literal"><span class="pre">MarkovChain.move</span></code></a>(*args,&nbsp;**kwargs)</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.MarkovChain.move.html#prob140.MarkovChain.move" title="prob140.MarkovChain.move"><code class="xref py py-obj docutils literal"><span class="pre">MarkovChain.move</span></code></a>(state)</td>
+<td>Transitions one step from the indicated state</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.MarkovChain.simulate_chain.html#prob140.MarkovChain.simulate_chain" title="prob140.MarkovChain.simulate_chain"><code class="xref py py-obj docutils literal"><span class="pre">MarkovChain.simulate_chain</span></code></a>(starting_condition,&nbsp;n)</td>
 <td>Simulates a path of length n following the markov chain with the initial condition of starting_condition</td>

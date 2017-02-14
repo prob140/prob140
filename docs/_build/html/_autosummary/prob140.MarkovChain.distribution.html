@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.MarkovChain.distribution &mdash; prob140 0.2.3.5 documentation</title>
+    <title>prob140.MarkovChain.distribution &mdash; prob140 0.2.4.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2.3.5',
+        VERSION:     '0.2.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
-    <link rel="top" title="prob140 0.2.3.5 documentation" href="../index.html" >
+    <link rel="top" title="prob140 0.2.4.0 documentation" href="../index.html" >
     <link rel="up" title="Markov Chains (prob140.MarkovChain)" href="../pykov.html" >
     <link rel="next" title="prob140.MarkovChain.steady_state" href="prob140.MarkovChain.steady_state.html" >
     <link rel="prev" title="Markov Chains (prob140.MarkovChain)" href="../pykov.html" > 
@@ -54,7 +54,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="../index.html">prob140 0.2.3.5 documentation</a></li>
+        <li class="active"><a href="../index.html">prob140 0.2.4.0 documentation</a></li>
 	
           <li class="active"><a href="../pykov.html" accesskey="U">Markov Chains (<code class="docutils literal"><span class="pre">prob140.MarkovChain</span></code>)</a></li> 
     </ul>
@@ -91,8 +91,57 @@
 <h1>prob140.MarkovChain.distribution<a class="headerlink" href="#prob140-markovchain-distribution" title="Permalink to this headline">¶</a></h1>
 <dl class="method">
 <dt id="prob140.MarkovChain.distribution">
-<code class="descclassname">MarkovChain.</code><code class="descname">distribution</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prob140/markov_chains.html#MarkovChain.distribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.MarkovChain.distribution" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">MarkovChain.</code><code class="descname">distribution</code><span class="sig-paren">(</span><em>starting_condition</em>, <em>n</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prob140/markov_chains.html#MarkovChain.distribution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.MarkovChain.distribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the distribution of states after n steps given a starting condition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>starting_condition</strong> : state or Distribution</p>
+<blockquote>
+<div><p>The initial distribution or the original state</p>
+</div></blockquote>
+<p><strong>n</strong> : integer</p>
+<blockquote>
+<div><p>Number of transition steps</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
+<blockquote>
+<div><p>Shows the distribution after n steps</p>
+</div></blockquote>
+<p>Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">transition_probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">))</span><span class="o">.</span><span class="n">toMarkovChain</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">start</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>State | Probability</p>
+<p>A     | 0.8</p>
+<p>B     | 0.2</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>State | Probability</p>
+<p>State | Probability</p>
+<p>A     | 0.392</p>
+<p>B     | 0.608</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>State | Probability</p>
+<p>A     | 0.375</p>
+<p class="last">B     | 0.625</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 
