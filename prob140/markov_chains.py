@@ -123,7 +123,7 @@ class MarkovChain:
 
         Examples
         >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
-        >>> start = Table().state(make_array("A", "B")).probability(make_array(0.8, 0.2))
+        >>> start = Table().states(make_array("A", "B")).probability(make_array(0.8, 0.2))
         >>> mc.distribution(start, 0)
         State | Probability
         A     | 0.8
@@ -153,6 +153,10 @@ class MarkovChain:
         Table
             steady state distribution
 
+
+        Examples
+        --------
+
         >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
         >>> mc.steady_state()
         State | Probability
@@ -174,9 +178,9 @@ class MarkovChain:
         --------
         >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
         >>> mc.mean_first_passage_times()
-                  T: A  T: B
-        S: A  2.666667   2.0
-        S: B  3.333333   1.6
+                  A  B
+        A  2.666667   2.0
+        B  3.333333   1.6
         """
         states = self.chain.states()
         my_dict = {}
@@ -219,7 +223,7 @@ class MarkovChain:
         array(['A', 'A', 'A', 'A', 'B', 'B', 'A', 'A', 'B', 'B', 'B'])
         >>> mc.simulate_chain("B", 10)
         array(['B', 'B', 'B', 'A', 'B', 'A', 'B', 'A', 'A', 'A', 'B'])
-        >>> start = Table().state(make_array("A", "B")).probability(make_array(.8, .2))
+        >>> start = Table().states(make_array("A", "B")).probability(make_array(.8, .2))
         >>> mc.simulate_chain(start, 10)
         array(['A', 'A', 'A', 'B', 'B', 'A', 'B', 'B', 'A', 'B', 'A'])
         >>> mc.simulate_chain(start, 10, end='A')
@@ -255,7 +259,7 @@ class MarkovChain:
         >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
         >>> mc.prob_of_path('A', make_array('A', 'B','B'))
         0.175
-        >>> start = Table().state(make_array("A", "B")).probability(make_array(.8, .2))
+        >>> start = Table().states(make_array("A", "B")).probability(make_array(.8, .2))
         >>> mc.prob_of_path(start, make_array('A', 'A', 'B','B'))
         0.14
         >>> 0.175 * 0.8
@@ -299,9 +303,9 @@ class MarkovChain:
         --------
         >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
         >>> mc.accessibility_matrix()
-              T: A  T: B
-        S: A     1     1
-        S: B     1     1
+              A  B
+        A     1     1
+        B     1     1
 
         """
         return self.chain.accessibility_matrix()
@@ -344,9 +348,9 @@ class MarkovChain:
             Distribution after n steps over a certain number of repetitions
 
         Examples
-        -------
+        --------
         >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
-        >>> start = Table().state(make_array("A", "B")).probability(make_array(.8, .2))
+        >>> start = Table().states(make_array("A", "B")).probability(make_array(.8, .2))
         >>> mc.empirical_distribution(start, 10, 100)
         Value | Proportion
         A     | 0.4
