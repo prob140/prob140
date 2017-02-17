@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>Markov Chains (prob140.MarkovChain) &mdash; prob140 0.2.4.0 documentation</title>
+    <title>Markov Chains (prob140.MarkovChain) &mdash; prob140 0.2.4.2 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.4.0',
+        VERSION:     '0.2.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.2.4.0 documentation" href="index.html" >
+    <link rel="top" title="prob140 0.2.4.2 documentation" href="index.html" >
     <link rel="next" title="prob140.MarkovChain.distribution" href="_autosummary/prob140.MarkovChain.distribution.html" >
     <link rel="prev" title="prob140.JointDistribution.conditional_dist" href="_autosummary/prob140.JointDistribution.conditional_dist.html" > 
   </head>
@@ -53,7 +53,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.2.4.0 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.2.4.2 documentation</a></li>
 	 
     </ul>
               
@@ -89,65 +89,42 @@
 <h1>Markov Chains (<code class="docutils literal"><span class="pre">prob140.MarkovChain</span></code>)<a class="headerlink" href="#markov-chains-prob140-markovchain" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="constucting">
 <h2>Constucting<a class="headerlink" href="#constucting" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="explicitly-assigning-probabilities">
-<h3>Explicitly assigning probabilities<a class="headerlink" href="#explicitly-assigning-probabilities" title="Permalink to this headline">¶</a></h3>
-<p>To assign the possible states of a markov chain, use <cite>Table().states()</cite></p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span>
-<span class="gh">Out[1]: </span><span class="go"></span>
-<span class="go">State</span>
-<span class="go">A</span>
-<span class="go">B</span>
-</pre></div>
-</div>
-<p>A markov chain needs transition probabilities for each transition state <cite>i</cite> to <cite>j</cite>. Note that the sum of the
-transition probabilities coming out of each state must sum to 1</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">mc_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">transition_probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">))</span>
+<p>Explicitly assigning probabilities</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">mc_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">transition_probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">))</span>
 
-<span class="gp">In [3]: </span><span class="n">mc_table</span>
-<span class="gh">Out[3]: </span><span class="go"></span>
+<span class="gp">In [2]: </span><span class="n">mc_table</span>
+<span class="gh">Out[2]: </span><span class="go"></span>
 <span class="go">Source | Target | Probability</span>
 <span class="go">A      | A      | 0.5</span>
 <span class="go">A      | B      | 0.5</span>
 <span class="go">B      | A      | 0.3</span>
 <span class="go">B      | B      | 0.7</span>
-</pre></div>
-</div>
-<p>To convert the Table into a MarkovChain object, call <cite>.toMarkovChain()</cite></p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mc_table</span><span class="o">.</span><span class="n">toMarkovChain</span><span class="p">()</span>
 
-<span class="gp">In [5]: </span><span class="n">mc</span>
-<span class="gh">Out[5]: </span><span class="go"></span>
+<span class="gp">In [3]: </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mc_table</span><span class="o">.</span><span class="n">toMarkovChain</span><span class="p">()</span>
+
+<span class="gp">In [4]: </span><span class="n">mc</span>
+<span class="gh">Out[4]: </span><span class="go"></span>
 <span class="go">     A    B</span>
 <span class="go">A  0.5  0.5</span>
 <span class="go">B  0.3  0.7</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="using-a-transition-probability-function">
-<h3>Using a transition probability function<a class="headerlink" href="#using-a-transition-probability-function" title="Permalink to this headline">¶</a></h3>
-<p>Use like single variable distributions and joint distributions, we can assign a transition probability function.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="k">def</span> <span class="nf">identity_transition</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+<p>Using a transition function</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [5]: </span><span class="k">def</span> <span class="nf">identity_transition</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
 <span class="gp">   ...: </span>    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="n">y</span><span class="p">:</span>
 <span class="gp">   ...: </span>        <span class="k">return</span> <span class="mi">1</span>
 <span class="gp">   ...: </span>    <span class="k">return</span> <span class="mi">0</span>
 <span class="gp">   ...: </span>
 
-<span class="gp">In [7]: </span><span class="n">transMatrix</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">transition_function</span><span class="p">(</span><span class="n">identity_transition</span><span class="p">)</span>
+<span class="gp">In [6]: </span><span class="n">transMatrix</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">transition_function</span><span class="p">(</span><span class="n">identity_transition</span><span class="p">)</span>
 
-<span class="gp">In [8]: </span><span class="n">transMatrix</span>
-<span class="gh">Out[8]: </span><span class="go"></span>
-<span class="go">Source | Target | P(Target | Source)</span>
-<span class="go">1      | 1      | 1</span>
-<span class="go">1      | 2      | 0</span>
-<span class="go">1      | 3      | 0</span>
-<span class="go">2      | 1      | 0</span>
-<span class="go">2      | 2      | 1</span>
-<span class="go">2      | 3      | 0</span>
-<span class="go">3      | 1      | 0</span>
-<span class="go">3      | 2      | 0</span>
-<span class="go">3      | 3      | 1</span>
+<span class="gp">In [7]: </span><span class="n">transMatrix</span><span class="o">.</span><span class="n">toMarkovChain</span><span class="p">()</span>
+<span class="gh">Out[7]: </span><span class="go"></span>
+<span class="go">     1    2    3</span>
+<span class="go">1  1.0  0.0  0.0</span>
+<span class="go">2  0.0  1.0  0.0</span>
+<span class="go">3  0.0  0.0  1.0</span>
 </pre></div>
-</div>
 </div>
 </div>
 <div class="section" id="utilities">

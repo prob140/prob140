@@ -67,4 +67,39 @@ Use like single variable distributions and joint distributions, we can assign a 
 
     transMatrix = Table().states(np.arange(1,4)).transition_function(identity_transition)
     transMatrix
+    mc2 = transMatrix.toMarkovChain()
+
+
+Distribution
+------------
+
+To find the state of the markov chain after a certain point, we can call the `.distribution` method which takes in a
+starting condition and a number of steps. For example, to see the distribution of `mc` starting at "A" after 2
+steps, we can call
+
+.. ipython:: python
+
+    mc.distribution("A", 2)
+
+Sometimes it might be useful for the starting condition to be a probability distribution. We can set the starting
+condition to be a single variable distribution
+
+.. ipython:: python
+
+    start = Table().states(make_array("A", "B")).probability(make_array(0.8, 0.2))
+    start
+    mc.distribution(start, 2)
+    mc.distribution(start, 0)
+
+Steady State
+------------
+
+.. ipython:: python
+
+    mc.steady_state()
+    mc2.steady_state()
+
+
+You can find more documentation on markov chains on the `markov chains page <https://probability.gitlab.io/prob140/html/pykov.html>`_
+
 

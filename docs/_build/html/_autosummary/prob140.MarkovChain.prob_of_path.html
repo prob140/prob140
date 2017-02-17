@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.MarkovChain.prob_of_path &mdash; prob140 0.2.4.0 documentation</title>
+    <title>prob140.MarkovChain.prob_of_path &mdash; prob140 0.2.4.2 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2.4.0',
+        VERSION:     '0.2.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
-    <link rel="top" title="prob140 0.2.4.0 documentation" href="../index.html" >
+    <link rel="top" title="prob140 0.2.4.2 documentation" href="../index.html" >
     <link rel="up" title="Markov Chains (prob140.MarkovChain)" href="../pykov.html" >
     <link rel="next" title="prob140.MarkovChain.mixing_time" href="prob140.MarkovChain.mixing_time.html" >
     <link rel="prev" title="prob140.MarkovChain.mean_first_passage_times" href="prob140.MarkovChain.mean_first_passage_times.html" > 
@@ -54,7 +54,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="../index.html">prob140 0.2.4.0 documentation</a></li>
+        <li class="active"><a href="../index.html">prob140 0.2.4.2 documentation</a></li>
 	
           <li class="active"><a href="../pykov.html" accesskey="U">Markov Chains (<code class="docutils literal"><span class="pre">prob140.MarkovChain</span></code>)</a></li> 
     </ul>
@@ -120,7 +120,7 @@ finds the probability of the path with the first element sampled from the Distri
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">transition_probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">))</span><span class="o">.</span><span class="n">toMarkovChain</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">prob_of_path</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">))</span>
 <span class="go">0.175</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">start</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">state</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">start</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">prob_of_path</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">))</span>
 <span class="go">0.14</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="mf">0.175</span> <span class="o">*</span> <span class="mf">0.8</span>
