@@ -1052,9 +1052,12 @@ class Chain(Matrix):
             self.states().add(state)
             self.states().add(other)
             return Vector({other: 1. / self[other, state]})
-        T = self.remove([state])
-        T = T.eye() - T
-        return T._UMPFPACKSolve(T.ones())
+        left_matrix = self.eye() - self
+        for state2 in self.states():
+            left_matrix[(state,state2)] = 1*(state==state2)
+        right_vector = left_matrix.ones()
+        right_vector[state] = 0
+        return left_matrix._UMPFPACKSolve(right_vector)
 
     def adjacency(self):
         """
