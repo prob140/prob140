@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>datascience Tables &mdash; prob140 0.2.4.2 documentation</title>
+    <title>datascience Tables &mdash; prob140 0.2.5.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.4.2',
+        VERSION:     '0.2.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.2.4.2 documentation" href="index.html" >
+    <link rel="top" title="prob140 0.2.5.0 documentation" href="index.html" >
     <link rel="prev" title="prob140.MarkovChain.empirical_distribution" href="_autosummary/prob140.MarkovChain.empirical_distribution.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.2.4.2 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.2.5.0 documentation</a></li>
 	 
     </ul>
               
@@ -863,8 +863,8 @@ rows corresponding to each value.</p>
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">join</code><span class="sig-paren">(</span><em>column_label</em>, <em>other</em>, <em>other_label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.join"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Creates a new table with the columns of self and other, containing rows
-for all values of a column that appear in both tables.</p>
+<dd><p>Creates a new table with the columns of self and other, containing
+rows for all values of a column that appear in both tables.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><dl class="first last docutils">
@@ -881,11 +881,11 @@ for all values of a column that appear in both tables.</p>
 </dl>
 </dd>
 <dt>Returns:</dt>
-<dd>New table self joined with <code class="docutils literal"><span class="pre">other</span></code> by matching values in <code class="docutils literal"><span class="pre">column_label</span></code>
-and <code class="docutils literal"><span class="pre">other_label</span></code>. If the resulting join is empty, returns None. If
-a join value appears more than once in <code class="docutils literal"><span class="pre">self</span></code>, each row with that value
-will appear in resulting join, but in <code class="docutils literal"><span class="pre">other</span></code>, only the first row with
-that value will be used.</dd>
+<dd>New table self joined with <code class="docutils literal"><span class="pre">other</span></code> by matching values in
+<code class="docutils literal"><span class="pre">column_label</span></code> and <code class="docutils literal"><span class="pre">other_label</span></code>. If the resulting join is
+empty, returns None. If a join value appears more than once in
+<code class="docutils literal"><span class="pre">self</span></code>, each row with that value will appear in resulting join,
+but in <code class="docutils literal"><span class="pre">other</span></code>, only the first row with that value will be used.</dd>
 </dl>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
