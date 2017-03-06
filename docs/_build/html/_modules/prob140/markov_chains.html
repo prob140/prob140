@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.markov_chains &mdash; prob140 0.2.4.2 documentation</title>
+    <title>prob140.markov_chains &mdash; prob140 0.2.5.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.2.4.2',
+        VERSION:     '0.2.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" >
     <link rel="search" title="Search" href="../../search.html" >
-    <link rel="top" title="prob140 0.2.4.2 documentation" href="../../index.html" >
+    <link rel="top" title="prob140 0.2.5.0 documentation" href="../../index.html" >
     <link rel="up" title="Module code" href="../index.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
 	
-        <li class="active"><a href="../../index.html">prob140 0.2.4.2 documentation</a></li>
+        <li class="active"><a href="../../index.html">prob140 0.2.5.0 documentation</a></li>
 	
           <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -316,6 +316,44 @@
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">starting_condition</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MarkovChain.log_prob_of_path"><a class="viewcode-back" href="../../_autosummary/prob140.MarkovChain.log_prob_of_path.html#prob140.MarkovChain.log_prob_of_path">[docs]</a>    <span class="k">def</span> <span class="nf">log_prob_of_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">starting_condition</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds the log-probability of a path given a starting condition</span>
+
+<span class="sd">        Note that for long paths, log_prob_of_path will give much better precision than np.log(prob_of_path)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        starting_condition : state or Distribution</span>
+<span class="sd">            If a state, finds the probability of the path starting at that state. If a Distribution,</span>
+<span class="sd">            finds the probability of the path with the first element sampled from the Distribution</span>
+<span class="sd">        path : array</span>
+<span class="sd">            Array of states</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            log of probability</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; mc = Table().states(make_array(&quot;A&quot;, &quot;B&quot;)).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()</span>
+<span class="sd">        &gt;&gt;&gt; mc.log_prob_of_path(&#39;A&#39;, make_array(&#39;A&#39;, &#39;B&#39;,&#39;B&#39;))</span>
+<span class="sd">        -1.742969305058623</span>
+<span class="sd">        &gt;&gt;&gt; start = Table().states(make_array(&quot;A&quot;, &quot;B&quot;)).probability(make_array(.8, .2))</span>
+<span class="sd">        &gt;&gt;&gt; mc.log_prob_of_path(start, make_array(&#39;A&#39;, &#39;A&#39;, &#39;B&#39;,&#39;B&#39;))</span>
+<span class="sd">        -1.9661128563728327</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">starting_condition</span><span class="p">,</span> <span class="n">Table</span><span class="p">):</span>
+            <span class="n">first</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># There has to be something better than this</span>
+            <span class="n">p_first</span> <span class="o">=</span> <span class="n">starting_condition</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">starting_condition</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="n">first</span><span class="p">)[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p_first</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">walk_probability</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">walk_probability</span><span class="p">([</span><span class="n">starting_condition</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">path</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="MarkovChain.prob_of_path"><a class="viewcode-back" href="../../_autosummary/prob140.MarkovChain.prob_of_path.html#prob140.MarkovChain.prob_of_path">[docs]</a>    <span class="k">def</span> <span class="nf">prob_of_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">starting_condition</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

@@ -237,6 +237,44 @@ class MarkovChain:
         else:
             return np.array(self.chain.walk(n, starting_condition, end))
 
+    def log_prob_of_path(self, starting_condition, path):
+        """
+        Finds the log-probability of a path given a starting condition
+
+        Note that for long paths, log_prob_of_path will give much better precision than np.log(prob_of_path)
+
+        Parameters
+        ----------
+        starting_condition : state or Distribution
+            If a state, finds the probability of the path starting at that state. If a Distribution,
+            finds the probability of the path with the first element sampled from the Distribution
+        path : array
+            Array of states
+
+        Returns
+        -------
+        float
+            log of probability
+
+        Examples
+        --------
+        >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
+        >>> mc.log_prob_of_path('A', make_array('A', 'B','B'))
+        -1.742969305058623
+        >>> start = Table().states(make_array("A", "B")).probability(make_array(.8, .2))
+        >>> mc.log_prob_of_path(start, make_array('A', 'A', 'B','B'))
+        -1.9661128563728327
+        """
+        if isinstance(starting_condition, Table):
+            first = path[0]
+
+            # There has to be something better than this
+            p_first = starting_condition.column(1)[np.where(starting_condition.column(0) == first)[0]][0]
+
+            return np.log(p_first) + self.chain.walk_probability(path)
+
+        return self.chain.walk_probability([starting_condition] + list(path))
+
     def prob_of_path(self, starting_condition, path):
         """
         Finds the probability of a path given a starting condition

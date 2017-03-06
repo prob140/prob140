@@ -37,6 +37,7 @@ Utilities
     MarkovChain.steady_state
     MarkovChain.mean_first_passage_times
     MarkovChain.prob_of_path
+    MarkovChain.log_prob_of_path
     MarkovChain.mixing_time
     MarkovChain.accessibility_matrix
 
