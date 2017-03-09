@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.2.6.1 (2017-03-09)
+---------------------
+
+* Plot_continuous now works with any function passed in as func
+
 v0.2.6.0 (2017-03-06)
 ---------------------
 
