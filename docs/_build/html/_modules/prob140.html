@@ -1,0 +1,796 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>prob140 &#8212; prob140 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="prob140 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">prob140 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for prob140</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numbers</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">tkinter</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+
+<span class="kn">from</span> <span class="nn">datascience</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">inf</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span>
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">colorConverter</span><span class="o">.</span><span class="n">to_rgb</span>
+
+
+<div class="viewcode-block" id="DiscreteDistribution"><a class="viewcode-back" href="../index.html#prob140.DiscreteDistribution">[docs]</a><span class="k">class</span> <span class="nc">DiscreteDistribution</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclass of Table to represent discrete distributions as a 2-column table of</span>
+<span class="sd">    Domain and Probability.</span>
+
+<span class="sd">    For constructing a Distribution, see documentation for FiniteDistribution</span>
+<span class="sd">    and InfiniteDistribution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Brighter colors than the default Table class</span>
+    <span class="n">chart_colors</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;darkblue&quot;</span><span class="p">),</span>
+        <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;gold&quot;</span><span class="p">),</span>
+        <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;lime&quot;</span><span class="p">),</span>
+        <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">),</span>
+        <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;darkviolet&quot;</span><span class="p">),</span>
+        <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;brown&quot;</span><span class="p">),</span>
+        <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;darkgreen&quot;</span><span class="p">),</span>
+        <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">),</span>
+        <span class="n">rgb</span><span class="p">(</span><span class="s2">&quot;cyan&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="DiscreteDistribution.prob_event"><a class="viewcode-back" href="../index.html#prob140.DiscreteDistribution.prob_event">[docs]</a>    <span class="k">def</span> <span class="nf">prob_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds the probability of an event x</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : float or Iterable</span>
+<span class="sd">            An event represented either as a specific value in the domain or a</span>
+<span class="sd">            subset of the domain</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Probability of the event</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+
+<span class="sd">        &gt;&gt;&gt; dist = FiniteDistribution().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])</span>
+<span class="sd">        &gt;&gt;&gt; dist.prob_event(2)</span>
+<span class="sd">        0.25</span>
+
+<span class="sd">        &gt;&gt;&gt; dist.prob_event([2,3])</span>
+<span class="sd">        0.5</span>
+
+<span class="sd">        &gt;&gt;&gt; dist.prob_event(np.arange(1,5))</span>
+<span class="sd">        1.0</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">[</span><span class="s2">&quot;Domain&quot;</span><span class="p">]</span>
+            <span class="n">prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">[</span><span class="s2">&quot;Probability&quot;</span><span class="p">]</span>
+            <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">domain</span> <span class="o">==</span> <span class="n">x</span><span class="p">)])</span></div>
+
+<div class="viewcode-block" id="DiscreteDistribution.event"><a class="viewcode-back" href="../index.html#prob140.DiscreteDistribution.event">[docs]</a>    <span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shows the probability that distribution takes on value x or range of</span>
+<span class="sd">        values x.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : float or Iterable</span>
+<span class="sd">            An event represented either as a specific value in the domain or a</span>
+<span class="sd">            subset of the domain</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        FiniteDistribution</span>
+<span class="sd">            Shows the probabilities of each value in the event</span>
+
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; dist = FiniteDistribution().domain([1,2,3,4]).probability([1/4,1/4,1/4,1/4])</span>
+<span class="sd">        &gt;&gt;&gt; dist.event(2)</span>
+<span class="sd">        Domain | Probability</span>
+<span class="sd">        2      | 0.25</span>
+
+<span class="sd">        &gt;&gt;&gt; dist.event([2,3])</span>
+<span class="sd">        Domain | Probability</span>
+<span class="sd">        2      | 0.25</span>
+<span class="sd">        3      | 0.25</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+            <span class="n">probabilities</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span></div>
+
+<div class="viewcode-block" id="DiscreteDistribution.plot"><a class="viewcode-back" href="../index.html#prob140.DiscreteDistribution.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[],</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plots the histogram for a Distribution</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        width (optional) : float</span>
+<span class="sd">            Width of the intervals (default: 1)</span>
+<span class="sd">        mask (optional) : boolean array or list of boolean arrays</span>
+<span class="sd">            Colors the parts of the histogram associated with each mask (</span>
+<span class="sd">            default: no mask)</span>
+<span class="sd">        vargs</span>
+<span class="sd">            See pyplot&#39;s additional optional arguments</span>
+
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;Domain&quot;</span><span class="p">]</span>
+        <span class="n">prob</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;Probability&quot;</span><span class="p">]</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
+
+        <span class="n">end</span> <span class="o">=</span> <span class="p">(</span><span class="n">end</span> <span class="o">//</span> <span class="n">width</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">counts</span><span class="o">=</span><span class="s2">&quot;Domain&quot;</span><span class="p">,</span>
+                      <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span> <span class="o">-</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">end</span> <span class="o">+</span> <span class="n">width</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span>
+                      <span class="o">**</span><span class="n">vargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mask</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+                <span class="n">colors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+                    <span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chart_colors</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">)))</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">)):</span>
+                    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">domain</span><span class="p">[</span><span class="n">mask</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">prob</span><span class="p">[</span><span class="n">mask</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                            <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">domain</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">prob</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkblue&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">domain</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">mask</span><span class="p">)],</span> <span class="n">prob</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">mask</span><span class="p">)],</span>
+                        <span class="n">align</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gold&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+                <span class="c1"># dist1 = FiniteDistribution().domain(domain[mask]).probability(prob[mask])</span>
+                <span class="c1"># dist2 = FiniteDistribution().domain(domain[np.logical_not(mask)]).probability(prob[np.logical_not(mask)])</span>
+                <span class="c1"># DiscreteDistribution.Plot(&quot;1&quot;, dist1, &quot;2&quot;, dist2, width=width, **vargs)</span>
+
+        <span class="n">mindistance</span> <span class="o">=</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span>
+            <span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Domain&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Domain&#39;</span><span class="p">][</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_rows</span><span class="p">)])</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Domain&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">mindistance</span> <span class="o">-</span> <span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Domain&#39;</span><span class="p">])</span>
+                  <span class="o">+</span> <span class="n">mindistance</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="DiscreteDistribution.plot_event"><a class="viewcode-back" href="../index.html#prob140.DiscreteDistribution.plot_event">[docs]</a>    <span class="k">def</span> <span class="nf">plot_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        event : List or List of lists</span>
+<span class="sd">            Each list represents an event which will be colored differently</span>
+<span class="sd">            by the plot</span>
+<span class="sd">        width (optional) : float</span>
+<span class="sd">            Width of the intervals. Actually not implemented right now!</span>
+<span class="sd">        vargs</span>
+<span class="sd">            See pyplot&#39;s additional optional arguments</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">mindistance</span> <span class="o">=</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span>
+            <span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Domain&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Domain&#39;</span><span class="p">][</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_rows</span><span class="p">)])</span>
+
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Domain&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">mindistance</span> <span class="o">-</span> <span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Domain&#39;</span><span class="p">])</span>
+                  <span class="o">+</span> <span class="n">mindistance</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+
+            <span class="n">domain</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;Domain&quot;</span><span class="p">])</span>
+
+            <span class="k">def</span> <span class="nf">prob</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span>
+
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+                <span class="n">colors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+                    <span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chart_colors</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">event</span><span class="p">)):</span>
+                    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">prob</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+                    <span class="n">domain</span> <span class="o">-=</span> <span class="nb">set</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+                <span class="n">domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">domain</span><span class="p">))</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">prob</span><span class="p">(</span><span class="n">domain</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">prob</span><span class="p">(</span><span class="n">event</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gold&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+                <span class="n">domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;Domain&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">event</span><span class="p">)))</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">prob</span><span class="p">(</span><span class="n">domain</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkblue&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span></div>
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DiscreteDistribution.Plot"><a class="viewcode-back" href="../index.html#prob140.DiscreteDistribution.Plot">[docs]</a>    <span class="k">def</span> <span class="nf">Plot</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">labels_and_dists</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class method for overlay multiple distributions</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        labels_and_dists : Even number of alternations between Strings and</span>
+<span class="sd">        FiniteDistributions</span>
+<span class="sd">            Each distribution must have a label associated with it</span>
+<span class="sd">        width (optional) : float</span>
+<span class="sd">            Width of the intervals (default: 1)</span>
+<span class="sd">        vargs</span>
+<span class="sd">            See pyplot&#39;s documentation</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># assert len(labels_and_dists) % 2 == 0, &#39;Even length sequence required&#39;</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">default_options</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">vargs</span><span class="p">)</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">domain</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_and_dists</span><span class="p">):</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">labels_and_dists</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">labels_and_dists</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">domain</span> <span class="o">=</span> <span class="n">domain</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">_columns</span><span class="p">[</span><span class="s2">&quot;Domain&quot;</span><span class="p">])</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">domain</span><span class="p">))</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">distributions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Domain&quot;</span><span class="p">,</span> <span class="n">domain</span><span class="p">]</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_and_dists</span><span class="p">):</span>
+            <span class="n">distributions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels_and_dists</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">labels_and_dists</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">probability</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">,</span> <span class="n">otypes</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">])(</span><span class="n">domain</span><span class="p">)</span>
+            <span class="n">distributions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">probability</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="o">*</span><span class="n">distributions</span><span class="p">)</span>
+
+        <span class="n">result</span><span class="o">.</span><span class="n">chart_colors</span> <span class="o">=</span> <span class="n">DiscreteDistribution</span><span class="o">.</span><span class="n">chart_colors</span>
+
+        <span class="n">start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="p">(</span><span class="n">end</span> <span class="o">//</span> <span class="n">width</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">width</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">counts</span><span class="o">=</span><span class="s2">&quot;Domain&quot;</span><span class="p">,</span>
+                    <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span> <span class="o">-</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">end</span> <span class="o">+</span> <span class="n">width</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span>
+                    <span class="o">**</span><span class="n">vargs</span><span class="p">)</span>
+
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
+
+        <span class="n">mindistance</span> <span class="o">=</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">domain</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">domain</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">))])</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">-</span> <span class="n">mindistance</span> <span class="o">-</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">+</span> <span class="n">mindistance</span> <span class="o">+</span>
+                  <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span></div></div>
+
+
+<span class="n">plot</span> <span class="o">=</span> <span class="n">DiscreteDistribution</span><span class="o">.</span><span class="n">Plot</span>
+
+
+<div class="viewcode-block" id="FiniteDistribution"><a class="viewcode-back" href="../index.html#prob140.FiniteDistribution">[docs]</a><span class="k">class</span> <span class="nc">FiniteDistribution</span><span class="p">(</span><span class="n">DiscreteDistribution</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclass of DiscreteDistribution to represent a Finite Probability</span>
+<span class="sd">    Distribution.</span>
+
+<span class="sd">    Construct a FiniteDistribution by specifying both the range of the domain</span>
+<span class="sd">    and the associated probabilities</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; FiniteDistribution().domain(make_array(2, 3, 4)).probability(make_array(0.25, 0.5, 0.25))</span>
+<span class="sd">    Domain | Probability</span>
+<span class="sd">    2      | 0.25</span>
+<span class="sd">    3      | 0.5</span>
+<span class="sd">    4      | 0.25</span>
+
+<span class="sd">    The `domain` method takes in an iterable. To associate each value with a</span>
+<span class="sd">    probability, the `probability` method takes an iterable of the same length</span>
+
+<span class="sd">    &gt;&gt;&gt; FiniteDistribution().domain(np.arange(1,11)).probability_function(lambda x:1/10)</span>
+<span class="sd">    Domain | Probability</span>
+<span class="sd">    1      | 0.1</span>
+<span class="sd">    2      | 0.1</span>
+<span class="sd">    3      | 0.1</span>
+<span class="sd">    4      | 0.1</span>
+<span class="sd">    5      | 0.1</span>
+<span class="sd">    6      | 0.1</span>
+<span class="sd">    7      | 0.1</span>
+<span class="sd">    8      | 0.1</span>
+<span class="sd">    9      | 0.1</span>
+<span class="sd">    10     | 0.1</span>
+
+<span class="sd">    `FiniteDistribution` can also use a function on the domain to assign</span>
+<span class="sd">    probabilities</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FiniteDistribution.domain"><a class="viewcode-back" href="../index.html#prob140.FiniteDistribution.domain">[docs]</a>    <span class="k">def</span> <span class="nf">domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assigns domain values to a FiniteDistribution</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        values : List or Array</span>
+<span class="sd">            Values to put into the domain</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        FiniteDistibution</span>
+<span class="sd">            FiniteDistribution with that domain</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Domain&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiniteDistribution.probability_function"><a class="viewcode-back" href="../index.html#prob140.FiniteDistribution.probability_function">[docs]</a>    <span class="k">def</span> <span class="nf">probability_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pfunc</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assigns probabilities to a FiniteDistribution via a probability</span>
+<span class="sd">        function. The probability function is applied to each value of the</span>
+<span class="sd">        domain</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pfunc : univariate function</span>
+<span class="sd">            Probability function of the FiniteDistribution</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        FiniteDistribution</span>
+<span class="sd">            FiniteDistribution with those probabilities</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pfunc</span><span class="p">,</span> <span class="s1">&#39;Domain&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">values</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Probability cannot be negative&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;Domain&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiniteDistribution.probability"><a class="viewcode-back" href="../index.html#prob140.FiniteDistribution.probability">[docs]</a>    <span class="k">def</span> <span class="nf">probability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assigns probabilities to domain values.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        values : List or Array</span>
+<span class="sd">            Values that must correspond to the domain in the same order</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        FiniteDistribution</span>
+<span class="sd">            FiniteDistribution with those probabilities</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Probability cannot be negative&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">&quot;Domain&quot;</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_probability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
+
+<div class="viewcode-block" id="FiniteDistribution.normalize"><a class="viewcode-back" href="../index.html#prob140.FiniteDistribution.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Normalizes the distribution by making the proabilities sum to 1</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        FiniteDistribution</span>
+<span class="sd">            Normalized FiniteDistribution</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;Probability&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_rows</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_rows</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">]</span> <span class="o">/=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+    <span class="k">def</span> <span class="nf">as_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_rows</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="c1"># self.normalize()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">as_html</span><span class="p">(</span><span class="n">max_rows</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FiniteDistribution.expected_value"><a class="viewcode-back" href="../index.html#prob140.FiniteDistribution.expected_value">[docs]</a>    <span class="k">def</span> <span class="nf">expected_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds expected value of distribution</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Expected value</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+        <span class="n">ev</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">domain</span><span class="p">,</span> <span class="n">probability</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
+            <span class="n">ev</span> <span class="o">+=</span> <span class="n">domain</span> <span class="o">*</span> <span class="n">probability</span>
+        <span class="k">return</span> <span class="n">ev</span></div>
+
+<div class="viewcode-block" id="FiniteDistribution.variance"><a class="viewcode-back" href="../index.html#prob140.FiniteDistribution.variance">[docs]</a>    <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds variance of distribution</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Variance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expected_value</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">domain</span><span class="p">,</span> <span class="n">probability</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
+            <span class="n">var</span> <span class="o">+=</span> <span class="p">(</span><span class="n">domain</span> <span class="o">-</span> <span class="n">ev</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">probability</span>
+        <span class="k">return</span> <span class="n">var</span></div>
+
+<div class="viewcode-block" id="FiniteDistribution.sd"><a class="viewcode-back" href="../index.html#prob140.FiniteDistribution.sd">[docs]</a>    <span class="k">def</span> <span class="nf">sd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds standard deviation of FiniteDistribution</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Standard Deviation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">())</span></div></div>
+
+
+<div class="viewcode-block" id="InfiniteDistribution"><a class="viewcode-back" href="../infinite.html#prob140.InfiniteDistribution">[docs]</a><span class="k">class</span> <span class="nc">InfiniteDistribution</span><span class="p">(</span><span class="n">DiscreteDistribution</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclass of DiscreteDistribution to represent an Infinite Probability</span>
+<span class="sd">    Distribution.</span>
+
+<span class="sd">    Construct an `InfiniteDistribution` by specifying both the range of the domain</span>
+<span class="sd">    and a function for the probabilities</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; geometric = InfiniteDistribution().domain(0,inf).probability_function(lambda k:0.4*(0.6)**k)</span>
+<span class="sd">    &gt;&gt;&gt; geometric</span>
+<span class="sd">    Domain           | Probability</span>
+<span class="sd">    0                | 0.4</span>
+<span class="sd">    1                | 0.24</span>
+<span class="sd">    2                | 0.144</span>
+<span class="sd">    3                | 0.0864</span>
+<span class="sd">    4                | 0.05184</span>
+<span class="sd">    5                | 0.031104</span>
+<span class="sd">    6                | 0.0186624</span>
+<span class="sd">    7                | 0.0111974</span>
+<span class="sd">    8                | 0.00671846</span>
+<span class="sd">    9                | 0.00403108</span>
+<span class="sd">    ... (Infinite rows omitted)</span>
+
+<span class="sd">    Use `inf` to specify infinity</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="InfiniteDistribution.domain"><a class="viewcode-back" href="../index.html#prob140.InfiniteDistribution.domain">[docs]</a>    <span class="k">def</span> <span class="nf">domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assigns domain values to InfiniteDistribution</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        start : float</span>
+<span class="sd">            Smallest value in domain</span>
+<span class="sd">        end : float</span>
+<span class="sd">            Largest value in domain. Use `inf` for infinity</span>
+<span class="sd">        step (optional) : float</span>
+<span class="sd">            Step size in domain (default: 1)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        InfiniteDistribution</span>
+<span class="sd">            InfiniteDistribution with that domain</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Domain&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">step</span><span class="p">)])</span></div>
+
+<div class="viewcode-block" id="InfiniteDistribution.probability_function"><a class="viewcode-back" href="../index.html#prob140.InfiniteDistribution.probability_function">[docs]</a>    <span class="k">def</span> <span class="nf">probability_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pfunc</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assigns probabilities to an InfiniteDistribution via a probability</span>
+<span class="sd">        function. The probability function is applied to each value of the</span>
+<span class="sd">        domain</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pfunc : univariate function</span>
+<span class="sd">            Probability function of the InfiniteDistribution</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        InfiniteDistribution</span>
+<span class="sd">            InfiniteDistribution with those probabilities</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">pfunc</span><span class="p">])</span></div>
+
+    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+        <span class="n">pfunc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pfunc</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span>
+
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">size</span> <span class="o">*</span> <span class="n">step</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+        <span class="n">probability</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">pfunc</span><span class="p">,</span> <span class="n">otypes</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">])(</span><span class="n">domain</span><span class="p">)</span>
+
+        <span class="n">FiniteDistribution</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">probability</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">prob_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_event</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Doesn&#39;t check if x is in domain!</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pfunc</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<div class="viewcode-block" id="InfiniteDistribution.expected_value"><a class="viewcode-back" href="../index.html#prob140.InfiniteDistribution.expected_value">[docs]</a>    <span class="k">def</span> <span class="nf">expected_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">25</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Approximates the expected value of an infinite distribution</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        delta (optional): float</span>
+<span class="sd">            Accepted error margin for expected value (default: 1e-25)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Expected Value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pfunc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pfunc</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span>
+
+        <span class="n">ev</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">pfunc</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">diff</span> <span class="o">&gt;</span> <span class="n">delta</span><span class="p">):</span>
+            <span class="n">ev</span> <span class="o">+=</span> <span class="n">start</span> <span class="o">*</span> <span class="n">diff</span>
+            <span class="n">start</span> <span class="o">+=</span> <span class="n">step</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="n">pfunc</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ev</span></div>
+
+<div class="viewcode-block" id="InfiniteDistribution.variance"><a class="viewcode-back" href="../index.html#prob140.InfiniteDistribution.variance">[docs]</a>    <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">25</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Approximates the variance of an InfiniteDistribution</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        delta (optional): float</span>
+<span class="sd">            Accepted error margin of variance approximation (default: 1e-25)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Variance</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pfunc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pfunc</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span>
+
+        <span class="n">ev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expected_value</span><span class="p">()</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">pfunc</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">diff</span> <span class="o">&gt;</span> <span class="n">delta</span><span class="p">):</span>
+            <span class="n">var</span> <span class="o">+=</span> <span class="p">(</span><span class="n">ev</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">diff</span>
+            <span class="n">start</span> <span class="o">+=</span> <span class="n">step</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="n">pfunc</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">var</span></div>
+
+<div class="viewcode-block" id="InfiniteDistribution.sd"><a class="viewcode-back" href="../index.html#prob140.InfiniteDistribution.sd">[docs]</a>    <span class="k">def</span> <span class="nf">sd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds the Standard Deviation</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Float</span>
+<span class="sd">            Standard Deviation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variance</span><span class="p">())</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">[</span><span class="s2">&quot;Domain&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">domain</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">[</span><span class="s2">&quot;Domain&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">domain</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_pfunc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="p">[</span><span class="s2">&quot;Probability&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<div class="viewcode-block" id="InfiniteDistribution.as_html"><a class="viewcode-back" href="../index.html#prob140.InfiniteDistribution.as_html">[docs]</a>    <span class="k">def</span> <span class="nf">as_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_rows</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Format table as HTML.&quot;&quot;&quot;</span>
+        <span class="n">omitted</span> <span class="o">=</span> <span class="s2">&quot;Infinite&quot;</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;&lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;&lt;thead&gt;&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;&lt;tr&gt;&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&lt;th&gt;&#39;</span> <span class="o">+</span> <span class="n">label</span> <span class="o">+</span> <span class="s1">&#39;&lt;/th&gt;&#39;</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">)),</span>
+            <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;&lt;/tr&gt;&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;&lt;/thead&gt;&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;&lt;tbody&gt;&#39;</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="n">fmts</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_formats</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatter</span><span class="o">.</span><span class="n">format_column</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">[:</span><span class="n">max_rows</span><span class="p">]))</span> <span class="k">for</span>
+                <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+        <span class="n">fmts</span> <span class="o">=</span> <span class="p">[(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">False</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">as_html</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">v</span><span class="p">,</span>
+                                                                         <span class="s1">&#39;as_html&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">f</span><span class="p">(</span>
+            <span class="n">v</span><span class="p">))(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fmts</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">,</span> <span class="n">max_rows</span><span class="p">):</span>
+            <span class="n">lines</span> <span class="o">+=</span> <span class="p">[</span>
+                <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;&lt;tr&gt;&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&lt;td&gt;&#39;</span> <span class="o">+</span> <span class="n">fmt</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&lt;/td&gt;&#39;</span> <span class="k">for</span>
+                             <span class="n">v</span><span class="p">,</span> <span class="n">fmt</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">fmts</span><span class="p">))),</span>
+                <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;&lt;/tr&gt;&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;&lt;/tbody&gt;&#39;</span><span class="p">),</span>
+            <span class="p">]</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;&lt;/table&gt;&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">omitted</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;&lt;p&gt;... (</span><span class="si">{}</span><span class="s1"> rows omitted)&lt;/p&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omitted</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">indent</span> <span class="o">*</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">text</span> <span class="k">for</span> <span class="n">indent</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="InfiniteDistribution.as_text"><a class="viewcode-back" href="../index.html#prob140.InfiniteDistribution.as_text">[docs]</a>    <span class="k">def</span> <span class="nf">as_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_rows</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; | &quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Format table as text.&quot;&quot;&quot;</span>
+        <span class="n">omitted</span> <span class="o">=</span> <span class="s2">&quot;Infinite&quot;</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="n">fmts</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_formats</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatter</span><span class="o">.</span><span class="n">format_column</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">[:</span><span class="n">max_rows</span><span class="p">]))</span> <span class="k">for</span>
+                <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="p">[[</span><span class="n">fmt</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fmts</span><span class="p">,</span> <span class="n">labels</span><span class="p">)]]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">,</span> <span class="n">max_rows</span><span class="p">):</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">f</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">fmts</span><span class="p">)])</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">omitted</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;... (</span><span class="si">{}</span><span class="s1"> rows omitted)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">omitted</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="InfiniteDistribution.Rows"><a class="viewcode-back" href="../index.html#prob140.InfiniteDistribution.Rows">[docs]</a>    <span class="k">class</span> <span class="nc">Rows</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;An iterable view over the rows in a table.&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_table</span> <span class="o">=</span> <span class="n">table</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_table</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">labels</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_labels</span> <span class="o">=</span> <span class="n">labels</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_row</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;Row&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">Table</span><span class="o">.</span><span class="n">Row</span><span class="p">,),</span> <span class="nb">dict</span><span class="p">(</span><span class="n">_table</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_table</span><span class="p">))</span>
+            <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_table</span><span class="o">.</span><span class="n">_columns</span><span class="p">[</span><span class="s2">&quot;Domain&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">pfunc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_table</span><span class="o">.</span><span class="n">_columns</span><span class="p">[</span><span class="s2">&quot;Probability&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">domain</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">domain</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_row</span><span class="p">((</span><span class="n">value</span><span class="p">,</span> <span class="n">pfunc</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span>
+
+        <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_table</span><span class="o">.</span><span class="n">num_rows</span>
+
+        <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">(</span><span class="si">{1}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_table</span><span class="p">))</span></div></div>
+
+
+<span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">it</span>
+
+
+<span class="k">class</span> <span class="nc">JointDistribution</span><span class="p">(</span><span class="n">FiniteDistribution</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">variables</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+        <span class="n">tablesetup</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([[</span><span class="n">v</span><span class="p">,</span> <span class="p">[]]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">],</span> <span class="p">[])</span>
+        <span class="n">domains</span> <span class="o">=</span> <span class="p">[</span><span class="n">kwargs</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">]</span>
+        <span class="n">overall</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">domains</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="o">*</span><span class="n">tablesetup</span><span class="p">)</span><span class="o">.</span><span class="n">with_rows</span><span class="p">(</span><span class="n">overall</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">variables</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="k">def</span> <span class="nf">probability_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pfunc</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">function_in_between</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">var</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="k">for</span> <span class="n">num</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">)}</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">pfunc</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s2">&quot;Probability&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">function_in_between</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">expected_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">variable</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">&quot;Probability&quot;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">sd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">marginalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">prob_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">d</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">current</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">])</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">prob140 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Jason Zhang, Dibya Ghosh.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
+  </body>
+</html>
