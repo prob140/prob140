@@ -28,6 +28,7 @@ Contents:
     tutorial
     joint_tutorial
     pykov_tutorial
+    plots
 
 
 Reference

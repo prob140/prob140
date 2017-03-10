@@ -61,7 +61,7 @@ We can also construct a distribution by explicitly assigning values for the
     dist2
 
 This can be very useful when we have a distribution with a known probability
-density function
+mass function
 
 .. ipython:: python
 
@@ -110,7 +110,7 @@ Note that due to the way Python handles floats, there might be some rounding err
 Plotting
 --------
 
-To visualize our distributions, we can plot a histogram of the density using the ``Plot`` function.
+To visualize our distributions, we can plot a histogram of the probability mass function using the ``Plot`` function.
 
 .. ipython:: python
 
