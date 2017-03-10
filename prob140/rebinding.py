@@ -1,7 +1,8 @@
 from .single_variable import *
 from .multi_variable import *
 from .markov_chains import MarkovChain, toMarkovChain
-
+from .symbolic_math import *
+from .plots import Plot_continuous
 
 from datascience import *
 

@@ -1,6 +1,7 @@
 import scipy.stats as stats
 import numpy as np
 import matplotlib.pyplot as plt
+from sympy import lambdify,symbols
 
 
 def Plot_continuous(func, x_limits, *args, **kwargs):
@@ -36,6 +37,7 @@ def Plot_continuous(func, x_limits, *args, **kwargs):
     """
 
     interval = x_limits
+    tails = kwargs.pop("tails", False)
 
     if isinstance(func, str):
         func = func.lower()
@@ -43,20 +45,25 @@ def Plot_continuous(func, x_limits, *args, **kwargs):
         rv = getattr(stats, func)
 
         cdf = kwargs.pop("cdf", False)
-        tails = kwargs.pop("tails", False)
 
         if cdf:
             f = rv(*args).cdf
         else:
             f = rv(*args).pdf
     else:
-        f = func
+        assert len(func.free_symbols) <= 1, "Must have exactly 1 variable"
+        if len(func.free_symbols) == 0:
+            new_symbol = symbols('x')
+            replace_variables = [new_symbol]
+        else:
+            replace_variables = list(func.free_symbols)
+        f = lambdify(replace_variables,func)
 
     lower = interval[0]
     upper = interval[1]
 
     x = np.linspace(lower, upper, 100)
-    y = f(x)
+    y = [f(xi) for xi in x]
 
     left = kwargs.pop("left_end", None)
     right = kwargs.pop("right_end", None)
