@@ -1,12 +1,12 @@
 Metadata-Version: 1.1
 Name: prob140
-Version: 0.2.6.2
+Version: 0.2.6.3
 Summary: A probability library for Berkeley's Prob140 course
 Home-page: http://prob140.org/
 Author: Jason Zhang, Dibya Ghosh
 Author-email: zhang.j@berkeley.edu
 License: GPL
-Download-URL: https://gitlab.com/probability/prob140/raw/master/dist/prob140-0.2.6.2.tar.gz
+Download-URL: https://gitlab.com/probability/prob140/raw/master/dist/prob140-0.2.6.3.tar.gz
 Description: UNKNOWN
 Keywords: data,probability,berkeley,Prob140
 Platform: UNKNOWN
