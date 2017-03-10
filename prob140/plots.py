@@ -17,8 +17,8 @@ def Plot_continuous(x_limits, func, *args, **kwargs):
     args : floats (optional)
         Arguments of the distribution if func was a String.
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -103,8 +103,8 @@ def Plot_expon(x_limits, lamb, **kwargs):
     lamb : float
         Rate
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -134,8 +134,8 @@ def Plot_norm(x_limits, mu, sigma, **kwargs):
     sigma : float
         Standard Deviation
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -161,8 +161,8 @@ def Plot_arcsine(x_limits, **kwargs):
     x_limits : iterable
         Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -192,8 +192,8 @@ def Plot_beta(x_limits, a, b, **kwargs):
     b : float
         shape
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -214,8 +214,8 @@ def Plot_cauchy(x_limits, **kwargs):
     """
     Plots a cauchy distribution
 
-    Other Parameters
-    ----------------
+    Parameters
+    ----------
     x_limits : iterable
         Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
 
@@ -248,8 +248,8 @@ def Plot_chi2(x_limits, df, **kwargs):
     df : Integer
         Number of degrees of freedom
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -279,8 +279,8 @@ def Plot_erlang(x_limits, r, lamb, **kwargs):
     lamb : float
         Rate
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -310,8 +310,8 @@ def Plot_f(x_limits, dfn, dfd, **kwargs):
     dfd : int
         Degree of freedom 2
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -341,8 +341,8 @@ def Plot_gamma(x_limits, r, lamb, **kwargs):
     lamb : float
         Rate
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -372,8 +372,8 @@ def Plot_lognorm(x_limits, mu, sigma, **kwargs):
     sigma : float
         Standard Deviation
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -401,8 +401,8 @@ def Plot_pareto(x_limits, alpha, **kwargs):
     a : float
         shape
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -430,8 +430,8 @@ def Plot_powerlaw(x_limits, a, **kwargs):
     a : float
         Shape
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -459,8 +459,8 @@ def Plot_rayleigh(x_limits, sigma, **kwargs):
     sigma : float
         Scale
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -488,8 +488,8 @@ def Plot_t(x_limits, df, **kwargs):
     df : int
         Degree of freedom
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -522,8 +522,8 @@ def Plot_triang(x_limits, a, b, c, **kwargs):
         Intermediate value
 
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)
@@ -553,8 +553,8 @@ def Plot_uniform(x_limits, a, b, **kwargs):
     b : float
         Maximum value
 
-    Other Parameters
-    ----------------
+    Optional Named Parameters
+    -------------------------
     tails : boolean (optional)
         If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
         the upper bound. If False, left_end will shade to right_end. (Default: False)

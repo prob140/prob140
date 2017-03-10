@@ -20,18 +20,15 @@
 
 import os
 import sys
-
-path = os.path.abspath("../")
-print(path)
-print(sys.version)
-sys.path.insert(0, path)
-
 from prob140 import *
 from prob140.version import __version__
 
 print("Current version of Prob140:",__version__)
 
-
+path = os.path.abspath("../")
+print(path)
+print(sys.version)
+sys.path.insert(0, path)
 
 # -- General configuration ------------------------------------------------
 

@@ -1,6 +1,0 @@
-prob140.plots.Plot_arcsine
-==========================
-
-.. currentmodule:: prob140.plots
-
-.. autofunction:: Plot_arcsine
