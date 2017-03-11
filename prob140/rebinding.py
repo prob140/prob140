@@ -38,7 +38,7 @@ Table.expected_value = expected_value
 Table.variance = variance
 Table.sd = sd
 Table.toJoint = toJoint
-Table.sample = sample
+Table.sample_from_dist = sample_from_dist
 Table.cdf = cdf
 
 # Markov Chain stuff

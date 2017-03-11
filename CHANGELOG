@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.2.7.0 (2017-03-10)
+---------------------
+
+* sample renamed to sample_from_dist to avoid conflicts with datascience
+
 v0.2.6.3 (2017-03-09)
 ---------------------
 
