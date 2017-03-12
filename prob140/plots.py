@@ -4,15 +4,16 @@ import matplotlib.pyplot as plt
 from sympy import lambdify,symbols
 
 
-def Plot_continuous(func, x_limits, *args, **kwargs):
+def Plot_continuous(x_limits, func, *args, **kwargs):
     """
+    Plots a continuous distribution
 
     Parameters
     ----------
-    func : function or str
-        Univariate density function or a String for the scipy dist name
     x_limits : iterable
         Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    func : Sympy expression, function, or str
+        Univariate density function or a String for the scipy dist name
     args : floats (optional)
         Arguments of the distribution if func was a String.
 
@@ -92,64 +93,479 @@ def Plot_continuous(func, x_limits, *args, **kwargs):
 
 
 def Plot_expon(x_limits, lamb, **kwargs):
-    Plot_continuous("expon", x_limits, 0, lamb, **kwargs)
+    """
+    Plots an exponential distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    lamb : float
+        Rate
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "expon", 0, lamb, **kwargs)
 
 
 def Plot_norm(x_limits, mu, sigma, **kwargs):
-    Plot_continuous("norm", x_limits, mu, sigma, **kwargs)
+    """
+    Plots a gaussian distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    mu : float
+        Mean
+    sigma : float
+        Standard Deviation
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "norm", mu, sigma, **kwargs)
 
 
 def Plot_arcsine(x_limits, **kwargs):
-    Plot_continuous("arcsine", x_limits, **kwargs)
+    """
+    Plots an arcsine distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "arcsine", **kwargs)
 
 
 def Plot_beta(x_limits, a, b, **kwargs):
-    Plot_continuous("beta", x_limits, a, b, **kwargs)
+    """
+    Plots a beta distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    a : float
+        shape
+    b : float
+        shape
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "beta", a, b, **kwargs)
 
 
 def Plot_cauchy(x_limits, **kwargs):
-    Plot_continuous("cauchy", x_limits=x_limits, **kwargs)
+    """
+    Plots a cauchy distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "cauchy", **kwargs)
 
 
 def Plot_chi2(x_limits, df, **kwargs):
-    Plot_continuous("chi2", x_limits, df, **kwargs)
+    """
+    Plots a chi-squared distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    df : Integer
+        Number of degrees of freedom
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "chi2", df, **kwargs)
 
 
 def Plot_erlang(x_limits, r, lamb, **kwargs):
-    Plot_continuous("erlang", x_limits, r, 0, 1 / lamb, **kwargs)
+    """
+    Plots an erlang distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    r : int
+        Shape
+    lamb : float
+        Rate
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "erlang", r, 0, 1 / lamb, **kwargs)
 
 
 def Plot_f(x_limits, dfn, dfd, **kwargs):
-    Plot_continuous("f", x_limits, dfn, dfd, **kwargs)
+    """
+    Plots an F distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    dfn : int
+        Degree of freedom 1
+    dfd : int
+        Degree of freedom 2
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "f", dfn, dfd, **kwargs)
 
 
 def Plot_gamma(x_limits, r, lamb, **kwargs):
-    Plot_continuous("gamma", x_limits, r, 0, 1 / lamb, **kwargs)
+    """
+    Plots a gamma distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    r : int
+        Shape
+    lamb : float
+        Rate
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "gamma", r, 0, 1 / lamb, **kwargs)
 
 
 def Plot_lognorm(x_limits, mu, sigma, **kwargs):
-    Plot_continuous("lognorm", x_limits, sigma, 0, np.exp(mu), **kwargs)
+    """
+    Plots a log-normal distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    mu : float
+        Mean
+    sigma : float
+        Standard Deviation
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "lognorm", sigma, 0, np.exp(mu), **kwargs)
 
 
 def Plot_pareto(x_limits, alpha, **kwargs):
-    Plot_continuous("pareto", x_limits, alpha, **kwargs)
+    """
+    Plots an alpha distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    a : float
+        shape
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "pareto", alpha, **kwargs)
 
 
 def Plot_powerlaw(x_limits, a, **kwargs):
-    Plot_continuous("powerlaw", x_limits, a, **kwargs)
+    """
+    Plots a powerlaw distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    a : float
+        Shape
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "powerlaw", a, **kwargs)
 
 
 def Plot_rayleigh(x_limits, sigma, **kwargs):
-    Plot_continuous("rayleigh", x_limits, 0, sigma, **kwargs)
+    """
+    Plots a rayleigh distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    sigma : float
+        Scale
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "rayleigh", 0, sigma, **kwargs)
 
 
 def Plot_t(x_limits, df, **kwargs):
-    Plot_continuous("t", x_limits, df, **kwargs)
+    """
+    Plots a t distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    df : int
+        Degree of freedom
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "t", df, **kwargs)
 
 
 def Plot_triang(x_limits, a, b, c, **kwargs):
-    Plot_continuous("triang", x_limits, (c - a) / (b - a), a, b - a, **kwargs)
+    """
+    Plots a triangular distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    a : float
+        Minimum value
+    b : float
+        Maximum value
+    c : float
+        Intermediate value
+
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "triang", (c - a) / (b - a), a, b - a, **kwargs)
 
 
 def Plot_uniform(x_limits, a, b, **kwargs):
-    Plot_continuous("uniform", x_limits, a, b - a, **kwargs)
+    """
+    Plots a uniform distribution
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound to be plotted
+    a : float
+        Minimum value
+    b : float
+        Maximum value
+
+    Optional Named Parameters
+    -------------------------
+    tails : boolean (optional)
+        If True, left_end will shade from the lower bound up to left_end, and right_end will shade from right_end up to
+        the upper bound. If False, left_end will shade to right_end. (Default: False)
+    left_end : float (optional)
+        Left side of event to be shaded (Default: None)
+    right_end : float (optional)
+        Right side of event to be shaded (Default: None)
+    cdf : boolean (optional)
+        If True and func was string, the cdf will be plotted (Default: False)
+
+    All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
+
+    """
+    Plot_continuous(x_limits, "uniform", a, b - a, **kwargs)

@@ -1,10 +1,23 @@
-Changelog
-=========
-
-v0.2.7.0 (2017-03-11)
+v0.2.7.1 (2017-03-11)
 ---------------------
 
 * SymPy integration being finalized - added `unconstrain` and updated `declare`
+
+v0.2.7.0 (2017-03-10)
+---------------------
+
+* sample renamed to sample_from_dist to avoid conflicts with datascience
+
+v0.2.6.3 (2017-03-09)
+---------------------
+
+* Fixed documentation for plots
+* plots removed from global
+
+v0.2.6.2 (2017-03-09)
+---------------------
+
+* Plot_continuous works with sympy
 
 v0.2.6.1 (2017-03-09)
 ---------------------

@@ -493,9 +493,12 @@ def normalized(self):
     column_label = self.labels[-1]
     return self.with_column(column_label,self.column(column_label)/sum(self.column(column_label)))
 
-def sample(self, n=1):
+def sample_from_dist(self, n=1):
     """
     Randomly samples from the distribution
+
+    Note that this function was previously named `sample` but was renamed because of naming conflicts with the
+    datascience library
 
     Parameters
     ----------
@@ -508,11 +511,11 @@ def sample(self, n=1):
         Samples from the distribution
 
     >>> dist = Table().with_columns('Value',make_array(2, 3, 4),'Probability',make_array(0.25, 0.5, 0.25))
-    >>> dist.sample()
+    >>> dist.sample_from_dist()
     3
-    >>> dist.sample()
+    >>> dist.sample_from_dist()
     2
-    >>> dist.sample(10)
+    >>> dist.sample_from_dist(10)
     array([3, 2, 2, 4, 3, 4, 3, 4, 3, 3])
 
     """
