@@ -30,6 +30,18 @@ def declare(*args, **kwargs):
             "Cannot have commas or spaces in variable names"
     assert _run_from_ipython(), "This function only works in iPython; use Symbol() in scripts"
     ishell = get_ipython()
+    interval = kwargs.pop('interval',None)
+    if interval is not None:
+        a,b = interval
+        if b < 0:
+            kwargs['negative']= True
+        elif b <= 0:
+            kwargs['nonpositive'] = True
+        elif a > 0:
+            kwargs['positive'] = True
+        elif a >= 0:
+            kwargs['nonnegative'] = True
+
     command = "var(%s, **%s)"%(repr(",".join(args)), str(kwargs))
     ishell.ex(command)
 
@@ -56,5 +68,17 @@ class domain:
     negative = (-1*s.oo, 0)
 
     @staticmethod
-    def interval(a,b):
-        return (a,b)
+    def interval(a, b):
+        return (a, b)
+
+def unconstrain(expression):
+    """
+        Returns an equivalent version of the expression with unconstrained variables
+        As a result, this will cause expressions to look more like they were typed
+        without the simplifications that SymPy makes by default
+    """
+    free_variables = list(expression.free_symbols)
+    for symbol in free_variables:
+        new_symbol = s.Symbol(symbol.name)
+        expression = expression.replace(symbol, new_symbol)
+    return expression
