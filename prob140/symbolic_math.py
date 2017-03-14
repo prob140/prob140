@@ -12,6 +12,11 @@ def _run_from_ipython():
         return False
 
 def declare_symbols(*args, **kwargs):
+    """
+        Creates symbols and returns them as python objects
+        Good idea to use this when working inside a function
+        or want to assign different names to similar variables
+    """
     assert all([str(a) == a for a in args]), \
         "Must pass in strings" # Shitty way of checking all strings
     assert all([',' not in a and ' ' not in a for a in args]), \
@@ -45,7 +50,7 @@ def declare(*args, **kwargs):
     command = "var(%s, **%s)"%(repr(",".join(args)), str(kwargs))
     ishell.ex(command)
 
-def nicefy(expression):
+def rearrange_1(expression):
     """
     Simplifies and factors the Sympy expression passed input
     (Internally calls factor(simplify(expression)))
@@ -55,11 +60,16 @@ def nicefy(expression):
 def _nicefy_wrapper(function):
     def _wrapped(*args, **kwargs):
         value = function(*args, **kwargs)
-        return nicefy(value)
+        return rearrange_1(value)
     return _wrapped
 
 @_nicefy_wrapper
 def integrate_and_simplify(*args, **kwargs):
+    """
+        A wrapper for Integral(...).doit()
+
+        Pass in the same parameters as you would to Integral
+    """
     return s.Integral(*args, **kwargs).doit()
 
 class domain:
@@ -71,7 +81,7 @@ class domain:
     def interval(a, b):
         return (a, b)
 
-def unconstrain(expression):
+def rearrange_2(expression):
     """
         Returns an equivalent version of the expression with unconstrained variables
         As a result, this will cause expressions to look more like they were typed
