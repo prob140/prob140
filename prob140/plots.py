@@ -51,6 +51,8 @@ def Plot_continuous(x_limits, func, *args, **kwargs):
             f = rv(*args).cdf
         else:
             f = rv(*args).pdf
+    elif callable(func):
+        f = func
     else:
         assert len(func.free_symbols) <= 1, "Must have exactly 1 variable"
         if len(func.free_symbols) == 0:
@@ -118,7 +120,7 @@ def Plot_expon(x_limits, lamb, **kwargs):
     All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
 
     """
-    Plot_continuous(x_limits, "expon", 0, lamb, **kwargs)
+    Plot_continuous(x_limits, "expon", 0, 1/lamb, **kwargs)
 
 
 def Plot_norm(x_limits, mu, sigma, **kwargs):
@@ -210,7 +212,7 @@ def Plot_beta(x_limits, a, b, **kwargs):
     Plot_continuous(x_limits, "beta", a, b, **kwargs)
 
 
-def Plot_cauchy(x_limits, **kwargs):
+def Plot_cauchy(x_limits, loc=0, scale=1, **kwargs):
     """
     Plots a cauchy distribution
 
@@ -234,7 +236,7 @@ def Plot_cauchy(x_limits, **kwargs):
     All pyplot named arguments (such as color) should work as well. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
 
     """
-    Plot_continuous(x_limits, "cauchy", **kwargs)
+    Plot_continuous(x_limits, "cauchy", loc, scale, **kwargs)
 
 
 def Plot_chi2(x_limits, df, **kwargs):

@@ -1,3 +1,9 @@
+v0.2.8.1 (2017-03-18)
+---------------------
+
+* Plot_continuous now accepts python functions too
+
+
 v0.2.8.0 (2017-03-13)
 ---------------------
 
