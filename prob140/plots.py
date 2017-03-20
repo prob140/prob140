@@ -1,6 +1,10 @@
 import scipy.stats as stats
 import numpy as np
 import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d.axes3d as axes3d
+import ipywidgets as widgets
+from ipywidgets import interact
+
 from sympy import lambdify,symbols
 
 
@@ -93,6 +97,56 @@ def Plot_continuous(x_limits, func, *args, **kwargs):
             x2 = np.linspace(lb, rb, 100)
             plt.fill_between(x2, f(x2), alpha=0.7, color="gold")
 
+
+def Plot_3d(x_limits, y_limits, f, interactive=False, **kwargs):
+    """
+    Plots a 3d graph
+
+    Parameters
+    ----------
+    x_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound of the x-axis
+    y_limits : iterable
+        Array, list, or tuple of size 2, containing the lower and upper bound of the x-axis
+    f : bivariate function
+        Joint density
+    interactive : boolean (optional)
+        If True, creates a widget to adjust elevation and azimuth (default: False)
+    kwargs
+        Optional named arguments for `plot_surface`
+
+    Returns
+    -------
+    None
+
+    """
+    def plot(elev, azim):
+
+        fig = plt.figure(figsize=(12, 8))
+        ax = fig.add_subplot(111, projection='3d')
+        x = np.linspace(*x_limits, 100)
+        y = np.linspace(*y_limits, 100)
+        X, Y = np.meshgrid(x, y)
+
+        v = np.vectorize(f)
+        Z = v(X, Y)
+        ax.plot_surface(X, Y, Z, **kwargs)
+
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+        ax.set_zlabel('f(x, y)')
+
+        ax.view_init(elev, azim)
+
+    if interactive:
+        elevation_slider = widgets.FloatSlider(value=20, min=0, max=90, step=1, description='elevation')
+        azimuth_slider = widgets.FloatSlider(value=-100, min=-180, max=180, step=1, description='azimuth')
+
+        @interact(elev=elevation_slider, azim=azimuth_slider)
+        def wrapper(elev, azim):
+            plot(elev, azim)
+    else:
+        plot(20, -100)
 
 def Plot_expon(x_limits, lamb, **kwargs):
     """

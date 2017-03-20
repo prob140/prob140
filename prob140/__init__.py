@@ -4,5 +4,5 @@ from .markov_chains import MarkovChain
 
 from .single_variable import emp_dist
 
-from .plots import Plot_continuous, Plot_norm
+from .plots import Plot_continuous, Plot_norm, Plot_3d
 from .symbolic_math import *
