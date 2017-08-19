@@ -20,15 +20,15 @@
 
 import os
 import sys
-from prob140 import *
-from prob140.version import __version__
-
-print("Current version of Prob140:",__version__)
 
 path = os.path.abspath("../")
 print(path)
 print(sys.version)
 sys.path.insert(0, path)
+
+import prob140
+
+print('prob140 version', prob140.__version__)
 
 # -- General configuration ------------------------------------------------
 
@@ -100,7 +100,7 @@ author = 'Jason Zhang, Dibya Ghosh'
 # built documents.
 #
 # The short X.Y version.
-version = __version__
+version = prob140.__version__
 # The full version, including alpha/beta/rc tags.
 release = version
 

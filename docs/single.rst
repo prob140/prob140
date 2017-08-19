@@ -20,7 +20,7 @@ Constucting
 .. autosummary::
     :toctree: _autosummary
 
-    Table.domain
+    Table.values
     Table.probability
     Table.probability_function
 
@@ -37,7 +37,7 @@ Utitilies
     Table.sd
     Table.variance
     Table.normalized
-    Table.sample
+    Table.sample_from_dist
     emp_dist
 
 Plotting
