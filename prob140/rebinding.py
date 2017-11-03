@@ -22,10 +22,9 @@ def states(self, values):
     table.move_to_start('State')
     return table
 
-## Binding; still in debate
+# Binding
 
 Table.value = domain
-Table.values = domain
 Table.states = states
 Table.chart_colors = chart_colors
 Table.prob_event = prob_event
@@ -37,7 +36,7 @@ Table.normalized = normalized
 Table.expected_value = expected_value
 Table.variance = variance
 Table.sd = sd
-Table.toJoint = toJoint
+Table.to_joint = to_joint
 Table.sample_from_dist = sample_from_dist
 Table.cdf = cdf
 

@@ -1,6 +1,4 @@
 import sympy as s
-import matplotlib.pyplot as plt
-import numpy as np
 from IPython import get_ipython
 
 
@@ -11,17 +9,18 @@ def _run_from_ipython():
     except NameError:
         return False
 
+
 def declare_symbols(*args, **kwargs):
     """
-        Creates symbols and returns them as python objects
-        Good idea to use this when working inside a function
-        or want to assign different names to similar variables
+    Creates symbols and returns them as python objects Good idea to use this
+    when working inside a function or want to assign different names to similar
+    variables
     """
-    assert all([str(a) == a for a in args]), \
-        "Must pass in strings" # Shitty way of checking all strings
+    assert all([str(a) == a for a in args]), 'Must pass in strings'
     assert all([',' not in a and ' ' not in a for a in args]), \
-         "Cannot have commas or spaces in variable names"
-    return s.symbols(",".join(args), **kwargs)    
+        'Cannot have commas or spaces in variable names'
+    return s.symbols(','.join(args), **kwargs)
+
 
 def declare(*args, **kwargs):
     """
@@ -30,16 +29,17 @@ def declare(*args, **kwargs):
 
     Issue: Doesn't work with lambda, since it is keyword protected
     """
-    assert all([str(a) == a for a in args]), "Must pass in strings"
+    assert all([str(a) == a for a in args]), 'Must pass in strings'
     assert all([',' not in a and ' ' not in a for a in args]), \
-            "Cannot have commas or spaces in variable names"
-    assert _run_from_ipython(), "This function only works in iPython; use Symbol() in scripts"
+        'Cannot have commas or spaces in variable names'
+    assert _run_from_ipython(), \
+        'This function only works in iPython; use Symbol() in scripts'
     ishell = get_ipython()
-    interval = kwargs.pop('interval',None)
+    interval = kwargs.pop('interval', None)
     if interval is not None:
-        a,b = interval
+        a, b = interval
         if b < 0:
-            kwargs['negative']= True
+            kwargs['negative'] = True
         elif b <= 0:
             kwargs['nonpositive'] = True
         elif a > 0:
@@ -47,8 +47,9 @@ def declare(*args, **kwargs):
         elif a >= 0:
             kwargs['nonnegative'] = True
 
-    command = "var(%s, **%s)"%(repr(",".join(args)), str(kwargs))
+    command = 'var(%s, **%s)' % (repr(','.join(args)), str(kwargs))
     ishell.ex(command)
+
 
 def rearrange_1(expression):
     """
@@ -57,11 +58,13 @@ def rearrange_1(expression):
     """
     return s.factor(s.simplify(expression))
 
+
 def _nicefy_wrapper(function):
     def _wrapped(*args, **kwargs):
         value = function(*args, **kwargs)
         return rearrange_1(value)
     return _wrapped
+
 
 @_nicefy_wrapper
 def integrate_and_simplify(*args, **kwargs):
@@ -72,20 +75,22 @@ def integrate_and_simplify(*args, **kwargs):
     """
     return s.Integral(*args, **kwargs).doit()
 
+
 class domain:
-    real = (-1*s.oo, s.oo)
+    real = (-1 * s.oo, s.oo)
     positive = (0, s.oo)
-    negative = (-1*s.oo, 0)
+    negative = (-1 * s.oo, 0)
 
     @staticmethod
     def interval(a, b):
         return (a, b)
 
+
 def rearrange_2(expression):
     """
-        Returns an equivalent version of the expression with unconstrained variables
-        As a result, this will cause expressions to look more like they were typed
-        without the simplifications that SymPy makes by default
+    Returns an equivalent version of the expression with unconstrained
+    variables. As a result, this will cause expressions to look more like they
+    were typed without the simplifications that SymPy makes by default.
     """
     free_variables = list(expression.free_symbols)
     for symbol in free_variables:
