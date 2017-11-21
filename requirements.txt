@@ -1,4 +1,9 @@
 datascience
+matplotlib
+numpy
 numpydoc
+pandas
+scipy
 sphinx
+sympy
 pytest-cov
