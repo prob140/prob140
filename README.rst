@@ -12,6 +12,7 @@ Pykov Module written by `Riccardo Scalco <https://github.com/riccardoscalco/Pyko
 For documentation and examples, visit `https://probability.gitlab.io/prob140/html/ <https://probability.gitlab.io/prob140/html/>`_
 
 .. image:: https://gitlab.com/probability/prob140/badges/master/build.svg
+    :target: https://probability.gitlab.io/prob140/coverage
 .. image:: https://gitlab.com/probability/prob140/badges/master/coverage.svg
 
 Installation

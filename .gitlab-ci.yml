@@ -23,8 +23,9 @@ coverage:
 pages:
   stage: deploy
   script:
-    - cp -r coverage public/
-    - (cd docs && cp -r _build ../public)
+    - mkdir public
+    - cp -rf coverage public
+    - cp -r docs/_build/html public
   dependencies:
     - coverage
   artifacts:
