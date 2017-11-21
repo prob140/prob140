@@ -1,4 +1,5 @@
 datascience
+ipython
 matplotlib
 numpy
 numpydoc
