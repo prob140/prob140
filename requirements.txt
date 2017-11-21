@@ -1,10 +1,11 @@
 datascience
 ipython
+ipywidgets
 matplotlib
 numpy
 numpydoc
 pandas
+pytest-cov
 scipy
 sphinx
 sympy
-pytest-cov
