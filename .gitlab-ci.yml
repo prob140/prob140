@@ -16,12 +16,17 @@ coverage:
     - py.test --cov prob140
     - coverage report -m
   coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
+  artifacts:
+    paths:
+    - coverage
 
 pages:
   stage: deploy
   script:
     - cp -r coverage public/
     - (cd docs && cp -r _build ../public)
+  dependencies:
+    - coverage
   artifacts:
     paths:
     - public
