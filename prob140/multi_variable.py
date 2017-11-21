@@ -57,7 +57,7 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> dist2 = Table().values('Coin1',['H','T'],'Coin2', ['H','T']).probability(np.array([0.24, 0.36, 0.16, 0.24])).toJoint()
+        >>> dist2 = Table().values('Coin1',['H','T'],'Coin2', ['H','T']).probability(np.array([0.24, 0.36, 0.16, 0.24])).to_joint()
         >>> dist2.marginal('Coin1')
                                 Coin1=H  Coin1=T
         Coin2=T                    0.36     0.24
@@ -69,17 +69,15 @@ class JointDistribution(pd.DataFrame):
         Coin2=H     0.24     0.16                     0.4
         """
         copy = JointDistribution(self, copy=True)
-
         if label == self._X_column_label:
-            copy.loc['Sum: Marginal of {0}'.format(self._X_column_label)] = \
-                copy.sum(axis=0)
+            key = 'Sum: Marginal of {0}'.format(self._X_column_label)
+            copy.loc[key] = copy.sum(axis=0)
         elif label == self._Y_column_label:
-            copy['Sum: Marginal of {0}'.format(self._Y_column_label)] = \
-                copy.sum(axis=1)
+            key = 'Sum: Marginal of {0}'.format(self._Y_column_label)
+            copy[key] = copy.sum(axis=1)
         else:
             raise AssertionError(
                 'Label does not correspond with existing variable name')
-
         return copy
 
     def marginal_dist(self, label):
@@ -98,23 +96,16 @@ class JointDistribution(pd.DataFrame):
         Table
             Single variable distribution of label.
         """
-
         marginal = self.marginal(label).as_matrix()
-
         if label == self._X_column_label:
             x_labels = list(self)
             prob = marginal[-1, :]
-
             domain = [evaluate(lab) for lab in x_labels]
-
             return Table().values(domain).probability(prob)
-
         else:
             y_labels = list(self.index)
             prob = marginal[:, -1]
-
             domain = [evaluate(lab) for lab in y_labels]
-
             return Table().values(domain).probability(prob)
 
     def both_marginals(self):
@@ -127,7 +118,7 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> dist1 = Table().values([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).toJoint()
+        >>> dist1 = Table().values([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).to_joint()
         >>> dist1.both_marginals()
                             X=0  X=1  Sum: Marginal of Y
         Y=3                 0.2  0.4                 0.6
@@ -135,10 +126,10 @@ class JointDistribution(pd.DataFrame):
         Sum: Marginal of X  0.3  0.7                 1.0
         """
         copy = JointDistribution(self, copy=True)
-        copy['Sum: Marginal of {0}'.format(self._Y_column_label)] = \
-            copy.sum(axis=1)
-        copy.loc['Sum: Marginal of {0}'.format(self._X_column_label)] = \
-            copy.sum(axis=0)
+        key_y = 'Sum: Marginal of {0}'.format(self._Y_column_label)
+        key_x = 'Sum: Marginal of {0}'.format(self._X_column_label)
+        copy[key_y] = copy.sum(axis=1)
+        copy.loc[key_x] = copy.sum(axis=0)
         return copy
 
     def conditional_dist(self, label, given='', show_ev=False):
@@ -157,7 +148,7 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> coins = Table().values('Coin1',['H','T'],'Coin2', ['H','T']).probability(np.array([0.24, 0.36, 0.16,0.24])).toJoint()
+        >>> coins = Table().values('Coin1',['H','T'],'Coin2', ['H','T']).probability(np.array([0.24, 0.36, 0.16,0.24])).to_joint()
         >>> coins.conditional_dist('Coin1','Coin2')
                                   Coin1=H  Coin1=T  Sum
         Dist. of Coin1 | Coin2=H      0.6      0.4  1.0
@@ -169,35 +160,26 @@ class JointDistribution(pd.DataFrame):
         Coin2=T                       0.6                       0.6                0.6
         Sum                           1.0                       1.0                1.0
         """
-
         if label == self._Y_column_label:
-
             both = self.both_marginals()
-
             new = np.append(both.index[0:-1], 'Sum')
             y = both.apply(conditional, axis=0).set_index(new)
-
             matrix = y.as_matrix()[:-1, :]
             y_labels = list(self.index)
             domain = np.array([evaluate(lab) for lab in y_labels])
-
             exp_values = [sum(matrix[:, i] * domain)
                           for i in range(len(matrix[0]))]
-
             column_names = y.columns
+
             new = make_array()
             for i in np.arange(len(column_names) - 1):
-                new_name = 'Dist. of {0} | '.format(self._Y_column_label) + \
-                           column_names[i]
+                new_name = 'Dist. of {0} | '.format(self._Y_column_label)
+                new_name += column_names[i]
                 new = np.append(new, new_name)
-            new = np.append(new,
-                            'Marginal of {0}'.format(self._Y_column_label))
-
+            new = np.append(new, 'Marginal of {0}'.format(self._Y_column_label))
             y.columns = new
-
             if show_ev:
                 y.loc['EV'] = exp_values
-
             return y
 
         elif label == self._X_column_label:
@@ -210,24 +192,19 @@ class JointDistribution(pd.DataFrame):
             x_labels = list(self)
             domain = np.array([evaluate(lab) for lab in x_labels])
             exp_values = [sum(matrix[i] * domain) for i in range(len(matrix))]
-
             indices = both.index
-
             new = make_array()
             for i in np.arange(len(indices) - 1):
-                new_index = 'Dist. of {0} | '.format(self._X_column_label) + \
-                            indices[i]
-                new = np.append(new, new_index)
-            new = np.append(new,
-                            'Marginal of {0}'.format(self._X_column_label))
-
+                new_name = 'Dist. of {0} | '.format(self._X_column_label)
+                new_name += indices[i]
+                new = np.append(new, new_name)
+            new = np.append(new, 'Marginal of {0}'.format(self._X_column_label))
             new_df = x.set_index(new)
 
             if show_ev:
                 new_df['EV'] = exp_values
 
             return new_df
-
         else:
             raise AssertionError(
                 'Label does not correspond with existing variable name')
@@ -283,7 +260,7 @@ def to_joint(table, X_column_label=None, Y_column_label=None,
     --------
     >>> dist1 = Table().values([0,1],[2,3])
     >>> dist1['Probability'] = make_array(0.1, 0.2, 0.3, 0.4)
-    >>> dist1.toJoint()
+    >>> dist1.to_joint()
          X=0  X=1
     Y=3  0.2  0.4
     Y=2  0.1  0.3
@@ -322,8 +299,7 @@ def to_joint(table, X_column_label=None, Y_column_label=None,
     for row in table.rows:
         data[row[xInd]][y_possibilities.index(row[yInd])] += row[pInd]
 
-    x_order = ['{}={}'.format(X_column_label, poss)
-               for poss in x_possibilities]
+    x_order = ['{}={}'.format(X_column_label, poss) for poss in x_possibilities]
 
     realData = {'{}={}'.format(X_column_label, str(poss)): value
                 for poss, value in data.items()}

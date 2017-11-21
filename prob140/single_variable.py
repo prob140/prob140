@@ -373,8 +373,8 @@ def probability_function(self, pfunc):
         Table with those probabilities in its second column
 
     """
-    domain_names = self.labels
-    values = np.array(self.apply(pfunc, domain_names)).astype(float)
+    domain_name = self.labels[0]
+    values = np.array(self.apply(pfunc, domain_name)).astype(float)
     if any(values < 0):
         warnings.warn('Probability cannot be negative')
     if round(sum(values), 6) != 1:

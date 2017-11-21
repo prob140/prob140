@@ -7,10 +7,6 @@ from .plots import Plot_continuous
 from datascience import *
 
 
-def ProbabilityTable():
-    return Table()
-
-
 def domain(self, *args):
     if len(args) == 1:
         return single_domain(self, args[0])
@@ -23,7 +19,7 @@ def states(self, values):
     return table
 
 # Binding
-
+Table.values = domain
 Table.value = domain
 Table.states = states
 Table.chart_colors = chart_colors

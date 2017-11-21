@@ -1,3 +1,4 @@
-sphinx
 datascience
 numpydoc
+sphinx
+pytest-cov
