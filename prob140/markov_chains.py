@@ -1,120 +1,75 @@
-import pandas as pd
-from . import pykov
-from .single_variable import emp_dist
-from datascience import *
-import numpy as np
-from functools import wraps
 from collections import OrderedDict
 
-
-
-def matrix_to_pandas(matrix):
-    all_states = sorted(matrix.states())
-    target_states = [(str(label)) for label in all_states]
-    data = {source: [0] * len(all_states) for source in all_states}
-    for (source, target), probability in matrix.items():
-        data[target][all_states.index(source)] = probability
-    data = {str(label): values for label, values in data.items()}
-    return pd.DataFrame(data, index=target_states)
-
-
-def matrix_to_table(matrix):
-    t = Table().with_columns('Source', [], 'Target', [], 'Probability', [])
-    rows = [(source, target, probability)
-            for (source, target), probability in matrix.items()]
-    return t.with_rows(rows)
-
-
-def table_to_vector(table):
-    assert table.num_columns == 2, "You must have 2 columns for this task"
-    label_column = table.column(0)
-    prob_column = table.column(1)
-    return pykov.Vector({label: prob for label, prob in zip(label_column, prob_column)})
-
-
-def vector_to_table(vector, valueLabel='Probability', chain=None):
-    t = Table().with_columns('State', [], valueLabel, [])
-    rows = sorted(vector.items(), key=lambda x: x[0])
-    if chain:
-        no_value = [state for state in chain.states() if state not in vector]
-        rows.extend([(state, 0) for state in no_value])
-    t = t.with_rows(rows)
-    return t.sort('State')
-
-
-def pykov_connection(function):
-
-    pykov_connection.__doc__ = function.__doc__
-
-    @wraps(function)
-    def internal(*args, **kwargs):
-        new_args = [(table_to_vector(argument) if isinstance(
-            argument, Table) else argument) for argument in args]
-        kwargs = {key: (table_to_vector(value) if isinstance(
-            value, Table) else value) for key, value in kwargs}
-        output = function(*new_args, **kwargs)
-        if isinstance(output, pykov.Vector):
-            return vector_to_table(output, chain=args[0].chain)
-        if isinstance(output, pykov.Matrix):
-            return matrix_to_pandas(output)
-        return output
-    return internal
+from datascience import Table
+import numpy as np
+import pandas as pd
+import scipy
 
 
 class MarkovChain:
+    """
+    A class for representing, simulating, and computing Markov Chains.
+    """
 
-    def __init__(self, pykov_chain):
-        self.chain = pykov_chain
+    def __init__(self, states, transition_matrix):
+        self.states = states
+        self.matrix = transition_matrix
 
-    def __repr__(self):
-        return matrix_to_pandas(self.chain).__repr__()
-
-    def __str__(self):
-        return matrix_to_pandas(self.chain).__str__()
-
-    def _repr_html_(self):
-        return matrix_to_pandas(self.chain)._repr_html_()
-
-
-
-    @pykov_connection
-    def move(self, state):
+    def to_pandas(self):
         """
-        Transitions one step from the indicated state
+        Returns the Pandas DataFrame representation of the MarkovChain.
+        """
+        return pd.DataFrame(
+            data=self.matrix,
+            index=self.states,
+            columns=self.states
+        )
+
+    def get_transition_matrix(self, steps=1):
+        """
+        Returns the transition matrix after n steps as a numpy matrix.
 
         Parameters
         ----------
-        state : String or float
+        steps : int (optional)
+            Number of steps. (default: 1)
 
         Returns
         -------
-        String or float
-            Next state
-
-
-        Examples
-        --------
-        >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
-        >>> mc.move('A')
-        'A'
-        >>> mc.move('A')
-        'B'
-        >>> mc.move('B')
-        'B'
+        Transition matrix
         """
-        return self.chain.move(state)
+        return np.linalg.matrix_power(self.matrix, steps)
 
-    @pykov_connection
-    def distribution(self, starting_condition, n):
+    def transition_matrix(self, steps=1):
         """
-        Finds the distribution of states after n steps given a starting condition
+        Returns the transition matrix after n steps visually as a Pandas df.
 
         Parameters
         ----------
-        starting_condition : state or Distribution
-            The initial distribution or the original state
+        steps : int (optional)
+            Number of steps. (default: 1)
+
+        Returns
+        -------
+        Pandas DataFrame
+        """
+        return pd.DataFrame(
+            data=self.get_transition_matrix(steps),
+            index=self.states,
+            columns=self.states
+        )
+
+    def distribution(self, starting_condition, steps=1):
+        """
+        Finds the distribution of states after n steps given a starting
+        condition.
+
+        Parameters
+        ----------
+        starting_condition : state or Table
+            The initial distribution or the original state.
         n : integer
-            Number of transition steps
+            Number of transition steps.
 
         Returns
         -------
@@ -122,132 +77,51 @@ class MarkovChain:
             Shows the distribution after n steps
 
         Examples
-        >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
-        >>> start = Table().states(make_array("A", "B")).probability(make_array(0.8, 0.2))
+        --------
+        >>> states = make_array('A', 'B')
+        >>> transition_matrix = np.array([[0.1, 0.9],
+        ...                               [0.8, 0.2]])
+        >>> mc = MarkovChain.from_matrix(states, transition_matrix)
+        >>> mc.distribution(start)
+        State | Probability
+        A     | 0.24
+        B     | 0.76
         >>> mc.distribution(start, 0)
         State | Probability
         A     | 0.8
         B     | 0.2
-        >>> mc.distribution(start, 2)
+        >>> mc.distribution(start, 3)
         State | Probability
-        State | Probability
-        A     | 0.392
-        B     | 0.608
-        >>> mc.distribution(start, 10000)
-        State | Probability
-        A     | 0.375
-        B     | 0.625
+        A     | 0.3576
+        B     | 0.6424
         """
+        states = list(starting_condition.column(0))
+        probabilities = starting_condition.column(1)
 
-        if not isinstance(starting_condition, pykov.Vector):
-            starting_condition = pykov.Vector({starting_condition: 1})
-        return self.chain.pow(starting_condition, n)
+        n = len(self.states)
+        start = np.zeros((n, 1))
+        for i in range(n):
+            if self.states[i] in states:
+                index = states.index(self.states[i])
+                start[i, 0] = probabilities[index]
+            else:
+                start[i, 0] = 0
 
-    @pykov_connection
-    def steady_state(self):
-        """
-        The stationary distribution of the markov chain
-
-        Returns
-        -------
-        Table
-            steady state distribution
-
-
-        Examples
-        --------
-
-        >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
-        >>> mc.steady_state()
-        State | Probability
-        A     | 0.375
-        B     | 0.625
-        """
-        return self.chain.steady()
-
-    def mean_first_passage_times(self):
-        """
-        Finds the mean time it takes to reach state j from state i
-
-        Returns
-        -------
-        DataFrame
-            Mean first passage times from source to target
-
-        Examples
-        --------
-        >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
-        >>> mc.mean_first_passage_times()
-                  A  B
-        A  2.666667   2.0
-        B  3.333333   1.6
-        """
-        states = self.chain.states()
-        my_dict = {}
-
-        def find_steady(x):
-            steady = self.steady_state()
-            return steady.column(1)[np.where(steady.column(0) == x)[0]][0]
-
-        for i in states:
-            mfpt_to = self.chain.mfpt_to(i)
-            for j in mfpt_to.keys():
-                my_dict[(j, i)] = mfpt_to[j]
-                my_dict[(i, i)] = 1 / find_steady(i)
-
-        return matrix_to_pandas(pykov.Matrix(my_dict))
-
-    def simulate_chain(self, starting_condition, n, end=None):
-        """
-        Simulates a path of length n following the markov chain with the initial condition of starting_condition
-
-        Parameters
-        ----------
-        starting_condition : state or Distribution
-            If a state, simulates n steps starting at that state. If a Distribution, samples from that distribution
-            to find the starting state
-        n : integer
-            Number of steps to take
-        end : state (optional)
-            Chain stops as soon as it reaches end
-
-        Returns
-        -------
-        Array
-            Array of the path taken
-
-        Examples
-        --------
-        >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
-        >>> mc.simulate_chain("A", 10)
-        array(['A', 'A', 'A', 'A', 'B', 'B', 'A', 'A', 'B', 'B', 'B'])
-        >>> mc.simulate_chain("B", 10)
-        array(['B', 'B', 'B', 'A', 'B', 'A', 'B', 'A', 'A', 'A', 'B'])
-        >>> start = Table().states(make_array("A", "B")).probability(make_array(.8, .2))
-        >>> mc.simulate_chain(start, 10)
-        array(['A', 'A', 'A', 'B', 'B', 'A', 'B', 'B', 'A', 'B', 'A'])
-        >>> mc.simulate_chain(start, 10, end='A')
-        array(['B', 'B', 'B', 'A'])
-
-        """
-
-        if isinstance(starting_condition, Table):
-            start = starting_condition.sample()
-            return np.array(self.chain.walk(n, start, end))
-        else:
-            return np.array(self.chain.walk(n, starting_condition, end))
+        probabilities = start.T @ self.get_transition_matrix(steps=steps)
+        return Table().states(self.states).probability(probabilities[0])
 
     def log_prob_of_path(self, starting_condition, path):
         """
-        Finds the log-probability of a path given a starting condition
+        Finds the log-probability of a path given a starting condition.
 
-        Note that for long paths, log_prob_of_path will give much better precision than np.log(prob_of_path)
+        May have better precision than `prob_of_path`.
 
         Parameters
         ----------
         starting_condition : state or Distribution
-            If a state, finds the probability of the path starting at that state. If a Distribution,
-            finds the probability of the path with the first element sampled from the Distribution
+            If a state, finds the log-probability of the path starting at that
+            state. If a Distribution, finds the probability of the path with
+            the first element sampled from the Distribution
         path : array
             Array of states
 
@@ -258,22 +132,35 @@ class MarkovChain:
 
         Examples
         --------
-        >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
-        >>> mc.log_prob_of_path('A', make_array('A', 'B','B'))
-        -1.742969305058623
-        >>> start = Table().states(make_array("A", "B")).probability(make_array(.8, .2))
-        >>> mc.log_prob_of_path(start, make_array('A', 'A', 'B','B'))
-        -1.9661128563728327
+        >>> states = make_array('A', 'B')
+        >>> transition_matrix = np.array([[0.1, 0.9],
+        ...                               [0.8, 0.2]])
+        >>> mc = MarkovChain.from_matrix(states, transition_matrix)
+        >>> mc.log_prob_of_path('A', ['A', 'B', 'A'])
+        -2.6310891599660815
+        >>> start = Table().states(['A', 'B']).probability([0.8, 0.2])
+        >>> mc.log_prob_of_path(start, ['A', 'B', 'A'])
+        -0.55164761828624576
         """
+        states = list(self.states)
         if isinstance(starting_condition, Table):
             first = path[0]
+            index = list(starting_condition.column(0)).index(first)
+            assert index != -1, 'First path value not found.'
+            log_prob = np.log(starting_condition.column(1)[index])
+            prev_index = states.index(first)
+            i = 1
+        else:
+            log_prob = np.log(1)
+            prev_index = states.index(starting_condition)
+            i = 0
 
-            # There has to be something better than this
-            p_first = starting_condition.column(1)[np.where(starting_condition.column(0) == first)[0]][0]
-
-            return np.log(p_first) + self.chain.walk_probability(path)
-
-        return self.chain.walk_probability([starting_condition] + list(path))
+        while i < len(path):
+            curr_index = states.index(path[i])
+            log_prob += np.log(self.matrix[prev_index, curr_index])
+            prev_index = curr_index
+            i += 1
+        return log_prob
 
     def prob_of_path(self, starting_condition, path):
         """
@@ -303,149 +190,178 @@ class MarkovChain:
         >>> 0.175 * 0.8
         0.14
         """
-
+        states = list(self.states)
         if isinstance(starting_condition, Table):
             first = path[0]
+            index = list(starting_condition.column(0)).index(first)
+            assert index != -1, 'First path value not found.'
+            prob = starting_condition.column(1)[index]
+            prev_index = states.index(first)
+            i = 1
+        else:
+            prob = 1
+            prev_index = states.index(starting_condition)
+            i = 0
 
-            # There has to be something better than this
-            p_first = starting_condition.column(1)[np.where(
-                starting_condition.column(0) == first)[0]][0]
+        while i < len(path):
+            curr_index = states.index(path[i])
+            prob += self.matrix[prev_index, curr_index]
+            prev_index = curr_index
+            i += 1
+        return prob
 
-            return p_first * np.e**(self.chain.walk_probability(path))
+    def simulate_path(self, starting_condition, steps):
+        states = list(self.states)
+        if isinstance(starting_condition, Table):
+            start = starting_condition.sample_from_dist()
+        else:
+            start = starting_condition
 
-        return np.e ** (self.chain.walk_probability([starting_condition] + list(path)))
+        path = [start]
+        for i in range(steps):
+            index = states.index(path[-1])
+            next_state = np.random.choice(states, p=self.matrix[index])
+            path.append(next_state)
 
-    def is_accessible(self, i, j):
-        return self.chain.is_accessible(i, j)
+        return np.array(path)
 
-    def communicates(self, i, j):
-        return self.chain.communicates(i, j)
+    def steady_state(self):
+        eigenvector = scipy.linalg.eig(self.matrix, left=True)[1][:, 0]
+        probabilities = eigenvector / sum(eigenvector)
+        return Table().values(self.states).probability(probabilities)
 
-    @pykov_connection
-    def accessibility_matrix(self):
+    def expected_return_time(self):
+        steady = self.steady_state()
+        expected_return = steady.column(1)
+        return Table().values(self.states).with_column(
+            'Expected Return Time',
+            1 / expected_return
+        )
+
+    def _repr_html_(self):
+        return self.to_pandas()._repr_html_()
+
+    def __repr__(self):
+        return self.to_pandas().__repr__()
+
+    def __str__(self):
+        return self.to_pandas().__str__()
+
+    @classmethod
+    def from_table(cls, table):
         """
-        Return matrix showing whether state j is accessible from state i. 1 if accessible, 0 if not
+        Constructs a Markov Chain from a Table
 
         Parameters
         ----------
-        i : state
-            Source state
-        j : state
-            Target state
+        table : Table
+            A  table with three columns for source state, target state, and
+            probability.
 
         Returns
         -------
-        DateFrame
+        MarkovChain
 
         Examples
         --------
-        >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
-        >>> mc.accessibility_matrix()
-              A  B
-        A     1     1
-        B     1     1
-
+        >>> table = Table().states(make_array('A', 'B')) \
+        ...     .transition_probability(make_array(0.5, 0.5, 0.3, 0.7))
+        >>> table
+        Source | Target | Probability
+        A      | A      | 0.5
+        A      | B      | 0.5
+        B      | A      | 0.3
+        B      | B      | 0.7
+        >>> MarkovChain.from_table(table)
+             A    B
+        A  0.5  0.5
+        B  0.3  0.7
         """
-        return self.chain.accessibility_matrix()
+        assert table.num_columns == 3, \
+               'Must have 3 columns: source, target, probability'
+        for prob_sum in table.group(0, collect=sum).column(2):
+            assert round(prob_sum, 6) == 1, \
+                   'Transition probabilities must sum to 1.'
 
-    def mixing_time(self, cutoff=.25, jump=1, p=None):
+        # Get a list of the states.
+        ordered_set = OrderedDict()
+        for row in table.rows:
+            ordered_set[row[0]] = 0
+        states = list(ordered_set.keys())
+
+        n = len(states)
+        transition_matrix = np.zeros((n, n))
+
+        for row in table.rows:
+            source = states.index(row[0])
+            target = states.index(row[1])
+            transition_matrix[source, target] = row[2]
+        return cls(states, transition_matrix)
+
+    @classmethod
+    def from_transition_function(cls, states, transition_function):
         """
-        Finds the mixing time
+        Constructs a MarkovChain from a transition function.
 
         Parameters
         ----------
-        cutoff : float (optional)
-            Probability at which distribution is mixed enough (default 0.25)
-        jump : int (optional)
-            Number of steps to make per iteration (default 1)
+        states : iterable
+            List of states.
+        transition_function : function
+            Bivariate transition function that maps two states to a
+            probability.
 
         Returns
         -------
-        int
-           Mixing time
-
-        """
-        return self.chain.mixing_time(cutoff, jump, p)
-
-    def empirical_distribution(self, starting_condition, n, repetitions):
-        """
-        Finds the empirical distribution
-
-        Parameters
-        ----------
-        starting_condition : state or distribution
-            Starting state or distribution of starting state
-        n : int
-            number of steps
-        repetitions : int
-            number of repetitions
-
-        Returns
-        -------
-        Table
-            Distribution after n steps over a certain number of repetitions
+        MarkovChain
 
         Examples
         --------
-        >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
-        >>> start = Table().states(make_array("A", "B")).probability(make_array(.8, .2))
-        >>> mc.empirical_distribution(start, 10, 100)
-        Value | Proportion
-        A     | 0.4
-        B     | 0.6
-
+        >>> states = make_array(1, 2)
+        >>> def transition(s1, s2):
+        ...    if s1 == s2:
+        ...        return 0.7
+        ...    else:
+        ...        return 0.3
+             1    2
+        1  0.7  0.3
+        2  0.3  0.7
         """
-        end = []
-        for i in range(repetitions):
-            end.append(self.simulate_chain(starting_condition, n)[-1])
-        ed = emp_dist(end)
-        ed.relabel("Value", "State")
-        return ed
+        n = len(states)
+        transition_matrix = np.zeros((n, n))
+        for i in range(n):
+            for j in (range(n)):
+                transition_matrix[i, j] = transition_function(states[i],
+                                                              states[j])
+        return cls(states, transition_matrix)
 
-    def get_target(self, target):
-        df = matrix_to_pandas(self.chain)
-
-        x_labels = list(df)
-        target_index = x_labels.index(target)
-
-        y_labels = list(df.index)
-        prob = df.as_matrix()[:,target_index]
-
-        result = Table().values(y_labels).probability(prob)
-        result.relabel("Value", "Source")
-        return result
-
-    def column(self, label):
+    @classmethod
+    def from_matrix(cls, states, transition_matrix):
         """
-        Returns the target with the label as an array
+        Constructs a MarkovChain from a transition matrix.
 
         Parameters
         ----------
-        label : String
-            target
+        states : iterable
+            List of states.
+        transition_matrix : array
+            Square transition matrix.
 
         Returns
         -------
-        array
-            transition probabilities from each source
+        MarkovChain
 
+        Examples
+        --------
+        >>> states = [1, 2]
+        >>> transition_matrix = np.array([[0.1, 0.9],
+        ...                               [0.8, 0.2]])
+        >>> MarkovChain.from_matrix(states, transition_matrix)
+             1    2
+        1  0.1  0.9
+        2  0.8  0.2
         """
-        df = matrix_to_pandas(self.chain)
-        return df.loc[:,label].values
+        return cls(states, transition_matrix)
 
-
-def toMarkovChain(table):
-    assert table.num_columns == 3, \
-        'Must have columns: source,target,probability'
-    assert all([round(probsum, 6) == 1 for probsum in table.group(0, collect=sum).column(2)]), \
-        'Transition probabilities must sum to 1 for each source state'
-
-    ordered_set = OrderedDict()
-    dict_of_values = {}
-    for row in table.rows:
-        dict_of_values[(row[0], row[1])] = row[2]
-        ordered_set[row[0]] = 1
-
-    mc = MarkovChain(pykov.Chain(dict_of_values))
-    mc.chain._ordered_states = list(ordered_set.keys())
-    return mc
+def to_markov_chain(self):
+    return MarkovChain.from_table(self)

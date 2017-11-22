@@ -25,7 +25,7 @@ pages:
   script:
     - mkdir public
     - cp -rf coverage public
-    - cp -r docs/_build/html public
+    - cp -r docs/_build/html/* public
   dependencies:
     - coverage
   artifacts:

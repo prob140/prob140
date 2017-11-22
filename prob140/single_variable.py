@@ -38,16 +38,13 @@ def prob_event(self, x):
     Examples
     --------
 
-    >>> dist = Table().values([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
+    >>> dist = Table().values([1, 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])
     >>> dist.prob_event(2)
     0.25
-
     >>> dist.prob_event([2, 3])
     0.5
-
     >>> dist.prob_event(np.arange(1, 5))
     1.0
-
     """
     check_valid_probability_table(self)
     if isinstance(x, collections.Iterable):
@@ -76,11 +73,10 @@ def event(self, x):
 
     Examples
     --------
-    >>> dist = Table().values([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
+    >>> dist = Table().values([1 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])
     >>> dist.event(2)
     Domain | Probability
     2      | 0.25
-
     >>> dist.event([2,3])
     Domain | Probability
     2      | 0.25
@@ -119,7 +115,6 @@ def _bin(dist, width=1, start=None):
     (array([ 0.,  1.]), array([ 0.66666667,  0.33333333]))
     >>> _bin(x, width=0.5)
     (array([ 0. ,  0.5,  1. ]), array([ 0.33333333,  0.33333333,  0.33333333]))
-
     """
     domain = dist.column(0)
     prob = dist.column(1)
@@ -267,8 +262,8 @@ def Plots(*labels_and_dists, width=1, edges=None, **vargs):
 
     Examples
     --------
-    >>> dist1 = Table().values([1,2,3,4]).probability([1/4,1/4,1/4,1/4])
-    >>> dist2 = Table().values([3,4,5,6]).probability([1/2,1/8,1/8,1/4])
+    >>> dist1 = Table().values([1, 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])
+    >>> dist2 = Table().values([3, 4, 5, 6]).probability([1/2, 1/8, 1/8, 1/4])
     >>> Plots('Distribution1', dist1, 'Distribution2', dist2)
     <histogram with dist1 and dist2>
     """
@@ -345,7 +340,7 @@ def single_domain(self, values):
     Examples
     --------
 
-    >>> Table().values([1,2,3])
+    >>> Table().values([1, 2, 3])
     Value
     1
     2
@@ -485,12 +480,12 @@ def normalized(self):
 
     Examples
     --------
-    >>> Table().values([1,2,3]).probability([1,1,1])
+    >>> Table().values([1, 2, 3]).probability([1, 1, 1])
     Value | Probability
     1     | 1
     2     | 1
     3     | 1
-    >>> Table().values([1,2,3]).probability([1,1,1]).normalized()
+    >>> Table().values([1, 2, 3]).probability([1, 1, 1]).normalized()
     Value | Probability
     1     | 0.333333
     2     | 0.333333
@@ -521,8 +516,8 @@ def sample_from_dist(self, n=1):
         Samples from the distribution
 
     >>> dist = Table().with_columns(
-    >>>    'Value', make_array(2, 3, 4),
-    >>>    'Probability', make_array(0.25, 0.5, 0.25))
+    ...    'Value', make_array(2, 3, 4),
+    ...    'Probability', make_array(0.25, 0.5, 0.25))
     >>> dist.sample_from_dist()
     3
     >>> dist.sample_from_dist()
@@ -559,8 +554,8 @@ def cdf(self, x):
     Examples
     --------
     >>> dist = Table().with_columns(
-    >>>     'Value', make_array(2, 3, 4),
-    >>>     'Probability', make_array(0.25, 0.5, 0.25))
+    ...     'Value', make_array(2, 3, 4),
+    ...     'Probability', make_array(0.25, 0.5, 0.25))
     >>> dist.cdf(0)
     0
     >>> dist.cdf(2)
@@ -568,7 +563,7 @@ def cdf(self, x):
     >>> dist.cdf(3.5)
     0.75
     >>> dist.cdf(1000)
-    1
+    1.0
     """
     check_valid_probability_table(self)
     dist = self.sort(0)
@@ -578,7 +573,7 @@ def cdf(self, x):
     return sum(prob[indices])
 
 
-def expected_value(self):
+def ev(self):
     """
     Finds expected value of distribution
 
@@ -596,7 +591,7 @@ def expected_value(self):
     return ev
 
 
-def variance(self):
+def var(self):
     """
     Finds variance of distribution
 

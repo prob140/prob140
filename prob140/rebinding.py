@@ -1,6 +1,6 @@
 from .single_variable import *
 from .multi_variable import *
-from .markov_chains import MarkovChain, toMarkovChain
+from .markov_chains import MarkovChain, to_markov_chain
 from .symbolic_math import *
 from .plots import Plot_continuous
 
@@ -29,14 +29,14 @@ Table.domain = domain
 Table.probability = probability
 Table.probability_function = probability_function
 Table.normalized = normalized
-Table.expected_value = expected_value
-Table.variance = variance
+Table.expected_value = ev
+Table.variance = var
 Table.sd = sd
 Table.to_joint = to_joint
 Table.sample_from_dist = sample_from_dist
 Table.cdf = cdf
 
 # Markov Chain stuff
-Table.toMarkovChain = toMarkovChain
+Table.to_markov_chain = to_markov_chain
 Table.transition_probability = transition_probability
 Table.transition_function = transition_function
