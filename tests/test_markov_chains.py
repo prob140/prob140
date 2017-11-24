@@ -87,3 +87,51 @@ def test_log_prob_of_path():
         MC_SIMPLE.log_prob_of_path(START_SIMPLE, ['A', 'B', 'A']),
         -0.55164761828624576
     )
+
+
+def test_prob_of_path():
+    assert_approx_equal(
+        MC_SIMPLE.prob_of_path('A', ['A', 'B', 'A']),
+        0.072
+    )
+    assert_approx_equal(
+        MC_SIMPLE.prob_of_path(START_SIMPLE, ['A', 'B', 'A']),
+        0.576
+    )
+
+
+def test_simulate_path():
+    mc_communicates = MarkovChain.from_matrix(
+        states=np.array(['A', 'B']),
+        transition_matrix=np.array([[0, 1], [1, 0]])
+    )
+    # Path should alternate values
+    path = mc_communicates.simulate_path(START_SIMPLE, 100)
+    assert len(set(path)) == 2
+    for i in range(len(path) - 1):
+        assert path[i] != path[i + 1]
+
+    mc_isolated = MarkovChain.from_matrix(
+        states=np.array(['A', 'B']),
+        transition_matrix=np.array([[1, 0], [0, 1]])
+    )
+    # Path should all have same values
+    path_A = mc_isolated.simulate_path('A', 100)
+    assert len(set(path_A)) == 1
+    path_B = mc_isolated.simulate_path('B', 100)
+    assert len(set(path_B)) == 1
+
+
+def test_steady_state():
+    states = ['A', 'B']
+    transition_matrix = np.array([[0.95, 0.05],
+                                  [0.1, 0.9]])
+    mc = MarkovChain.from_matrix(states, transition_matrix)
+    assert_dist_equal(
+        mc.steady_state(),
+        [2 / 3, 1 / 3]
+    )
+    assert_dist_equal(
+        mc.expected_return_time(),
+        [1.5, 3]
+    )

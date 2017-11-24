@@ -164,13 +164,14 @@ class MarkovChain:
 
     def prob_of_path(self, starting_condition, path):
         """
-        Finds the probability of a path given a starting condition
+        Finds the probability of a path given a starting condition.
 
         Parameters
         ----------
         starting_condition : state or Distribution
-            If a state, finds the probability of the path starting at that state. If a Distribution,
-            finds the probability of the path with the first element sampled from the Distribution
+            If a state, finds the probability of the path starting at that
+            state. If a Distribution, finds the probability of the path with
+            the first element sampled from the Distribution.
         path : array
             Array of states
 
@@ -181,14 +182,19 @@ class MarkovChain:
 
         Examples
         --------
-        >>> mc = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7)).toMarkovChain()
-        >>> mc.prob_of_path('A', make_array('A', 'B','B'))
-        0.175
-        >>> start = Table().states(make_array("A", "B")).probability(make_array(.8, .2))
-        >>> mc.prob_of_path(start, make_array('A', 'A', 'B','B'))
-        0.14
-        >>> 0.175 * 0.8
-        0.14
+        >>> states = ['A', 'B']
+        >>> transition_matrix = np.array([[0.1, 0.9],
+        ...                               [0.8, 0.2]])
+        >>> mc = MarkovChain.from_matrix(states, transition_matrix)
+        >>> mc.prob_of_path('A', ['A', 'B', 'A'])
+        0.072
+        >>> 0.1 * 0.9 * 0.8
+        0.072
+        >>> start = Table().states(['A', 'B']).probability([0.8, 0.2])
+        >>> mc.prob_of_path(start, ['A', 'B', 'A'])
+        0.576
+        >>> 0.8 * 0.9 * 0.8
+        0.576
         """
         states = list(self.states)
         if isinstance(starting_condition, Table):
@@ -205,12 +211,38 @@ class MarkovChain:
 
         while i < len(path):
             curr_index = states.index(path[i])
-            prob += self.matrix[prev_index, curr_index]
+            prob *= self.matrix[prev_index, curr_index]
             prev_index = curr_index
             i += 1
         return prob
 
     def simulate_path(self, starting_condition, steps):
+        """
+        Simulates a path of n steps with a specific starting condition.
+
+        Parameters
+        ----------
+        starting_condition : state or Distribution
+            If a state, simulates n steps starting at that state. If a
+            Distribution, samples from that distribution to find the starting
+            state.
+        steps : int
+            Number of steps to take.
+
+        Returns
+        -------
+        array
+            Array of sampled states.
+
+        Examples
+        --------
+        >>> states = ['A', 'B']
+        >>> transition_matrix = np.array([[0.1, 0.9],
+        ...                               [0.8, 0.2]])
+        >>> mc = MarkovChain.from_matrix(states, transition_matrix)
+        >>> mc.simulate_path('A', 10)
+        array(['A', 'A', 'B', 'A', 'B', 'A', 'B', 'B', 'A', 'B', 'B'])
+        """
         states = list(self.states)
         if isinstance(starting_condition, Table):
             start = starting_condition.sample_from_dist()
@@ -226,11 +258,49 @@ class MarkovChain:
         return np.array(path)
 
     def steady_state(self):
+        """
+        Finds the stationary distribution of the Markov Chain.
+
+        Returns
+        -------
+        Table
+            Distribution.
+
+        Examples
+        --------
+        >>> states = ['A', 'B']
+        >>> transition_matrix = np.array([[0.1, 0.9],
+        ...                               [0.8, 0.2]])
+        >>> mc = MarkovChain.from_matrix(states, transition_matrix)
+        >>> mc.steady_state()
+        Value | Probability
+        A     | 0.666667
+        B     | 0.333333
+        """
         eigenvector = scipy.linalg.eig(self.matrix, left=True)[1][:, 0]
         probabilities = eigenvector / sum(eigenvector)
         return Table().values(self.states).probability(probabilities)
 
     def expected_return_time(self):
+        """
+        Finds the expected return time of the Markov Chain (1 / steady state).
+
+        Returns
+        -------
+        Table
+            Expected Return Time
+
+        Examples
+        --------
+        >>> states = ['A', 'B']
+        >>> transition_matrix = np.array([[0.1, 0.9],
+        ...                               [0.8, 0.2]])
+        >>> mc = MarkovChain.from_matrix(states, transition_matrix)
+        >>> mc.expected_return_time()
+        Value | Expected Return Time
+        A     | 1.5
+        B     | 3
+        """
         steady = self.steady_state()
         expected_return = steady.column(1)
         return Table().values(self.states).with_column(
@@ -278,7 +348,7 @@ class MarkovChain:
         B  0.3  0.7
         """
         assert table.num_columns == 3, \
-               'Must have 3 columns: source, target, probability'
+            'Must have 3 columns: source, target, probability'
         for prob_sum in table.group(0, collect=sum).column(2):
             assert round(prob_sum, 6) == 1, \
                    'Transition probabilities must sum to 1.'
@@ -362,6 +432,7 @@ class MarkovChain:
         2  0.8  0.2
         """
         return cls(states, transition_matrix)
+
 
 def to_markov_chain(self):
     return MarkovChain.from_table(self)

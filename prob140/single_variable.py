@@ -20,76 +20,6 @@ def check_valid_probability_table(table):
     assert all(table.column(1) >= 0), 'Probabilities must be non-negative'
 
 
-def prob_event(self, x):
-    """
-    Finds the probability of an event x
-
-    Parameters
-    ----------
-    x : float or Iterable
-        An event represented either as a specific value in the domain or a
-        subset of the domain
-
-    Returns
-    -------
-    float
-        Probability of the event
-
-    Examples
-    --------
-
-    >>> dist = Table().values([1, 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])
-    >>> dist.prob_event(2)
-    0.25
-    >>> dist.prob_event([2, 3])
-    0.5
-    >>> dist.prob_event(np.arange(1, 5))
-    1.0
-    """
-    check_valid_probability_table(self)
-    if isinstance(x, collections.Iterable):
-        return sum(self.prob_event(k) for k in x)
-    else:
-        domain = self.column(0)
-        prob = self.column(1)
-        return sum(prob[np.where(domain == x)])
-
-
-def event(self, x):
-    """
-    Shows the probability that distribution takes on value x or list of
-    values x.
-
-    Parameters
-    ----------
-    x : float or Iterable
-        An event represented either as a specific value in the domain or a
-        subset of the domain
-
-    Returns
-    -------
-    Table
-        Shows the probabilities of each value in the event
-
-    Examples
-    --------
-    >>> dist = Table().values([1 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])
-    >>> dist.event(2)
-    Domain | Probability
-    2      | 0.25
-    >>> dist.event([2,3])
-    Domain | Probability
-    2      | 0.25
-    3      | 0.25
-    """
-    check_valid_probability_table(self)
-
-    if not isinstance(x, collections.Iterable):
-        x = [x]
-    probabilities = [self.prob_event(k) for k in x]
-    return Table().with_columns('Outcome', x, 'Probability', probabilities)
-
-
 def _bin(dist, width=1, start=None):
     """
     Helper function that bins a distribution for plotting
@@ -469,6 +399,76 @@ def _transition_warn(table):
             )
 
 
+def prob_event(self, x):
+    """
+    Finds the probability of an event x.
+
+    Parameters
+    ----------
+    x : float or Iterable
+        An event represented either as a specific value in the domain or a
+        subset of the domain
+
+    Returns
+    -------
+    float
+        Probability of the event
+
+    Examples
+    --------
+
+    >>> dist = Table().values([1, 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])
+    >>> dist.prob_event(2)
+    0.25
+    >>> dist.prob_event([2, 3])
+    0.5
+    >>> dist.prob_event(np.arange(1, 5))
+    1.0
+    """
+    check_valid_probability_table(self)
+    if isinstance(x, collections.Iterable):
+        return sum(self.prob_event(k) for k in x)
+    else:
+        domain = self.column(0)
+        prob = self.column(1)
+        return sum(prob[np.where(domain == x)])
+
+
+def event(self, x):
+    """
+    Shows the probability that distribution takes on value x or list of
+    values x.
+
+    Parameters
+    ----------
+    x : float or Iterable
+        An event represented either as a specific value in the domain or a
+        subset of the domain
+
+    Returns
+    -------
+    Table
+        Shows the probabilities of each value in the event
+
+    Examples
+    --------
+    >>> dist = Table().values([1 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])
+    >>> dist.event(2)
+    Domain | Probability
+    2      | 0.25
+    >>> dist.event([2,3])
+    Domain | Probability
+    2      | 0.25
+    3      | 0.25
+    """
+    check_valid_probability_table(self)
+
+    if not isinstance(x, collections.Iterable):
+        x = [x]
+    probabilities = [self.prob_event(k) for k in x]
+    return Table().with_columns('Outcome', x, 'Probability', probabilities)
+
+
 def normalized(self):
     """
     Returns the distribution by making the proabilities sum to 1
@@ -582,6 +582,13 @@ def ev(self):
     float
         Expected value
 
+    Examples
+    --------
+    >>> dist = Table().values([1, 2, 4]).probability([0.5, 0.4, 0.1])
+    >>> dist.ev()
+    1.7
+    >>> 1 * 0.5 + 2 * 0.4 + 4 * 0.1
+    1.7
     """
     check_valid_probability_table(self)
     self = normalized(self)
@@ -599,11 +606,19 @@ def var(self):
     -------
     float
         Variance
+
+    Examples
+    --------
+    >>> dist = Table().values([1, 2, 4]).probability([0.5, 0.4, 0.1])
+    >>> dist.var()
+    0.81
+    >>> (1 * 0.5 + 4 * 0.4 + 16 * 0.1) - (1.7) ** 2
+    0.81
     """
     check_valid_probability_table(self)
     self = normalized(self)
     var = 0
-    ev = self.expected_value()
+    ev = self.ev()
     for domain, probability in self.rows:
         var += (domain - ev) ** 2 * probability
     return var
@@ -617,8 +632,14 @@ def sd(self):
     -------
     float
         Standard Deviation
+
+    Examples
+    --------
+    >>> dist = Table().values([1, 2, 4]).probability([0.5, 0.4, 0.1])
+    >>> dist.sd()
+    0.9
     """
-    return math.sqrt(self.variance())
+    return math.sqrt(self.var())
 
 
 def emp_dist(values):

@@ -12,6 +12,7 @@ Pykov Module written by `Riccardo Scalco <https://github.com/riccardoscalco/Pyko
 For documentation and examples, visit `https://probability.gitlab.io/prob140/html/ <https://probability.gitlab.io/prob140/html/>`_
 
 .. image:: https://gitlab.com/probability/prob140/badges/master/build.svg
+    :target: https://gitlab.com/probability/prob140/pipelines
 .. image:: https://gitlab.com/probability/prob140/badges/master/coverage.svg
     :target: https://probability.gitlab.io/prob140/coverage
 
@@ -50,4 +51,4 @@ If you wish to use the Pykov module, also include:
 Changelog
 =========
 
-See `CHANGELOG <https://gitlab.com/probability/prob140/blob/master/CHANGELOG>`_ for full changelog
+See `CHANGELOG <https://gitlab.com/probability/prob140/blob/master/CHANGELOG.rst>`_ for full changelog

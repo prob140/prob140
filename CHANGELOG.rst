@@ -3,10 +3,14 @@ v0.3.0.0
 
 * Code refactor to follow PEP8
 * All new Markov Chain module using numpy backend
-    * Function definitions largely the same for common functions
+
+  * Function definitions largely the same for common functions
+
 * Functions renamed:
-    * Table.expected_value -> Table.ev
-    * Table.variance -> Table.var
+
+  * Table.expected_value -> Table.ev
+  * Table.variance -> Table.var
+
 * Unit Tests!
 
 v0.2.9.0 (2017-03-19)
