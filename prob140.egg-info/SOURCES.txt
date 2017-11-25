@@ -5,7 +5,6 @@ prob140/__init__.py
 prob140/markov_chains.py
 prob140/multi_variable.py
 prob140/plots.py
-prob140/pykov.py
 prob140/rebinding.py
 prob140/single_variable.py
 prob140/symbolic_math.py
