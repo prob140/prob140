@@ -33,9 +33,9 @@ Utitilies
     Table.prob_event
     Table.event
     Table.cdf
-    Table.expected_value
+    Table.ev
     Table.sd
-    Table.variance
+    Table.var
     Table.normalized
     Table.sample_from_dist
     emp_dist
@@ -48,6 +48,3 @@ Plotting
 
     Plot
     Plots
-
-
-

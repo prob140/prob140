@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>Joint Distributions (prob140.JointDistribution) &mdash; prob140 0.2.9.0 documentation</title>
+    <title>Joint Distributions (prob140.JointDistribution) &mdash; prob140 0.3.0.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.9.0',
+        VERSION:     '0.3.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,8 +27,8 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.2.9.0 documentation" href="index.html" >
-    <link rel="next" title="prob140.Table.toJoint" href="_autosummary/prob140.Table.toJoint.html" >
+    <link rel="top" title="prob140 0.3.0.0 documentation" href="index.html" >
+    <link rel="next" title="prob140.Table.to_joint" href="_autosummary/prob140.Table.to_joint.html" >
     <link rel="prev" title="prob140.Plots" href="_autosummary/prob140.Plots.html" > 
   </head>
   <body>
@@ -51,9 +51,9 @@
               
     <ul class="nav nav-pills pull-left">
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
-        <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
+        <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.2.9.0 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.3.0.0 documentation</a></li>
 	 
     </ul>
               
@@ -64,7 +64,7 @@
            accesskey="I">index</a>
       </li>
       <li class="active">
-        <a href="_autosummary/prob140.Table.toJoint.html" title="prob140.Table.toJoint"
+        <a href="_autosummary/prob140.Table.to_joint.html" title="prob140.Table.to_joint"
            accesskey="N">next</a>
       </li>
       <li class="active">
@@ -101,7 +101,7 @@
 <span class="go">1    | 2    | 0.3</span>
 <span class="go">1    | 3    | 0.4</span>
 
-<span class="gp">In [4]: </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">dist1_table</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="gp">In [4]: </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">dist1_table</span><span class="o">.</span><span class="n">to_joint</span><span class="p">()</span>
 
 <span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="p">)</span>
 <span class="go">     X=0  X=1</span>
@@ -117,7 +117,7 @@
 <span class="go">T     | H     | 0.16</span>
 <span class="go">T     | T     | 0.24</span>
 
-<span class="gp">In [8]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">dist2_table</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="gp">In [8]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">dist2_table</span><span class="o">.</span><span class="n">to_joint</span><span class="p">()</span>
 
 <span class="gp">In [9]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist2</span><span class="p">)</span>
 <span class="go">         Coin1=H  Coin1=T</span>
@@ -131,8 +131,8 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.toJoint.html#prob140.Table.toJoint" title="prob140.Table.toJoint"><code class="xref py py-obj docutils literal"><span class="pre">Table.toJoint</span></code></a>(table[,&nbsp;X_column_label,&nbsp;...])</td>
-<td>Converts a table of probabilities associated with two variables into a JointDistribution object</td>
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.Table.to_joint.html#prob140.Table.to_joint" title="prob140.Table.to_joint"><code class="xref py py-obj docutils literal"><span class="pre">Table.to_joint</span></code></a>(table[,&nbsp;X_column_label,&nbsp;...])</td>
+<td>Converts a table of probabilities associated with two variables into a</td>
 </tr>
 </tbody>
 </table>
@@ -149,7 +149,7 @@
 <td>Returns the marginal distribution of label</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="_autosummary/prob140.JointDistribution.both_marginals.html#prob140.JointDistribution.both_marginals" title="prob140.JointDistribution.both_marginals"><code class="xref py py-obj docutils literal"><span class="pre">JointDistribution.both_marginals</span></code></a>()</td>
-<td>Finds the marginal distribution of both variables</td>
+<td>Finds the marginal distribution of both variables.</td>
 </tr>
 </tbody>
 </table>
@@ -163,7 +163,7 @@
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="_autosummary/prob140.JointDistribution.conditional_dist.html#prob140.JointDistribution.conditional_dist" title="prob140.JointDistribution.conditional_dist"><code class="xref py py-obj docutils literal"><span class="pre">JointDistribution.conditional_dist</span></code></a>(label[,&nbsp;...])</td>
-<td>Given the random variable label, finds the conditional distribution of the other variable</td>
+<td>Given the random variable label, finds the conditional distribution of the other variable.</td>
 </tr>
 </tbody>
 </table>

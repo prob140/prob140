@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.JointDistribution.marginal &mdash; prob140 0.2.9.0 documentation</title>
+    <title>prob140.JointDistribution.marginal &mdash; prob140 0.3.0.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2.9.0',
+        VERSION:     '0.3.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,10 +27,10 @@
     <script type="text/javascript" src="../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
-    <link rel="top" title="prob140 0.2.9.0 documentation" href="../index.html" >
+    <link rel="top" title="prob140 0.3.0.0 documentation" href="../index.html" >
     <link rel="up" title="Joint Distributions (prob140.JointDistribution)" href="../multi.html" >
     <link rel="next" title="prob140.JointDistribution.both_marginals" href="prob140.JointDistribution.both_marginals.html" >
-    <link rel="prev" title="prob140.Table.toJoint" href="prob140.Table.toJoint.html" > 
+    <link rel="prev" title="prob140.Table.to_joint" href="prob140.Table.to_joint.html" > 
   </head>
   <body>
 
@@ -52,9 +52,9 @@
               
     <ul class="nav nav-pills pull-left">
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
-        <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
+        <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="../index.html">prob140 0.2.9.0 documentation</a></li>
+        <li class="active"><a href="../index.html">prob140 0.3.0.0 documentation</a></li>
 	
           <li class="active"><a href="../multi.html" accesskey="U">Joint Distributions (<code class="docutils literal"><span class="pre">prob140.JointDistribution</span></code>)</a></li> 
     </ul>
@@ -70,7 +70,7 @@
            accesskey="N">next</a>
       </li>
       <li class="active">
-        <a href="prob140.Table.toJoint.html" title="prob140.Table.toJoint"
+        <a href="prob140.Table.to_joint.html" title="prob140.Table.to_joint"
            accesskey="P">previous</a>
       </li>
     </ul>
@@ -99,7 +99,8 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>label</strong> : String</p>
 <blockquote>
-<div><p>The label of the variable of which we want to find the marginal distribution</p>
+<div><p>The label of the variable of which we want to find the marginal
+distribution.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -109,13 +110,13 @@
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span><span class="s2">&quot;Coin2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.24</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.24</span><span class="p">]))</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;Coin1&#39;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span><span class="s1">&#39;Coin2&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.24</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.24</span><span class="p">]))</span><span class="o">.</span><span class="n">to_joint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s1">&#39;Coin1&#39;</span><span class="p">)</span>
 <span class="go">                        Coin1=H  Coin1=T</span>
 <span class="go">Coin2=T                    0.36     0.24</span>
 <span class="go">Coin2=H                    0.24     0.16</span>
 <span class="go">Sum: Marginal of Coin1     0.60     0.40</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s2">&quot;Coin2&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s1">&#39;Coin2&#39;</span><span class="p">)</span>
 <span class="go">         Coin1=H  Coin1=T  Sum: Marginal of Coin2</span>
 <span class="go">Coin2=T     0.36     0.24                     0.6</span>
 <span class="go">Coin2=H     0.24     0.16                     0.4</span>

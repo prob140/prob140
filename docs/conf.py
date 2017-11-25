@@ -174,7 +174,7 @@ html_theme_options = {
     "sidebar": "none",
     "scipy_org_logo": "False",
     "rootlinks": [("http://prob140.org", "Prob140"),
-                  ("https://probability.gitlab.io/prob140/html/", "Docs")]
+                  ("https://probability.gitlab.io/prob140/", "Docs")]
 }
 
 # Add any paths that contain custom themes here, relative to this directory.

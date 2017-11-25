@@ -58,13 +58,13 @@ To turn it into a Joint Distribution object, call the `.toJoint()` method
 
 .. ipython:: python
 
-    dist.toJoint()
+    dist.to_joint()
 
 By default, the joint distribution will display the Y values in reverse. To turn this functionality off, use the optional parameter `reverse=False`
 
 .. ipython:: python
 
-    dist.toJoint(reverse=False)
+    dist.to_joint(reverse=False)
 
 Naming the Variables
 ^^^^^^^^^^^^^^^^^^^^

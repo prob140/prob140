@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 from datascience import Table
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import scipy
@@ -308,6 +309,34 @@ class MarkovChain:
             1 / expected_return
         )
 
+    def plot_path(self, path):
+        """
+        Plots a Markov Chain's path.
+
+        Parameters
+        ----------
+        path : iterable
+            List of valid states.
+
+        Examples
+        --------
+        >>> states = ['A', 'B']  # Works with all state data types!
+        >>> transition_matrix = np.array([[0.1, 0.9],
+        ...                               [0.8, 0.2]])
+        >>> mc = MarkovChain.from_matrix(states, transition_matrix)
+        >>> mc.plot_path(mc.simulate_path('B', 20))
+        <Plot of a Markov Chain that starts at 'B' and takes 20 steps>
+        """
+        states = list(self.states)
+        x = np.arange(len(path))
+        y = [states.index(state) for state in path]
+        plt.plot(x, y, marker='o', lw=1, color='darkblue')
+        plt.yticks(np.arange(len(states)), states)
+        plt.xlim(-0.5, len(path) + 0.5)
+        plt.ylim(-0.5, len(states) - 0.5)
+        plt.xlabel('Time')
+        plt.ylabel('States')
+
     def _repr_html_(self):
         return self.to_pandas()._repr_html_()
 
@@ -393,6 +422,7 @@ class MarkovChain:
         ...        return 0.7
         ...    else:
         ...        return 0.3
+        >>> MarkovChain.from_transition_function(states, transition)
              1    2
         1  0.7  0.3
         2  0.3  0.7
@@ -435,4 +465,11 @@ class MarkovChain:
 
 
 def to_markov_chain(self):
+    """
+    Constructs a Markov Chain from the Table.
+
+    Returns
+    -------
+    MarkovChain
+    """
     return MarkovChain.from_table(self)

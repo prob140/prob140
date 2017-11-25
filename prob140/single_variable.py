@@ -1,12 +1,15 @@
 import collections
 import itertools
 import math
+import warnings
+
+from datascience import (
+    make_array,
+    Table,
+)
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import warnings
-
-from datascience import *
 
 from .multi_variable import multi_domain
 

@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>datascience Tables &mdash; prob140 0.2.9.0 documentation</title>
+    <title>datascience Tables &mdash; prob140 0.3.0.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.9.0',
+        VERSION:     '0.3.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,8 +27,8 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.2.9.0 documentation" href="index.html" >
-    <link rel="prev" title="prob140.MarkovChain.empirical_distribution" href="_autosummary/prob140.MarkovChain.empirical_distribution.html" > 
+    <link rel="top" title="prob140 0.3.0.0 documentation" href="index.html" >
+    <link rel="prev" title="prob140.MarkovChain.plot_path" href="_autosummary/prob140.MarkovChain.plot_path.html" > 
   </head>
   <body>
 
@@ -50,9 +50,9 @@
               
     <ul class="nav nav-pills pull-left">
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
-        <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
+        <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.2.9.0 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.3.0.0 documentation</a></li>
 	 
     </ul>
               
@@ -63,7 +63,7 @@
            accesskey="I">index</a>
       </li>
       <li class="active">
-        <a href="_autosummary/prob140.MarkovChain.empirical_distribution.html" title="prob140.MarkovChain.empirical_distribution"
+        <a href="_autosummary/prob140.MarkovChain.plot_path.html" title="prob140.MarkovChain.plot_path"
            accesskey="P">previous</a>
       </li>
     </ul>
@@ -408,7 +408,9 @@ for additional arguments that can be passed into vargs. These include
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">,</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="go">0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -416,7 +418,7 @@ for additional arguments that can be passed into vargs. These include
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mf">3.5</span><span class="p">)</span>
 <span class="go">0.75</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-<span class="go">1</span>
+<span class="go">1.0</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -545,6 +547,32 @@ If a list, each element is a column label in a table with
 
 <dl class="method">
 <dt>
+<code class="descclassname">Table.</code><code class="descname">ev</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Finds expected value of distribution</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float</p>
+<blockquote class="last">
+<div><p>Expected value</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">ev</span><span class="p">()</span>
+<span class="go">1.7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mf">0.4</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="mf">0.1</span>
+<span class="go">1.7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
 <code class="descclassname">Table.</code><code class="descname">event</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span></dt>
 <dd><p>Shows the probability that distribution takes on value x or list of
 values x.</p>
@@ -568,13 +596,11 @@ subset of the domain</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">Domain | Probability</span>
 <span class="go">2      | 0.25</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">event</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">event</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 <span class="go">Domain | Probability</span>
 <span class="go">2      | 0.25</span>
 <span class="go">3      | 0.25</span>
@@ -649,24 +675,6 @@ to be excluded.</dd>
 <span class="go">B-           | 2.7</span>
 </pre></div>
 </div>
-</dd></dl>
-
-<dl class="method">
-<dt>
-<code class="descclassname">Table.</code><code class="descname">expected_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
-<dd><p>Finds expected value of distribution</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float</p>
-<blockquote class="last">
-<div><p>Expected value</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="classmethod">
@@ -977,12 +985,12 @@ but in <code class="docutils literal"><span class="pre">other</span></code>, onl
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="go">Value | Probability</span>
 <span class="go">1     | 1</span>
 <span class="go">2     | 1</span>
 <span class="go">3     | 1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>
 <span class="go">Value | Probability</span>
 <span class="go">1     | 0.333333</span>
 <span class="go">2     | 0.333333</span>
@@ -1187,7 +1195,7 @@ other columns in self (or for the columns designated by <cite>select</cite>).</d
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">prob_event</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span></dt>
-<dd><p>Finds the probability of an event x</p>
+<dd><p>Finds the probability of an event x.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1208,16 +1216,12 @@ subset of the domain</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">0.25</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="go">0.5</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="go">1.0</span>
 </pre></div>
 </div>
@@ -1239,7 +1243,7 @@ subset of the domain</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
 <blockquote class="last">
-<div><p>A proability distribution with those probabilities</p>
+<div><p>A probability distribution with those probabilities</p>
 </div></blockquote>
 </td>
 </tr>
@@ -1479,9 +1483,9 @@ Traceback (most recent call last):</p>
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">sample_from_dist</code><span class="sig-paren">(</span><em>n=1</em><span class="sig-paren">)</span></dt>
-<dd><p>Randomly samples from the distribution</p>
-<p>Note that this function was previously named <cite>sample</cite> but was renamed because of naming conflicts with the
-datascience library</p>
+<dd><p>Randomly samples from the distribution.</p>
+<p>Note that this function was previously named <cite>sample</cite> but was renamed
+due to naming conflicts with the datascience library.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1496,9 +1500,11 @@ datascience library</p>
 <blockquote>
 <div><p>Samples from the distribution</p>
 </div></blockquote>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">,</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
 </pre></div>
 </div>
+<p>...    &#8216;Value&#8217;, make_array(2, 3, 4),</p>
+<p>...    &#8216;Probability&#8217;, make_array(0.25, 0.5, 0.25))</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">sample_from_dist</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1623,6 +1629,12 @@ all other columns in self as y (or for the columns designated by
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">sd</span><span class="p">()</span>
+<span class="go">0.9</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -1865,58 +1877,6 @@ with respect to column length.</dd>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">toJoint</code><span class="sig-paren">(</span><em>table</em>, <em>X_column_label=None</em>, <em>Y_column_label=None</em>, <em>probability_column_label=None</em>, <em>reverse=True</em><span class="sig-paren">)</span></dt>
-<dd><p>Converts a table of probabilities associated with two variables into a JointDistribution object</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>table</strong> : Table</p>
-<blockquote>
-<div><p>You can either call pass in a Table directly or call the toJoint() method of that Table. See examples</p>
-</div></blockquote>
-<p><strong>X_column_label (optional)</strong> : String</p>
-<blockquote>
-<div><p>Label for the first variable. Defaults to the same label as that of first variable of Table</p>
-</div></blockquote>
-<p><strong>Y_column_label (optional)</strong> : String</p>
-<blockquote>
-<div><p>Label for the second variable. Defaults to the same label as that of second variable of Table</p>
-</div></blockquote>
-<p><strong>probability_column_label (optional)</strong> : String</p>
-<blockquote>
-<div><p>Label for probabilities    reverse (optional) : Boolean
-If True, the vertical values will be reversed</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">JointDistribution</p>
-<blockquote class="last">
-<div><p>A JointDistribution object</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
-<span class="go">     X=0  X=1</span>
-<span class="go">Y=3  0.2  0.4</span>
-<span class="go">Y=2  0.1  0.3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span> <span class="s2">&quot;Coin2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.4</span><span class="o">*</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="o">*</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="o">*</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="o">*</span><span class="mf">0.4</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
-<span class="go">         Coin1=H  Coin1=T</span>
-<span class="go">Coin2=T     0.36     0.24</span>
-<span class="go">Coin2=H     0.24     0.16</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt>
 <code class="descclassname">Table.</code><code class="descname">to_array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/datascience/tables.html#Table.to_array"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Convert the table to a structured NumPy array.</p>
 </dd></dl>
@@ -1957,6 +1917,79 @@ If True, the vertical values will be reversed</p>
 
 <dl class="method">
 <dt>
+<code class="descclassname">Table.</code><code class="descname">to_joint</code><span class="sig-paren">(</span><em>table</em>, <em>X_column_label=None</em>, <em>Y_column_label=None</em>, <em>probability_column_label=None</em>, <em>reverse=True</em><span class="sig-paren">)</span></dt>
+<dd><p>Converts a table of probabilities associated with two variables into a
+JointDistribution object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>table</strong> : Table</p>
+<blockquote>
+<div><p>You can either call pass in a Table directly or call the toJoint()
+method of that Table. See examples.</p>
+</div></blockquote>
+<p><strong>X_column_label (optional)</strong> : str</p>
+<blockquote>
+<div><p>Label for the first variable. Defaults to the same label as that of
+first variable of Table.</p>
+</div></blockquote>
+<p><strong>Y_column_label (optional)</strong> : str</p>
+<blockquote>
+<div><p>Label for the second variable. Defaults to the same label as that of
+second variable of Table.</p>
+</div></blockquote>
+<p><strong>probability_column_label (optional)</strong> : str</p>
+<blockquote>
+<div><p>Label for probabilities.</p>
+</div></blockquote>
+<p><strong>reverse (optional)</strong> : bool</p>
+<blockquote>
+<div><p>If True, the vertical values will be reversed.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">JointDistribution</p>
+<blockquote class="last">
+<div><p>A JointDistribution object.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="o">.</span><span class="n">to_joint</span><span class="p">()</span>
+<span class="go">     X=0  X=1</span>
+<span class="go">Y=3  0.2  0.4</span>
+<span class="go">Y=2  0.1  0.3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;Coin1&#39;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span> <span class="s1">&#39;Coin2&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="p">[</span><span class="s1">&#39;Probability&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.4</span><span class="o">*</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="o">*</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="o">*</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="o">*</span><span class="mf">0.4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="go">         Coin1=H  Coin1=T</span>
+<span class="go">Coin2=T     0.36     0.24</span>
+<span class="go">Coin2=H     0.24     0.16</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Table.</code><code class="descname">to_markov_chain</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Constructs a Markov Chain from the Table.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">MarkovChain</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
 <code class="descclassname">Table.</code><code class="descname">transition_function</code><span class="sig-paren">(</span><em>pfunc</em><span class="sig-paren">)</span></dt>
 <dd><p>Assigns transition probabilities to a Distribution via a probability
 function. The probability function is applied to each value of the
@@ -1984,8 +2017,8 @@ domain. Must have domain values in the first column first.</p>
 <dl class="method">
 <dt>
 <code class="descclassname">Table.</code><code class="descname">transition_probability</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span></dt>
-<dd><p>For a multivariate probability distribution, assigns transition probabilities:
-ie P(Y | X).</p>
+<dd><p>For a multivariate probability distribution, assigns transition
+probabilities, ie P(Y | X).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1998,7 +2031,7 @@ ie P(Y | X).</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
 <blockquote class="last">
-<div><p>A proability distribution with those probabilities</p>
+<div><p>A probability distribution with those probabilities</p>
 </div></blockquote>
 </td>
 </tr>
@@ -2008,7 +2041,7 @@ ie P(Y | X).</p>
 
 <dl class="method">
 <dt>
-<code class="descclassname">Table.</code><code class="descname">variance</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<code class="descclassname">Table.</code><code class="descname">var</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
 <dd><p>Finds variance of distribution</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -2022,6 +2055,14 @@ ie P(Y | X).</p>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
+<span class="go">0.81</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="mf">0.4</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mf">1.7</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="go">0.81</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -2308,17 +2349,17 @@ when passed only one label-value pair.</dd>
 <dd><dl class="method">
 <dt>
 <code class="descname">both_marginals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.both_marginals"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Finds the marginal distribution of both variables</p>
+<dd><p>Finds the marginal distribution of both variables.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">JointDistribution Table</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">JointDistribution Table.</td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span><span class="o">.</span><span class="n">to_joint</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
 <span class="go">                    X=0  X=1  Sum: Marginal of Y</span>
 <span class="go">Y=3                 0.2  0.4                 0.6</span>
@@ -2331,14 +2372,15 @@ when passed only one label-value pair.</dd>
 <dl class="method">
 <dt>
 <code class="descname">conditional_dist</code><span class="sig-paren">(</span><em>label</em>, <em>given=''</em>, <em>show_ev=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.conditional_dist"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Given the random variable label, finds the conditional distribution of the other variable</p>
+<dd><p>Given the random variable label, finds the conditional distribution of
+the other variable.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>label</strong> : String</p>
 <blockquote>
-<div><p>given variable</p>
+<div><p>Variable given.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -2348,13 +2390,13 @@ when passed only one label-value pair.</dd>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coins</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span><span class="s2">&quot;Coin2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.24</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span><span class="mf">0.24</span><span class="p">]))</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">coins</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,</span><span class="s2">&quot;Coin2&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">coins</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;Coin1&#39;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span><span class="s1">&#39;Coin2&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.24</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span><span class="mf">0.24</span><span class="p">]))</span><span class="o">.</span><span class="n">to_joint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coins</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">&#39;Coin1&#39;</span><span class="p">,</span><span class="s1">&#39;Coin2&#39;</span><span class="p">)</span>
 <span class="go">                          Coin1=H  Coin1=T  Sum</span>
 <span class="go">Dist. of Coin1 | Coin2=H      0.6      0.4  1.0</span>
 <span class="go">Dist. of Coin1 | Coin2=T      0.6      0.4  1.0</span>
 <span class="go">Marginal of Coin1             0.6      0.4  1.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">coins</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s2">&quot;Coin2&quot;</span><span class="p">,</span><span class="s2">&quot;Coin1&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coins</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">&#39;Coin2&#39;</span><span class="p">,</span><span class="s1">&#39;Coin1&#39;</span><span class="p">)</span>
 <span class="go">         Dist. of Coin2 | Coin1=H  Dist. of Coin2 | Coin1=T  Marginal of Coin2</span>
 <span class="go">Coin2=H                       0.4                       0.4                0.4</span>
 <span class="go">Coin2=T                       0.6                       0.6                0.6</span>
@@ -2373,7 +2415,8 @@ when passed only one label-value pair.</dd>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>label</strong> : String</p>
 <blockquote>
-<div><p>The label of the variable of which we want to find the marginal distribution</p>
+<div><p>The label of the variable of which we want to find the marginal
+distribution.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -2383,13 +2426,13 @@ when passed only one label-value pair.</dd>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span><span class="s2">&quot;Coin2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.24</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.24</span><span class="p">]))</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;Coin1&#39;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span><span class="s1">&#39;Coin2&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.24</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.24</span><span class="p">]))</span><span class="o">.</span><span class="n">to_joint</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s1">&#39;Coin1&#39;</span><span class="p">)</span>
 <span class="go">                        Coin1=H  Coin1=T</span>
 <span class="go">Coin2=T                    0.36     0.24</span>
 <span class="go">Coin2=H                    0.24     0.16</span>
 <span class="go">Sum: Marginal of Coin1     0.60     0.40</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s2">&quot;Coin2&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s1">&#39;Coin2&#39;</span><span class="p">)</span>
 <span class="go">         Coin1=H  Coin1=T  Sum: Marginal of Coin2</span>
 <span class="go">Coin2=T     0.36     0.24                     0.6</span>
 <span class="go">Coin2=H     0.24     0.16                     0.4</span>
@@ -2400,21 +2443,451 @@ when passed only one label-value pair.</dd>
 <dl class="method">
 <dt>
 <code class="descname">marginal_dist</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/multi_variable.html#JointDistribution.marginal_dist"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Finds the marginal marginal distribution of label, returns as a single variable distribution</p>
+<dd><p>Finds the marginal marginal distribution of label, returns as a single
+variable distribution.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>label</strong></p>
 <blockquote>
-<div><p>The label of the variable of which we want to find the marginal distribution</p>
+<div><p>The label of the variable of which we want to find the marginal
+distribution.</p>
 </div></blockquote>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
 <blockquote class="last">
-<div><p>Single variable distribution of label</p>
+<div><p>Single variable distribution of label.</p>
 </div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="prob140-markovchain">
+<h1><code class="docutils literal"><span class="pre">prob140</span></code> MarkovChain<a class="headerlink" href="#prob140-markovchain" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">prob140.</code><code class="descname">MarkovChain</code><span class="sig-paren">(</span><em>states</em>, <em>transition_matrix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>A class for representing, simulating, and computing Markov Chains.</p>
+<dl class="method">
+<dt>
+<code class="descname">distribution</code><span class="sig-paren">(</span><em>starting_condition</em>, <em>steps=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.distribution"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Finds the distribution of states after n steps given a starting
+condition.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>starting_condition</strong> : state or Table</p>
+<blockquote>
+<div><p>The initial distribution or the original state.</p>
+</div></blockquote>
+<p><strong>n</strong> : integer</p>
+<blockquote>
+<div><p>Number of transition steps.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
+<blockquote class="last">
+<div><p>Shows the distribution after n steps</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">states</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">MarkovChain</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+<span class="go">State | Probability</span>
+<span class="go">A     | 0.24</span>
+<span class="go">B     | 0.76</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">State | Probability</span>
+<span class="go">A     | 0.8</span>
+<span class="go">B     | 0.2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">State | Probability</span>
+<span class="go">A     | 0.3576</span>
+<span class="go">B     | 0.6424</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">expected_return_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.expected_return_time"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Finds the expected return time of the Markov Chain (1 / steady state).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
+<blockquote class="last">
+<div><p>Expected Return Time</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">MarkovChain</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">expected_return_time</span><span class="p">()</span>
+<span class="go">Value | Expected Return Time</span>
+<span class="go">A     | 1.5</span>
+<span class="go">B     | 3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt>
+<em class="property">classmethod </em><code class="descname">from_matrix</code><span class="sig-paren">(</span><em>states</em>, <em>transition_matrix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.from_matrix"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Constructs a MarkovChain from a transition matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>states</strong> : iterable</p>
+<blockquote>
+<div><p>List of states.</p>
+</div></blockquote>
+<p><strong>transition_matrix</strong> : array</p>
+<blockquote>
+<div><p>Square transition matrix.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">MarkovChain</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MarkovChain</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">)</span>
+<span class="go">     1    2</span>
+<span class="go">1  0.1  0.9</span>
+<span class="go">2  0.8  0.2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt>
+<em class="property">classmethod </em><code class="descname">from_table</code><span class="sig-paren">(</span><em>table</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.from_table"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Constructs a Markov Chain from a Table</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>table</strong> : Table</p>
+<blockquote>
+<div><p>A  table with three columns for source state, target state, and
+probability.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">MarkovChain</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">))</span>         <span class="o">...</span>     <span class="o">.</span><span class="n">transition_probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span>
+<span class="go">Source | Target | Probability</span>
+<span class="go">A      | A      | 0.5</span>
+<span class="go">A      | B      | 0.5</span>
+<span class="go">B      | A      | 0.3</span>
+<span class="go">B      | B      | 0.7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MarkovChain</span><span class="o">.</span><span class="n">from_table</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="go">     A    B</span>
+<span class="go">A  0.5  0.5</span>
+<span class="go">B  0.3  0.7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt>
+<em class="property">classmethod </em><code class="descname">from_transition_function</code><span class="sig-paren">(</span><em>states</em>, <em>transition_function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.from_transition_function"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Constructs a MarkovChain from a transition function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>states</strong> : iterable</p>
+<blockquote>
+<div><p>List of states.</p>
+</div></blockquote>
+<p><strong>transition_function</strong> : function</p>
+<blockquote>
+<div><p>Bivariate transition function that maps two states to a
+probability.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">MarkovChain</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">states</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">transition</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">if</span> <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span><span class="p">:</span>
+<span class="gp">... </span>       <span class="k">return</span> <span class="mf">0.7</span>
+<span class="gp">... </span>   <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>       <span class="k">return</span> <span class="mf">0.3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MarkovChain</span><span class="o">.</span><span class="n">from_transition_function</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">transition</span><span class="p">)</span>
+<span class="go">     1    2</span>
+<span class="go">1  0.7  0.3</span>
+<span class="go">2  0.3  0.7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">get_transition_matrix</code><span class="sig-paren">(</span><em>steps=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.get_transition_matrix"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the transition matrix after n steps as a numpy matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>steps</strong> : int (optional)</p>
+<blockquote>
+<div><p>Number of steps. (default: 1)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Transition matrix</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">log_prob_of_path</code><span class="sig-paren">(</span><em>starting_condition</em>, <em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.log_prob_of_path"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Finds the log-probability of a path given a starting condition.</p>
+<p>May have better precision than <cite>prob_of_path</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>starting_condition</strong> : state or Distribution</p>
+<blockquote>
+<div><p>If a state, finds the log-probability of the path starting at that
+state. If a Distribution, finds the probability of the path with
+the first element sampled from the Distribution</p>
+</div></blockquote>
+<p><strong>path</strong> : array</p>
+<blockquote>
+<div><p>Array of states</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float</p>
+<blockquote class="last">
+<div><p>log of probability</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">states</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">MarkovChain</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">log_prob_of_path</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">])</span>
+<span class="go">-2.6310891599660815</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">start</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">log_prob_of_path</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">])</span>
+<span class="go">-0.55164761828624576</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">plot_path</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.plot_path"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Plots a Markov Chain&#8217;s path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path</strong> : iterable</p>
+<blockquote class="last">
+<div><p>List of valid states.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>  <span class="c1"># Works with all state data types!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">MarkovChain</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">plot_path</span><span class="p">(</span><span class="n">mc</span><span class="o">.</span><span class="n">simulate_path</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+<span class="go">&lt;Plot of a Markov Chain that starts at &#39;B&#39; and takes 20 steps&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">prob_of_path</code><span class="sig-paren">(</span><em>starting_condition</em>, <em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.prob_of_path"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Finds the probability of a path given a starting condition.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>starting_condition</strong> : state or Distribution</p>
+<blockquote>
+<div><p>If a state, finds the probability of the path starting at that
+state. If a Distribution, finds the probability of the path with
+the first element sampled from the Distribution.</p>
+</div></blockquote>
+<p><strong>path</strong> : array</p>
+<blockquote>
+<div><p>Array of states</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">float</p>
+<blockquote class="last">
+<div><p>probability</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">MarkovChain</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">prob_of_path</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">])</span>
+<span class="go">0.072</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mf">0.1</span> <span class="o">*</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="mf">0.8</span>
+<span class="go">0.072</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">start</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">prob_of_path</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">])</span>
+<span class="go">0.576</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mf">0.8</span> <span class="o">*</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="mf">0.8</span>
+<span class="go">0.576</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">simulate_path</code><span class="sig-paren">(</span><em>starting_condition</em>, <em>steps</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.simulate_path"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Simulates a path of n steps with a specific starting condition.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>starting_condition</strong> : state or Distribution</p>
+<blockquote>
+<div><p>If a state, simulates n steps starting at that state. If a
+Distribution, samples from that distribution to find the starting
+state.</p>
+</div></blockquote>
+<p><strong>steps</strong> : int</p>
+<blockquote>
+<div><p>Number of steps to take.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">array</p>
+<blockquote class="last">
+<div><p>Array of sampled states.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">MarkovChain</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">simulate_path</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">array([&#39;A&#39;, &#39;A&#39;, &#39;B&#39;, &#39;A&#39;, &#39;B&#39;, &#39;A&#39;, &#39;B&#39;, &#39;B&#39;, &#39;A&#39;, &#39;B&#39;, &#39;B&#39;])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">steady_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.steady_state"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Finds the stationary distribution of the Markov Chain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
+<blockquote class="last">
+<div><p>Distribution.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
+<span class="gp">... </span>                              <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">MarkovChain</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span><span class="o">.</span><span class="n">steady_state</span><span class="p">()</span>
+<span class="go">Value | Probability</span>
+<span class="go">A     | 0.666667</span>
+<span class="go">B     | 0.333333</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">to_pandas</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.to_pandas"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the Pandas DataFrame representation of the MarkovChain.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">transition_matrix</code><span class="sig-paren">(</span><em>steps=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob140/markov_chains.html#MarkovChain.transition_matrix"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the transition matrix after n steps visually as a Pandas df.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>steps</strong> : int (optional)</p>
+<blockquote>
+<div><p>Number of steps. (default: 1)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Pandas DataFrame</p>
 </td>
 </tr>
 </tbody>

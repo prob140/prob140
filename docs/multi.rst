@@ -13,17 +13,17 @@ Constucting
     from prob140 import *
     dist1_table = Table().domain([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4])
     print(dist1_table)
-    dist1 = dist1_table.toJoint()
+    dist1 = dist1_table.to_joint()
     print(dist1)
     dist2_table = Table().domain("Coin1",['H','T'],"Coin2", ['H','T']).probability(np.array([0.24, 0.36, 0.16, 0.24]))
     print(dist2_table)
-    dist2 = dist2_table.toJoint()
+    dist2 = dist2_table.to_joint()
     print(dist2)
 
 .. autosummary::
     :toctree: _autosummary
 
-    Table.toJoint
+    Table.to_joint
 
 
 Marginal Distributions

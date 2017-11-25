@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.Plot &mdash; prob140 0.2.9.0 documentation</title>
+    <title>prob140.Plot &mdash; prob140 0.3.0.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2.9.0',
+        VERSION:     '0.3.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
-    <link rel="top" title="prob140 0.2.9.0 documentation" href="../index.html" >
+    <link rel="top" title="prob140 0.3.0.0 documentation" href="../index.html" >
     <link rel="up" title="Single-variable Distributions (datascience.tables.Table)" href="../single.html" >
     <link rel="next" title="prob140.Plots" href="prob140.Plots.html" >
     <link rel="prev" title="prob140.emp_dist" href="prob140.emp_dist.html" > 
@@ -52,9 +52,9 @@
               
     <ul class="nav nav-pills pull-left">
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
-        <li class="active"><a href="https://probability.gitlab.io/prob140/html/">Docs</a></li>
+        <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="../index.html">prob140 0.2.9.0 documentation</a></li>
+        <li class="active"><a href="../index.html">prob140 0.3.0.0 documentation</a></li>
 	
           <li class="active"><a href="../single.html" accesskey="U">Single-variable Distributions (<code class="docutils literal"><span class="pre">datascience.tables.Table</span></code>)</a></li> 
     </ul>
@@ -91,7 +91,7 @@
 <h1>prob140.Plot<a class="headerlink" href="#prob140-plot" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="prob140.Plot">
-<code class="descclassname">prob140.</code><code class="descname">Plot</code><span class="sig-paren">(</span><em>dist</em>, <em>width=1</em>, <em>mask=[]</em>, <em>event=[]</em>, <em>edges=None</em>, <em>show_ev=False</em>, <em>show_ave=False</em>, <em>show_sd=False</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prob140/single_variable.html#Plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Plot" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">prob140.</code><code class="descname">Plot</code><span class="sig-paren">(</span><em>dist</em>, <em>width=1</em>, <em>mask=()</em>, <em>event=()</em>, <em>edges=None</em>, <em>show_ev=False</em>, <em>show_ave=False</em>, <em>show_sd=False</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prob140/single_variable.html#Plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the histogram for a single distribution</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -99,7 +99,7 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>dist</strong> : Table</p>
 <blockquote>
-<div><p>A 2-column table representing a probability distribution</p>
+<div><p>A 2-column table representing a probability distribution.</p>
 </div></blockquote>
 <p><strong>width (optional)</strong> : float</p>
 <blockquote>
@@ -107,28 +107,32 @@
 </div></blockquote>
 <p><strong>mask (optional)</strong> : boolean array or list of boolean arrays</p>
 <blockquote>
-<div><p>Colors the parts of the histogram associated with each mask (default: no mask)</p>
+<div><p>Colors the parts of the histogram associated with each mask.
+(default: no mask)</p>
 </div></blockquote>
 <p><strong>edges (optional)</strong> : boolean</p>
 <blockquote>
-<div><p>If True, there will be a small border around the bars. If False, there will be no border. (default: small
-border unless there more than 75 bins</p>
+<div><p>If True, there will be a small border around the bars. If False, there
+will be no border. (default: small border unless there more than 75
+bins)</p>
 </div></blockquote>
 <p><strong>show_ev (optional)</strong> : boolean</p>
 <blockquote>
-<div><p>Adds a tick mark at the expected value (default : False)</p>
+<div><p>Adds a tick mark at the expected value. (default : False)</p>
 </div></blockquote>
 <p><strong>show_ave (optional)</strong> : boolean</p>
 <blockquote>
-<div><p>Adds a tick mark at the average of an empirical distribution (default : False)</p>
+<div><p>Adds a tick mark at the average of an empirical distribution.
+(default : False)</p>
 </div></blockquote>
 <p><strong>show_sd (optional)</strong> : boolean</p>
 <blockquote>
-<div><p>Adds two tick marks one sd above and one sd below the expected value (default : False)</p>
+<div><p>Adds two tick marks one sd above and one sd below the expected value.
+(default : False)</p>
 </div></blockquote>
 <p><strong>vargs</strong></p>
 <blockquote class="last">
-<div><p>See pyplot&#8217;s additional optional arguments</p>
+<div><p>See pyplot&#8217;s additional optional arguments.</p>
 </div></blockquote>
 </td>
 </tr>

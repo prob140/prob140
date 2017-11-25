@@ -1,3 +1,4 @@
+
 ``datascience`` Tables
 ======================
 
@@ -11,5 +12,12 @@
 =============================
 
 .. autoclass:: JointDistribution
+    :members:
+    :noindex:
+
+``prob140`` MarkovChain
+=======================
+
+.. autoclass:: MarkovChain
     :members:
     :noindex:
