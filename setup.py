@@ -20,7 +20,8 @@ setup(
         'datascience',
         'folium==0.1.5',
         'sphinx',
-        'setuptools'
+        'setuptools',
+        'sympy'
     ],
     description = 'A probability library for Berkeley\'s Prob140 course',
     author = 'Jason Zhang, Dibya Ghosh',
