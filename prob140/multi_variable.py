@@ -11,7 +11,7 @@ from datascience import (
 
 
 def conditional(array):
-    value = array/sum(array[0:-1])
+    value = array / sum(array[0: -1])
     return value
 
 
@@ -29,11 +29,9 @@ def evaluate(name):
     -------
     String, int, float
     """
+    index = 0
     try:
         index = name.index('=')
-    except Exception:
-        index = name.index(' ')
-    try:
         return ast.literal_eval(name[index + 1:])
     except Exception:
         return name[index + 1:]
@@ -41,9 +39,55 @@ def evaluate(name):
 
 class JointDistribution(pd.DataFrame):
 
+    @classmethod
+    def from_table(cls, table, reverse=True):
+        """
+        Constructs a JointDistribution from a Table.
+
+        Parameters
+        ----------
+        table : Table
+            3-column table with RV1, RV2, and joint probability
+        reverse : bool (optional)
+            If True, vertical random variables are reversed. (Default: True)
+
+        Returns
+        -------
+        JointDistribution
+        """
+        return table.to_joint(reverse=reverse)
+
+    def get_possible_values(self, label=''):
+        """
+        Returns the possible values. If a label is given, returns the values for
+        that random variable. Automatically converts to float/int if relevant.
+
+        Parameters
+        ----------
+        label : str
+            Name of random variable.
+
+        Returns
+        -------
+        List of values.
+        """
+        values = []
+        if label == self._X_column_label or label == '':
+            labels = list(self)
+            values.append([evaluate(lab) for lab in labels])
+        if label == self._Y_column_label or label == '':
+            labels = list(self.index)
+            values.append([evaluate(lab) for lab in labels])
+        assert len(values) != 0, \
+               'Label does not correspond with existing variable name'
+        if len(values) == 1:
+            return values[0]
+        else:
+            return values
+
     def marginal(self, label):
         """
-        Returns the marginal distribution of label
+        Returns the marginal distribution of label.
 
         Parameters
         ----------
@@ -57,7 +101,7 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> dist2 = Table().values('Coin1',['H','T'],'Coin2', ['H','T']).probability(np.array([0.24, 0.36, 0.16, 0.24])).to_joint()
+        >>> dist2 = Table().values('Coin1', ['H', 'T'], 'Coin2', ['H', 'T']).probability(np.array([0.24, 0.36, 0.16, 0.24])).to_joint()
         >>> dist2.marginal('Coin1')
                                 Coin1=H  Coin1=T
         Coin2=T                    0.36     0.24
@@ -98,15 +142,11 @@ class JointDistribution(pd.DataFrame):
         """
         marginal = self.marginal(label).as_matrix()
         if label == self._X_column_label:
-            x_labels = list(self)
             prob = marginal[-1, :]
-            domain = [evaluate(lab) for lab in x_labels]
-            return Table().values(domain).probability(prob)
         else:
-            y_labels = list(self.index)
             prob = marginal[:, -1]
-            domain = [evaluate(lab) for lab in y_labels]
-            return Table().values(domain).probability(prob)
+        domain = self.get_possible_values(label)
+        return Table().values(domain).probability(prob)
 
     def both_marginals(self):
         """
@@ -118,7 +158,7 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> dist1 = Table().values([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).to_joint()
+        >>> dist1 = Table().values([0, 1], [2, 3]).probability([0.1, 0.2, 0.3, 0.4]).to_joint()
         >>> dist1.both_marginals()
                             X=0  X=1  Sum: Marginal of Y
         Y=3                 0.2  0.4                 0.6
@@ -148,21 +188,22 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> coins = Table().values('Coin1',['H','T'],'Coin2', ['H','T']).probability(np.array([0.24, 0.36, 0.16,0.24])).to_joint()
-        >>> coins.conditional_dist('Coin1','Coin2')
+        >>> coins = Table().values('Coin1', ['H', 'T'], 'Coin2', ['H','T']).probability(np.array([0.24, 0.36, 0.16,0.24])).to_joint()
+        >>> coins.conditional_dist('Coin1', 'Coin2')
                                   Coin1=H  Coin1=T  Sum
         Dist. of Coin1 | Coin2=H      0.6      0.4  1.0
         Dist. of Coin1 | Coin2=T      0.6      0.4  1.0
         Marginal of Coin1             0.6      0.4  1.0
-        >>> coins.conditional_dist('Coin2','Coin1')
+        >>> coins.conditional_dist('Coin2', 'Coin1')
                  Dist. of Coin2 | Coin1=H  Dist. of Coin2 | Coin1=T  Marginal of Coin2
         Coin2=H                       0.4                       0.4                0.4
         Coin2=T                       0.6                       0.6                0.6
         Sum                           1.0                       1.0                1.0
         """
+        # TODO Refactor this function.
         if label == self._Y_column_label:
             both = self.both_marginals()
-            new = np.append(both.index[0:-1], 'Sum')
+            new = np.append(both.index[0: -1], 'Sum')
             y = both.apply(conditional, axis=0).set_index(new)
             matrix = y.as_matrix()[:-1, :]
             y_labels = list(self.index)
@@ -270,7 +311,6 @@ def to_joint(table, X_column_label=None, Y_column_label=None,
              Coin1=H  Coin1=T
     Coin2=T     0.36     0.24
     Coin2=H     0.24     0.16
-
     """
     assert table.num_columns >= 3, (
         'You must have columns for your X variable, for your Y variable, and '

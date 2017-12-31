@@ -9,7 +9,7 @@ Written for `Prob140 (prob140.org) <prob140.org>`_  by Jason Zhang and Dibya Gho
 Pykov Module written by `Riccardo Scalco <https://github.com/riccardoscalco/Pykov>`_. Included in library with permission.
 
 
-For documentation and examples, visit `https://probability.gitlab.io/prob140/html/ <https://probability.gitlab.io/prob140/html/>`_
+For documentation and examples, visit `https://probability.gitlab.io/prob140/ <https://probability.gitlab.io/prob140/>`_
 
 .. image:: https://gitlab.com/probability/prob140/badges/master/build.svg
     :target: https://gitlab.com/probability/prob140/pipelines
