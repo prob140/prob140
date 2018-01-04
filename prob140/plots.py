@@ -1,7 +1,6 @@
 import ipywidgets as widgets
 from ipywidgets import interact
 import matplotlib.pyplot as plt
-import mpl_toolkits.mplot3d.axes3d as axes3d
 import numpy as np
 import scipy.stats as stats
 from sympy import lambdify, symbols

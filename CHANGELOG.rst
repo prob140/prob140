@@ -12,7 +12,7 @@ v0.3.0.0
   * Table.expected_value -> Table.ev
   * Table.variance -> Table.var
 
-* Unit Tests! Bumped to around 50% code coverage.
+* Unit Tests! Bumped to around 66% code coverage.
 
 v0.2.9.0 (2017-03-19)
 ---------------------

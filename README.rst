@@ -6,9 +6,6 @@ A Berkeley library for probability theory.
 
 Written for `Prob140 (prob140.org) <prob140.org>`_  by Jason Zhang and Dibya Ghosh.
 
-Pykov Module written by `Riccardo Scalco <https://github.com/riccardoscalco/Pykov>`_. Included in library with permission.
-
-
 For documentation and examples, visit `https://probability.gitlab.io/prob140/ <https://probability.gitlab.io/prob140/>`_
 
 .. image:: https://gitlab.com/probability/prob140/badges/master/build.svg
