@@ -35,6 +35,7 @@ Table.sd = sd
 Table.to_joint = to_joint
 Table.sample_from_dist = sample_from_dist
 Table.cdf = cdf
+Table.remove_zeros = remove_zeros
 
 # Markov Chain stuff
 Table.to_markov_chain = to_markov_chain

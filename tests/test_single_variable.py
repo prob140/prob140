@@ -112,3 +112,8 @@ def test_sd():
     assert_approx_equal(UNIFORM_DIST.sd(), np.sqrt(833.25))
     assert_approx_equal(NEGATIVE_DIST.sd(), np.sqrt(1.25))
     assert_approx_equal(NONINTEGER_DIST.sd(), np.sqrt(1.25))
+
+
+def test_remove_zeros():
+    dist = Table().values([2, 3, 4, 5]).probability([0.5, 0.0, 0.5, 0])
+    assert dist.remove_zeros().num_rows == 2

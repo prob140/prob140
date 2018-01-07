@@ -4,6 +4,7 @@ import math
 import warnings
 
 from datascience import (
+    are,
     make_array,
     Table,
 )
@@ -23,18 +24,20 @@ def check_valid_probability_table(table):
     assert all(table.column(1) >= 0), 'Probabilities must be non-negative'
 
 
-def _bin(dist, width=1, start=None):
+def _bin(dist, width=1, start=None, num_bins=-1):
     """
     Helper function that bins a distribution for plotting
 
     Parameters
     ----------
     dist : Table
-        Distribution that needs to be binned
+        Distribution that needs to be binned.
     width (optional) : float
-        Width of each bin. Default is 1
+        Width of each bin. (Default: 1)
     start (optional) : float
-        Where to start first bin. Defaults to the minimum value of the domain
+        Where to start first bin. (Default: minimum value of the domain.)
+    num_bins (optional): int
+        Number of bins. (Default: minimum number of bins to span domain)
 
     Returns
     -------
@@ -43,35 +46,34 @@ def _bin(dist, width=1, start=None):
 
     Examples
     --------
-    >>> x = Table().values([0, 0.5, 1]).probability([1/3, 1/3, 1/3])
+    >>> x = Table().values([0, 0.5, 1]).probability([1 / 3, 1 / 3, 1 / 3])
     >>> _bin(x)
     (array([ 0.,  1.]), array([ 0.66666667,  0.33333333]))
     >>> _bin(x, width=0.5)
     (array([ 0. ,  0.5,  1. ]), array([ 0.33333333,  0.33333333,  0.33333333]))
     """
+
     domain = dist.column(0)
     prob = dist.column(1)
 
     if start is None:
         start = min(domain)
+    if num_bins < 0:
+        num_bins = max(num_bins, math.ceil((max(domain) - start) / width) + 1)
 
-    num_bins = math.ceil((max(domain) - start) / width) + 1
-
-    new_domain = np.arange(start, start + width * num_bins, width)
-
+    new_domain = np.arange(start, start + width * num_bins, width)[:num_bins]
     new_prob = np.zeros(num_bins)
 
     for i in range(len(domain)):
-        index = math.ceil((domain[i] - start - width/2) / width)
+        index = math.ceil((domain[i] - start - width / 2) / width)
         new_prob[index] += prob[i]
-
     return new_domain, new_prob
 
 
-def Plot(dist, width=1, mask=(), event=(), edges=None, show_ev=False,
-         show_ave=False, show_sd=False, **vargs):
+def Plot(dist, width=1, event=(), edges=None, show_ev=False, show_ave=False,
+         show_sd=False, **vargs):
     """
-    Plots the histogram for a single distribution
+    Plots the histogram for a single distribution.
 
     Parameters
     ----------
@@ -79,9 +81,6 @@ def Plot(dist, width=1, mask=(), event=(), edges=None, show_ev=False,
         A 2-column table representing a probability distribution.
     width (optional) : float
         Width of the intervals (default: 1)
-    mask (optional) : boolean array or list of boolean arrays
-        Colors the parts of the histogram associated with each mask.
-        (default: no mask)
     edges (optional) : boolean
         If True, there will be a small border around the bars. If False, there
         will be no border. (default: small border unless there more than 75
@@ -97,32 +96,37 @@ def Plot(dist, width=1, mask=(), event=(), edges=None, show_ev=False,
     vargs
         See pyplot's additional optional arguments.
     """
+    # Basic sanity checks.
+    check_valid_probability_table(dist)
+    dist = dist.remove_zeros()
 
     domain_label = dist.labels[0]
     dist = dist.sort(domain_label)
     domain, prob = _bin(dist, width)
 
+    # Default plot attributes.
     options = {'width': width, 'lw': 0, 'alpha': 0.7, 'align': 'center'}
+
+    # Set edges.
     if edges or len(domain) < 75:
         options['lw'] = 0.5
     if not edges and edges is not None:  # edges could be none
         options['lw'] = 0
     options.update(vargs)
 
-    check_valid_probability_table(dist)
-
     if len(event) != 0:
+        # Events.
 
         domain = set(dist.column(0))
-
         def prob(x):
             return np.array([dist.prob_event(a) for a in list(x)])
 
         if isinstance(event[0], collections.Iterable):
-            # If event is a list of lists
+            # If event is a list of lists.
             colors = list(itertools.islice(itertools.cycle(dist.chart_colors),
                                            len(event) + 1))
             for i in range(len(event)):
+                # Cycle through each event and remove from the events set.
                 plt.bar(event[i], prob(event[i]) * 100,
                         color=colors[i], **options)
                 domain -= set(event[i])
@@ -130,62 +134,49 @@ def Plot(dist, width=1, mask=(), event=(), edges=None, show_ev=False,
             domain = np.array(list(domain))
             plt.bar(domain, prob(domain) * 100, color=colors[-1], **options)
         else:
-            # If event is just a list
+            # If event is just a list.
             plt.bar(event, prob(event) * 100, color='gold', **options)
             domain = np.array(list(set(dist.column(0)) - set(event)))
             plt.bar(domain, prob(domain) * 100, color='darkblue', **options)
 
-    elif len(mask) == 0:
-        # no mask or event
-        plt.bar(domain, prob * 100, color='darkblue', **options)
     else:
-        if isinstance(mask[0], collections.Iterable):
-            # If mask is a list of lists
-            colors = list(itertools.islice(itertools.cycle(dist.chart_colors),
-                                           len(mask)))
-            for i in range(len(mask)):
-                plt.bar(domain[mask[i]], prob[mask[i]] * 100,
-                        color=colors[i], **options)
-        else:
-            # If mask is just a list
-            plt.bar(domain[mask], prob[mask] * 100,
-                    color='darkblue', **options)
-            plt.bar(domain[np.logical_not(mask)],
-                    prob[np.logical_not(mask)] * 100, color='gold', **options)
+        # No event.
+        plt.bar(domain, prob * 100, color='darkblue', **options)
 
     plt.xlabel(domain_label)
     plt.ylabel('Percent per unit')
 
-    mindistance = 0.9 * max(min([dist.column(0)[i] - dist.column(0)[i - 1]
-                                 for i in range(1, dist.num_rows)]), 1)
+    # The minimum distance between any two values.
+    min_distance = 0.9 * min([dist.column(0)[i] - dist.column(0)[i - 1]
+                             for i in range(1, dist.num_rows)])
 
-    plt.xlim((min(dist.column(0)) - mindistance - width / 2,
-              max(dist.column(0)) + mindistance + width / 2))
+    plt.xlim((min(dist.column(0)) - min_distance - width / 2,
+              max(dist.column(0)) + min_distance + width / 2))
+    plt.ylim(0, max(dist.column(1)) * 110)
 
+    # Markers.
     if show_ev or show_ave:
-        plt.text(dist.expected_value(), 0, '^', horizontalalignment='center',
+        plt.text(dist.ev(), 0, '^', horizontalalignment='center',
                  verticalalignment='top', size=30, color='red')
-
     if show_sd:
-        plt.text(dist.expected_value() - dist.sd(), 0, '^',
+        plt.text(dist.ev() - dist.sd(), 0, '^',
                  horizontalalignment='center', verticalalignment='top',
                  size=30, color='blue')
-        plt.text(dist.expected_value() + dist.sd(), 0, '^',
+        plt.text(dist.ev() + dist.sd(), 0, '^',
                  horizontalalignment='center', verticalalignment='top',
                  size=30, color='blue')
 
 
 def Plots(*labels_and_dists, width=1, edges=None, **vargs):
     """
-    Overlays histograms for multiply probability distributions together.
+    Overlays histograms for multiple probability distributions together.
 
     Parameters
     ----------
-    labels_and_dists : Even number of alternations between Strings and
-        Tables
-        Each distribution must have a label associated with it
+    labels_and_dists : Even number of alternations between Strings and Tables
+        Each distribution must have a label associated with it.
     width (optional) : float
-        Width of the intervals (default: 1)
+        Width of the intervals. (default: 1)
     edges : bool
         If True, there will be a small border around the bars. If False, there
         will be no border. (default: small border unless there more than 75
@@ -200,20 +191,30 @@ def Plots(*labels_and_dists, width=1, edges=None, **vargs):
     >>> Plots('Distribution1', dist1, 'Distribution2', dist2)
     <histogram with dist1 and dist2>
     """
-
     assert len(labels_and_dists) % 2 == 0, 'Even length sequence required'
 
-    i = 0
+    # Find the union of the domain of all plotted distributions.
     domain = set()
-    while i < len(labels_and_dists):
-        dist = labels_and_dists[i + 1]
+    distributions = []
+    for i in np.arange(1, len(labels_and_dists) + 1, 2):
+        dist = labels_and_dists[i]
+        assert isinstance(dist, Table), \
+            'Argument {} must be a distribution'.format(i)
         check_valid_probability_table(dist)
+        distributions.append(dist.remove_zeros())
+        domain = domain.union(distributions[-1].column(0))
+    domain = np.sort(list(domain))
 
-        domain = domain.union(dist.column(0))
-        i += 2
+    # Find the and bin the probabilities corresponding to each value in domain
+    # for each distribution.
+    probabilities = []
+    start = min(domain)
+    num_bins = math.ceil((max(domain) - start) / width) + 1
+    for dist in distributions:
+        domain, prob = _bin(dist, width, start, num_bins)
+        probabilities.append(np.array(prob))
 
-    domain = np.array(list(domain))
-
+    # Set the plot attributes.
     options = {'width': width, 'lw': 0, 'alpha': 0.7, 'align': 'center'}
     if edges or len(domain) < 75:
         options['lw'] = 0.5
@@ -221,36 +222,20 @@ def Plots(*labels_and_dists, width=1, edges=None, **vargs):
         options['lw'] = 0
     options.update(vargs)
 
-    i = 0
-    distributions = []
-    while i < len(labels_and_dists):
-        distributions.append(labels_and_dists[i])
-        dist = labels_and_dists[i + 1]
-        probability = np.vectorize(lambda x: prob_event(dist, x),
-                                   otypes=[np.float])(domain)
-        distributions.append(probability)
-        i += 2
+    n = len(distributions)
+    colors = list(itertools.islice(itertools.cycle(Table.chart_colors), n))
 
-    result = Table().with_columns(*distributions)
-
-    result.chart_colors = Table.chart_colors
-
-    num = len(labels_and_dists) // 2
-
-    colors = list(itertools.islice(itertools.cycle(Table.chart_colors), num))
-    for i in range(num):
-        plt.bar(domain, distributions[i * 2 + 1] * 100, color=colors[i],
-                label=distributions[i * 2], **options)
+    for i in range(n):
+        plt.bar(domain, probabilities[i] * 100, color=colors[i],
+                label=labels_and_dists[i * 2], **options)
 
     plt.legend(loc=2, bbox_to_anchor=(1.05, 1))
 
-    domain = np.sort(domain)
-
-    mindistance = 0.9 * max(min([domain[i] - domain[i - 1]
+    min_distance = 0.9 * max(min([domain[i] - domain[i - 1]
                                  for i in range(1, len(domain))]), 1)
 
-    plt.xlim((min(domain) - mindistance - width / 2,
-              max(domain) + mindistance + width / 2))
+    plt.xlim((min(domain) - min_distance - width / 2,
+              max(domain) + min_distance + width / 2))
 
     plt.xlabel('Value')
     plt.ylabel('Percent per unit')
@@ -629,7 +614,7 @@ def var(self):
 
 def sd(self):
     """
-    Finds standard deviation of Distribution
+    Finds standard deviation of Distribution.
 
     Returns
     -------
@@ -643,6 +628,32 @@ def sd(self):
     0.9
     """
     return math.sqrt(self.var())
+
+
+def remove_zeros(self):
+    """
+    Removes all values with zero probability from the Distribution.
+
+    Returns
+    -------
+    Distribution
+
+    Examples
+    --------
+    >>> dist = Table().values([2, 3, 4, 5]).probability([0.5, 0, 0.5, 0])
+    >>> dist
+    Value | Probability
+    2     | 0.5
+    3     | 0
+    4     | 0.5
+    5     | 0
+    >>> dist.remove_zeros()
+    Value | Probability
+    2     | 0.5
+    4     | 0.5
+    """
+    check_valid_probability_table(self)
+    return self.where(1, are.above(0))
 
 
 def emp_dist(values):
