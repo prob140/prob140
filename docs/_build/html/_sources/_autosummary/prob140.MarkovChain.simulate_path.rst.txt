@@ -1,5 +1,5 @@
-prob140.MarkovChain.simulate_path
-=================================
+prob140\.MarkovChain\.simulate\_path
+====================================
 
 .. currentmodule:: prob140
 

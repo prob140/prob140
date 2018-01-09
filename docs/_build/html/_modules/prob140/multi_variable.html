@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.multi_variable &mdash; prob140 0.3.0.0 documentation</title>
+    <title>prob140.multi_variable &mdash; prob140 0.3.1.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.3.0.0',
+        VERSION:     '0.3.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,11 +23,11 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" >
     <link rel="search" title="Search" href="../../search.html" >
-    <link rel="top" title="prob140 0.3.0.0 documentation" href="../../index.html" >
+    <link rel="top" title="prob140 0.3.1.1 documentation" href="../../index.html" >
     <link rel="up" title="Module code" href="../index.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="../../index.html">prob140 0.3.0.0 documentation</a></li>
+        <li class="active"><a href="../../index.html">prob140 0.3.1.1 documentation</a></li>
 	
           <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -91,7 +91,7 @@
 
 
 <span class="k">def</span> <span class="nf">conditional</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
-    <span class="n">value</span> <span class="o">=</span> <span class="n">array</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">array</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">value</span>
 
 
@@ -109,11 +109,9 @@
 <span class="sd">    -------</span>
 <span class="sd">    String, int, float</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">index</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-        <span class="n">index</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:])</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">name</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span>
@@ -121,9 +119,55 @@
 
 <div class="viewcode-block" id="JointDistribution"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution">[docs]</a><span class="k">class</span> <span class="nc">JointDistribution</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
 
+<div class="viewcode-block" id="JointDistribution.from_table"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.from_table">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a JointDistribution from a Table.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        table : Table</span>
+<span class="sd">            3-column table with RV1, RV2, and joint probability</span>
+<span class="sd">        reverse : bool (optional)</span>
+<span class="sd">            If True, vertical random variables are reversed. (Default: True)</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        JointDistribution</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">table</span><span class="o">.</span><span class="n">to_joint</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="n">reverse</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="JointDistribution.get_possible_values"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.get_possible_values">[docs]</a>    <span class="k">def</span> <span class="nf">get_possible_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the possible values. If a label is given, returns the values for</span>
+<span class="sd">        that random variable. Automatically converts to float/int if relevant.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        label : str</span>
+<span class="sd">            Name of random variable.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        List of values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span> <span class="ow">or</span> <span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">evaluate</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span> <span class="k">for</span> <span class="n">lab</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Y_column_label</span> <span class="ow">or</span> <span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+            <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">evaluate</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span> <span class="k">for</span> <span class="n">lab</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> \
+               <span class="s1">&#39;Label does not correspond with existing variable name&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">values</span></div>
+
 <div class="viewcode-block" id="JointDistribution.marginal"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.marginal">[docs]</a>    <span class="k">def</span> <span class="nf">marginal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the marginal distribution of label</span>
+<span class="sd">        Returns the marginal distribution of label.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -137,7 +181,7 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; dist2 = Table().values(&#39;Coin1&#39;,[&#39;H&#39;,&#39;T&#39;],&#39;Coin2&#39;, [&#39;H&#39;,&#39;T&#39;]).probability(np.array([0.24, 0.36, 0.16, 0.24])).to_joint()</span>
+<span class="sd">        &gt;&gt;&gt; dist2 = Table().values(&#39;Coin1&#39;, [&#39;H&#39;, &#39;T&#39;], &#39;Coin2&#39;, [&#39;H&#39;, &#39;T&#39;]).probability(np.array([0.24, 0.36, 0.16, 0.24])).to_joint()</span>
 <span class="sd">        &gt;&gt;&gt; dist2.marginal(&#39;Coin1&#39;)</span>
 <span class="sd">                                Coin1=H  Coin1=T</span>
 <span class="sd">        Coin2=T                    0.36     0.24</span>
@@ -178,15 +222,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">marginal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="n">label</span><span class="p">)</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span><span class="p">:</span>
-            <span class="n">x_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">prob</span> <span class="o">=</span> <span class="n">marginal</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
-            <span class="n">domain</span> <span class="o">=</span> <span class="p">[</span><span class="n">evaluate</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span> <span class="k">for</span> <span class="n">lab</span> <span class="ow">in</span> <span class="n">x_labels</span><span class="p">]</span>
-            <span class="k">return</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">y_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
             <span class="n">prob</span> <span class="o">=</span> <span class="n">marginal</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">domain</span> <span class="o">=</span> <span class="p">[</span><span class="n">evaluate</span><span class="p">(</span><span class="n">lab</span><span class="p">)</span> <span class="k">for</span> <span class="n">lab</span> <span class="ow">in</span> <span class="n">y_labels</span><span class="p">]</span>
-            <span class="k">return</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span></div>
+        <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_possible_values</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="JointDistribution.both_marginals"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.both_marginals">[docs]</a>    <span class="k">def</span> <span class="nf">both_marginals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -198,7 +238,7 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; dist1 = Table().values([0,1],[2,3]).probability([0.1, 0.2, 0.3, 0.4]).to_joint()</span>
+<span class="sd">        &gt;&gt;&gt; dist1 = Table().values([0, 1], [2, 3]).probability([0.1, 0.2, 0.3, 0.4]).to_joint()</span>
 <span class="sd">        &gt;&gt;&gt; dist1.both_marginals()</span>
 <span class="sd">                            X=0  X=1  Sum: Marginal of Y</span>
 <span class="sd">        Y=3                 0.2  0.4                 0.6</span>
@@ -228,21 +268,22 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; coins = Table().values(&#39;Coin1&#39;,[&#39;H&#39;,&#39;T&#39;],&#39;Coin2&#39;, [&#39;H&#39;,&#39;T&#39;]).probability(np.array([0.24, 0.36, 0.16,0.24])).to_joint()</span>
-<span class="sd">        &gt;&gt;&gt; coins.conditional_dist(&#39;Coin1&#39;,&#39;Coin2&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; coins = Table().values(&#39;Coin1&#39;, [&#39;H&#39;, &#39;T&#39;], &#39;Coin2&#39;, [&#39;H&#39;,&#39;T&#39;]).probability(np.array([0.24, 0.36, 0.16,0.24])).to_joint()</span>
+<span class="sd">        &gt;&gt;&gt; coins.conditional_dist(&#39;Coin1&#39;, &#39;Coin2&#39;)</span>
 <span class="sd">                                  Coin1=H  Coin1=T  Sum</span>
 <span class="sd">        Dist. of Coin1 | Coin2=H      0.6      0.4  1.0</span>
 <span class="sd">        Dist. of Coin1 | Coin2=T      0.6      0.4  1.0</span>
 <span class="sd">        Marginal of Coin1             0.6      0.4  1.0</span>
-<span class="sd">        &gt;&gt;&gt; coins.conditional_dist(&#39;Coin2&#39;,&#39;Coin1&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; coins.conditional_dist(&#39;Coin2&#39;, &#39;Coin1&#39;)</span>
 <span class="sd">                 Dist. of Coin2 | Coin1=H  Dist. of Coin2 | Coin1=T  Marginal of Coin2</span>
 <span class="sd">        Coin2=H                       0.4                       0.4                0.4</span>
 <span class="sd">        Coin2=T                       0.6                       0.6                0.6</span>
 <span class="sd">        Sum                           1.0                       1.0                1.0</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO Refactor this function.</span>
         <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Y_column_label</span><span class="p">:</span>
             <span class="n">both</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
-            <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">both</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;Sum&#39;</span><span class="p">)</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">both</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;Sum&#39;</span><span class="p">)</span>
             <span class="n">y</span> <span class="o">=</span> <span class="n">both</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">conditional</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
             <span class="n">matrix</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
             <span class="n">y_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
@@ -350,7 +391,6 @@
 <span class="sd">             Coin1=H  Coin1=T</span>
 <span class="sd">    Coin2=T     0.36     0.24</span>
 <span class="sd">    Coin2=H     0.24     0.16</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">assert</span> <span class="n">table</span><span class="o">.</span><span class="n">num_columns</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">,</span> <span class="p">(</span>
         <span class="s1">&#39;You must have columns for your X variable, for your Y variable, and &#39;</span>
@@ -417,7 +457,7 @@
         &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
       </li>
       <li>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.6.
       </li>
     </ul>
     </div>

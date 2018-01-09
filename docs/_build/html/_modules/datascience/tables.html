@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>datascience.tables &mdash; prob140 0.3.0.0 documentation</title>
+    <title>datascience.tables &mdash; prob140 0.3.1.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.3.0.0',
+        VERSION:     '0.3.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,11 +23,11 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" >
     <link rel="search" title="Search" href="../../search.html" >
-    <link rel="top" title="prob140 0.3.0.0 documentation" href="../../index.html" >
+    <link rel="top" title="prob140 0.3.1.1 documentation" href="../../index.html" >
     <link rel="up" title="Module code" href="../index.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="../../index.html">prob140 0.3.0.0 documentation</a></li>
+        <li class="active"><a href="../../index.html">prob140 0.3.1.1 documentation</a></li>
 	
           <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -145,8 +145,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">exclude</span> <span class="o">=</span> <span class="n">_RowExcluder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="c1"># Deprecated</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Table.empty"><a class="viewcode-back" href="../../table.html#prob140.Table.empty">[docs]</a>    <span class="k">def</span> <span class="nf">empty</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Table.empty"><a class="viewcode-back" href="../../table.html#prob140.Table.empty">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">empty</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Creates an empty table. Column labels are optional. [Deprecated]</span>
 
 <span class="sd">        Args:</span>
@@ -165,14 +165,14 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span></div>
 
     <span class="c1"># Deprecated</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Table.from_rows"><a class="viewcode-back" href="../../table.html#prob140.Table.from_rows">[docs]</a>    <span class="k">def</span> <span class="nf">from_rows</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+<div class="viewcode-block" id="Table.from_rows"><a class="viewcode-back" href="../../table.html#prob140.Table.from_rows">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_rows</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Create a table from a sequence of rows (fixed-length sequences). [Deprecated]&quot;&quot;&quot;</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Table.from_rows is deprecated. Use Table(labels).with_rows(...)&quot;</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">with_rows</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Table.from_records"><a class="viewcode-back" href="../../table.html#prob140.Table.from_records">[docs]</a>    <span class="k">def</span> <span class="nf">from_records</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">records</span><span class="p">):</span>
+<div class="viewcode-block" id="Table.from_records"><a class="viewcode-back" href="../../table.html#prob140.Table.from_records">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_records</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">records</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Create a table from a sequence of records (dicts with fixed keys).&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">records</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="p">()</span>
@@ -181,14 +181,14 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">columns</span><span class="p">))</span></div>
 
     <span class="c1"># Deprecated</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Table.from_columns_dict"><a class="viewcode-back" href="../../table.html#prob140.Table.from_columns_dict">[docs]</a>    <span class="k">def</span> <span class="nf">from_columns_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
+<div class="viewcode-block" id="Table.from_columns_dict"><a class="viewcode-back" href="../../table.html#prob140.Table.from_columns_dict">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_columns_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Create a table from a mapping of column labels to column values. [Deprecated]&quot;&quot;&quot;</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Table.from_columns_dict is deprecated. Use Table().with_columns(...)&quot;</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="n">columns</span><span class="o">.</span><span class="n">items</span><span class="p">())</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Table.read_table"><a class="viewcode-back" href="../../table.html#prob140.Table.read_table">[docs]</a>    <span class="k">def</span> <span class="nf">read_table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Table.read_table"><a class="viewcode-back" href="../../table.html#prob140.Table.read_table">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_table</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Read a table from a file or web address.</span>
 
 <span class="sd">        filepath_or_buffer -- string or file handle / StringIO; The string</span>
@@ -226,8 +226,8 @@
         <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_formats</span><span class="p">:</span>
             <span class="n">table</span><span class="o">.</span><span class="n">_formats</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_formats</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Table.from_df"><a class="viewcode-back" href="../../table.html#prob140.Table.from_df">[docs]</a>    <span class="k">def</span> <span class="nf">from_df</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+<div class="viewcode-block" id="Table.from_df"><a class="viewcode-back" href="../../table.html#prob140.Table.from_df">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_df</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convert a Pandas DataFrame into a Table.&quot;&quot;&quot;</span>
         <span class="n">t</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
@@ -235,8 +235,8 @@
             <span class="n">t</span><span class="o">.</span><span class="n">append_column</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">label</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">t</span></div>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Table.from_array"><a class="viewcode-back" href="../../table.html#prob140.Table.from_array">[docs]</a>    <span class="k">def</span> <span class="nf">from_array</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">arr</span><span class="p">):</span>
+<div class="viewcode-block" id="Table.from_array"><a class="viewcode-back" href="../../table.html#prob140.Table.from_array">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_array</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">arr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Convert a structured NumPy array into a Table.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">([(</span><span class="n">f</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="n">f</span><span class="p">])</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">names</span><span class="p">])</span></div>
 
@@ -333,9 +333,8 @@
 <span class="sd">        ...     &#39;count&#39;,  make_array(2, 4),</span>
 <span class="sd">        ... )</span>
 
-<span class="sd">        &gt;&gt;&gt; tiles.column(&#39;letter&#39;)</span>
-<span class="sd">        array([&#39;c&#39;, &#39;d&#39;],</span>
-<span class="sd">              dtype=&#39;&lt;U1&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; list(tiles.column(&#39;letter&#39;))</span>
+<span class="sd">        [&#39;c&#39;, &#39;d&#39;]</span>
 <span class="sd">        &gt;&gt;&gt; tiles.column(1)</span>
 <span class="sd">        array([2, 4])</span>
 
@@ -549,8 +548,7 @@
 <span class="sd">        &gt;&gt;&gt; table.append_column(&#39;bad_col&#39;, [1, 2])</span>
 <span class="sd">        Traceback (most recent call last):</span>
 <span class="sd">            ...</span>
-<span class="sd">        ValueError: Column length mismatch. New column does not have the same</span>
-<span class="sd">        number of rows as table.</span>
+<span class="sd">        ValueError: Column length mismatch. New column does not have the same number of rows as table.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO(sam): Allow append_column to take in a another table, copying</span>
         <span class="c1"># over formatter as needed.</span>
@@ -1273,9 +1271,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            New table self joined with ``other`` by matching values in</span>
 <span class="sd">            ``column_label`` and ``other_label``. If the resulting join is</span>
-<span class="sd">            empty, returns None. If a join value appears more than once in</span>
-<span class="sd">            ``self``, each row with that value will appear in resulting join,</span>
-<span class="sd">            but in ``other``, only the first row with that value will be used.</span>
+<span class="sd">            empty, returns None.</span>
 
 <span class="sd">        &gt;&gt;&gt; table = Table().with_columns(&#39;a&#39;, make_array(9, 3, 3, 1),</span>
 <span class="sd">        ...     &#39;b&#39;, make_array(1, 2, 2, 10),</span>
@@ -1298,10 +1294,14 @@
 <span class="sd">        &gt;&gt;&gt; table.join(&#39;a&#39;, table2)</span>
 <span class="sd">        a    | b    | c    | d    | e</span>
 <span class="sd">        1    | 10   | 6    | 2    | 4</span>
+<span class="sd">        1    | 10   | 6    | 2    | 5</span>
+<span class="sd">        1    | 10   | 6    | 10   | 6</span>
 <span class="sd">        9    | 1    | 3    | 1    | 3</span>
 <span class="sd">        &gt;&gt;&gt; table.join(&#39;a&#39;, table2, &#39;a&#39;) # Equivalent to previous join</span>
 <span class="sd">        a    | b    | c    | d    | e</span>
 <span class="sd">        1    | 10   | 6    | 2    | 4</span>
+<span class="sd">        1    | 10   | 6    | 2    | 5</span>
+<span class="sd">        1    | 10   | 6    | 10   | 6</span>
 <span class="sd">        9    | 1    | 3    | 1    | 3</span>
 <span class="sd">        &gt;&gt;&gt; table.join(&#39;a&#39;, table2, &#39;d&#39;) # Repeat column labels relabeled</span>
 <span class="sd">        a    | b    | c    | a_2  | e</span>
@@ -1318,16 +1318,6 @@
 <span class="sd">        3    | 2    | 4</span>
 <span class="sd">        3    | 2    | 5</span>
 <span class="sd">        1    | 10   | 6</span>
-<span class="sd">        &gt;&gt;&gt; table2.join(&#39;a&#39;, table) # When we join, we get all three rows in table2 where a = 1</span>
-<span class="sd">        a    | d    | e    | b    | c</span>
-<span class="sd">        1    | 2    | 4    | 10   | 6</span>
-<span class="sd">        1    | 2    | 5    | 10   | 6</span>
-<span class="sd">        1    | 10   | 6    | 10   | 6</span>
-<span class="sd">        9    | 1    | 3    | 1    | 3</span>
-<span class="sd">        &gt;&gt;&gt; table.join(&#39;a&#39;, table2) # Opposite join only keeps first row in table2 with a = 1</span>
-<span class="sd">        a    | b    | c    | d    | e</span>
-<span class="sd">        1    | 10   | 6    | 2    | 4</span>
-<span class="sd">        9    | 1    | 3    | 1    | 3</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_rows</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">other</span><span class="o">.</span><span class="n">num_rows</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -1339,10 +1329,9 @@
 
         <span class="c1"># Gather joined rows from self_rows that have join values in other_rows</span>
         <span class="n">joined_rows</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">self_rows</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">other_rows</span><span class="p">:</span>
-                <span class="n">other_row</span> <span class="o">=</span> <span class="n">other_rows</span><span class="p">[</span><span class="n">label</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">joined_rows</span> <span class="o">+=</span> <span class="p">[</span><span class="n">row</span> <span class="o">+</span> <span class="n">other_row</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">self_rows</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">other_rows</span><span class="p">:</span>
+                <span class="n">joined_rows</span> <span class="o">+=</span> <span class="p">[</span><span class="n">row</span> <span class="o">+</span> <span class="n">o</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">other_rows</span><span class="p">[</span><span class="n">v</span><span class="p">]]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">joined_rows</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
@@ -2100,7 +2089,7 @@
 <span class="sd">        one plot is produced for every other column (or for the columns</span>
 <span class="sd">        designated by `select`).</span>
 
-<span class="sd">        Every selected except column for `column_for_categories` must be numerical.</span>
+<span class="sd">        Every selected column except `column_for_categories` must be numerical.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            column_for_categories (str): A column containing x-axis categories</span>
@@ -2131,6 +2120,35 @@
                 <span class="n">axis</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">tick_labels</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="s1">&#39;ultra-condensed&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_visualize</span><span class="p">(</span><span class="n">column_for_categories</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">xticks</span><span class="p">,</span> <span class="n">overlay</span><span class="p">,</span> <span class="n">draw</span><span class="p">,</span> <span class="n">annotate</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Table.group_bar"><a class="viewcode-back" href="../../table.html#prob140.Table.group_bar">[docs]</a>    <span class="k">def</span> <span class="nf">group_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column_label</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot a bar chart for the table.</span>
+
+<span class="sd">        The values of the specified column are grouped and counted, and one</span>
+<span class="sd">        bar is produced for each group.</span>
+
+<span class="sd">        Note: This differs from ``bar`` in that there is no need to specify</span>
+<span class="sd">        bar heights; the height of a category&#39;s bar is the number of copies</span>
+<span class="sd">        of that category in the given column.  This method behaves more like</span>
+<span class="sd">        ``hist`` in that regard, while ``bar`` behaves more like ``plot`` or</span>
+<span class="sd">        ``scatter`` (which require the height of each point to be specified).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ``column_label`` (str or int): The name or index of a column</span>
+
+<span class="sd">        Kwargs:</span>
+<span class="sd">            overlay (bool): create a chart with one color per data column;</span>
+<span class="sd">                if False, each will be displayed separately.</span>
+
+<span class="sd">            width (float): The width of the plot, in inches</span>
+<span class="sd">            height (float): The height of the plot, in inches</span>
+
+<span class="sd">            vargs: Additional arguments that get passed into `plt.bar`.</span>
+<span class="sd">                See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.bar</span>
+<span class="sd">                for additional arguments that can be passed into vargs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">column_label</span><span class="p">)</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">column_label</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Table.barh"><a class="viewcode-back" href="../../table.html#prob140.Table.barh">[docs]</a>    <span class="k">def</span> <span class="nf">barh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column_for_categories</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">overlay</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Plot horizontal bar charts for the table.</span>
@@ -2211,6 +2229,36 @@
             <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_visualize</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">yticks</span><span class="p">,</span> <span class="n">overlay</span><span class="p">,</span> <span class="n">draw</span><span class="p">,</span> <span class="n">annotate</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Table.group_barh"><a class="viewcode-back" href="../../table.html#prob140.Table.group_barh">[docs]</a>    <span class="k">def</span> <span class="nf">group_barh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column_label</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot a horizontal bar chart for the table.</span>
+
+<span class="sd">        The values of the specified column are grouped and counted, and one</span>
+<span class="sd">        bar is produced for each group.</span>
+
+<span class="sd">        Note: This differs from ``barh`` in that there is no need to specify</span>
+<span class="sd">        bar heights; the size of a category&#39;s bar is the number of copies</span>
+<span class="sd">        of that category in the given column.  This method behaves more like</span>
+<span class="sd">        ``hist`` in that regard, while ``barh`` behaves more like ``plot`` or</span>
+<span class="sd">        ``scatter`` (which require the second coordinate of each point to be</span>
+<span class="sd">        specified in another column).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ``column_label`` (str or int): The name or index of a column</span>
+
+<span class="sd">        Kwargs:</span>
+<span class="sd">            overlay (bool): create a chart with one color per data column;</span>
+<span class="sd">                if False, each will be displayed separately.</span>
+
+<span class="sd">            width (float): The width of the plot, in inches</span>
+<span class="sd">            height (float): The height of the plot, in inches</span>
+
+<span class="sd">            vargs: Additional arguments that get passed into `plt.bar`.</span>
+<span class="sd">                See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.bar</span>
+<span class="sd">                for additional arguments that can be passed into vargs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">column_label</span><span class="p">)</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">column_label</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Table.scatter"><a class="viewcode-back" href="../../table.html#prob140.Table.scatter">[docs]</a>    <span class="k">def</span> <span class="nf">scatter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column_for_x</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">overlay</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fit_line</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sizes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
@@ -2363,8 +2411,13 @@
         <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">label</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span> <span class="k">if</span> <span class="n">column_or_label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">)]</span>
         <span class="k">return</span> <span class="n">column</span><span class="p">,</span> <span class="n">labels</span>
 
+    <span class="c1"># Deprecated</span>
 <div class="viewcode-block" id="Table.pivot_hist"><a class="viewcode-back" href="../../table.html#prob140.Table.pivot_hist">[docs]</a>    <span class="k">def</span> <span class="nf">pivot_hist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pivot_column_label</span><span class="p">,</span> <span class="n">value_column_label</span><span class="p">,</span> <span class="n">overlay</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Draw histograms of each category in a column.&quot;&quot;&quot;</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;pivot_hist is deprecated; use &quot;</span>
+                      <span class="s2">&quot;hist(value_column_label, group=pivot_column_label), or &quot;</span>
+                      <span class="s2">&quot;with side_by_side=True if you really want side-by-side &quot;</span>
+                      <span class="s2">&quot;bars.&quot;</span><span class="p">)</span>
         <span class="n">pvt_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">pivot_column_label</span><span class="p">])</span>
         <span class="n">pvt_columns</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="n">value_column_label</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">pivot_column_label</span><span class="p">]</span> <span class="o">==</span> <span class="n">pivot</span><span class="p">)]</span> <span class="k">for</span> <span class="n">pivot</span> <span class="ow">in</span> <span class="n">pvt_labels</span><span class="p">]</span>
         <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pvt_labels</span><span class="p">)</span>
@@ -2394,15 +2447,17 @@
         <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pvt_labels</span><span class="p">,</span><span class="n">vals</span><span class="p">):</span>
             <span class="n">t</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">column</span></div>
 
-<div class="viewcode-block" id="Table.hist"><a class="viewcode-back" href="../../table.html#prob140.Table.hist">[docs]</a>    <span class="k">def</span> <span class="nf">hist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">columns</span><span class="p">,</span> <span class="n">overlay</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bin_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">counts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Table.hist"><a class="viewcode-back" href="../../table.html#prob140.Table.hist">[docs]</a>    <span class="k">def</span> <span class="nf">hist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">columns</span><span class="p">,</span> <span class="n">overlay</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bin_column</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">counts</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">side_by_side</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Plots one histogram for each column in columns. If no column is</span>
-<span class="sd">        specificed, plot all columns.</span>
+<span class="sd">        specified, plot all columns.</span>
 
 <span class="sd">        Kwargs:</span>
 <span class="sd">            overlay (bool): If True, plots 1 chart with all the histograms</span>
 <span class="sd">                overlaid on top of each other (instead of the default behavior</span>
 <span class="sd">                of one histogram for each column in the table). Also adds a</span>
-<span class="sd">                legend that matches each bar color to its column.</span>
+<span class="sd">                legend that matches each bar color to its column.  Note that</span>
+<span class="sd">                if the histograms are not overlaid, they are not forced to the</span>
+<span class="sd">                same scale.</span>
 
 <span class="sd">            bins (list or int): Lower bound for each bin in the</span>
 <span class="sd">                histogram or number of bins. If None, bins will</span>
@@ -2413,6 +2468,20 @@
 <span class="sd">                If None, each value in each row is assigned a count of 1.</span>
 
 <span class="sd">            counts (column name or index): Deprecated name for bin_column.</span>
+
+<span class="sd">            unit (string): A name for the units of the plotted column (e.g.</span>
+<span class="sd">                &#39;kg&#39;), to be used in the plot.</span>
+
+<span class="sd">            group (column name or index): A column of categories.  The rows are</span>
+<span class="sd">                grouped by the values in this column, and a separate histogram is</span>
+<span class="sd">                generated for each group.  The histograms are overlaid or plotted</span>
+<span class="sd">                separately depending on the overlay argument.  If None, no such</span>
+<span class="sd">                grouping is done.</span>
+
+<span class="sd">            side_by_side (bool): Whether histogram bins should be plotted side by</span>
+<span class="sd">                side (instead of directly overlaid).  Makes sense only when</span>
+<span class="sd">                plotting multiple histograms, either by passing several columns</span>
+<span class="sd">                or by using the group option.</span>
 
 <span class="sd">            vargs: Additional arguments that get passed into :func:plt.hist.</span>
 <span class="sd">                See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.hist</span>
@@ -2438,23 +2507,38 @@
 <span class="sd">        ...     &#39;proportion&#39;, make_array(0.25, 0.5, 0.25))</span>
 <span class="sd">        &gt;&gt;&gt; t.hist(bin_column=&#39;value&#39;) # doctest: +SKIP</span>
 <span class="sd">        &lt;histogram of values weighted by corresponding proportions&gt;</span>
+
+<span class="sd">        &gt;&gt;&gt; t = Table().with_columns(</span>
+<span class="sd">        ...     &#39;value&#39;,    make_array(1,   2,   3,   2,   5  ),</span>
+<span class="sd">        ...     &#39;category&#39;, make_array(&#39;a&#39;, &#39;a&#39;, &#39;a&#39;, &#39;b&#39;, &#39;b&#39;))</span>
+<span class="sd">        &gt;&gt;&gt; t.hist(&#39;value&#39;, group=&#39;category&#39;) # doctest: +SKIP</span>
+<span class="sd">        &lt;two overlaid histograms of the data [1, 2, 3] and [2, 5]&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">counts</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">bin_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;counts arg of hist is deprecated; use bin_column&quot;</span><span class="p">)</span>
             <span class="n">bin_column</span><span class="o">=</span><span class="n">counts</span>
         <span class="k">if</span> <span class="n">columns</span><span class="p">:</span>
+            <span class="n">columns_included</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">bin_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="n">bin_column</span><span class="p">]</span>
-            <span class="bp">self</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="o">*</span><span class="n">columns</span><span class="p">)</span>
+                <span class="n">columns_included</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bin_column</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">columns_included</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+            <span class="bp">self</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="o">*</span><span class="n">columns_included</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">bin_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Using bin_column and group together is &quot;</span>
+                                 <span class="s2">&quot;currently unsupported.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Using group with multiple histogram value &quot;</span>
+                                 <span class="s2">&quot;columns is currently unsupported.&quot;</span><span class="p">)</span>
 
         <span class="c1"># Check for non-numerical values and raise a ValueError if any found</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">flexible</span><span class="p">)</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="o">!=</span> <span class="n">group</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">flexible</span><span class="p">)</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The column &#39;</span><span class="si">{0}</span><span class="s2">&#39; contains non-numerical &quot;</span>
                     <span class="s2">&quot;values. A histogram cannot be drawn for this table.&quot;</span>
                     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="p">))</span>
 
-        <span class="n">columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_columns</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">bin_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">bins</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">bin_column</span><span class="p">))</span>
@@ -2463,63 +2547,93 @@
 
         <span class="k">if</span> <span class="s1">&#39;normed&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vargs</span><span class="p">:</span>
             <span class="n">vargs</span><span class="p">[</span><span class="s1">&#39;normed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">percentage</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:g}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
 
-        <span class="n">counted_values</span> <span class="o">=</span> <span class="n">counted_label</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">def</span> <span class="nf">prepare_hist_with_bin_column</span><span class="p">(</span><span class="n">bin_column</span><span class="p">):</span>
+            <span class="c1"># This code is factored as a function for clarity only.</span>
+            <span class="n">weight_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">bin_column</span><span class="p">]</span>
+            <span class="n">bin_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">bin_column</span><span class="p">)</span>
+            <span class="n">values_dict</span> <span class="o">=</span> <span class="p">[(</span><span class="n">w</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39; count&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">bin_values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">w</span><span class="p">)))</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">weight_columns</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">values_dict</span>
+
+        <span class="k">def</span> <span class="nf">prepare_hist_with_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+            <span class="c1"># This code is factored as a function for clarity only.</span>
+            <span class="n">grouped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">grouped</span><span class="o">.</span><span class="n">num_rows</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;It looks like you&#39;re making a grouped histogram with &quot;</span>
+                              <span class="s2">&quot;a lot of groups (</span><span class="si">{:d}</span><span class="s2">), which is probably incorrect.&quot;</span>
+                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_labels</span><span class="p">)))</span>
+            <span class="k">return</span> <span class="p">[(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],))</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">grouped</span><span class="o">.</span><span class="n">index_by</span><span class="p">(</span><span class="n">group</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+
+        <span class="c1"># Populate values_dict: An ordered dict from column name to singleton</span>
+        <span class="c1"># tuple of array of values or a (values, weights) pair of arrays.  If</span>
+        <span class="c1"># any values have weights, they all must have weights.</span>
         <span class="k">if</span> <span class="n">bin_column</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">counted_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_as_label</span><span class="p">(</span><span class="n">bin_column</span><span class="p">)</span>
-            <span class="n">counted_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">counted_label</span><span class="p">)</span>
-            <span class="n">columns</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">counted_label</span><span class="p">)</span>
-
-        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
-        <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">rgb_color</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_alpha</span><span class="p">,)</span> <span class="k">for</span> <span class="n">rgb_color</span> <span class="ow">in</span>
-            <span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chart_colors</span><span class="p">),</span> <span class="n">n</span><span class="p">)]</span>
-        <span class="k">if</span> <span class="n">overlay</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="c1"># Reverse because legend prints bottom-to-top</span>
-            <span class="n">column_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">columns</span><span class="o">.</span><span class="n">keys</span><span class="p">())[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">())[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">colors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">colors</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">counted_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">vargs</span><span class="p">[</span><span class="s1">&#39;weights&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-                <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">counted_values</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-            <span class="n">vargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;histtype&#39;</span><span class="p">,</span> <span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
-            <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">)</span>
-            <span class="n">axis</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">get_axes</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">_vertical_x</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vargs</span><span class="p">[</span><span class="s1">&#39;normed&#39;</span><span class="p">]:</span>
-                <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Percent per &#39;</span> <span class="o">+</span> <span class="p">(</span><span class="n">unit</span> <span class="k">if</span> <span class="n">unit</span> <span class="k">else</span> <span class="s1">&#39;unit&#39;</span><span class="p">))</span>
-                <span class="n">axis</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">percentage</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">unit</span><span class="p">:</span>
-                <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="n">unit</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">columns</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
+            <span class="n">values_dict</span> <span class="o">=</span> <span class="n">prepare_hist_with_bin_column</span><span class="p">(</span><span class="n">bin_column</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">values_dict</span> <span class="o">=</span> <span class="n">prepare_hist_with_group</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
-            <span class="c1"># Use stepfilled when there are too many bins</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">)</span> <span class="ow">and</span> <span class="n">bins</span> <span class="o">&gt;</span> <span class="mi">76</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="s1">&#39;__len__&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">bins</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">76</span><span class="p">:</span>
-                <span class="n">vargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;histtype&#39;</span><span class="p">,</span> <span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">axes</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">columns</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">colors</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">vargs</span><span class="p">[</span><span class="s1">&#39;normed&#39;</span><span class="p">]:</span>
-                    <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Percent per &#39;</span> <span class="o">+</span> <span class="p">(</span><span class="n">unit</span> <span class="k">if</span> <span class="n">unit</span> <span class="k">else</span> <span class="s1">&#39;unit&#39;</span><span class="p">))</span>
-                    <span class="n">axis</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">percentage</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
-                <span class="n">x_unit</span> <span class="o">=</span> <span class="s1">&#39; (&#39;</span> <span class="o">+</span> <span class="n">unit</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span> <span class="k">if</span> <span class="n">unit</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-                <span class="k">if</span> <span class="n">counted_values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">values</span> <span class="o">=</span> <span class="n">columns</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
-                    <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">label</span> <span class="o">+</span> <span class="n">x_unit</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">values</span> <span class="o">=</span> <span class="n">counted_values</span>
-                    <span class="n">vargs</span><span class="p">[</span><span class="s1">&#39;weights&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">columns</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
-                    <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">label</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39; count&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">x_unit</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-                <span class="n">axis</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">)</span>
+            <span class="n">values_dict</span> <span class="o">=</span> <span class="p">[(</span><span class="n">k</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">k</span><span class="p">),))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">]</span>
+        <span class="n">values_dict</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span><span class="n">values_dict</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">draw_hist</span><span class="p">(</span><span class="n">values_dict</span><span class="p">):</span>
+            <span class="c1"># This code is factored as a function for clarity only.</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values_dict</span><span class="p">)</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">rgb_color</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_alpha</span><span class="p">,)</span> <span class="k">for</span> <span class="n">rgb_color</span> <span class="ow">in</span>
+                <span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">chart_colors</span><span class="p">),</span> <span class="n">n</span><span class="p">)]</span>
+            <span class="n">hist_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">values_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Weights were provided for some columns, but not &quot;</span>
+                                 <span class="s2">&quot; all, and that&#39;s not supported.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">vargs</span><span class="p">[</span><span class="s1">&#39;normed&#39;</span><span class="p">]:</span>
+                <span class="n">y_label</span> <span class="o">=</span> <span class="s1">&#39;Percent per &#39;</span> <span class="o">+</span> <span class="p">(</span><span class="n">unit</span> <span class="k">if</span> <span class="n">unit</span> <span class="k">else</span> <span class="s1">&#39;unit&#39;</span><span class="p">)</span>
+                <span class="n">percentage</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{:g}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">y_label</span> <span class="o">=</span> <span class="s1">&#39;Count&#39;</span>
+
+            <span class="k">if</span> <span class="n">overlay</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Reverse because legend prints bottom-to-top</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">colors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">colors</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="n">vargs</span><span class="p">[</span><span class="s1">&#39;weights&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weights</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">side_by_side</span><span class="p">:</span>
+                    <span class="n">vargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;histtype&#39;</span><span class="p">,</span> <span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+                <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">)</span>
+                <span class="n">axis</span> <span class="o">=</span> <span class="n">figure</span><span class="o">.</span><span class="n">get_axes</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">_vertical_x</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
-                <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span></div>
+                <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">y_label</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">vargs</span><span class="p">[</span><span class="s1">&#39;normed&#39;</span><span class="p">]:</span>
+                    <span class="n">axis</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">percentage</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">unit</span><span class="p">:</span>
+                    <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="n">unit</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">hist_names</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
+                <span class="k">if</span> <span class="s1">&#39;bins&#39;</span> <span class="ow">in</span> <span class="n">vargs</span><span class="p">:</span>
+                    <span class="n">bins</span> <span class="o">=</span> <span class="n">vargs</span><span class="p">[</span><span class="s1">&#39;bins&#39;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">)</span> <span class="ow">and</span> <span class="n">bins</span> <span class="o">&gt;</span> <span class="mi">76</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="s1">&#39;__len__&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">bins</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">76</span><span class="p">:</span>
+                        <span class="c1"># Use stepfilled when there are too many bins</span>
+                        <span class="n">vargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;histtype&#39;</span><span class="p">,</span> <span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">axes</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">hist_name</span><span class="p">,</span> <span class="n">values_for_hist</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">hist_names</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">colors</span><span class="p">)):</span>
+                    <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">y_label</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">vargs</span><span class="p">[</span><span class="s1">&#39;normed&#39;</span><span class="p">]:</span>
+                        <span class="n">axis</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">percentage</span><span class="p">)</span>
+                    <span class="n">x_unit</span> <span class="o">=</span> <span class="s1">&#39; (&#39;</span> <span class="o">+</span> <span class="n">unit</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span> <span class="k">if</span> <span class="n">unit</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+                        <span class="n">vargs</span><span class="p">[</span><span class="s1">&#39;weights&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">hist_name</span> <span class="o">+</span> <span class="n">x_unit</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+                    <span class="n">axis</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">values_for_hist</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">)</span>
+                    <span class="n">_vertical_x</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
+                    <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
+
+        <span class="n">draw_hist</span><span class="p">(</span><span class="n">values_dict</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Table.boxplot"><a class="viewcode-back" href="../../table.html#prob140.Table.boxplot">[docs]</a>    <span class="k">def</span> <span class="nf">boxplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Plots a boxplot for the table.</span>
@@ -2902,7 +3016,7 @@
         &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
       </li>
       <li>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.6.
       </li>
     </ul>
     </div>

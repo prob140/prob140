@@ -1,5 +1,5 @@
-prob140.MarkovChain.plot_path
-=============================
+prob140\.MarkovChain\.plot\_path
+================================
 
 .. currentmodule:: prob140
 

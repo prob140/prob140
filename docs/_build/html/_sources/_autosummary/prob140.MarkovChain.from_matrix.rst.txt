@@ -1,5 +1,5 @@
-prob140.MarkovChain.from_matrix
-===============================
+prob140\.MarkovChain\.from\_matrix
+==================================
 
 .. currentmodule:: prob140
 

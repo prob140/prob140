@@ -1,5 +1,5 @@
-prob140.plots.Plot_triang
-=========================
+prob140\.plots\.Plot\_triang
+============================
 
 .. currentmodule:: prob140.plots
 

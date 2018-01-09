@@ -1,5 +1,5 @@
-prob140.MarkovChain.from_table
-==============================
+prob140\.MarkovChain\.from\_table
+=================================
 
 .. currentmodule:: prob140
 

@@ -1,5 +1,5 @@
-prob140.plots.Plot_arcsine
-==========================
+prob140\.plots\.Plot\_arcsine
+=============================
 
 .. currentmodule:: prob140.plots
 

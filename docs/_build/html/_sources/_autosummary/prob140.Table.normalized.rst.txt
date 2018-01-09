@@ -1,5 +1,5 @@
-prob140.Table.normalized
-========================
+prob140\.Table\.normalized
+==========================
 
 .. currentmodule:: prob140
 

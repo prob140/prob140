@@ -1,5 +1,5 @@
-prob140.plots.Plot_pareto
-=========================
+prob140\.plots\.Plot\_pareto
+============================
 
 .. currentmodule:: prob140.plots
 

@@ -1,5 +1,5 @@
-prob140.Table.probability
-=========================
+prob140\.Table\.probability
+===========================
 
 .. currentmodule:: prob140
 

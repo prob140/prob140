@@ -1,5 +1,5 @@
-prob140.MarkovChain.from_transition_function
-============================================
+prob140\.MarkovChain\.from\_transition\_function
+================================================
 
 .. currentmodule:: prob140
 

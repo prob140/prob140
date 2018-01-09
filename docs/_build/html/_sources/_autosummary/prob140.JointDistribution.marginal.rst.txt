@@ -1,5 +1,5 @@
-prob140.JointDistribution.marginal
-==================================
+prob140\.JointDistribution\.marginal
+====================================
 
 .. currentmodule:: prob140
 

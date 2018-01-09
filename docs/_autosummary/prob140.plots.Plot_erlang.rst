@@ -1,5 +1,5 @@
-prob140.plots.Plot_erlang
-=========================
+prob140\.plots\.Plot\_erlang
+============================
 
 .. currentmodule:: prob140.plots
 

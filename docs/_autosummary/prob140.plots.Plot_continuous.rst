@@ -1,5 +1,5 @@
-prob140.plots.Plot_continuous
-=============================
+prob140\.plots\.Plot\_continuous
+================================
 
 .. currentmodule:: prob140.plots
 

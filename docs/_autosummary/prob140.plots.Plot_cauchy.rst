@@ -1,5 +1,5 @@
-prob140.plots.Plot_cauchy
-=========================
+prob140\.plots\.Plot\_cauchy
+============================
 
 .. currentmodule:: prob140.plots
 

@@ -1,5 +1,5 @@
-prob140.plots.Plot_uniform
-==========================
+prob140\.plots\.Plot\_uniform
+=============================
 
 .. currentmodule:: prob140.plots
 

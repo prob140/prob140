@@ -1,8 +1,8 @@
 Markov Chains
 =============
 
-This is a brief introduction to working with Markov Chains from the `prob140` library. Make sure you have read the
-other tutorial first.
+This is a brief introduction to working with Markov Chains from the `prob140`
+library.
 
 .. contents:: Table of Contents
     :depth: 2
@@ -32,31 +32,33 @@ Constructing Markov Chains
 Explicitly assigning probabilities
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To assign the possible states of a markov chain, use `Table().states()`
+To assign the possible states of a markov chain, use `Table().states()`.
 
 .. ipython:: python
 
     Table().states(make_array("A", "B"))
 
-A markov chain needs transition probabilities for each transition state `i` to `j`. Note that the sum of the
-transition probabilities coming out of each state must sum to 1
+A markov chain needs transition probabilities for each transition state `i` to
+`j`. Note that the sum of the transition probabilities coming out of each state
+must sum to 1
 
 .. ipython:: python
 
     mc_table = Table().states(make_array("A", "B")).transition_probability(make_array(0.5, 0.5, 0.3, 0.7))
     mc_table
 
-To convert the Table into a MarkovChain object, call `.toMarkovChain()`
+To convert the Table into a MarkovChain object, call `.to_markov_chain()`.
 
 .. ipython:: python
 
-    mc = mc_table.toMarkovChain()
+    mc = mc_table.to_markov_chain()
     mc
 
 Using a transition probability function
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Use like single variable distributions and joint distributions, we can assign a transition probability function.
+Just like single variable distributions and joint distributions, we can assign a
+transition probability function.
 
 .. ipython:: python
 
@@ -67,22 +69,25 @@ Use like single variable distributions and joint distributions, we can assign a 
 
     transMatrix = Table().states(np.arange(1,4)).transition_function(identity_transition)
     transMatrix
-    mc2 = transMatrix.toMarkovChain()
+    mc2 = transMatrix.to_markov_chain()
+    mc2
 
 
 Distribution
 ------------
 
-To find the state of the markov chain after a certain point, we can call the `.distribution` method which takes in a
-starting condition and a number of steps. For example, to see the distribution of `mc` starting at "A" after 2
+To find the state of the markov chain after a certain point, we can call the
+`.distribution` method which takes in a starting condition and a number of
+steps. For example, to see the distribution of `mc` starting at "A" after 2
 steps, we can call
 
 .. ipython:: python
 
     mc.distribution("A", 2)
 
-Sometimes it might be useful for the starting condition to be a probability distribution. We can set the starting
-condition to be a single variable distribution
+Sometimes it might be useful for the starting condition to be a probability
+distribution. We can set the starting condition to be a single variable
+distribution.
 
 .. ipython:: python
 
@@ -98,8 +103,3 @@ Steady State
 
     mc.steady_state()
     mc2.steady_state()
-
-
-You can find more documentation on markov chains on the `markov chains page <https://probability.gitlab.io/prob140/html/pykov.html>`_
-
-

@@ -1,5 +1,5 @@
-prob140.plots.Plot_gamma
-========================
+prob140\.plots\.Plot\_gamma
+===========================
 
 .. currentmodule:: prob140.plots
 

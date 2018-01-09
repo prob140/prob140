@@ -1,5 +1,5 @@
-prob140.MarkovChain.expected_return_time
-========================================
+prob140\.MarkovChain\.expected\_return\_time
+============================================
 
 .. currentmodule:: prob140
 

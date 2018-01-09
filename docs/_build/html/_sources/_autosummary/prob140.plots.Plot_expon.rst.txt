@@ -1,5 +1,5 @@
-prob140.plots.Plot_expon
-========================
+prob140\.plots\.Plot\_expon
+===========================
 
 .. currentmodule:: prob140.plots
 

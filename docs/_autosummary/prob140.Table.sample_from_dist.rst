@@ -1,5 +1,5 @@
-prob140.Table.sample_from_dist
-==============================
+prob140\.Table\.sample\_from\_dist
+==================================
 
 .. currentmodule:: prob140
 

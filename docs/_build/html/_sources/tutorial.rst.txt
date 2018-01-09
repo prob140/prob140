@@ -1,8 +1,7 @@
-``prob140`` Tutorial!
-=====================
+Single-Variable Distributions
+=============================
 
-This is a brief introduction to the functionality in ``prob140``! For an
-interactive guide, see the examples notebook in the GitLab directory.
+This is a brief introduction to the functionality in ``prob140``.
 
 .. contents:: Table of Contents
     :depth: 2
@@ -12,7 +11,15 @@ interactive guide, see the examples notebook in the GitLab directory.
 Getting Started
 ---------------
 
-Make sure you are on the most recent version of the `prob140` library. See the installation guide for more directions.
+Make sure you are on the most recent version of the `prob140` library. You can
+check your version of `prob140` (or any other Python library) by running the
+following:
+
+.. ipython:: python
+
+    import prob140
+
+    print(prob140.__version__)
 
 If you are using an `iPython` notebook, use this as your first cell:
 
@@ -32,31 +39,31 @@ You may want to familiarize yourself with Data8's ``datascience`` `documentation
 Creating a Distribution
 -----------------------
 
-The `prob140` library adds distribution methods to the default `table` class that you should
-already be familiar with. A distribution is defined as a 2-column table in which the first column
-represents the domain of the distribution while the second column represents the probabilities
-associated with each value in the domain.
+The `prob140` library adds distribution methods to the default `table` class
+that you should already be familiar with. A distribution table is defined as a
+2-column table in which the first column represents the possible values while
+the second column represents the probabilities associated with each value.
 
-You can specify a list or array to the methods `domain` and `probability` to specify those columns
-for a distribution
+You can specify a list or array to the methods `values` and `probability` to
+specify those columns for a distribution
 
 .. ipython:: python
 
     from prob140 import *
 
-    dist1 = Table().domain(make_array(2, 3, 4)).probability(make_array(0.25, 0.5, 0.25))
+    dist1 = Table().values(make_array(2, 3, 4)).probability(make_array(0.25, 0.5, 0.25))
 
     dist1
 
 We can also construct a distribution by explicitly assigning values for the
-`domain` but applying a probability function to the values of the domain
+`values` but applying a probability function to the values of the domain
 
 .. ipython:: python
 
     def p(x):
         return 0.25
 
-    dist2 = Table().domain(np.arange(1, 8, 2)).probability_function(p)
+    dist2 = Table().values(np.arange(1, 8, 2)).probability_function(p)
 
     dist2
 
@@ -71,16 +78,18 @@ mass function
         p = 0.3
         return comb(n,x) * p**x * (1-p)**(n-x)
 
-    binomial = Table().domain(np.arange(11)).probability_function(pmf)
+    binomial = Table().values(np.arange(11)).probability_function(pmf)
     binomial
 
 
 Events
 ------
 
-Often, we are concerned with specific values in a distribution rather than all the values.
+Often, we are concerned with specific values in a distribution rather than all
+the values.
 
-Calling ``event`` allows us to see a subset of the values in a distribution and the associated probabilities
+Calling ``event`` allows us to see a subset of the values in a distribution and
+the associated probabilities.
 
 .. ipython:: python
 
@@ -92,8 +101,8 @@ Calling ``event`` allows us to see a subset of the values in a distribution and 
 
     dist2.event([1, 3, 3.5, 6])
 
-To find the probability of an event, we can call ``prob_event``, which sums up the probabilities
-of each of the values
+To find the probability of an event, we can call ``prob_event``, which sums up
+the probabilities of each of the values.
 
 .. ipython:: python
 
@@ -105,12 +114,14 @@ of each of the values
 
     binomial.prob_event(np.arange(11))
 
-Note that due to the way Python handles floats, there might be some rounding errors
+Note that due to the way Python handles floats, there might be some rounding
+errors.
 
 Plotting
 --------
 
-To visualize our distributions, we can plot a histogram of the probability mass function using the ``Plot`` function.
+To visualize our distributions, we can plot a histogram of the probability mass
+function using the ``Plot`` function.
 
 .. ipython:: python
 
@@ -125,8 +136,9 @@ To visualize our distributions, we can plot a histogram of the probability mass 
 Width
 ^^^^^
 
-If want to specify the width of every bar, we can use the optional parameter ``width=`` to specify the bin sizes.
-However, this should be used very rarely, **only** when there is uniform spacing between bars.
+If want to specify the width of every bar, we can use the optional parameter
+``width=`` to specify the bin sizes. However, this should be used very rarely,
+**only** when there is uniform spacing between bars.
 
 .. ipython:: python
 
@@ -135,7 +147,7 @@ However, this should be used very rarely, **only** when there is uniform spacing
 
 .. ipython:: python
 
-    dist3 = Table().domain(np.arange(0, 10, 2)).probability_function(lambda x: 0.2)
+    dist3 = Table().values(np.arange(0, 10, 2)).probability_function(lambda x: 0.2)
 
     @savefig dist3.png width=4in
     Plot(dist3)
@@ -148,8 +160,9 @@ However, this should be used very rarely, **only** when there is uniform spacing
 Events
 ^^^^^^
 
-Sometimes, we want to highlight an event or events in our histogram. Do make an event a different color, we can use
-the optional parameter ``event=``. An event must be a list or a list of lists.
+Sometimes, we want to highlight an event or events in our histogram. To make an
+event a different color, we can use the optional parameter ``event=``. An event
+must be a list or a list of lists.
 
 .. ipython:: python
 
@@ -161,7 +174,8 @@ the optional parameter ``event=``. An event must be a list or a list of lists.
     @savefig binomial_event_2.png width=4in
     Plot(binomial, event=np.arange(0,10,2))
 
-If we use a list of lists for the event parameter, each event will be a different color.
+If we use a list of lists for the event parameter, each event will be a
+different color.
 
 .. ipython:: python
 
@@ -172,9 +186,10 @@ If we use a list of lists for the event parameter, each event will be a differen
 Plotting multiple distributions
 -------------------------------
 
-It is often useful to plot multiple histograms on top of each other. To plot multiple distributions on the same
-graph, use the ``Plots`` function. ``Plots`` takes in an even number of arguments, alternating between the label of
-the distribution and the distribution table itself.
+It is often useful to plot multiple histograms on top of each other. To plot
+multiple distributions on the same graph, use the ``Plots`` function. ``Plots``
+takes in an even number of arguments, alternating between the label of the
+distribution and the distribution table itself.
 
 .. ipython:: python
 
@@ -183,12 +198,13 @@ the distribution and the distribution table itself.
 
 .. ipython:: python
 
-    binomial2 = Table().domain(np.arange(11)).probability_function(lambda x: comb(10,x) * 0.5**10)
+    binomial2 = Table().values(np.arange(11)).probability_function(lambda x: comb(10,x) * 0.5**10)
 
     @savefig 2_binomials.png width=4in
     Plots("Bin(n=10,p=0.3)", binomial, "Bin(n=10,p=0.5)", binomial2)
 
-Try to avoid plotting too many distributions together because the graph starts to become unreadable
+Try to avoid plotting too many distributions together because the graph starts
+to become unreadable
 
 .. ipython:: python
 
@@ -199,9 +215,9 @@ Try to avoid plotting too many distributions together because the graph starts t
 Empirical Distributions
 -----------------------
 
-Whenever we simulate an event, we often end up with an array of results. We can construct an empirical distribution
-of the results by grouping of the possible values and assigning the frequencies are probabilities. An easy way to do
-this is by calling `emp_dist`
+Whenever we simulate an event, we often end up with an array of results. We can
+construct an empirical distribution of the results by grouping of the possible
+values and assigning the frequencies as probabilities. Simply call `emp_dist`
 
 .. ipython:: python
 
@@ -218,20 +234,22 @@ this is by calling `emp_dist`
     Plot(emp_dist(values))
 
 
-
 Utilities
 ---------
 
+There are also utility functions for finding the expected value (`ev()`),
+variance (`var()`), or standard deviation (`sd()`) of a distribution.
+
 .. ipython:: python
 
-    print(dist1.expected_value())
+    print(dist1.ev())
     print(dist1.sd())
-    print(binomial.expected_value())
+    print(binomial.ev())
     print(0.3 * 10)
     print(binomial.sd())
     import math
     print(math.sqrt(10 * 0.3 * 0.7))
-    print(binomial.variance())
+    print(binomial.var())
     print(10 * 0.3 * 0.7)
 
 

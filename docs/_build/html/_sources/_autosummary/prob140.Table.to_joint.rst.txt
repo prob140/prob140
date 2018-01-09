@@ -1,5 +1,5 @@
-prob140.Table.to_joint
-======================
+prob140\.Table\.to\_joint
+=========================
 
 .. currentmodule:: prob140
 

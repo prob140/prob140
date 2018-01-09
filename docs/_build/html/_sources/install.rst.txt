@@ -3,7 +3,7 @@
 Installation
 ============
 
-You should have the following installed:
+If you want to have your own local installation, you should have the following installed:
 
 * `Python <https://www.python.org/downloads/>`_, preferably version 3.5
 * `Pip <https://pip.pypa.io/en/stable/installing/>`_ (might come with your Python installation)

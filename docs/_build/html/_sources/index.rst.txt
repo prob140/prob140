@@ -10,9 +10,8 @@ Welcome to prob140's documentation!
 :Release: |release|
 :Date: |today|
 
-The ``prob140`` package was written by Jason Zhang and Dibya Ghosh for use in Berkeley's Prob140 course.
-
-Special thanks to Riccardo Scalco for his `Pykov module <https://github.com/riccardoscalco/Pykov>`_
+The ``prob140`` package was written by Jason Zhang and Dibya Ghosh for use in
+UC Berkeley's `Prob140 course <http://prob140.org/>`_.
 
 Also take a look at Data8's ``datascience`` `documentation <http://data8.org/datascience/>`_
 

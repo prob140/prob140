@@ -1,5 +1,5 @@
-prob140.plots.Plot_rayleigh
-===========================
+prob140\.plots\.Plot\_rayleigh
+==============================
 
 .. currentmodule:: prob140.plots
 

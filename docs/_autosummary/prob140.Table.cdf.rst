@@ -1,5 +1,5 @@
-prob140.Table.cdf
-=================
+prob140\.Table\.cdf
+===================
 
 .. currentmodule:: prob140
 

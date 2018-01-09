@@ -96,8 +96,12 @@ class MarkovChain:
         A     | 0.3576
         B     | 0.6424
         """
-        states = list(starting_condition.column(0))
-        probabilities = starting_condition.column(1)
+        if isinstance(starting_condition, Table):
+            states = list(starting_condition.column(0))
+            probabilities = starting_condition.column(1)
+        else:
+            states = [starting_condition]
+            probabilities = [1]
 
         n = len(self.states)
         start = np.zeros((n, 1))
@@ -108,7 +112,7 @@ class MarkovChain:
             else:
                 start[i, 0] = 0
 
-        probabilities = start.T @ self.get_transition_matrix(steps=steps)
+        probabilities = start.T.dot(self.get_transition_matrix(steps=steps))
         return Table().states(self.states).probability(probabilities[0])
 
     def log_prob_of_path(self, starting_condition, path):

@@ -33,7 +33,9 @@ probability of going from a source to a target state.
         if source == target:
             return 1
         return 0
+
     MarkovChain.from_transition_function(states, identity_transition)
+
 
 Using a transition matrix
 ^^^^^^^^^^^^^^^^^^^^^^^^^

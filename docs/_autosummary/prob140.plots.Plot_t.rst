@@ -1,5 +1,5 @@
-prob140.plots.Plot_t
-====================
+prob140\.plots\.Plot\_t
+=======================
 
 .. currentmodule:: prob140.plots
 

@@ -1,5 +1,5 @@
-prob140.plots.Plot_powerlaw
-===========================
+prob140\.plots\.Plot\_powerlaw
+==============================
 
 .. currentmodule:: prob140.plots
 

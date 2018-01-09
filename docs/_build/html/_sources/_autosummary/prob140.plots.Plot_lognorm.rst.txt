@@ -1,5 +1,5 @@
-prob140.plots.Plot_lognorm
-==========================
+prob140\.plots\.Plot\_lognorm
+=============================
 
 .. currentmodule:: prob140.plots
 

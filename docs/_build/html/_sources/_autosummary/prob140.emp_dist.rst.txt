@@ -1,5 +1,5 @@
-prob140.emp_dist
-================
+prob140\.emp\_dist
+==================
 
 .. currentmodule:: prob140
 

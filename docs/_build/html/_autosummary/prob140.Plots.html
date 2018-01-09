@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.Plots &mdash; prob140 0.3.0.0 documentation</title>
+    <title>prob140.Plots &mdash; prob140 0.3.1.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3.0.0',
+        VERSION:     '0.3.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,11 +23,11 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
-    <link rel="top" title="prob140 0.3.0.0 documentation" href="../index.html" >
+    <link rel="top" title="prob140 0.3.1.1 documentation" href="../index.html" >
     <link rel="up" title="Single-variable Distributions (datascience.tables.Table)" href="../single.html" >
     <link rel="next" title="Joint Distributions (prob140.JointDistribution)" href="../multi.html" >
     <link rel="prev" title="prob140.Plot" href="prob140.Plot.html" > 
@@ -54,7 +54,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="../index.html">prob140 0.3.0.0 documentation</a></li>
+        <li class="active"><a href="../index.html">prob140 0.3.1.1 documentation</a></li>
 	
           <li class="active"><a href="../single.html" accesskey="U">Single-variable Distributions (<code class="docutils literal"><span class="pre">datascience.tables.Table</span></code>)</a></li> 
     </ul>
@@ -92,19 +92,18 @@
 <dl class="function">
 <dt id="prob140.Plots">
 <code class="descclassname">prob140.</code><code class="descname">Plots</code><span class="sig-paren">(</span><em>*labels_and_dists</em>, <em>width=1</em>, <em>edges=None</em>, <em>**vargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prob140/single_variable.html#Plots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.Plots" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overlays histograms for multiply probability distributions together.</p>
+<dd><p>Overlays histograms for multiple probability distributions together.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>labels_and_dists</strong> : Even number of alternations between Strings and</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>labels_and_dists</strong> : Even number of alternations between Strings and Tables</p>
 <blockquote>
-<div><p>Tables
-Each distribution must have a label associated with it</p>
+<div><p>Each distribution must have a label associated with it.</p>
 </div></blockquote>
 <p><strong>width (optional)</strong> : float</p>
 <blockquote>
-<div><p>Width of the intervals (default: 1)</p>
+<div><p>Width of the intervals. (default: 1)</p>
 </div></blockquote>
 <p><strong>edges</strong> : bool</p>
 <blockquote>
@@ -114,7 +113,7 @@ bins)</p>
 </div></blockquote>
 <p><strong>vargs</strong></p>
 <blockquote class="last">
-<div><p>See pyplot&#8217;s documentation</p>
+<div><p>See pyplot’s documentation</p>
 </div></blockquote>
 </td>
 </tr>
@@ -152,7 +151,7 @@ bins)</p>
         &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
       </li>
       <li>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.6.
       </li>
     </ul>
     </div>

@@ -1,5 +1,5 @@
-prob140.MarkovChain.steady_state
-================================
+prob140\.MarkovChain\.steady\_state
+===================================
 
 .. currentmodule:: prob140
 

@@ -1,5 +1,5 @@
-prob140.Table.sd
-================
+prob140\.Table\.sd
+==================
 
 .. currentmodule:: prob140
 

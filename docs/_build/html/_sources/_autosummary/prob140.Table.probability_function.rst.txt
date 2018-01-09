@@ -1,5 +1,5 @@
-prob140.Table.probability_function
-==================================
+prob140\.Table\.probability\_function
+=====================================
 
 .. currentmodule:: prob140
 

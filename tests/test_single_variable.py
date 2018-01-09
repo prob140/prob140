@@ -83,7 +83,8 @@ def test_events():
 
 
 def test_normalized():
-    dist = Table().values([1, 2, 3]).probability([1] * 3)
+    with pytest.warns(UserWarning):
+        dist = Table().values([1, 2, 3]).probability([1] * 3)
     assert_dist_equal(dist.normalized(), [1 / 3] * 3)
 
 

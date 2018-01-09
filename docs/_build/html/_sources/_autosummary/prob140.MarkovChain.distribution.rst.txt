@@ -1,5 +1,5 @@
-prob140.MarkovChain.distribution
-================================
+prob140\.MarkovChain\.distribution
+==================================
 
 .. currentmodule:: prob140
 

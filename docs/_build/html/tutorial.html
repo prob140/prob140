@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140 Tutorial! &mdash; prob140 0.3.0.0 documentation</title>
+    <title>Single-Variable Distributions &mdash; prob140 0.3.1.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.3.0.0',
+        VERSION:     '0.3.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,11 +23,11 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.3.0.0 documentation" href="index.html" >
+    <link rel="top" title="prob140 0.3.1.1 documentation" href="index.html" >
     <link rel="next" title="Joint Distributions" href="joint_tutorial.html" >
     <link rel="prev" title="Installation" href="install.html" > 
   </head>
@@ -53,7 +53,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.3.0.0 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.3.1.1 documentation</a></li>
 	 
     </ul>
               
@@ -85,10 +85,9 @@
         <div class="bodywrapper">
           <div class="body" id="spc-section-body">
             
-  <div class="section" id="prob140-tutorial">
-<h1><code class="docutils literal"><span class="pre">prob140</span></code> Tutorial!<a class="headerlink" href="#prob140-tutorial" title="Permalink to this headline">¶</a></h1>
-<p>This is a brief introduction to the functionality in <code class="docutils literal"><span class="pre">prob140</span></code>! For an
-interactive guide, see the examples notebook in the GitLab directory.</p>
+  <div class="section" id="single-variable-distributions">
+<h1>Single-Variable Distributions<a class="headerlink" href="#single-variable-distributions" title="Permalink to this headline">¶</a></h1>
+<p>This is a brief introduction to the functionality in <code class="docutils literal"><span class="pre">prob140</span></code>.</p>
 <div class="contents local topic" id="table-of-contents">
 <p class="topic-title first">Table of Contents</p>
 <ul class="simple">
@@ -107,7 +106,15 @@ interactive guide, see the examples notebook in the GitLab directory.</p>
 </div>
 <div class="section" id="getting-started">
 <h2><a class="toc-backref" href="#id2">Getting Started</a><a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>Make sure you are on the most recent version of the <cite>prob140</cite> library. See the installation guide for more directions.</p>
+<p>Make sure you are on the most recent version of the <cite>prob140</cite> library. You can
+check your version of <cite>prob140</cite> (or any other Python library) by running the
+following:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">prob140</span>
+
+<span class="gp">In [2]: </span><span class="k">print</span><span class="p">(</span><span class="n">prob140</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="go">0.3.1.1</span>
+</pre></div>
+</div>
 <p>If you are using an <cite>iPython</cite> notebook, use this as your first cell:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># HIDDEN</span>
 
@@ -119,22 +126,22 @@ interactive guide, see the examples notebook in the GitLab directory.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>You may want to familiarize yourself with Data8&#8217;s <code class="docutils literal"><span class="pre">datascience</span></code> <a class="reference external" href="http://data8.org/datascience/tutorial.html">documentation</a> first</p>
+<p>You may want to familiarize yourself with Data8’s <code class="docutils literal"><span class="pre">datascience</span></code> <a class="reference external" href="http://data8.org/datascience/tutorial.html">documentation</a> first</p>
 </div>
 <div class="section" id="creating-a-distribution">
 <h2><a class="toc-backref" href="#id3">Creating a Distribution</a><a class="headerlink" href="#creating-a-distribution" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>prob140</cite> library adds distribution methods to the default <cite>table</cite> class that you should
-already be familiar with. A distribution is defined as a 2-column table in which the first column
-represents the domain of the distribution while the second column represents the probabilities
-associated with each value in the domain.</p>
-<p>You can specify a list or array to the methods <cite>domain</cite> and <cite>probability</cite> to specify those columns
-for a distribution</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
+<p>The <cite>prob140</cite> library adds distribution methods to the default <cite>table</cite> class
+that you should already be familiar with. A distribution table is defined as a
+2-column table in which the first column represents the possible values while
+the second column represents the probabilities associated with each value.</p>
+<p>You can specify a list or array to the methods <cite>values</cite> and <cite>probability</cite> to
+specify those columns for a distribution</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [3]: </span><span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="gp">In [2]: </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+<span class="gp">In [4]: </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
 
-<span class="gp">In [3]: </span><span class="n">dist1</span>
-<span class="gh">Out[3]: </span><span class="go"></span>
+<span class="gp">In [5]: </span><span class="n">dist1</span>
+<span class="gh">Out[5]: </span><span class="go"></span>
 <span class="go">Value | Probability</span>
 <span class="go">2     | 0.25</span>
 <span class="go">3     | 0.5</span>
@@ -142,15 +149,15 @@ for a distribution</p>
 </pre></div>
 </div>
 <p>We can also construct a distribution by explicitly assigning values for the
-<cite>domain</cite> but applying a probability function to the values of the domain</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="k">def</span> <span class="nf">p</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<cite>values</cite> but applying a probability function to the values of the domain</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="k">def</span> <span class="nf">p</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="gp">   ...: </span>    <span class="k">return</span> <span class="mf">0.25</span>
 <span class="gp">   ...: </span>
 
-<span class="gp">In [5]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="gp">In [7]: </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 
-<span class="gp">In [6]: </span><span class="n">dist2</span>
-<span class="gh">Out[6]: </span><span class="go"></span>
+<span class="gp">In [8]: </span><span class="n">dist2</span>
+<span class="gh">Out[8]: </span><span class="go"></span>
 <span class="go">Value | Probability</span>
 <span class="go">1     | 0.25</span>
 <span class="go">3     | 0.25</span>
@@ -160,18 +167,18 @@ for a distribution</p>
 </div>
 <p>This can be very useful when we have a distribution with a known probability
 mass function</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="kn">import</span> <span class="n">comb</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="kn">import</span> <span class="n">comb</span>
 
-<span class="gp">In [8]: </span><span class="k">def</span> <span class="nf">pmf</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="gp">   ...: </span>    <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="gp">   ...: </span>    <span class="n">p</span> <span class="o">=</span> <span class="mf">0.3</span>
-<span class="gp">   ...: </span>    <span class="k">return</span> <span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span><span class="o">**</span><span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
-<span class="gp">   ...: </span>
+<span class="gp">In [10]: </span><span class="k">def</span> <span class="nf">pmf</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">   ....: </span>    <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gp">   ....: </span>    <span class="n">p</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="gp">   ....: </span>    <span class="k">return</span> <span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span><span class="o">**</span><span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">   ....: </span>
 
-<span class="gp">In [9]: </span><span class="n">binomial</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">pmf</span><span class="p">)</span>
+<span class="gp">In [11]: </span><span class="n">binomial</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">pmf</span><span class="p">)</span>
 
-<span class="gp">In [10]: </span><span class="n">binomial</span>
-<span class="gh">Out[10]: </span><span class="go"></span>
+<span class="gp">In [12]: </span><span class="n">binomial</span>
+<span class="gh">Out[12]: </span><span class="go"></span>
 <span class="go">Value | Probability</span>
 <span class="go">0     | 0.0282475</span>
 <span class="go">1     | 0.121061</span>
@@ -189,32 +196,34 @@ mass function</p>
 </div>
 <div class="section" id="events">
 <h2><a class="toc-backref" href="#id4">Events</a><a class="headerlink" href="#events" title="Permalink to this headline">¶</a></h2>
-<p>Often, we are concerned with specific values in a distribution rather than all the values.</p>
-<p>Calling <code class="docutils literal"><span class="pre">event</span></code> allows us to see a subset of the values in a distribution and the associated probabilities</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [11]: </span><span class="n">dist1</span>
-<span class="gh">Out[11]: </span><span class="go"></span>
+<p>Often, we are concerned with specific values in a distribution rather than all
+the values.</p>
+<p>Calling <code class="docutils literal"><span class="pre">event</span></code> allows us to see a subset of the values in a distribution and
+the associated probabilities.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [13]: </span><span class="n">dist1</span>
+<span class="gh">Out[13]: </span><span class="go"></span>
 <span class="go">Value | Probability</span>
 <span class="go">2     | 0.25</span>
 <span class="go">3     | 0.5</span>
 <span class="go">4     | 0.25</span>
 
-<span class="gp">In [12]: </span><span class="n">dist1</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-<span class="go">                                                                    Out[12]: </span>
+<span class="gp">In [14]: </span><span class="n">dist1</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="go">                                                                    Out[14]: </span>
 <span class="go">Outcome | Probability</span>
 <span class="go">1       | 0</span>
 <span class="go">2       | 0.25</span>
 <span class="go">3       | 0.5</span>
 
-<span class="gp">In [13]: </span><span class="n">dist2</span>
-<span class="go">                                                                                                                                             Out[13]: </span>
+<span class="gp">In [15]: </span><span class="n">dist2</span>
+<span class="go">                                                                                                                                             Out[15]: </span>
 <span class="go">Value | Probability</span>
 <span class="go">1     | 0.25</span>
 <span class="go">3     | 0.25</span>
 <span class="go">5     | 0.25</span>
 <span class="go">7     | 0.25</span>
 
-<span class="gp">In [14]: </span><span class="n">dist2</span><span class="o">.</span><span class="n">event</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
-<span class="go">                                                                                                                                                                                                                               Out[14]: </span>
+<span class="gp">In [16]: </span><span class="n">dist2</span><span class="o">.</span><span class="n">event</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="go">                                                                                                                                                                                                                               Out[16]: </span>
 <span class="go">Outcome | Probability</span>
 <span class="go">1       | 0.25</span>
 <span class="go">3       | 0.25</span>
@@ -222,67 +231,72 @@ mass function</p>
 <span class="go">6       | 0</span>
 </pre></div>
 </div>
-<p>To find the probability of an event, we can call <code class="docutils literal"><span class="pre">prob_event</span></code>, which sums up the probabilities
-of each of the values</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [15]: </span><span class="n">dist1</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-<span class="gh">Out[15]: </span><span class="go">0.75</span>
+<p>To find the probability of an event, we can call <code class="docutils literal"><span class="pre">prob_event</span></code>, which sums up
+the probabilities of each of the values.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [17]: </span><span class="n">dist1</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="gh">Out[17]: </span><span class="go">0.75</span>
 
-<span class="gp">In [16]: </span><span class="n">dist2</span><span class="o">.</span><span class="n">prob_event</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
-<span class="go">              Out[16]: 0.5</span>
+<span class="gp">In [18]: </span><span class="n">dist2</span><span class="o">.</span><span class="n">prob_event</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="go">              Out[18]: 0.5</span>
 
-<span class="gp">In [17]: </span><span class="n">binomial</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-<span class="go">                           Out[17]: 0.8497316673999995</span>
+<span class="gp">In [19]: </span><span class="n">binomial</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="go">                           Out[19]: 0.8497316673999995</span>
 
-<span class="gp">In [18]: </span><span class="n">binomial</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
-<span class="go">                                                       Out[18]: 0.99999999999999922</span>
+<span class="gp">In [20]: </span><span class="n">binomial</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span>
+<span class="go">                                                       Out[20]: 0.99999999999999922</span>
 </pre></div>
 </div>
-<p>Note that due to the way Python handles floats, there might be some rounding errors</p>
+<p>Note that due to the way Python handles floats, there might be some rounding
+errors.</p>
 </div>
 <div class="section" id="plotting">
 <h2><a class="toc-backref" href="#id5">Plotting</a><a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
-<p>To visualize our distributions, we can plot a histogram of the probability mass function using the <code class="docutils literal"><span class="pre">Plot</span></code> function.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [19]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">)</span>
+<p>To visualize our distributions, we can plot a histogram of the probability mass
+function using the <code class="docutils literal"><span class="pre">Plot</span></code> function.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [21]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">)</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/binomial.png"><img alt="_images/binomial.png" src="_images/binomial.png" style="width: 4in;" /></a>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [20]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">dist2</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [22]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">dist2</span><span class="p">)</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/dist2.png"><img alt="_images/dist2.png" src="_images/dist2.png" style="width: 4in;" /></a>
 <div class="section" id="width">
 <h3><a class="toc-backref" href="#id6">Width</a><a class="headerlink" href="#width" title="Permalink to this headline">¶</a></h3>
-<p>If want to specify the width of every bar, we can use the optional parameter <code class="docutils literal"><span class="pre">width=</span></code> to specify the bin sizes.
-However, this should be used very rarely, <strong>only</strong> when there is uniform spacing between bars.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [21]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<p>If want to specify the width of every bar, we can use the optional parameter
+<code class="docutils literal"><span class="pre">width=</span></code> to specify the bin sizes. However, this should be used very rarely,
+<strong>only</strong> when there is uniform spacing between bars.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [23]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/binomial_width_2.png"><img alt="_images/binomial_width_2.png" src="_images/binomial_width_2.png" style="width: 4in;" /></a>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [22]: </span><span class="n">dist3</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [24]: </span><span class="n">dist3</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">)</span>
 
-<span class="gp">In [23]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">dist3</span><span class="p">)</span>
+<span class="gp">In [25]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">dist3</span><span class="p">)</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/dist3.png"><img alt="_images/dist3.png" src="_images/dist3.png" style="width: 4in;" /></a>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [24]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">dist3</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [26]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">dist3</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/dist3_width_2.png"><img alt="_images/dist3_width_2.png" src="_images/dist3_width_2.png" style="width: 4in;" /></a>
 </div>
 <div class="section" id="id1">
 <h3><a class="toc-backref" href="#id7">Events</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>Sometimes, we want to highlight an event or events in our histogram. Do make an event a different color, we can use
-the optional parameter <code class="docutils literal"><span class="pre">event=</span></code>. An event must be a list or a list of lists.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [25]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<p>Sometimes, we want to highlight an event or events in our histogram. To make an
+event a different color, we can use the optional parameter <code class="docutils literal"><span class="pre">event=</span></code>. An event
+must be a list or a list of lists.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [27]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/binomial_event_1.png"><img alt="_images/binomial_event_1.png" src="_images/binomial_event_1.png" style="width: 4in;" /></a>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [26]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [28]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/binomial_event_2.png"><img alt="_images/binomial_event_2.png" src="_images/binomial_event_2.png" style="width: 4in;" /></a>
-<p>If we use a list of lists for the event parameter, each event will be a different color.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [27]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">],[</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">],[</span><span class="mi">8</span><span class="p">],[</span><span class="mi">9</span><span class="p">],[</span><span class="mi">10</span><span class="p">]])</span>
+<p>If we use a list of lists for the event parameter, each event will be a
+different color.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [29]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">binomial</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">],[</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">],[</span><span class="mi">8</span><span class="p">],[</span><span class="mi">9</span><span class="p">],[</span><span class="mi">10</span><span class="p">]])</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/binomial_event_3.png"><img alt="_images/binomial_event_3.png" src="_images/binomial_event_3.png" style="width: 4in;" /></a>
@@ -290,116 +304,84 @@ the optional parameter <code class="docutils literal"><span class="pre">event=</
 </div>
 <div class="section" id="plotting-multiple-distributions">
 <h2><a class="toc-backref" href="#id8">Plotting multiple distributions</a><a class="headerlink" href="#plotting-multiple-distributions" title="Permalink to this headline">¶</a></h2>
-<p>It is often useful to plot multiple histograms on top of each other. To plot multiple distributions on the same
-graph, use the <code class="docutils literal"><span class="pre">Plots</span></code> function. <code class="docutils literal"><span class="pre">Plots</span></code> takes in an even number of arguments, alternating between the label of
-the distribution and the distribution table itself.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [28]: </span><span class="n">Plots</span><span class="p">(</span><span class="s2">&quot;Distribution 1&quot;</span><span class="p">,</span> <span class="n">dist1</span><span class="p">,</span> <span class="s2">&quot;Distribution 2&quot;</span><span class="p">,</span> <span class="n">dist2</span><span class="p">)</span>
+<p>It is often useful to plot multiple histograms on top of each other. To plot
+multiple distributions on the same graph, use the <code class="docutils literal"><span class="pre">Plots</span></code> function. <code class="docutils literal"><span class="pre">Plots</span></code>
+takes in an even number of arguments, alternating between the label of the
+distribution and the distribution table itself.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [30]: </span><span class="n">Plots</span><span class="p">(</span><span class="s2">&quot;Distribution 1&quot;</span><span class="p">,</span> <span class="n">dist1</span><span class="p">,</span> <span class="s2">&quot;Distribution 2&quot;</span><span class="p">,</span> <span class="n">dist2</span><span class="p">)</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/dist1_binomial.png"><img alt="_images/dist1_binomial.png" src="_images/dist1_binomial.png" style="width: 4in;" /></a>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [29]: </span><span class="n">binomial2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">comb</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="o">**</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [31]: </span><span class="n">binomial2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">comb</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="o">**</span><span class="mi">10</span><span class="p">)</span>
 
-<span class="gp">In [30]: </span><span class="n">Plots</span><span class="p">(</span><span class="s2">&quot;Bin(n=10,p=0.3)&quot;</span><span class="p">,</span> <span class="n">binomial</span><span class="p">,</span> <span class="s2">&quot;Bin(n=10,p=0.5)&quot;</span><span class="p">,</span> <span class="n">binomial2</span><span class="p">)</span>
+<span class="gp">In [32]: </span><span class="n">Plots</span><span class="p">(</span><span class="s2">&quot;Bin(n=10,p=0.3)&quot;</span><span class="p">,</span> <span class="n">binomial</span><span class="p">,</span> <span class="s2">&quot;Bin(n=10,p=0.5)&quot;</span><span class="p">,</span> <span class="n">binomial2</span><span class="p">)</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/2_binomials.png"><img alt="_images/2_binomials.png" src="_images/2_binomials.png" style="width: 4in;" /></a>
-<p>Try to avoid plotting too many distributions together because the graph starts to become unreadable</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [31]: </span><span class="n">Plots</span><span class="p">(</span><span class="s2">&quot;dist1&quot;</span><span class="p">,</span> <span class="n">dist1</span><span class="p">,</span> <span class="s2">&quot;dist2&quot;</span><span class="p">,</span> <span class="n">dist2</span><span class="p">,</span> <span class="s2">&quot;Bin1&quot;</span><span class="p">,</span> <span class="n">binomial</span><span class="p">,</span> <span class="s2">&quot;Bin2&quot;</span><span class="p">,</span> <span class="n">binomial2</span><span class="p">)</span>
+<p>Try to avoid plotting too many distributions together because the graph starts
+to become unreadable</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [33]: </span><span class="n">Plots</span><span class="p">(</span><span class="s2">&quot;dist1&quot;</span><span class="p">,</span> <span class="n">dist1</span><span class="p">,</span> <span class="s2">&quot;dist2&quot;</span><span class="p">,</span> <span class="n">dist2</span><span class="p">,</span> <span class="s2">&quot;Bin1&quot;</span><span class="p">,</span> <span class="n">binomial</span><span class="p">,</span> <span class="s2">&quot;Bin2&quot;</span><span class="p">,</span> <span class="n">binomial2</span><span class="p">)</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/bad_idea.png"><img alt="_images/bad_idea.png" src="_images/bad_idea.png" style="width: 4in;" /></a>
 </div>
 <div class="section" id="empirical-distributions">
 <h2><a class="toc-backref" href="#id9">Empirical Distributions</a><a class="headerlink" href="#empirical-distributions" title="Permalink to this headline">¶</a></h2>
-<p>Whenever we simulate an event, we often end up with an array of results. We can construct an empirical distribution
-of the results by grouping of the possible values and assigning the frequencies are probabilities. An easy way to do
-this is by calling <cite>emp_dist</cite></p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [32]: </span><span class="n">x</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<p>Whenever we simulate an event, we often end up with an array of results. We can
+construct an empirical distribution of the results by grouping of the possible
+values and assigning the frequencies as probabilities. Simply call <cite>emp_dist</cite></p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [34]: </span><span class="n">x</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 
-<span class="gp">In [33]: </span><span class="n">emp_dist</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="gh">Out[33]: </span><span class="go"></span>
+<span class="gp">In [35]: </span><span class="n">emp_dist</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gh">Out[35]: </span><span class="go"></span>
 <span class="go">Value | Proportion</span>
 <span class="go">1     | 0.5</span>
 <span class="go">2     | 0.1</span>
 <span class="go">3     | 0.3</span>
 <span class="go">4     | 0.1</span>
 
-<span class="gp">In [34]: </span><span class="n">values</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">()</span>
+<span class="gp">In [36]: </span><span class="n">values</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">()</span>
 
-<span class="gp">In [35]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">):</span>
+<span class="gp">In [37]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">):</span>
 <span class="gp">   ....: </span>    <span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="gp">   ....: </span>    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
 <span class="gp">   ....: </span>
 </pre></div>
 </div>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [36]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">emp_dist</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [38]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">emp_dist</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/emp_dist.png"><img alt="_images/emp_dist.png" src="_images/emp_dist.png" style="width: 4in;" /></a>
 </div>
 <div class="section" id="utilities">
 <h2><a class="toc-backref" href="#id10">Utilities</a><a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [37]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="o">.</span><span class="n">expected_value</span><span class="p">())</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-37-6f5d13a00336&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="o">.</span><span class="n">expected_value</span><span class="p">())</span>
+<p>There are also utility functions for finding the expected value (<cite>ev()</cite>),
+variance (<cite>var()</cite>), or standard deviation (<cite>sd()</cite>) of a distribution.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [39]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="o">.</span><span class="n">ev</span><span class="p">())</span>
+<span class="go">3.0</span>
 
-<span class="nn">/home/jason/anaconda3/lib/python3.5/site-packages/datascience/tables.py</span> in <span class="ni">__getattr__</span><span class="nt">(self, attr)</span>
-<span class="g g-Whitespace">    </span><span class="mi">203</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">204</span>             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&#39;{0}&#39; object has no attribute &#39;{1}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">205</span>             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">206</span> 
-<span class="g g-Whitespace">    </span><span class="mi">207</span>     <span class="c1">####################</span>
+<span class="gp">In [40]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="o">.</span><span class="n">sd</span><span class="p">())</span>
+<span class="go">    0.7071067811865476</span>
 
-<span class="ne">AttributeError</span>: &#39;Table&#39; object has no attribute &#39;expected_value&#39;
+<span class="gp">In [41]: </span><span class="k">print</span><span class="p">(</span><span class="n">binomial</span><span class="o">.</span><span class="n">ev</span><span class="p">())</span>
+<span class="go">                       3.0</span>
 
-<span class="gp">In [38]: </span><span class="k">print</span><span class="p">(</span><span class="n">dist1</span><span class="o">.</span><span class="n">sd</span><span class="p">())</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      0.7071067811865476</span>
+<span class="gp">In [42]: </span><span class="k">print</span><span class="p">(</span><span class="mf">0.3</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">                           3.0</span>
 
-<span class="gp">In [39]: </span><span class="k">print</span><span class="p">(</span><span class="n">binomial</span><span class="o">.</span><span class="n">expected_value</span><span class="p">())</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ---------------------------------------------------------------------------</span>
-<span class="go">AttributeError                            Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-39-5ec502528918&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 print(binomial.expected_value())</span>
+<span class="gp">In [43]: </span><span class="k">print</span><span class="p">(</span><span class="n">binomial</span><span class="o">.</span><span class="n">sd</span><span class="p">())</span>
+<span class="go">                               1.4491376746189442</span>
 
-<span class="go">/home/jason/anaconda3/lib/python3.5/site-packages/datascience/tables.py in __getattr__(self, attr)</span>
-<span class="go">    203         else:</span>
-<span class="go">    204             msg = &quot;&#39;{0}&#39; object has no attribute &#39;{1}&#39;&quot;.format(type(self).__name__, attr)</span>
-<span class="go">--&gt; 205             raise AttributeError(msg)</span>
-<span class="go">    206 </span>
-<span class="go">    207     ####################</span>
+<span class="gp">In [44]: </span><span class="kn">import</span> <span class="nn">math</span>
 
-<span class="go">AttributeError: &#39;Table&#39; object has no attribute &#39;expected_value&#39;</span>
-
-<span class="gp">In [40]: </span><span class="k">print</span><span class="p">(</span><span class="mf">0.3</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              3.0</span>
-
-<span class="gp">In [41]: </span><span class="k">print</span><span class="p">(</span><span class="n">binomial</span><span class="o">.</span><span class="n">sd</span><span class="p">())</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  1.4491376746189442</span>
-
-<span class="gp">In [42]: </span><span class="kn">import</span> <span class="nn">math</span>
-
-<span class="gp">In [43]: </span><span class="k">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="mf">0.7</span><span class="p">))</span>
+<span class="gp">In [45]: </span><span class="k">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="mf">0.7</span><span class="p">))</span>
 <span class="go">1.4491376746189437</span>
 
-<span class="gp">In [44]: </span><span class="k">print</span><span class="p">(</span><span class="n">binomial</span><span class="o">.</span><span class="n">variance</span><span class="p">())</span>
-<span class="go">                   ---------------------------------------------------------------------------</span>
-<span class="go">AttributeError                            Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-44-c77642b15d21&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 print(binomial.variance())</span>
+<span class="gp">In [46]: </span><span class="k">print</span><span class="p">(</span><span class="n">binomial</span><span class="o">.</span><span class="n">var</span><span class="p">())</span>
+<span class="go">                   2.1</span>
 
-<span class="go">/home/jason/anaconda3/lib/python3.5/site-packages/datascience/tables.py in __getattr__(self, attr)</span>
-<span class="go">    203         else:</span>
-<span class="go">    204             msg = &quot;&#39;{0}&#39; object has no attribute &#39;{1}&#39;&quot;.format(type(self).__name__, attr)</span>
-<span class="go">--&gt; 205             raise AttributeError(msg)</span>
-<span class="go">    206 </span>
-<span class="go">    207     ####################</span>
-
-<span class="go">AttributeError: &#39;Table&#39; object has no attribute &#39;variance&#39;</span>
-
-<span class="gp">In [45]: </span><span class="k">print</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="mf">0.7</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          2.0999999999999996</span>
+<span class="gp">In [47]: </span><span class="k">print</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="go">                       2.0999999999999996</span>
 </pre></div>
 </div>
 </div>
@@ -426,7 +408,7 @@ this is by calling <cite>emp_dist</cite></p>
         &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
       </li>
       <li>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.6.
       </li>
     </ul>
     </div>

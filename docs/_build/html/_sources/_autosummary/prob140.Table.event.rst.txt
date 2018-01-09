@@ -1,5 +1,5 @@
-prob140.Table.event
-===================
+prob140\.Table\.event
+=====================
 
 .. currentmodule:: prob140
 

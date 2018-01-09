@@ -48,8 +48,11 @@ def test_construction():
             else:
                 return 0
     table = Table().states(states).transition_function(trans_func)
+    transition_prob = transition_matrix.reshape((25))
+    table2 = Table().states(states).transition_probability(transition_prob)
 
     table_to_mc = table.to_markov_chain()
+    table2_to_mc = table2.to_markov_chain()
     mc_from_table = MarkovChain.from_table(table)
     mc_from_function = MarkovChain.from_transition_function(states, trans_func)
     mc_from_matrix = MarkovChain.from_matrix(states, transition_matrix)
@@ -57,6 +60,10 @@ def test_construction():
     assert_array_equal(
         transition_matrix,
         table_to_mc.get_transition_matrix()
+    )
+    assert_array_equal(
+        transition_matrix,
+        table2_to_mc.get_transition_matrix()
     )
     assert_array_equal(
         transition_matrix,
@@ -73,6 +80,7 @@ def test_construction():
 
 
 def test_distribution():
+    assert_dist_equal(MC_SIMPLE.distribution('A'), [0.1, 0.9])
     assert_dist_equal(MC_SIMPLE.distribution(START_SIMPLE), [0.24, 0.76])
     assert_dist_equal(MC_SIMPLE.distribution(START_SIMPLE, 0), [0.8, 0.2])
     assert_dist_equal(MC_SIMPLE.distribution(START_SIMPLE, 3), [0.3576, 0.6424])
@@ -105,7 +113,7 @@ def test_simulate_path():
         states=np.array(['A', 'B']),
         transition_matrix=np.array([[0, 1], [1, 0]])
     )
-    # Path should alternate values
+    # Path should alternate values.
     path = mc_communicates.simulate_path(START_SIMPLE, 100)
     assert len(set(path)) == 2
     for i in range(len(path) - 1):
@@ -115,7 +123,8 @@ def test_simulate_path():
         states=np.array(['A', 'B']),
         transition_matrix=np.array([[1, 0], [0, 1]])
     )
-    # Path should all have same values
+
+    # Path should all have same values.
     path_A = mc_isolated.simulate_path('A', 100)
     assert len(set(path_A)) == 1
     path_B = mc_isolated.simulate_path('B', 100)

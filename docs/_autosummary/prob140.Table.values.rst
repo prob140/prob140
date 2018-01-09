@@ -1,5 +1,5 @@
-prob140.Table.values
-====================
+prob140\.Table\.values
+======================
 
 .. currentmodule:: prob140
 

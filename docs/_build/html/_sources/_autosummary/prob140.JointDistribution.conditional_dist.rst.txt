@@ -1,5 +1,5 @@
-prob140.JointDistribution.conditional_dist
-==========================================
+prob140\.JointDistribution\.conditional\_dist
+=============================================
 
 .. currentmodule:: prob140
 

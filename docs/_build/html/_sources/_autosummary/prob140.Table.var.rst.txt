@@ -1,5 +1,5 @@
-prob140.Table.var
-=================
+prob140\.Table\.var
+===================
 
 .. currentmodule:: prob140
 

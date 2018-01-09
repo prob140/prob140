@@ -1,5 +1,10 @@
-v0.3.0.0
---------
+v0.3.1.1 (2018-01-08)
+---------------------
+
+* MarkovChain.distribution() supports a state as a starting distribution.
+
+v0.3.1.0 (2018-01-08)
+---------------------
 
 * Code refactor to follow PEP8
 * All new Markov Chain module using numpy backend

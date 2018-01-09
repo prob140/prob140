@@ -1,5 +1,5 @@
-prob140.plots.Plot_chi2
-=======================
+prob140\.plots\.Plot\_chi2
+==========================
 
 .. currentmodule:: prob140.plots
 
