@@ -2,3 +2,4 @@ datascience
 folium==0.1.5
 sphinx
 setuptools
+sympy
