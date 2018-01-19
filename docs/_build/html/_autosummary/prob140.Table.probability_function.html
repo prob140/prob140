@@ -94,20 +94,20 @@
 <code class="descclassname">Table.</code><code class="descname">probability_function</code><span class="sig-paren">(</span><em>pfunc</em><span class="sig-paren">)</span><a class="headerlink" href="#prob140.Table.probability_function" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assigns probabilities to a Distribution via a probability
 function. The probability function is applied to each value of the
-domain. Must have domain values in the first column first.</p>
+domain. Must have domain values in the first columns.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>pfunc</strong> : univariate function</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>pfunc</strong> : func</p>
 <blockquote>
-<div><p>Probability function of the distribution</p>
+<div><p>Probability function of the distribution.</p>
 </div></blockquote>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
 <blockquote class="last">
-<div><p>Table with those probabilities in its second column</p>
+<div><p>Table with probabilities in its last column.</p>
 </div></blockquote>
 </td>
 </tr>

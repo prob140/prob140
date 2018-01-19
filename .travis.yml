@@ -1,4 +1,7 @@
 language: python
+env:
+  global:
+    COVERALLS_REPO_TOKEN=TeiRYz33VCicKLSCi2Oq2rmiX2bQGHodE5SkA
 python:
   - "3.5"
 install:

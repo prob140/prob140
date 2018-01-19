@@ -77,7 +77,7 @@ lists when calling `values()`
 
     heads_table = Table().values("H1",[0.2,0.9],"H2",[2,1,0]).probability(make_array(.75*.04, .75*.32,.75*.64,.25*.81,.25*.18,.25*.01))
     heads_table
-    heads = heads_table.toJoint(reverse=False)
+    heads = heads_table.to_joint(reverse=False)
     heads
 
 You can also use strings for the values of the domain.
@@ -85,7 +85,7 @@ You can also use strings for the values of the domain.
 .. ipython:: python
 
     coins_table = Table().values("Coin1",['H','T'],"Coin2", ['H','T']).probability(np.array([0.24, 0.36, 0.16, 0.24]))
-    coins = coins_table.toJoint(reverse=False)
+    coins = coins_table.to_joint(reverse=False)
     coins
 
 Probability Functions
@@ -99,7 +99,7 @@ the random variables.
     def joint_func(dice1, dice2):
         return (dice1 + dice2)/252
 
-    dice = Table().values("D1", np.arange(1,7),"D2", np.arange(1,7)).probability_function(joint_func).toJoint()
+    dice = Table().values("D1", np.arange(1,7),"D2", np.arange(1,7)).probability_function(joint_func).to_joint()
     dice
 
 Marginal Distributions

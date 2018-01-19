@@ -353,21 +353,21 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Assigns probabilities to a Distribution via a probability</span>
 <span class="sd">    function. The probability function is applied to each value of the</span>
-<span class="sd">    domain. Must have domain values in the first column first.</span>
+<span class="sd">    domain. Must have domain values in the first columns.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    pfunc : univariate function</span>
-<span class="sd">        Probability function of the distribution</span>
+<span class="sd">    pfunc : func</span>
+<span class="sd">        Probability function of the distribution.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    Table</span>
-<span class="sd">        Table with those probabilities in its second column</span>
+<span class="sd">        Table with probabilities in its last column.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">domain_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pfunc</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">domain_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pfunc</span><span class="p">,</span> <span class="o">*</span><span class="n">domain_names</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">values</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Probability cannot be negative&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="mi">6</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
@@ -382,7 +382,7 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    values : List or Array</span>
-<span class="sd">        Values that must correspond to the domain in the same order</span>
+<span class="sd">        Values that must correspond to the domain in the same order.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>

@@ -1,3 +1,9 @@
+v0.3.2.0 (2018-01-18)
+---------------------
+
+* Restore functionality for calling `probability_function` for joint distributions
+
+
 v0.3.1.1 (2018-01-08)
 ---------------------
 

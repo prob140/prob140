@@ -191,55 +191,26 @@ lists when calling <cite>values()</cite></p>
 <span class="go">0.9  | 1    | 0.045</span>
 <span class="go">0.9  | 0    | 0.0025</span>
 
-<span class="gp">In [10]: </span><span class="n">heads</span> <span class="o">=</span> <span class="n">heads_table</span><span class="o">.</span><span class="n">toJoint</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="go">                                                                                                                                                          ---------------------------------------------------------------------------</span>
-<span class="go">AttributeError                            Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-10-ca3316cd7172&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 heads = heads_table.toJoint(reverse=False)</span>
-
-<span class="go">/home/jason/anaconda3/lib/python3.5/site-packages/datascience/tables.py in __getattr__(self, attr)</span>
-<span class="go">    203         else:</span>
-<span class="go">    204             msg = &quot;&#39;{0}&#39; object has no attribute &#39;{1}&#39;&quot;.format(type(self).__name__, attr)</span>
-<span class="go">--&gt; 205             raise AttributeError(msg)</span>
-<span class="go">    206 </span>
-<span class="go">    207     ####################</span>
-
-<span class="go">AttributeError: &#39;Table&#39; object has no attribute &#39;toJoint&#39;</span>
+<span class="gp">In [10]: </span><span class="n">heads</span> <span class="o">=</span> <span class="n">heads_table</span><span class="o">.</span><span class="n">to_joint</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
 <span class="gp">In [11]: </span><span class="n">heads</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-11-5220489941dd&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 heads</span>
-
-<span class="go">NameError: name &#39;heads&#39; is not defined</span>
+<span class="gh">Out[11]: </span><span class="go"></span>
+<span class="go">      H1=0.2  H1=0.9</span>
+<span class="go">H2=0    0.48  0.0025</span>
+<span class="go">H2=1    0.24  0.0450</span>
+<span class="go">H2=2    0.03  0.2025</span>
 </pre></div>
 </div>
 <p>You can also use strings for the values of the domain.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [12]: </span><span class="n">coins_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span><span class="s2">&quot;Coin2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.24</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.24</span><span class="p">]))</span>
 
-<span class="gp">In [13]: </span><span class="n">coins</span> <span class="o">=</span> <span class="n">coins_table</span><span class="o">.</span><span class="n">toJoint</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-13-2d8443ec8fc9&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">coins</span> <span class="o">=</span> <span class="n">coins_table</span><span class="o">.</span><span class="n">toJoint</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-
-<span class="nn">/home/jason/anaconda3/lib/python3.5/site-packages/datascience/tables.py</span> in <span class="ni">__getattr__</span><span class="nt">(self, attr)</span>
-<span class="g g-Whitespace">    </span><span class="mi">203</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">204</span>             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;&#39;{0}&#39; object has no attribute &#39;{1}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">205</span>             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">206</span> 
-<span class="g g-Whitespace">    </span><span class="mi">207</span>     <span class="c1">####################</span>
-
-<span class="ne">AttributeError</span>: &#39;Table&#39; object has no attribute &#39;toJoint&#39;
+<span class="gp">In [13]: </span><span class="n">coins</span> <span class="o">=</span> <span class="n">coins_table</span><span class="o">.</span><span class="n">to_joint</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
 <span class="gp">In [14]: </span><span class="n">coins</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-14-ddb27bb966d3&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 coins</span>
-
-<span class="go">NameError: name &#39;coins&#39; is not defined</span>
+<span class="gh">Out[14]: </span><span class="go"></span>
+<span class="go">         Coin1=H  Coin1=T</span>
+<span class="go">Coin2=H     0.24     0.16</span>
+<span class="go">Coin2=T     0.36     0.24</span>
 </pre></div>
 </div>
 </div>
@@ -251,42 +222,17 @@ the random variables.</p>
 <span class="gp">   ....: </span>    <span class="k">return</span> <span class="p">(</span><span class="n">dice1</span> <span class="o">+</span> <span class="n">dice2</span><span class="p">)</span><span class="o">/</span><span class="mi">252</span>
 <span class="gp">   ....: </span>
 
-<span class="gp">In [16]: </span><span class="n">dice</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;D1&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span><span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">joint_func</span><span class="p">)</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-16-83691488bc50&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">dice</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;D1&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span><span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">joint_func</span><span class="p">)</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
-
-<span class="nn">/home/jason/Documents/probability/prob140/prob140/single_variable.py</span> in <span class="ni">probability_function</span><span class="nt">(self, pfunc)</span>
-<span class="g g-Whitespace">    </span><span class="mi">288</span>     <span class="s2">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">289</span><span class="s2">     domain_name = self.labels[0]</span>
-<span class="ne">--&gt; </span><span class="mi">290</span><span class="s2">     values = np.array(self.apply(pfunc, domain_name)).astype(float)</span>
-<span class="g g-Whitespace">    </span><span class="mi">291</span><span class="s2">     if any(values &lt; 0):</span>
-<span class="g g-Whitespace">    </span><span class="mi">292</span><span class="s2">         warnings.warn(&#39;Probability cannot be negative&#39;)</span>
-
-<span class="nn">/home/jason/anaconda3/lib/python3.5/site-packages/datascience/tables.py</span> in <span class="ni">apply</span><span class="nt">(self, fn, *column_or_columns)</span>
-<span class="g g-Whitespace">    </span><span class="mi">362</span><span class="s2">                 column_or_columns = column_or_columns[0]</span>
-<span class="g g-Whitespace">    </span><span class="mi">363</span><span class="s2">             rows = zip(*self.select(*column_or_columns).columns)</span>
-<span class="ne">--&gt; </span><span class="mi">364</span><span class="s2">             return np.array([fn(*row) for row in rows])</span>
-<span class="g g-Whitespace">    </span><span class="mi">365</span><span class="s2"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">366</span><span class="s2">     ############</span>
-
-<span class="nn">/home/jason/anaconda3/lib/python3.5/site-packages/datascience/tables.py</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
-<span class="g g-Whitespace">    </span><span class="mi">362</span><span class="s2">                 column_or_columns = column_or_columns[0]</span>
-<span class="g g-Whitespace">    </span><span class="mi">363</span><span class="s2">             rows = zip(*self.select(*column_or_columns).columns)</span>
-<span class="ne">--&gt; </span><span class="mi">364</span><span class="s2">             return np.array([fn(*row) for row in rows])</span>
-<span class="g g-Whitespace">    </span><span class="mi">365</span><span class="s2"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">366</span><span class="s2">     ############</span>
-
-<span class="ne">TypeError</span>: joint_func() missing 1 required positional argument: &#39;dice2&#39;
+<span class="gp">In [16]: </span><span class="n">dice</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;D1&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span><span class="s2">&quot;D2&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">joint_func</span><span class="p">)</span><span class="o">.</span><span class="n">to_joint</span><span class="p">()</span>
 
 <span class="gp">In [17]: </span><span class="n">dice</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-17-8231faa33504&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 dice</span>
-
-<span class="go">NameError: name &#39;dice&#39; is not defined</span>
+<span class="gh">Out[17]: </span><span class="go"></span>
+<span class="go">          D1=1      D1=2      D1=3      D1=4      D1=5      D1=6</span>
+<span class="go">D2=6  0.027778  0.031746  0.035714  0.039683  0.043651  0.047619</span>
+<span class="go">D2=5  0.023810  0.027778  0.031746  0.035714  0.039683  0.043651</span>
+<span class="go">D2=4  0.019841  0.023810  0.027778  0.031746  0.035714  0.039683</span>
+<span class="go">D2=3  0.015873  0.019841  0.023810  0.027778  0.031746  0.035714</span>
+<span class="go">D2=2  0.011905  0.015873  0.019841  0.023810  0.027778  0.031746</span>
+<span class="go">D2=1  0.007937  0.011905  0.015873  0.019841  0.023810  0.027778</span>
 </pre></div>
 </div>
 </div>
@@ -296,85 +242,71 @@ the random variables.</p>
 <p>To see the marginal distribution of a variable, call the method
 <cite>marginal(label)</cite> where label is a string for the label.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [18]: </span><span class="n">heads</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-18-12716472d609&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">heads</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;heads&#39; is not defined
+<span class="gh">Out[18]: </span><span class="go"></span>
+<span class="go">                     H1=0.2  H1=0.9</span>
+<span class="go">H2=0                   0.48  0.0025</span>
+<span class="go">H2=1                   0.24  0.0450</span>
+<span class="go">H2=2                   0.03  0.2025</span>
+<span class="go">Sum: Marginal of H1    0.75  0.2500</span>
 
 <span class="gp">In [19]: </span><span class="n">heads</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s2">&quot;H2&quot;</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-19-b58e0897045f&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 heads.marginal(&quot;H2&quot;)</span>
-
-<span class="go">NameError: name &#39;heads&#39; is not defined</span>
+<span class="go">                                                                                                                                                                                              Out[19]: </span>
+<span class="go">      H1=0.2  H1=0.9  Sum: Marginal of H2</span>
+<span class="go">H2=0    0.48  0.0025               0.4825</span>
+<span class="go">H2=1    0.24  0.0450               0.2850</span>
+<span class="go">H2=2    0.03  0.2025               0.2325</span>
 
 <span class="gp">In [20]: </span><span class="n">coins</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-20-bee0c8bd4cce&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 coins.marginal(&quot;Coin1&quot;)</span>
-
-<span class="go">NameError: name &#39;coins&#39; is not defined</span>
+<span class="go">                                                                                                                                                                                                                                                                                                                                                                                Out[20]: </span>
+<span class="go">                        Coin1=H  Coin1=T</span>
+<span class="go">Coin2=H                    0.24     0.16</span>
+<span class="go">Coin2=T                    0.36     0.24</span>
+<span class="go">Sum: Marginal of Coin1     0.60     0.40</span>
 </pre></div>
 </div>
 <p>You can also call <cite>both_marginals()</cite> to see both marginal distributions at
 once.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [21]: </span><span class="n">heads</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-21-c178f0b8cf47&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">heads</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;heads&#39; is not defined
+<span class="gh">Out[21]: </span><span class="go"></span>
+<span class="go">                     H1=0.2  H1=0.9  Sum: Marginal of H2</span>
+<span class="go">H2=0                   0.48  0.0025               0.4825</span>
+<span class="go">H2=1                   0.24  0.0450               0.2850</span>
+<span class="go">H2=2                   0.03  0.2025               0.2325</span>
+<span class="go">Sum: Marginal of H1    0.75  0.2500               1.0000</span>
 
 <span class="gp">In [22]: </span><span class="n">coins</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-22-717e9b716ae6&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 coins.both_marginals()</span>
-
-<span class="go">NameError: name &#39;coins&#39; is not defined</span>
+<span class="go">                                                                                                                                                                                                                                                                                                       Out[22]: </span>
+<span class="go">                        Coin1=H  Coin1=T  Sum: Marginal of Coin2</span>
+<span class="go">Coin2=H                    0.24     0.16                     0.4</span>
+<span class="go">Coin2=T                    0.36     0.24                     0.6</span>
+<span class="go">Sum: Marginal of Coin1     0.60     0.40                     1.0</span>
 </pre></div>
 </div>
 <p>To get the marginal distribution of a variable as a single variable distribution
 for plotting, call <cite>marginal_dist(label)</cite>.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [23]: </span><span class="n">heads</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-23-f54d928560e2&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">heads</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;heads&#39; is not defined
+<span class="gh">Out[23]: </span><span class="go"></span>
+<span class="go">Value | Probability</span>
+<span class="go">0.2   | 0.75</span>
+<span class="go">0.9   | 0.25</span>
 </pre></div>
 </div>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [24]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">heads</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-24-91f4de458bed&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">Plot</span><span class="p">(</span><span class="n">heads</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;heads&#39; is not defined
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/marginal_dist.png"><img alt="_images/marginal_dist.png" src="_images/marginal_dist.png" style="width: 4in;" /></a>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [25]: </span><span class="n">heads</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;H2&quot;</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-25-19a999160f6f&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">heads</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;H2&quot;</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;heads&#39; is not defined
+<span class="gh">Out[25]: </span><span class="go"></span>
+<span class="go">Value | Probability</span>
+<span class="go">0     | 0.4825</span>
+<span class="go">1     | 0.285</span>
+<span class="go">2     | 0.2325</span>
 
 <span class="gp">In [26]: </span><span class="n">coins</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-26-25f7bc5e9aa3&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 coins.marginal_dist(&quot;Coin1&quot;)</span>
-
-<span class="go">NameError: name &#39;coins&#39; is not defined</span>
+<span class="go">                                                                          Out[26]: </span>
+<span class="go">Value | Probability</span>
+<span class="go">H     | 0.6</span>
+<span class="go">T     | 0.4</span>
 </pre></div>
 </div>
 </div>
@@ -383,20 +315,20 @@ for plotting, call <cite>marginal_dist(label)</cite>.</p>
 <p>You can see the conditional distribution using <cite>conditional_dist(label, given)</cite>.
 For example, to see the distribution of H1|H2, call <cite>conditional_dist(“H1”, “H2”)</cite>.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [27]: </span><span class="n">heads</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">,</span> <span class="s2">&quot;H2&quot;</span><span class="p">)</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-27-06acce25642e&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">heads</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">,</span> <span class="s2">&quot;H2&quot;</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;heads&#39; is not defined
+<span class="gh">Out[27]: </span><span class="go"></span>
+<span class="go">                      H1=0.2    H1=0.9  Sum</span>
+<span class="go">Dist. of H1 | H2=0  0.994819  0.005181  1.0</span>
+<span class="go">Dist. of H1 | H2=1  0.842105  0.157895  1.0</span>
+<span class="go">Dist. of H1 | H2=2  0.129032  0.870968  1.0</span>
+<span class="go">Marginal of H1      0.750000  0.250000  1.0</span>
 
 <span class="gp">In [28]: </span><span class="n">heads</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s2">&quot;H2&quot;</span><span class="p">,</span> <span class="s2">&quot;H1&quot;</span><span class="p">)</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">&lt;ipython-input-28-ca8d861464c9&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 heads.conditional_dist(&quot;H2&quot;, &quot;H1&quot;)</span>
-
-<span class="go">NameError: name &#39;heads&#39; is not defined</span>
+<span class="go">                                                                                                                                                                                                                                      Out[28]: </span>
+<span class="go">      Dist. of H2 | H1=0.2  Dist. of H2 | H1=0.9  Marginal of H2</span>
+<span class="go">H2=0                  0.64                  0.01          0.4825</span>
+<span class="go">H2=1                  0.32                  0.18          0.2850</span>
+<span class="go">H2=2                  0.04                  0.81          0.2325</span>
+<span class="go">Sum                   1.00                  1.00          1.0000</span>
 </pre></div>
 </div>
 </div>

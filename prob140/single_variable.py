@@ -273,21 +273,21 @@ def probability_function(self, pfunc):
     """
     Assigns probabilities to a Distribution via a probability
     function. The probability function is applied to each value of the
-    domain. Must have domain values in the first column first.
+    domain. Must have domain values in the first columns.
 
     Parameters
     ----------
-    pfunc : univariate function
-        Probability function of the distribution
+    pfunc : func
+        Probability function of the distribution.
 
     Returns
     -------
     Table
-        Table with those probabilities in its second column
+        Table with probabilities in its last column.
 
     """
-    domain_name = self.labels[0]
-    values = np.array(self.apply(pfunc, domain_name)).astype(float)
+    domain_names = self.labels
+    values = np.array(self.apply(pfunc, *domain_names)).astype(float)
     if any(values < 0):
         warnings.warn('Probability cannot be negative')
     if round(sum(values), 6) != 1:
@@ -302,7 +302,7 @@ def probability(self, values):
     Parameters
     ----------
     values : List or Array
-        Values that must correspond to the domain in the same order
+        Values that must correspond to the domain in the same order.
 
     Returns
     -------
