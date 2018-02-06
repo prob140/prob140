@@ -503,6 +503,8 @@ def sample_from_dist(self, n=1):
     float or array
         Samples from the distribution
 
+    Examples
+    --------
     >>> dist = Table().with_columns(
     ...    'Value', make_array(2, 3, 4),
     ...    'Probability', make_array(0.25, 0.5, 0.25))
