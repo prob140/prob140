@@ -69,6 +69,8 @@ Utilities
     MarkovChain.expected_return_time
     MarkovChain.prob_of_path
     MarkovChain.log_prob_of_path
+    MarkovChain.get_transition_matrix
+    MarkovChain.transition_matrix
 
 
 Simulations
