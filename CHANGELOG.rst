@@ -1,7 +1,12 @@
+v0.3.2.1 (2018-02-08)
+---------------------
+
+* Only show real component of steady state distribution when computing left eigenvector.
+
 v0.3.2.0 (2018-01-18)
 ---------------------
 
-* Restore functionality for calling `probability_function` for joint distributions
+* Restore functionality for calling `probability_function` for joint distributions.
 
 
 v0.3.1.1 (2018-01-08)

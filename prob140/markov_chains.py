@@ -282,7 +282,7 @@ class MarkovChain:
         A     | 0.666667
         B     | 0.333333
         """
-        eigenvector = scipy.linalg.eig(self.matrix, left=True)[1][:, 0]
+        eigenvector = np.real(scipy.linalg.eig(self.matrix, left=True)[1][:, 0])
         probabilities = eigenvector / sum(eigenvector)
         return Table().values(self.states).probability(probabilities)
 
