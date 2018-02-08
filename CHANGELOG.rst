@@ -1,3 +1,10 @@
+v0.3.3.0 (2018-02-08)
+---------------------
+
+* plot_path now only plots the path if the probability is nonzero
+* plot_path takes in a starting condition to be consistent with prob_of_path
+* simulate_path takes an optional parameter to plot the path
+
 v0.3.2.1 (2018-02-08)
 ---------------------
 

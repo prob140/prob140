@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.markov_chains &mdash; prob140 0.3.2.0 documentation</title>
+    <title>prob140.markov_chains &mdash; prob140 0.3.3.0 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.3.2.0',
+        VERSION:     '0.3.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" >
     <link rel="search" title="Search" href="../../search.html" >
-    <link rel="top" title="prob140 0.3.2.0 documentation" href="../../index.html" >
+    <link rel="top" title="prob140 0.3.3.0 documentation" href="../../index.html" >
     <link rel="up" title="Module code" href="../index.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="../../index.html">prob140 0.3.2.0 documentation</a></li>
+        <li class="active"><a href="../../index.html">prob140 0.3.3.0 documentation</a></li>
 	
           <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -106,7 +106,7 @@
             <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="MarkovChain.get_transition_matrix"><a class="viewcode-back" href="../../_autosummary/prob140.MarkovChain.get_transition_matrix.html#prob140.MarkovChain.get_transition_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">get_transition_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="MarkovChain.get_transition_matrix"><a class="viewcode-back" href="../../table.html#prob140.MarkovChain.get_transition_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">get_transition_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the transition matrix after n steps as a numpy matrix.</span>
 
@@ -121,7 +121,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="n">steps</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="MarkovChain.transition_matrix"><a class="viewcode-back" href="../../_autosummary/prob140.MarkovChain.transition_matrix.html#prob140.MarkovChain.transition_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">transition_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="MarkovChain.transition_matrix"><a class="viewcode-back" href="../../table.html#prob140.MarkovChain.transition_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">transition_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the transition matrix after n steps visually as a Pandas df.</span>
 
@@ -207,7 +207,7 @@
 <span class="sd">            If a state, finds the log-probability of the path starting at that</span>
 <span class="sd">            state. If a Distribution, finds the probability of the path with</span>
 <span class="sd">            the first element sampled from the Distribution</span>
-<span class="sd">        path : array</span>
+<span class="sd">        path : ndarray</span>
 <span class="sd">            Array of states</span>
 
 <span class="sd">        Returns</span>
@@ -257,7 +257,7 @@
 <span class="sd">            If a state, finds the probability of the path starting at that</span>
 <span class="sd">            state. If a Distribution, finds the probability of the path with</span>
 <span class="sd">            the first element sampled from the Distribution.</span>
-<span class="sd">        path : array</span>
+<span class="sd">        path : ndarray</span>
 <span class="sd">            Array of states</span>
 
 <span class="sd">        Returns</span>
@@ -301,7 +301,7 @@
             <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">prob</span></div>
 
-<div class="viewcode-block" id="MarkovChain.simulate_path"><a class="viewcode-back" href="../../table.html#prob140.MarkovChain.simulate_path">[docs]</a>    <span class="k">def</span> <span class="nf">simulate_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">starting_condition</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
+<div class="viewcode-block" id="MarkovChain.simulate_path"><a class="viewcode-back" href="../../table.html#prob140.MarkovChain.simulate_path">[docs]</a>    <span class="k">def</span> <span class="nf">simulate_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">starting_condition</span><span class="p">,</span> <span class="n">steps</span><span class="p">,</span> <span class="n">plot_path</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Simulates a path of n steps with a specific starting condition.</span>
 
@@ -313,10 +313,12 @@
 <span class="sd">            state.</span>
 <span class="sd">        steps : int</span>
 <span class="sd">            Number of steps to take.</span>
+<span class="sd">        plot_path : bool</span>
+<span class="sd">            If True, plots the simulated path.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        array</span>
+<span class="sd">        ndarray</span>
 <span class="sd">            Array of sampled states.</span>
 
 <span class="sd">        Examples</span>
@@ -340,6 +342,9 @@
             <span class="n">next_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
             <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_state</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="n">plot_path</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_path</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="MarkovChain.steady_state"><a class="viewcode-back" href="../../table.html#prob140.MarkovChain.steady_state">[docs]</a>    <span class="k">def</span> <span class="nf">steady_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -362,7 +367,7 @@
 <span class="sd">        A     | 0.666667</span>
 <span class="sd">        B     | 0.333333</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">eigenvector</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">eigenvector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">])</span>
         <span class="n">probabilities</span> <span class="o">=</span> <span class="n">eigenvector</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">)</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">probabilities</span><span class="p">)</span></div>
 
@@ -393,12 +398,14 @@
             <span class="mi">1</span> <span class="o">/</span> <span class="n">expected_return</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="MarkovChain.plot_path"><a class="viewcode-back" href="../../table.html#prob140.MarkovChain.plot_path">[docs]</a>    <span class="k">def</span> <span class="nf">plot_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="MarkovChain.plot_path"><a class="viewcode-back" href="../../table.html#prob140.MarkovChain.plot_path">[docs]</a>    <span class="k">def</span> <span class="nf">plot_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">starting_condition</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plots a Markov Chain&#39;s path.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
+<span class="sd">        starting_condition : state</span>
+<span class="sd">            State to start at.</span>
 <span class="sd">        path : iterable</span>
 <span class="sd">            List of valid states.</span>
 
@@ -411,10 +418,15 @@
 <span class="sd">        &gt;&gt;&gt; mc.plot_path(mc.simulate_path(&#39;B&#39;, 20))</span>
 <span class="sd">        &lt;Plot of a Markov Chain that starts at &#39;B&#39; and takes 20 steps&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">starting_condition</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">,</span> <span class="s1">&#39;Start state must be a state.&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_of_path</span><span class="p">(</span><span class="n">starting_condition</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Path not possible.&#39;</span><span class="p">)</span>
         <span class="n">states</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">starting_condition</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
         <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">states</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">path</span><span class="p">]</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkblue&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">)),</span> <span class="n">states</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">states</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
@@ -528,7 +540,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        states : iterable</span>
 <span class="sd">            List of states.</span>
-<span class="sd">        transition_matrix : array</span>
+<span class="sd">        transition_matrix : ndarray</span>
 <span class="sd">            Square transition matrix.</span>
 
 <span class="sd">        Returns</span>

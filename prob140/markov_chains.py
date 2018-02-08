@@ -127,7 +127,7 @@ class MarkovChain:
             If a state, finds the log-probability of the path starting at that
             state. If a Distribution, finds the probability of the path with
             the first element sampled from the Distribution
-        path : array
+        path : ndarray
             Array of states
 
         Returns
@@ -177,7 +177,7 @@ class MarkovChain:
             If a state, finds the probability of the path starting at that
             state. If a Distribution, finds the probability of the path with
             the first element sampled from the Distribution.
-        path : array
+        path : ndarray
             Array of states
 
         Returns
@@ -221,7 +221,7 @@ class MarkovChain:
             i += 1
         return prob
 
-    def simulate_path(self, starting_condition, steps):
+    def simulate_path(self, starting_condition, steps, plot_path=False):
         """
         Simulates a path of n steps with a specific starting condition.
 
@@ -233,10 +233,12 @@ class MarkovChain:
             state.
         steps : int
             Number of steps to take.
+        plot_path : bool
+            If True, plots the simulated path.
 
         Returns
         -------
-        array
+        ndarray
             Array of sampled states.
 
         Examples
@@ -259,6 +261,9 @@ class MarkovChain:
             index = states.index(path[-1])
             next_state = np.random.choice(states, p=self.matrix[index])
             path.append(next_state)
+
+        if plot_path:
+            self.plot_path(path[0], path[1:])
 
         return np.array(path)
 
@@ -313,12 +318,14 @@ class MarkovChain:
             1 / expected_return
         )
 
-    def plot_path(self, path):
+    def plot_path(self, starting_condition, path):
         """
         Plots a Markov Chain's path.
 
         Parameters
         ----------
+        starting_condition : state
+            State to start at.
         path : iterable
             List of valid states.
 
@@ -331,10 +338,15 @@ class MarkovChain:
         >>> mc.plot_path(mc.simulate_path('B', 20))
         <Plot of a Markov Chain that starts at 'B' and takes 20 steps>
         """
+        assert starting_condition in self.states, 'Start state must be a state.'
+        if self.prob_of_path(starting_condition, path) == 0:
+            raise Exception('Path not possible.')
         states = list(self.states)
+        path = [starting_condition] + list(path)
         x = np.arange(len(path))
         y = [states.index(state) for state in path]
-        plt.plot(x, y, marker='o', lw=1, color='darkblue')
+        plt.scatter(x, y, color='blue')
+        plt.plot(x, y, lw=1, color='black')
         plt.yticks(np.arange(len(states)), states)
         plt.xlim(-0.5, len(path) + 0.5)
         plt.ylim(-0.5, len(states) - 0.5)
@@ -448,7 +460,7 @@ class MarkovChain:
         ----------
         states : iterable
             List of states.
-        transition_matrix : array
+        transition_matrix : ndarray
             Square transition matrix.
 
         Returns
