@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import warnings
 
 from datascience import Table
 import matplotlib.pyplot as plt
@@ -13,6 +14,11 @@ class MarkovChain:
     """
 
     def __init__(self, states, transition_matrix):
+        transition_matrix = np.array(transition_matrix)
+        if not np.all(transition_matrix >= 0):
+            warnings.warn('Transition matrix contains negative value(s).')
+        if not np.all(np.isclose(np.sum(transition_matrix, axis=1), 1.)):
+            warnings.warn('Transition probabilities don\'t sum to 1.')
         self.states = states
         self.matrix = transition_matrix
 
@@ -287,7 +293,13 @@ class MarkovChain:
         A     | 0.666667
         B     | 0.333333
         """
-        eigenvector = np.real(scipy.linalg.eig(self.matrix, left=True)[1][:, 0])
+        # Steady state is the left eigenvector that corresponds to eigenvalue=1.
+        w, vl = scipy.linalg.eig(self.matrix, left=True, right=False)
+
+        # Find index of eigenvalue = 1.
+        index = np.isclose(w, 1)
+
+        eigenvector = np.real(vl[:, index])[:, 0]
         probabilities = eigenvector / sum(eigenvector)
         return Table().values(self.states).probability(probabilities)
 

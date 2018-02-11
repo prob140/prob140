@@ -78,6 +78,14 @@ def test_construction():
         mc_from_matrix.get_transition_matrix()
     )
 
+    # Negative probability.
+    with pytest.warns(UserWarning):
+        MarkovChain.from_matrix([1, 2], [[-1, 2], [0.5, 0.5]])
+    # Transition probability doesn't sum to 1.
+    with pytest.warns(UserWarning):
+        MarkovChain.from_matrix([1, 2], [[0.2, 0.3], [1, 2]])
+
+
 
 def test_distribution():
     assert_dist_equal(MC_SIMPLE.distribution('A'), [0.1, 0.9])

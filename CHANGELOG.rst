@@ -1,3 +1,9 @@
+v0.3.3.1 (2018-02-10)
+---------------------
+
+* Fixed bug in which MarkovChain.steady_state might use the wrong eigenvector.
+* Added warnings if transition probabilities are negative or don't sum to 1.
+
 v0.3.3.0 (2018-02-08)
 ---------------------
 
