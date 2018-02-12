@@ -1,3 +1,14 @@
+v0.3.3.3 (2018-02-11)
+---------------------
+
+* plot_path now checks if path is possible by iterating through it.
+* simulate_path with plot_path=True no longer returns the path.
+
+v0.3.3.2 (2018-02-11)
+---------------------
+
+* Zeroing out negative floating point errors.
+
 v0.3.3.1 (2018-02-10)
 ---------------------
 

@@ -270,8 +270,8 @@ class MarkovChain:
 
         if plot_path:
             self.plot_path(path[0], path[1:])
-
-        return np.array(path)
+        else:
+            return np.array(path)
 
     def steady_state(self):
         """
@@ -301,6 +301,11 @@ class MarkovChain:
 
         eigenvector = np.real(vl[:, index])[:, 0]
         probabilities = eigenvector / sum(eigenvector)
+
+        # Zero out floating poing errors that are negative.
+        indices = np.logical_and(np.isclose(probabilities, 0),
+                                 probabilities < 0)
+        probabilities[indices] = 0
         return Table().values(self.states).probability(probabilities)
 
     def expected_return_time(self):
@@ -351,9 +356,15 @@ class MarkovChain:
         <Plot of a Markov Chain that starts at 'B' and takes 20 steps>
         """
         assert starting_condition in self.states, 'Start state must be a state.'
-        if self.prob_of_path(starting_condition, path) == 0:
-            raise Exception('Path not possible.')
+
         states = list(self.states)
+        prev_index = states.index(starting_condition)
+        for state in path:
+            curr_index = states.index(state)
+            assert self.matrix[prev_index, curr_index] != 0, \
+                'Path not possible.'
+            prev_index = curr_index
+
         path = [starting_condition] + list(path)
         x = np.arange(len(path))
         y = [states.index(state) for state in path]
