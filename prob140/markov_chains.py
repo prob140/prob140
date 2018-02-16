@@ -104,6 +104,13 @@ class MarkovChain:
         """
         if isinstance(starting_condition, Table):
             states = list(starting_condition.column(0))
+
+            # datascience Tables store everything in arrays, so iterables get
+            # typecast to arrays. Thus, if the states are iterables, we need to
+            # typecast it back to its original type.
+            if hasattr(states[0], '__iter__'):
+                desired_type = type(self.states[0])
+                states = list(map(desired_type, states))
             probabilities = starting_condition.column(1)
         else:
             states = [starting_condition]

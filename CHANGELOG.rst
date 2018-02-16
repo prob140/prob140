@@ -1,3 +1,8 @@
+v0.3.3.4 (2018-02-15)
+---------------------
+
+* MarkovChain.distribution typecasts states that are iterables.
+
 v0.3.3.3 (2018-02-11)
 ---------------------
 

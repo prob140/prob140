@@ -86,7 +86,6 @@ def test_construction():
         MarkovChain.from_matrix([1, 2], [[0.2, 0.3], [1, 2]])
 
 
-
 def test_distribution():
     assert_dist_equal(MC_SIMPLE.distribution('A'), [0.1, 0.9])
     assert_dist_equal(MC_SIMPLE.distribution(START_SIMPLE), [0.24, 0.76])
