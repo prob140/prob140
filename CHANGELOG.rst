@@ -1,3 +1,8 @@
+v0.3.3.5 (2018-03-03)
+---------------------
+
+* Reformats y-ticks by scaling the labels rather than scaling the values to get percent per unit.
+
 v0.3.3.4 (2018-02-15)
 ---------------------
 

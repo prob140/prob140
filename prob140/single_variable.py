@@ -10,6 +10,7 @@ from datascience import (
 )
 import matplotlib
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import numpy as np
 
 from .multi_variable import multi_domain
@@ -127,24 +128,29 @@ def Plot(dist, width=1, event=(), edges=None, show_ev=False, show_ave=False,
                                            len(event) + 1))
             for i in range(len(event)):
                 # Cycle through each event and remove from the events set.
-                plt.bar(event[i], prob(event[i]) * 100,
+                plt.bar(event[i], prob(event[i]),
                         color=colors[i], **options)
                 domain -= set(event[i])
 
             domain = np.array(list(domain))
-            plt.bar(domain, prob(domain) * 100, color=colors[-1], **options)
+            plt.bar(domain, prob(domain), color=colors[-1], **options)
         else:
             # If event is just a list.
-            plt.bar(event, prob(event) * 100, color='gold', **options)
+            plt.bar(event, prob(event), color='gold', **options)
             domain = np.array(list(set(dist.column(0)) - set(event)))
-            plt.bar(domain, prob(domain) * 100, color='darkblue', **options)
+            plt.bar(domain, prob(domain), color='darkblue', **options)
 
     else:
         # No event.
-        plt.bar(domain, prob * 100, color='darkblue', **options)
+        plt.bar(domain, prob, color='darkblue', **options)
 
     plt.xlabel(domain_label)
     plt.ylabel('Percent per unit')
+
+    # Multiple all y-ticks by 100 to get percent per unit.
+    ax = plt.gca()
+    ticks = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x * 100.))
+    ax.yaxis.set_major_formatter(ticks)
 
     # The minimum distance between any two values.
     min_distance = 0.9 * min([dist.column(0)[i] - dist.column(0)[i - 1]
@@ -152,7 +158,7 @@ def Plot(dist, width=1, event=(), edges=None, show_ev=False, show_ave=False,
 
     plt.xlim((min(dist.column(0)) - min_distance - width / 2,
               max(dist.column(0)) + min_distance + width / 2))
-    plt.ylim(0, max(dist.column(1)) * 110)
+    plt.ylim(0, max(dist.column(1)) * 1.1)
 
     # Markers.
     if show_ev or show_ave:
@@ -226,7 +232,7 @@ def Plots(*labels_and_dists, width=1, edges=None, **vargs):
     colors = list(itertools.islice(itertools.cycle(Table.chart_colors), n))
 
     for i in range(n):
-        plt.bar(domain, probabilities[i] * 100, color=colors[i],
+        plt.bar(domain, probabilities[i], color=colors[i],
                 label=labels_and_dists[i * 2], **options)
 
     plt.legend(loc=2, bbox_to_anchor=(1.05, 1))
@@ -239,6 +245,11 @@ def Plots(*labels_and_dists, width=1, edges=None, **vargs):
 
     plt.xlabel('Value')
     plt.ylabel('Percent per unit')
+
+    # Multiple all y-ticks by 100 to get percent per unit.
+    ax = plt.gca()
+    ticks = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x * 100.))
+    ax.yaxis.set_major_formatter(ticks)
 
 
 def single_domain(self, values):

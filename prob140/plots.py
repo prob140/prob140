@@ -1,6 +1,7 @@
 import ipywidgets as widgets
 from ipywidgets import interact
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 import numpy as np
 import scipy.stats as stats
@@ -97,6 +98,12 @@ def Plot_continuous(x_limits, func, *args, **kwargs):
         if left or right:
             x2 = np.linspace(lb, rb, 100)
             plt.fill_between(x2, f(x2), alpha=0.7, color='gold')
+
+    # Multiple all y-ticks by 100 to get percent per unit.
+    ax = plt.gca()
+    ticks = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x * 100.))
+    ax.yaxis.set_major_formatter(ticks)
+    plt.ylabel('Percent per unit')
 
 
 def Plot_3d(x_limits, y_limits, f, interactive=False, **kwargs):
