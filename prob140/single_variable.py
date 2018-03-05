@@ -106,7 +106,13 @@ def Plot(dist, width=1, event=(), edges=None, show_ev=False, show_ave=False,
     domain, prob = _bin(dist, width)
 
     # Default plot attributes.
-    options = {'width': width, 'lw': 0, 'alpha': 0.7, 'align': 'center'}
+    options = {
+        'align': 'center',
+        'alpha': 0.7,
+        'edgecolor': 'w',
+        'lw': 0,
+        'width': width,
+    }
 
     # Set edges.
     if edges or len(domain) < 75:
@@ -221,7 +227,13 @@ def Plots(*labels_and_dists, width=1, edges=None, **vargs):
         probabilities.append(np.array(prob))
 
     # Set the plot attributes.
-    options = {'width': width, 'lw': 0, 'alpha': 0.7, 'align': 'center'}
+    options = {
+        'align': 'center',
+        'alpha': 0.7,
+        'edgecolor': 'w',
+        'lw': 0,
+        'width': width,
+    }
     if edges or len(domain) < 75:
         options['lw'] = 0.5
     if not edges and edges is not None:  # edges could be none
