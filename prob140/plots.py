@@ -106,7 +106,7 @@ def Plot_continuous(x_limits, func, *args, **kwargs):
     plt.ylabel('Percent per unit')
 
 
-def Plot_3d(x_limits, y_limits, f, interactive=False, **kwargs):
+def Plot_3d(x_limits, y_limits, f, interactive=False, figsize=(12, 8), **kwargs):
     """
     Plots a 3d graph.
 
@@ -129,11 +129,10 @@ def Plot_3d(x_limits, y_limits, f, interactive=False, **kwargs):
     Returns
     -------
     None
-
     """
     def plot(elev, azim):
 
-        fig = plt.figure(figsize=(12, 8))
+        fig = plt.figure(figsize=figsize)
         ax = fig.add_subplot(111, projection='3d')
         x = np.linspace(*x_limits, 100)
         y = np.linspace(*y_limits, 100)
