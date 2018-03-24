@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>prob140.single_variable &mdash; prob140 0.3.3.0 documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
+    <link rel="stylesheet" href="../../_static/scipy.css" type="text/css" >
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" >
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.3.3.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" >
+    <link rel="search" title="Search" href="../../search.html" >
+    <link rel="top" title="prob140 0.3.3.0 documentation" href="../../index.html" >
+    <link rel="up" title="Module code" href="../index.html" > 
+  </head>
+  <body>
+
+<div class="container">
+  <div class="top-scipy-org-logo-header">
+    <a href="../../index.html">
+      <img style="border: 0;" alt="SciPy" src="../../_static/img/scipy_org_logo.gif"></a>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <div class="main">
+        
+	<div class="row-fluid">
+	  <div class="span12">
+	    <div class="spc-navbar">
+              
+    <ul class="nav nav-pills pull-left">
+        <li class="active"><a href="http://prob140.org">Prob140</a></li>
+        <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
+	
+        <li class="active"><a href="../../index.html">prob140 0.3.3.0 documentation</a></li>
+	
+          <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
+    </ul>
+              
+              
+    <ul class="nav nav-pills pull-right">
+      <li class="active">
+        <a href="../../genindex.html" title="General Index"
+           accesskey="I">index</a>
+      </li>
+    </ul>
+              
+	    </div>
+	  </div>
+	</div>
+        
+
+	<div class="row-fluid"><div class="span1"></div>
+          <div class="span10">
+	  
+            
+        <div class="bodywrapper">
+          <div class="body" id="spc-section-body">
+            
+  <h1>Source code for prob140.single_variable</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">datascience</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">are</span><span class="p">,</span>
+    <span class="n">make_array</span><span class="p">,</span>
+    <span class="n">Table</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.multi_variable</span> <span class="k">import</span> <span class="n">multi_domain</span>
+
+<span class="n">inf</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span>
+<span class="n">rgb</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">colorConverter</span><span class="o">.</span><span class="n">to_rgb</span>
+
+
+<span class="k">def</span> <span class="nf">check_valid_probability_table</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">table</span><span class="o">.</span><span class="n">num_columns</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;In order to run a Prob140 function, your &#39;</span>\
+        <span class="s1">&#39;table must have 2 columns: a Values column and a Probability column&#39;</span>
+    <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;Probabilities must be non-negative&#39;</span>
+
+
+<span class="k">def</span> <span class="nf">_bin</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_bins</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function that bins a distribution for plotting</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dist : Table</span>
+<span class="sd">        Distribution that needs to be binned.</span>
+<span class="sd">    width (optional) : float</span>
+<span class="sd">        Width of each bin. (Default: 1)</span>
+<span class="sd">    start (optional) : float</span>
+<span class="sd">        Where to start first bin. (Default: minimum value of the domain.)</span>
+<span class="sd">    num_bins (optional): int</span>
+<span class="sd">        Number of bins. (Default: minimum number of bins to span domain)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    (new_domain, new_prob)</span>
+<span class="sd">        Domain values of the new bins and the associated probabilities</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; x = Table().values([0, 0.5, 1]).probability([1 / 3, 1 / 3, 1 / 3])</span>
+<span class="sd">    &gt;&gt;&gt; _bin(x)</span>
+<span class="sd">    (array([ 0.,  1.]), array([ 0.66666667,  0.33333333]))</span>
+<span class="sd">    &gt;&gt;&gt; _bin(x, width=0.5)</span>
+<span class="sd">    (array([ 0. ,  0.5,  1. ]), array([ 0.33333333,  0.33333333,  0.33333333]))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">domain</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">num_bins</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">num_bins</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">num_bins</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="nb">max</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">width</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">new_domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">width</span> <span class="o">*</span> <span class="n">num_bins</span><span class="p">,</span> <span class="n">width</span><span class="p">)[:</span><span class="n">num_bins</span><span class="p">]</span>
+    <span class="n">new_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_bins</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">)):</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">domain</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">start</span> <span class="o">-</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">width</span><span class="p">)</span>
+        <span class="n">new_prob</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="n">prob</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">new_domain</span><span class="p">,</span> <span class="n">new_prob</span>
+
+
+<div class="viewcode-block" id="Plot"><a class="viewcode-back" href="../../_autosummary/prob140.Plot.html#prob140.Plot">[docs]</a><span class="k">def</span> <span class="nf">Plot</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="p">(),</span> <span class="n">edges</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_ev</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_ave</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+         <span class="n">show_sd</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plots the histogram for a single distribution.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dist : Table</span>
+<span class="sd">        A 2-column table representing a probability distribution.</span>
+<span class="sd">    width (optional) : float</span>
+<span class="sd">        Width of the intervals (default: 1)</span>
+<span class="sd">    edges (optional) : boolean</span>
+<span class="sd">        If True, there will be a small border around the bars. If False, there</span>
+<span class="sd">        will be no border. (default: small border unless there more than 75</span>
+<span class="sd">        bins)</span>
+<span class="sd">    show_ev (optional) : boolean</span>
+<span class="sd">        Adds a tick mark at the expected value. (default : False)</span>
+<span class="sd">    show_ave (optional) : boolean</span>
+<span class="sd">        Adds a tick mark at the average of an empirical distribution.</span>
+<span class="sd">        (default : False)</span>
+<span class="sd">    show_sd (optional) : boolean</span>
+<span class="sd">        Adds two tick marks one sd above and one sd below the expected value.</span>
+<span class="sd">        (default : False)</span>
+<span class="sd">    vargs</span>
+<span class="sd">        See pyplot&#39;s additional optional arguments.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Basic sanity checks.</span>
+    <span class="n">check_valid_probability_table</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">remove_zeros</span><span class="p">()</span>
+
+    <span class="n">domain_label</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">domain_label</span><span class="p">)</span>
+    <span class="n">domain</span><span class="p">,</span> <span class="n">prob</span> <span class="o">=</span> <span class="n">_bin</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+
+    <span class="c1"># Default plot attributes.</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="s1">&#39;lw&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span> <span class="s1">&#39;align&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">}</span>
+
+    <span class="c1"># Set edges.</span>
+    <span class="k">if</span> <span class="n">edges</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">75</span><span class="p">:</span>
+        <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lw&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">edges</span> <span class="ow">and</span> <span class="n">edges</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># edges could be none</span>
+        <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lw&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">vargs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Events.</span>
+
+        <span class="n">domain</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">def</span> <span class="nf">prob</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+            <span class="c1"># If event is a list of lists.</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">chart_colors</span><span class="p">),</span>
+                                           <span class="nb">len</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">event</span><span class="p">)):</span>
+                <span class="c1"># Cycle through each event and remove from the events set.</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">prob</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span>
+                        <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+                <span class="n">domain</span> <span class="o">-=</span> <span class="nb">set</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+            <span class="n">domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">domain</span><span class="p">))</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">prob</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If event is just a list.</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">prob</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+            <span class="n">domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">event</span><span class="p">)))</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">prob</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkblue&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># No event.</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">prob</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkblue&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">domain_label</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percent per unit&#39;</span><span class="p">)</span>
+
+    <span class="c1"># The minimum distance between any two values.</span>
+    <span class="n">min_distance</span> <span class="o">=</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="nb">min</span><span class="p">([</span><span class="n">dist</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">dist</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">num_rows</span><span class="p">)])</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="o">-</span> <span class="n">min_distance</span> <span class="o">-</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+              <span class="nb">max</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="o">+</span> <span class="n">min_distance</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="mi">110</span><span class="p">)</span>
+
+    <span class="c1"># Markers.</span>
+    <span class="k">if</span> <span class="n">show_ev</span> <span class="ow">or</span> <span class="n">show_ave</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">ev</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">show_sd</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">ev</span><span class="p">()</span> <span class="o">-</span> <span class="n">dist</span><span class="o">.</span><span class="n">sd</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;^&#39;</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span>
+                 <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">ev</span><span class="p">()</span> <span class="o">+</span> <span class="n">dist</span><span class="o">.</span><span class="n">sd</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;^&#39;</span><span class="p">,</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span>
+                 <span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plots"><a class="viewcode-back" href="../../_autosummary/prob140.Plots.html#prob140.Plots">[docs]</a><span class="k">def</span> <span class="nf">Plots</span><span class="p">(</span><span class="o">*</span><span class="n">labels_and_dists</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edges</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">vargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Overlays histograms for multiple probability distributions together.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    labels_and_dists : Even number of alternations between Strings and Tables</span>
+<span class="sd">        Each distribution must have a label associated with it.</span>
+<span class="sd">    width (optional) : float</span>
+<span class="sd">        Width of the intervals. (default: 1)</span>
+<span class="sd">    edges : bool</span>
+<span class="sd">        If True, there will be a small border around the bars. If False, there</span>
+<span class="sd">        will be no border. (default: small border unless there more than 75</span>
+<span class="sd">        bins)</span>
+<span class="sd">    vargs</span>
+<span class="sd">        See pyplot&#39;s documentation</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; dist1 = Table().values([1, 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])</span>
+<span class="sd">    &gt;&gt;&gt; dist2 = Table().values([3, 4, 5, 6]).probability([1/2, 1/8, 1/8, 1/4])</span>
+<span class="sd">    &gt;&gt;&gt; Plots(&#39;Distribution1&#39;, dist1, &#39;Distribution2&#39;, dist2)</span>
+<span class="sd">    &lt;histogram with dist1 and dist2&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_and_dists</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Even length sequence required&#39;</span>
+
+    <span class="c1"># Find the union of the domain of all plotted distributions.</span>
+    <span class="n">domain</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">distributions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels_and_dists</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">labels_and_dists</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">Table</span><span class="p">),</span> \
+            <span class="s1">&#39;Argument </span><span class="si">{}</span><span class="s1"> must be a distribution&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">check_valid_probability_table</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+        <span class="n">distributions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">remove_zeros</span><span class="p">())</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="n">domain</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">distributions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">domain</span><span class="p">))</span>
+
+    <span class="c1"># Find the and bin the probabilities corresponding to each value in domain</span>
+    <span class="c1"># for each distribution.</span>
+    <span class="n">probabilities</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
+    <span class="n">num_bins</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="nb">max</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">/</span> <span class="n">width</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">dist</span> <span class="ow">in</span> <span class="n">distributions</span><span class="p">:</span>
+        <span class="n">domain</span><span class="p">,</span> <span class="n">prob</span> <span class="o">=</span> <span class="n">_bin</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">)</span>
+        <span class="n">probabilities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">prob</span><span class="p">))</span>
+
+    <span class="c1"># Set the plot attributes.</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="s1">&#39;lw&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span> <span class="s1">&#39;align&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">edges</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">75</span><span class="p">:</span>
+        <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lw&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">edges</span> <span class="ow">and</span> <span class="n">edges</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># edges could be none</span>
+        <span class="n">options</span><span class="p">[</span><span class="s1">&#39;lw&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">vargs</span><span class="p">)</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">distributions</span><span class="p">)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="n">Table</span><span class="o">.</span><span class="n">chart_colors</span><span class="p">),</span> <span class="n">n</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">labels_and_dists</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">],</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">min_distance</span> <span class="o">=</span> <span class="mf">0.9</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">([</span><span class="n">domain</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">domain</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain</span><span class="p">))]),</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">-</span> <span class="n">min_distance</span> <span class="o">-</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+              <span class="nb">max</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span> <span class="o">+</span> <span class="n">min_distance</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percent per unit&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">single_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assigns domain values to a single-variable distribution</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    values : List or Array</span>
+<span class="sd">        Values to put into the domain</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Table</span>
+<span class="sd">        Table with those domain values in its first column</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; Table().values([1, 2, 3])</span>
+<span class="sd">    Value</span>
+<span class="sd">    1</span>
+<span class="sd">    2</span>
+<span class="sd">    3</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+    <span class="n">table</span><span class="o">.</span><span class="n">move_to_start</span><span class="p">(</span><span class="s1">&#39;Value&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">table</span>
+
+
+<span class="k">def</span> <span class="nf">probability_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pfunc</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assigns probabilities to a Distribution via a probability</span>
+<span class="sd">    function. The probability function is applied to each value of the</span>
+<span class="sd">    domain. Must have domain values in the first columns.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pfunc : func</span>
+<span class="sd">        Probability function of the distribution.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Table</span>
+<span class="sd">        Table with probabilities in its last column.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">domain_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pfunc</span><span class="p">,</span> <span class="o">*</span><span class="n">domain_names</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">values</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Probability cannot be negative&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="mi">6</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Probabilities sum to </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">values</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">probability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assigns probabilities to domain values.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    values : List or Array</span>
+<span class="sd">        Values that must correspond to the domain in the same order.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Table</span>
+<span class="sd">        A probability distribution with those probabilities</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Probability cannot be negative&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="mi">6</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Probabilities sum to </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">values</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">transition_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pfunc</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assigns transition probabilities to a Distribution via a probability</span>
+<span class="sd">    function. The probability function is applied to each value of the</span>
+<span class="sd">    domain. Must have domain values in the first column first.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pfunc : variate function</span>
+<span class="sd">        Conditional probability function of the distribution ( P(Y | X))</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Table</span>
+<span class="sd">        Table with those probabilities in its final column</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="bp">self</span> <span class="o">=</span> <span class="n">multi_domain</span><span class="p">(</span><span class="n">Table</span><span class="p">(),</span> <span class="s1">&#39;Source&#39;</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="s1">&#39;Target&#39;</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>
+
+    <span class="n">domain_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pfunc</span><span class="p">,</span> <span class="o">*</span><span class="n">domain_names</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">values</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Probability cannot be negative&#39;</span><span class="p">)</span>
+    <span class="n">conditioned_var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">all_other_vars</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">return_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;P(</span><span class="si">{}</span><span class="s1"> | </span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">all_other_vars</span><span class="p">,</span> <span class="n">conditioned_var</span><span class="p">),</span> <span class="n">values</span><span class="p">)</span>
+    <span class="n">_transition_warn</span><span class="p">(</span><span class="n">return_table</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">return_table</span>
+
+
+<span class="k">def</span> <span class="nf">transition_probability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    For a multivariate probability distribution, assigns transition</span>
+<span class="sd">    probabilities, ie P(Y | X).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    values : List or Array</span>
+<span class="sd">        Values that must correspond to the domain in the same order</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Table</span>
+<span class="sd">        A probability distribution with those probabilities</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Probability cannot be negative&#39;</span><span class="p">)</span>
+
+    <span class="n">states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="bp">self</span> <span class="o">=</span> <span class="n">multi_domain</span><span class="p">(</span><span class="n">Table</span><span class="p">(),</span> <span class="s1">&#39;Source&#39;</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="s1">&#39;Target&#39;</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>
+
+    <span class="n">return_table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+    <span class="n">_transition_warn</span><span class="p">(</span><span class="n">return_table</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">return_table</span>
+
+
+<span class="k">def</span> <span class="nf">_transition_warn</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
+    <span class="n">prob_sums</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">collect</span><span class="o">=</span><span class="nb">sum</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">prob_sums</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">round</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">6</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s1">&#39;Transition probabilities for </span><span class="si">{}</span><span class="s1"> sum to </span><span class="si">{:.04f}</span><span class="s1"> not 1&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">prob_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds the probability of an event x.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : float or Iterable</span>
+<span class="sd">        An event represented either as a specific value in the domain or a</span>
+<span class="sd">        subset of the domain</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Probability of the event</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; dist = Table().values([1, 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])</span>
+<span class="sd">    &gt;&gt;&gt; dist.prob_event(2)</span>
+<span class="sd">    0.25</span>
+<span class="sd">    &gt;&gt;&gt; dist.prob_event([2, 3])</span>
+<span class="sd">    0.5</span>
+<span class="sd">    &gt;&gt;&gt; dist.prob_event(np.arange(1, 5))</span>
+<span class="sd">    1.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_valid_probability_table</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">domain</span> <span class="o">==</span> <span class="n">x</span><span class="p">)])</span>
+
+
+<span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Shows the probability that distribution takes on value x or list of</span>
+<span class="sd">    values x.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : float or Iterable</span>
+<span class="sd">        An event represented either as a specific value in the domain or a</span>
+<span class="sd">        subset of the domain</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Table</span>
+<span class="sd">        Shows the probabilities of each value in the event</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; dist = Table().values([1 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])</span>
+<span class="sd">    &gt;&gt;&gt; dist.event(2)</span>
+<span class="sd">    Domain | Probability</span>
+<span class="sd">    2      | 0.25</span>
+<span class="sd">    &gt;&gt;&gt; dist.event([2,3])</span>
+<span class="sd">    Domain | Probability</span>
+<span class="sd">    2      | 0.25</span>
+<span class="sd">    3      | 0.25</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_valid_probability_table</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="n">probabilities</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">prob_event</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">&#39;Outcome&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">normalized</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the distribution by making the proabilities sum to 1</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Table</span>
+<span class="sd">        A distribution with the probabilities normalized</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; Table().values([1, 2, 3]).probability([1, 1, 1])</span>
+<span class="sd">    Value | Probability</span>
+<span class="sd">    1     | 1</span>
+<span class="sd">    2     | 1</span>
+<span class="sd">    3     | 1</span>
+<span class="sd">    &gt;&gt;&gt; Table().values([1, 2, 3]).probability([1, 1, 1]).normalized()</span>
+<span class="sd">    Value | Probability</span>
+<span class="sd">    1     | 0.333333</span>
+<span class="sd">    2     | 0.333333</span>
+<span class="sd">    3     | 0.333333</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">column_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
+        <span class="n">column_label</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">column_label</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">column_label</span><span class="p">))</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">sample_from_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Randomly samples from the distribution.</span>
+
+<span class="sd">    Note that this function was previously named `sample` but was renamed</span>
+<span class="sd">    due to naming conflicts with the datascience library.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n : int</span>
+<span class="sd">        Number of times to sample from the distribution (default: 1)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float or array</span>
+<span class="sd">        Samples from the distribution</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; dist = Table().with_columns(</span>
+<span class="sd">    ...    &#39;Value&#39;, make_array(2, 3, 4),</span>
+<span class="sd">    ...    &#39;Probability&#39;, make_array(0.25, 0.5, 0.25))</span>
+<span class="sd">    &gt;&gt;&gt; dist.sample_from_dist()</span>
+<span class="sd">    3</span>
+<span class="sd">    &gt;&gt;&gt; dist.sample_from_dist()</span>
+<span class="sd">    2</span>
+<span class="sd">    &gt;&gt;&gt; dist.sample_from_dist(10)</span>
+<span class="sd">    array([3, 2, 2, 4, 3, 4, 3, 4, 3, 3])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">check_valid_probability_table</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">prob</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">prob</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds the cdf of the distribution</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : float</span>
+<span class="sd">        Value in distribution</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Finds P(X&lt;=x)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; dist = Table().with_columns(</span>
+<span class="sd">    ...     &#39;Value&#39;, make_array(2, 3, 4),</span>
+<span class="sd">    ...     &#39;Probability&#39;, make_array(0.25, 0.5, 0.25))</span>
+<span class="sd">    &gt;&gt;&gt; dist.cdf(0)</span>
+<span class="sd">    0</span>
+<span class="sd">    &gt;&gt;&gt; dist.cdf(2)</span>
+<span class="sd">    0.25</span>
+<span class="sd">    &gt;&gt;&gt; dist.cdf(3.5)</span>
+<span class="sd">    0.75</span>
+<span class="sd">    &gt;&gt;&gt; dist.cdf(1000)</span>
+<span class="sd">    1.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_valid_probability_table</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">domain</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">domain</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">ev</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds expected value of distribution</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Expected value</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; dist = Table().values([1, 2, 4]).probability([0.5, 0.4, 0.1])</span>
+<span class="sd">    &gt;&gt;&gt; dist.ev()</span>
+<span class="sd">    1.7</span>
+<span class="sd">    &gt;&gt;&gt; 1 * 0.5 + 2 * 0.4 + 4 * 0.1</span>
+<span class="sd">    1.7</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_valid_probability_table</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="bp">self</span> <span class="o">=</span> <span class="n">normalized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">ev</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">domain</span><span class="p">,</span> <span class="n">probability</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
+        <span class="n">ev</span> <span class="o">+=</span> <span class="n">domain</span> <span class="o">*</span> <span class="n">probability</span>
+    <span class="k">return</span> <span class="n">ev</span>
+
+
+<span class="k">def</span> <span class="nf">var</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds variance of distribution</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Variance</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; dist = Table().values([1, 2, 4]).probability([0.5, 0.4, 0.1])</span>
+<span class="sd">    &gt;&gt;&gt; dist.var()</span>
+<span class="sd">    0.81</span>
+<span class="sd">    &gt;&gt;&gt; (1 * 0.5 + 4 * 0.4 + 16 * 0.1) - (1.7) ** 2</span>
+<span class="sd">    0.81</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_valid_probability_table</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="bp">self</span> <span class="o">=</span> <span class="n">normalized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">ev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">domain</span><span class="p">,</span> <span class="n">probability</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">:</span>
+        <span class="n">var</span> <span class="o">+=</span> <span class="p">(</span><span class="n">domain</span> <span class="o">-</span> <span class="n">ev</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">probability</span>
+    <span class="k">return</span> <span class="n">var</span>
+
+
+<span class="k">def</span> <span class="nf">sd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds standard deviation of Distribution.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Standard Deviation</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; dist = Table().values([1, 2, 4]).probability([0.5, 0.4, 0.1])</span>
+<span class="sd">    &gt;&gt;&gt; dist.sd()</span>
+<span class="sd">    0.9</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">())</span>
+
+
+<span class="k">def</span> <span class="nf">remove_zeros</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Removes all values with zero probability from the Distribution.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Distribution</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; dist = Table().values([2, 3, 4, 5]).probability([0.5, 0, 0.5, 0])</span>
+<span class="sd">    &gt;&gt;&gt; dist</span>
+<span class="sd">    Value | Probability</span>
+<span class="sd">    2     | 0.5</span>
+<span class="sd">    3     | 0</span>
+<span class="sd">    4     | 0.5</span>
+<span class="sd">    5     | 0</span>
+<span class="sd">    &gt;&gt;&gt; dist.remove_zeros()</span>
+<span class="sd">    Value | Probability</span>
+<span class="sd">    2     | 0.5</span>
+<span class="sd">    4     | 0.5</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_valid_probability_table</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">above</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="emp_dist"><a class="viewcode-back" href="../../_autosummary/prob140.emp_dist.html#prob140.emp_dist">[docs]</a><span class="k">def</span> <span class="nf">emp_dist</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes an array of values and returns an empirical distribution</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    values : array</span>
+<span class="sd">        Array of values that will be grouped by the distribution</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Table</span>
+<span class="sd">        A distribution</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; x = make_array(1, 1, 1, 1, 1, 2, 3, 3, 3, 4)</span>
+<span class="sd">    &gt;&gt;&gt; emp_dist(x)</span>
+<span class="sd">    Value | Proportion</span>
+<span class="sd">    1     | 0.5</span>
+<span class="sd">    2     | 0.1</span>
+<span class="sd">    3     | 0.3</span>
+<span class="sd">    4     | 0.1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="n">position_counts</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">new_dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">position_counts</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">new_dist</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
+        <span class="s1">&#39;Proportion&#39;</span><span class="p">,</span>
+        <span class="n">position_counts</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span>
+    <span class="p">)</span></div>
+
+
+<span class="c1"># Brighter colors than the default Table class</span>
+<span class="n">chart_colors</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">rgb</span><span class="p">(</span><span class="s1">&#39;darkblue&#39;</span><span class="p">),</span>
+    <span class="n">rgb</span><span class="p">(</span><span class="s1">&#39;gold&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">106</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">166</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">53</span> <span class="o">/</span> <span class="mi">256</span><span class="p">),</span>  <span class="c1"># vivid green</span>
+    <span class="p">(</span><span class="mi">234</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">77</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">108</span> <span class="o">/</span> <span class="mi">256</span><span class="p">),</span>  <span class="c1"># rose garden</span>
+    <span class="n">rgb</span><span class="p">(</span><span class="s1">&#39;brown&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">240</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">127</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">80</span> <span class="o">/</span> <span class="mi">256</span><span class="p">),</span>  <span class="c1"># vivid orange</span>
+    <span class="p">(</span><span class="mi">53</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">148</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">216</span> <span class="o">/</span> <span class="mi">256</span><span class="p">),</span>  <span class="c1"># vivid blue</span>
+    <span class="p">(</span><span class="mi">122</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">55</span> <span class="o">/</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">139</span> <span class="o">/</span> <span class="mi">256</span><span class="p">),</span>  <span class="c1"># purple</span>
+    <span class="n">rgb</span><span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">),</span>
+    <span class="n">rgb</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+          </div><div class="span1"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container container-navbar-bottom">
+      <div class="spc-navbar">
+        
+      </div>
+    </div>
+    <div class="container">
+    <div class="footer">
+    <div class="row-fluid">
+    <ul class="inline pull-left">
+      <li>
+        &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
+      </li>
+      <li>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.6.
+      </li>
+    </ul>
+    </div>
+    </div>
+    </div>
+  </body>
+</html>
