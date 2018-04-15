@@ -217,7 +217,7 @@ def Scatter_multivariate_normal(mu, cov, n):
     ax.set_xlabel('Variable 1')
     ax.set_ylabel('Variable 2')
     ax.set_zlabel('Variable 3')
-    plt.show()
+    ax.dist = 12
 
 
 def Plot_expon(x_limits, lamb, **kwargs):
