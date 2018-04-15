@@ -171,6 +171,55 @@ def Plot_3d(x_limits, y_limits, f, interactive=False, figsize=(12, 8), **kwargs)
         plot(20, -100)
 
 
+def Plot_bivariate_normal(mu, cov, **kwargs):
+    """
+    Plots the density of a bivariate normal distribution.
+
+    Parameters
+    ----------
+    mu : array
+        Array of length 2 for mean.
+    cov : array
+        Covariance matrix of dimension 2x2.
+    """
+    def normal_density(x, y):
+        return stats.multivariate_normal.pdf([x, y], mean=mu, cov=cov)
+    sd = np.sqrt(np.diag(cov))
+    lower = mu - sd * 4
+    upper = mu + sd * 4
+    options = {
+        'x_limits': (lower[0], upper[0]),
+        'y_limits': (lower[1], upper[1]),
+        'f': normal_density,
+    }
+    options.update(kwargs)
+    Plot_3d(**options)
+
+
+def Scatter_multivariate_normal(mu, cov, n):
+    """
+    Draws scatterplot for a trivariate normal distribution.
+
+    Parameters
+    ----------
+    mu : array
+        Array of length 3 corresponding to the means.
+    cov : array
+        3x3 Covariance Matrix.
+    n : int
+        Number of points to plot.
+    """
+    points = stats.multivariate_normal.rvs(mu, cov, n)
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.scatter(points[:, 0], points[:, 1], points[:, 2], alpha=0.5, s=10,
+               color='darkblue')
+    ax.set_xlabel('Variable 1')
+    ax.set_ylabel('Variable 2')
+    ax.set_zlabel('Variable 3')
+    plt.show()
+
+
 def Plot_expon(x_limits, lamb, **kwargs):
     """
     Plots an exponential distribution
