@@ -1,3 +1,18 @@
+v0.3.4.1 (2018-04-15)
+---------------------
+
+* Increased viewing distance for `Scatter_multivariate_normal`.
+
+v0.3.4.0 (2018-04-14)
+---------------------
+
+* Added Plot_bivariate_normal and Scatter_multivariate_normal.
+
+v0.3.3.7 (2018-04-11)
+---------------------
+
+* Adding `visualize_cr`.
+
 v0.3.3.7 (2018-03-21)
 ---------------------
 

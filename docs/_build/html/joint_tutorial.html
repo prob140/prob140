@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>Joint Distributions &mdash; prob140 0.3.3.0 documentation</title>
+    <title>Joint Distributions &mdash; prob140 0.3.4.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.3.3.0',
+        VERSION:     '0.3.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.3.3.0 documentation" href="index.html" >
+    <link rel="top" title="prob140 0.3.4.1 documentation" href="index.html" >
     <link rel="next" title="Markov Chains" href="pykov_tutorial.html" >
     <link rel="prev" title="Single-Variable Distributions" href="tutorial.html" > 
   </head>
@@ -53,7 +53,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.3.3.0 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.3.4.1 documentation</a></li>
 	 
     </ul>
               
@@ -106,7 +106,7 @@
 <div class="section" id="getting-started">
 <h2><a class="toc-backref" href="#id1">Getting Started</a><a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <p>As always, this should be the first cell if you are using a notebook.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># HIDDEN</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDDEN</span>
 
 <span class="kn">from</span> <span class="nn">datascience</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
@@ -124,7 +124,7 @@
 <p>We can construct a joint distribution by starting with a Table. Calling
 <cite>Table().values()</cite> with two lists will create a Table with X and Y taking on
 those values.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="gp">In [2]: </span><span class="n">dist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 
@@ -141,7 +141,7 @@ those values.</p>
 </div>
 <p>We can then assign probabilities using <cite>probability()</cite> if we have an explicit
 list or array.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">dist</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">dist</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
 
 <span class="gp">In [5]: </span><span class="n">dist</span>
 <span class="gh">Out[5]: </span><span class="go"></span>
@@ -155,7 +155,7 @@ list or array.</p>
 </pre></div>
 </div>
 <p>To turn it into a Joint Distribution object, call the <cite>to_joint()</cite> method.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="n">dist</span><span class="o">.</span><span class="n">to_joint</span><span class="p">()</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="n">dist</span><span class="o">.</span><span class="n">to_joint</span><span class="p">()</span>
 <span class="gh">Out[6]: </span><span class="go"></span>
 <span class="go">     X=2  X=3</span>
 <span class="go">Y=5  0.2  0.2</span>
@@ -165,7 +165,7 @@ list or array.</p>
 </div>
 <p>By default, the joint distribution will display the Y values in reverse. To turn
 this functionality off, use the optional parameter <cite>reverse=False</cite>.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="n">dist</span><span class="o">.</span><span class="n">to_joint</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="n">dist</span><span class="o">.</span><span class="n">to_joint</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 <span class="gh">Out[7]: </span><span class="go"></span>
 <span class="go">     X=2  X=3</span>
 <span class="go">Y=1  0.1  0.3</span>
@@ -179,7 +179,7 @@ this functionality off, use the optional parameter <cite>reverse=False</cite>.</
 <p>When defining a distribution, you can also give a name to each random variable
 rather than the default ‘X’ and ‘Y’. You must alternate between strings and
 lists when calling <cite>values()</cite></p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [8]: </span><span class="n">heads_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">,[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.9</span><span class="p">],</span><span class="s2">&quot;H2&quot;</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span><span class="o">*.</span><span class="mo">04</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="o">*.</span><span class="mi">32</span><span class="p">,</span><span class="o">.</span><span class="mi">75</span><span class="o">*.</span><span class="mi">64</span><span class="p">,</span><span class="o">.</span><span class="mi">25</span><span class="o">*.</span><span class="mi">81</span><span class="p">,</span><span class="o">.</span><span class="mi">25</span><span class="o">*.</span><span class="mi">18</span><span class="p">,</span><span class="o">.</span><span class="mi">25</span><span class="o">*.</span><span class="mo">01</span><span class="p">))</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [8]: </span><span class="n">heads_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">,[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.9</span><span class="p">],</span><span class="s2">&quot;H2&quot;</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="o">.</span><span class="mi">75</span><span class="o">*.</span><span class="mo">04</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="o">*.</span><span class="mi">32</span><span class="p">,</span><span class="o">.</span><span class="mi">75</span><span class="o">*.</span><span class="mi">64</span><span class="p">,</span><span class="o">.</span><span class="mi">25</span><span class="o">*.</span><span class="mi">81</span><span class="p">,</span><span class="o">.</span><span class="mi">25</span><span class="o">*.</span><span class="mi">18</span><span class="p">,</span><span class="o">.</span><span class="mi">25</span><span class="o">*.</span><span class="mo">01</span><span class="p">))</span>
 
 <span class="gp">In [9]: </span><span class="n">heads_table</span>
 <span class="gh">Out[9]: </span><span class="go"></span>
@@ -202,7 +202,7 @@ lists when calling <cite>values()</cite></p>
 </pre></div>
 </div>
 <p>You can also use strings for the values of the domain.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [12]: </span><span class="n">coins_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span><span class="s2">&quot;Coin2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.24</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.24</span><span class="p">]))</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [12]: </span><span class="n">coins_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s2">&quot;Coin1&quot;</span><span class="p">,[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">],</span><span class="s2">&quot;Coin2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="s1">&#39;T&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.24</span><span class="p">,</span> <span class="mf">0.36</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.24</span><span class="p">]))</span>
 
 <span class="gp">In [13]: </span><span class="n">coins</span> <span class="o">=</span> <span class="n">coins_table</span><span class="o">.</span><span class="n">to_joint</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
@@ -218,7 +218,7 @@ lists when calling <cite>values()</cite></p>
 <h3><a class="toc-backref" href="#id5">Probability Functions</a><a class="headerlink" href="#probability-functions" title="Permalink to this headline">¶</a></h3>
 <p>You can also use a joint probability function that will take in the values of
 the random variables.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [15]: </span><span class="k">def</span> <span class="nf">joint_func</span><span class="p">(</span><span class="n">dice1</span><span class="p">,</span> <span class="n">dice2</span><span class="p">):</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [15]: </span><span class="k">def</span> <span class="nf">joint_func</span><span class="p">(</span><span class="n">dice1</span><span class="p">,</span> <span class="n">dice2</span><span class="p">):</span>
 <span class="gp">   ....: </span>    <span class="k">return</span> <span class="p">(</span><span class="n">dice1</span> <span class="o">+</span> <span class="n">dice2</span><span class="p">)</span><span class="o">/</span><span class="mi">252</span>
 <span class="gp">   ....: </span>
 
@@ -241,7 +241,7 @@ the random variables.</p>
 <h2><a class="toc-backref" href="#id6">Marginal Distributions</a><a class="headerlink" href="#marginal-distributions" title="Permalink to this headline">¶</a></h2>
 <p>To see the marginal distribution of a variable, call the method
 <cite>marginal(label)</cite> where label is a string for the label.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [18]: </span><span class="n">heads</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [18]: </span><span class="n">heads</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">)</span>
 <span class="gh">Out[18]: </span><span class="go"></span>
 <span class="go">                     H1=0.2  H1=0.9</span>
 <span class="go">H2=0                   0.48  0.0025</span>
@@ -266,7 +266,7 @@ the random variables.</p>
 </div>
 <p>You can also call <cite>both_marginals()</cite> to see both marginal distributions at
 once.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [21]: </span><span class="n">heads</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [21]: </span><span class="n">heads</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
 <span class="gh">Out[21]: </span><span class="go"></span>
 <span class="go">                     H1=0.2  H1=0.9  Sum: Marginal of H2</span>
 <span class="go">H2=0                   0.48  0.0025               0.4825</span>
@@ -284,18 +284,18 @@ once.</p>
 </div>
 <p>To get the marginal distribution of a variable as a single variable distribution
 for plotting, call <cite>marginal_dist(label)</cite>.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [23]: </span><span class="n">heads</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [23]: </span><span class="n">heads</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">)</span>
 <span class="gh">Out[23]: </span><span class="go"></span>
 <span class="go">Value | Probability</span>
 <span class="go">0.2   | 0.75</span>
 <span class="go">0.9   | 0.25</span>
 </pre></div>
 </div>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [24]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">heads</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [24]: </span><span class="n">Plot</span><span class="p">(</span><span class="n">heads</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/marginal_dist.png"><img alt="_images/marginal_dist.png" src="_images/marginal_dist.png" style="width: 4in;" /></a>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [25]: </span><span class="n">heads</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;H2&quot;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [25]: </span><span class="n">heads</span><span class="o">.</span><span class="n">marginal_dist</span><span class="p">(</span><span class="s2">&quot;H2&quot;</span><span class="p">)</span>
 <span class="gh">Out[25]: </span><span class="go"></span>
 <span class="go">Value | Probability</span>
 <span class="go">0     | 0.4825</span>
@@ -314,7 +314,7 @@ for plotting, call <cite>marginal_dist(label)</cite>.</p>
 <h2><a class="toc-backref" href="#id7">Conditional Distributions</a><a class="headerlink" href="#conditional-distributions" title="Permalink to this headline">¶</a></h2>
 <p>You can see the conditional distribution using <cite>conditional_dist(label, given)</cite>.
 For example, to see the distribution of H1|H2, call <cite>conditional_dist(“H1”, “H2”)</cite>.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [27]: </span><span class="n">heads</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">,</span> <span class="s2">&quot;H2&quot;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [27]: </span><span class="n">heads</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s2">&quot;H1&quot;</span><span class="p">,</span> <span class="s2">&quot;H2&quot;</span><span class="p">)</span>
 <span class="gh">Out[27]: </span><span class="go"></span>
 <span class="go">                      H1=0.2    H1=0.9  Sum</span>
 <span class="go">Dist. of H1 | H2=0  0.994819  0.005181  1.0</span>
@@ -355,7 +355,7 @@ For example, to see the distribution of H1|H2, call <cite>conditional_dist(“H1
         &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
       </li>
       <li>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.7.2.
       </li>
     </ul>
     </div>

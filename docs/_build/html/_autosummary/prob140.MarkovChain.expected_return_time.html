@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.MarkovChain.expected_return_time &mdash; prob140 0.3.3.0 documentation</title>
+    <title>prob140.MarkovChain.expected_return_time &mdash; prob140 0.3.4.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3.3.0',
+        VERSION:     '0.3.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
-    <link rel="top" title="prob140 0.3.3.0 documentation" href="../index.html" >
+    <link rel="top" title="prob140 0.3.4.1 documentation" href="../index.html" >
     <link rel="up" title="Markov Chains (prob140.MarkovChain)" href="../pykov.html" >
     <link rel="next" title="prob140.MarkovChain.prob_of_path" href="prob140.MarkovChain.prob_of_path.html" >
     <link rel="prev" title="prob140.MarkovChain.steady_state" href="prob140.MarkovChain.steady_state.html" > 
@@ -54,9 +54,9 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="../index.html">prob140 0.3.3.0 documentation</a></li>
+        <li class="active"><a href="../index.html">prob140 0.3.4.1 documentation</a></li>
 	
-          <li class="active"><a href="../pykov.html" accesskey="U">Markov Chains (<code class="docutils literal"><span class="pre">prob140.MarkovChain</span></code>)</a></li> 
+          <li class="active"><a href="../pykov.html" accesskey="U">Markov Chains (<code class="docutils literal notranslate"><span class="pre">prob140.MarkovChain</span></code>)</a></li> 
     </ul>
               
               
@@ -97,16 +97,17 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Table</p>
-<blockquote class="last">
-<div><p>Expected Return Time</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>Table</strong></dt>
+<dd><p class="first last">Expected Return Time</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">],</span>
 <span class="gp">... </span>                              <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mc</span> <span class="o">=</span> <span class="n">MarkovChain</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">transition_matrix</span><span class="p">)</span>
@@ -141,7 +142,7 @@
         &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
       </li>
       <li>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.7.2.
       </li>
     </ul>
     </div>
