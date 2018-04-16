@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.Plots &mdash; prob140 0.3.3.0 documentation</title>
+    <title>prob140.Plots &mdash; prob140 0.3.4.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3.3.0',
+        VERSION:     '0.3.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
-    <link rel="top" title="prob140 0.3.3.0 documentation" href="../index.html" >
+    <link rel="top" title="prob140 0.3.4.1 documentation" href="../index.html" >
     <link rel="up" title="Single-variable Distributions (datascience.tables.Table)" href="../single.html" >
     <link rel="next" title="Joint Distributions (prob140.JointDistribution)" href="../multi.html" >
     <link rel="prev" title="prob140.Plot" href="prob140.Plot.html" > 
@@ -54,9 +54,9 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="../index.html">prob140 0.3.3.0 documentation</a></li>
+        <li class="active"><a href="../index.html">prob140 0.3.4.1 documentation</a></li>
 	
-          <li class="active"><a href="../single.html" accesskey="U">Single-variable Distributions (<code class="docutils literal"><span class="pre">datascience.tables.Table</span></code>)</a></li> 
+          <li class="active"><a href="../single.html" accesskey="U">Single-variable Distributions (<code class="docutils literal notranslate"><span class="pre">datascience.tables.Table</span></code>)</a></li> 
     </ul>
               
               
@@ -97,30 +97,28 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>labels_and_dists</strong> : Even number of alternations between Strings and Tables</p>
-<blockquote>
-<div><p>Each distribution must have a label associated with it.</p>
-</div></blockquote>
-<p><strong>width (optional)</strong> : float</p>
-<blockquote>
-<div><p>Width of the intervals. (default: 1)</p>
-</div></blockquote>
-<p><strong>edges</strong> : bool</p>
-<blockquote>
-<div><p>If True, there will be a small border around the bars. If False, there
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>labels_and_dists</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Even number of alternations between Strings and Tables</span></dt>
+<dd><p class="first last">Each distribution must have a label associated with it.</p>
+</dd>
+<dt><strong>width (optional)</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Width of the intervals. (default: 1)</p>
+</dd>
+<dt><strong>edges</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
+<dd><p class="first last">If True, there will be a small border around the bars. If False, there
 will be no border. (default: small border unless there more than 75
 bins)</p>
-</div></blockquote>
-<p><strong>vargs</strong></p>
-<blockquote class="last">
-<div><p>See pyplot’s documentation</p>
-</div></blockquote>
+</dd>
+<dt><strong>vargs</strong></dt>
+<dd><p class="first last">See pyplot’s documentation</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dist1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Plots</span><span class="p">(</span><span class="s1">&#39;Distribution1&#39;</span><span class="p">,</span> <span class="n">dist1</span><span class="p">,</span> <span class="s1">&#39;Distribution2&#39;</span><span class="p">,</span> <span class="n">dist2</span><span class="p">)</span>
 <span class="go">&lt;histogram with dist1 and dist2&gt;</span>
@@ -151,7 +149,7 @@ bins)</p>
         &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
       </li>
       <li>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.7.2.
       </li>
     </ul>
     </div>

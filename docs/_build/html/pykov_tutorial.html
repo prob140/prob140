@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>Markov Chains &mdash; prob140 0.3.3.0 documentation</title>
+    <title>Markov Chains &mdash; prob140 0.3.4.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.3.3.0',
+        VERSION:     '0.3.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="genindex.html" >
     <link rel="search" title="Search" href="search.html" >
-    <link rel="top" title="prob140 0.3.3.0 documentation" href="index.html" >
+    <link rel="top" title="prob140 0.3.4.1 documentation" href="index.html" >
     <link rel="next" title="Plots for Continuous Distributions" href="plots.html" >
     <link rel="prev" title="Joint Distributions" href="joint_tutorial.html" > 
   </head>
@@ -53,7 +53,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="index.html">prob140 0.3.3.0 documentation</a></li>
+        <li class="active"><a href="index.html">prob140 0.3.4.1 documentation</a></li>
 	 
     </ul>
               
@@ -105,7 +105,7 @@ library.</p>
 <div class="section" id="getting-started">
 <h2><a class="toc-backref" href="#id1">Getting Started</a><a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <p>As always, this should be the first cell if you are using a notebook.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># HIDDEN</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDDEN</span>
 
 <span class="kn">from</span> <span class="nn">datascience</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">prob140</span> <span class="kn">import</span> <span class="o">*</span>
@@ -121,7 +121,7 @@ library.</p>
 <div class="section" id="explicitly-assigning-probabilities">
 <h3><a class="toc-backref" href="#id3">Explicitly assigning probabilities</a><a class="headerlink" href="#explicitly-assigning-probabilities" title="Permalink to this headline">¶</a></h3>
 <p>To assign the possible states of a markov chain, use <cite>Table().states()</cite>.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span>
 <span class="gh">Out[1]: </span><span class="go"></span>
 <span class="go">State</span>
 <span class="go">A</span>
@@ -131,7 +131,7 @@ library.</p>
 <p>A markov chain needs transition probabilities for each transition state <cite>i</cite> to
 <cite>j</cite>. Note that the sum of the transition probabilities coming out of each state
 must sum to 1</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">mc_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">transition_probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">))</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [2]: </span><span class="n">mc_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">transition_probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">))</span>
 
 <span class="gp">In [3]: </span><span class="n">mc_table</span>
 <span class="gh">Out[3]: </span><span class="go"></span>
@@ -143,7 +143,7 @@ must sum to 1</p>
 </pre></div>
 </div>
 <p>To convert the Table into a MarkovChain object, call <cite>.to_markov_chain()</cite>.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mc_table</span><span class="o">.</span><span class="n">to_markov_chain</span><span class="p">()</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="n">mc</span> <span class="o">=</span> <span class="n">mc_table</span><span class="o">.</span><span class="n">to_markov_chain</span><span class="p">()</span>
 
 <span class="gp">In [5]: </span><span class="n">mc</span>
 <span class="gh">Out[5]: </span><span class="go"></span>
@@ -157,7 +157,7 @@ must sum to 1</p>
 <h3><a class="toc-backref" href="#id4">Using a transition probability function</a><a class="headerlink" href="#using-a-transition-probability-function" title="Permalink to this headline">¶</a></h3>
 <p>Just like single variable distributions and joint distributions, we can assign a
 transition probability function.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="k">def</span> <span class="nf">identity_transition</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="k">def</span> <span class="nf">identity_transition</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
 <span class="gp">   ...: </span>    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="n">y</span><span class="p">:</span>
 <span class="gp">   ...: </span>        <span class="k">return</span> <span class="mi">1</span>
 <span class="gp">   ...: </span>    <span class="k">return</span> <span class="mi">0</span>
@@ -196,7 +196,7 @@ transition probability function.</p>
 <cite>.distribution</cite> method which takes in a starting condition and a number of
 steps. For example, to see the distribution of <cite>mc</cite> starting at “A” after 2
 steps, we can call</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [11]: </span><span class="n">mc</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [11]: </span><span class="n">mc</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gh">Out[11]: </span><span class="go"></span>
 <span class="go">State | Probability</span>
 <span class="go">A     | 0.4</span>
@@ -206,7 +206,7 @@ steps, we can call</p>
 <p>Sometimes it might be useful for the starting condition to be a probability
 distribution. We can set the starting condition to be a single variable
 distribution.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [12]: </span><span class="n">start</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [12]: </span><span class="n">start</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
 
 <span class="gp">In [13]: </span><span class="n">start</span>
 <span class="gh">Out[13]: </span><span class="go"></span>
@@ -230,14 +230,14 @@ distribution.</p>
 </div>
 <div class="section" id="steady-state">
 <h2><a class="toc-backref" href="#id6">Steady State</a><a class="headerlink" href="#steady-state" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="n">mc</span><span class="o">.</span><span class="n">steady_state</span><span class="p">()</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="n">mc</span><span class="o">.</span><span class="n">steady_state</span><span class="p">()</span>
 <span class="gh">Out[16]: </span><span class="go"></span>
 <span class="go">Value | Probability</span>
-<span class="go">A     | -inf</span>
-<span class="go">B     | inf</span>
+<span class="go">A     | 0.375</span>
+<span class="go">B     | 0.625</span>
 
 <span class="gp">In [17]: </span><span class="n">mc2</span><span class="o">.</span><span class="n">steady_state</span><span class="p">()</span>
-<span class="go">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Out[17]: </span>
+<span class="go">                                                          Out[17]: </span>
 <span class="go">Value | Probability</span>
 <span class="go">1     | 1</span>
 <span class="go">2     | 0</span>
@@ -268,7 +268,7 @@ distribution.</p>
         &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
       </li>
       <li>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.7.2.
       </li>
     </ul>
     </div>

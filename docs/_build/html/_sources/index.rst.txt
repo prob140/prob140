@@ -38,6 +38,7 @@ Reference
     single
     multi
     pykov
+    3d_plots
 
 
 Full ``Table`` documentation

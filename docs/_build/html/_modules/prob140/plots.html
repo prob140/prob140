@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.plots &mdash; prob140 0.3.3.0 documentation</title>
+    <title>prob140.plots &mdash; prob140 0.3.4.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.3.3.0',
+        VERSION:     '0.3.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" >
     <link rel="search" title="Search" href="../../search.html" >
-    <link rel="top" title="prob140 0.3.3.0 documentation" href="../../index.html" >
+    <link rel="top" title="prob140 0.3.4.1 documentation" href="../../index.html" >
     <link rel="up" title="Module code" href="../index.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="../../index.html">prob140 0.3.3.0 documentation</a></li>
+        <li class="active"><a href="../../index.html">prob140 0.3.4.1 documentation</a></li>
 	
           <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -81,6 +81,7 @@
 <span></span><span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="n">interact</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">ticker</span>
 <span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d.axes3d</span> <span class="k">import</span> <span class="n">Axes3D</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
@@ -176,10 +177,16 @@
         <span class="n">rb</span> <span class="o">=</span> <span class="n">right</span> <span class="k">if</span> <span class="n">right</span> <span class="k">else</span> <span class="n">upper</span>
         <span class="k">if</span> <span class="n">left</span> <span class="ow">or</span> <span class="n">right</span><span class="p">:</span>
             <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lb</span><span class="p">,</span> <span class="n">rb</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">)</span></div>
+            <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gold&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Multiple all y-ticks by 100 to get percent per unit.</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">ticks</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{0:g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mf">100.</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Percent per unit&#39;</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">Plot_3d</span><span class="p">(</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">y_limits</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">interactive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Plot_3d"><a class="viewcode-back" href="../../_autosummary/prob140.Plot_3d.html#prob140.plots.Plot_3d">[docs]</a><span class="k">def</span> <span class="nf">Plot_3d</span><span class="p">(</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">y_limits</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">interactive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots a 3d graph.</span>
 
@@ -202,11 +209,10 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    None</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">elev</span><span class="p">,</span> <span class="n">azim</span><span class="p">):</span>
 
-        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">x_limits</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">y_limits</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -242,7 +248,56 @@
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">elev</span><span class="p">,</span> <span class="n">azim</span><span class="p">):</span>
             <span class="n">plot</span><span class="p">(</span><span class="n">elev</span><span class="p">,</span> <span class="n">azim</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">plot</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">)</span>
+        <span class="n">plot</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Plot_bivariate_normal"><a class="viewcode-back" href="../../_autosummary/prob140.Plot_bivariate_normal.html#prob140.plots.Plot_bivariate_normal">[docs]</a><span class="k">def</span> <span class="nf">Plot_bivariate_normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plots the density of a bivariate normal distribution.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mu : array</span>
+<span class="sd">        Array of length 2 for mean.</span>
+<span class="sd">    cov : array</span>
+<span class="sd">        Covariance matrix of dimension 2x2.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">normal_density</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="o">.</span><span class="n">pdf</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">mean</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">cov</span><span class="p">)</span>
+    <span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">cov</span><span class="p">))</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">-</span> <span class="n">sd</span> <span class="o">*</span> <span class="mi">4</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">+</span> <span class="n">sd</span> <span class="o">*</span> <span class="mi">4</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;x_limits&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">lower</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+        <span class="s1">&#39;y_limits&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">lower</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="n">normal_density</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">options</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">Plot_3d</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Scatter_multivariate_normal"><a class="viewcode-back" href="../../_autosummary/prob140.Scatter_multivariate_normal.html#prob140.plots.Scatter_multivariate_normal">[docs]</a><span class="k">def</span> <span class="nf">Scatter_multivariate_normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draws scatterplot for a trivariate normal distribution.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mu : array</span>
+<span class="sd">        Array of length 3 corresponding to the means.</span>
+<span class="sd">    cov : array</span>
+<span class="sd">        3x3 Covariance Matrix.</span>
+<span class="sd">    n : int</span>
+<span class="sd">        Number of points to plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">points</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+               <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkblue&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Variable 1&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Variable 2&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Variable 3&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">dist</span> <span class="o">=</span> <span class="mi">12</span></div>
 
 
 <div class="viewcode-block" id="Plot_expon"><a class="viewcode-back" href="../../_autosummary/prob140.plots.Plot_expon.html#prob140.plots.Plot_expon">[docs]</a><span class="k">def</span> <span class="nf">Plot_expon</span><span class="p">(</span><span class="n">x_limits</span><span class="p">,</span> <span class="n">lamb</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -839,7 +894,7 @@
         &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
       </li>
       <li>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.7.2.
       </li>
     </ul>
     </div>
