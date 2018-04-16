@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.multi_variable &mdash; prob140 0.3.3.0 documentation</title>
+    <title>prob140.multi_variable &mdash; prob140 0.3.4.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../../_static/css/spc-extend.css">
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.3.3.0',
+        VERSION:     '0.3.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../_static/js/copybutton.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" >
     <link rel="search" title="Search" href="../../search.html" >
-    <link rel="top" title="prob140 0.3.3.0 documentation" href="../../index.html" >
+    <link rel="top" title="prob140 0.3.4.1 documentation" href="../../index.html" >
     <link rel="up" title="Module code" href="../index.html" > 
   </head>
   <body>
@@ -52,7 +52,7 @@
         <li class="active"><a href="http://prob140.org">Prob140</a></li>
         <li class="active"><a href="https://probability.gitlab.io/prob140/">Docs</a></li>
 	
-        <li class="active"><a href="../../index.html">prob140 0.3.3.0 documentation</a></li>
+        <li class="active"><a href="../../index.html">prob140 0.3.4.1 documentation</a></li>
 	
           <li class="active"><a href="../index.html" accesskey="U">Module code</a></li> 
     </ul>
@@ -135,8 +135,8 @@
 <span class="sd">        -------</span>
 <span class="sd">        JointDistribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">table</span><span class="o">.</span><span class="n">to_joint</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="n">reverse</span><span class="p">)</span></div>
-
+        <span class="k">return</span> <span class="n">table</span><span class="o">.</span><span class="n">to_joint</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="n">reverse</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="JointDistribution.get_possible_values"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.get_possible_values">[docs]</a>    <span class="k">def</span> <span class="nf">get_possible_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the possible values. If a label is given, returns the values for</span>
@@ -163,8 +163,8 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">values</span></div>
-
+            <span class="k">return</span> <span class="n">values</span>
+</div>
 <div class="viewcode-block" id="JointDistribution.marginal"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.marginal">[docs]</a>    <span class="k">def</span> <span class="nf">marginal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the marginal distribution of label.</span>
@@ -202,8 +202,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
                 <span class="s1">&#39;Label does not correspond with existing variable name&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">copy</span></div>
-
+        <span class="k">return</span> <span class="n">copy</span>
+</div>
 <div class="viewcode-block" id="JointDistribution.marginal_dist"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.marginal_dist">[docs]</a>    <span class="k">def</span> <span class="nf">marginal_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds the marginal marginal distribution of label, returns as a single</span>
@@ -226,8 +226,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">prob</span> <span class="o">=</span> <span class="n">marginal</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_possible_values</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span></div>
-
+        <span class="k">return</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="JointDistribution.both_marginals"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.both_marginals">[docs]</a>    <span class="k">def</span> <span class="nf">both_marginals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds the marginal distribution of both variables.</span>
@@ -250,8 +250,8 @@
         <span class="n">key_x</span> <span class="o">=</span> <span class="s1">&#39;Sum: Marginal of </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_X_column_label</span><span class="p">)</span>
         <span class="n">copy</span><span class="p">[</span><span class="n">key_y</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">copy</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">key_x</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">copy</span></div>
-
+        <span class="k">return</span> <span class="n">copy</span>
+</div>
 <div class="viewcode-block" id="JointDistribution.conditional_dist"><a class="viewcode-back" href="../../table.html#prob140.JointDistribution.conditional_dist">[docs]</a>    <span class="k">def</span> <span class="nf">conditional_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">given</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">show_ev</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Given the random variable label, finds the conditional distribution of</span>
@@ -328,8 +328,8 @@
             <span class="k">return</span> <span class="n">new_df</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
-                <span class="s1">&#39;Label does not correspond with existing variable name&#39;</span><span class="p">)</span></div></div>
-
+                <span class="s1">&#39;Label does not correspond with existing variable name&#39;</span><span class="p">)</span>
+</div></div>
 
 <span class="k">def</span> <span class="nf">multi_domain</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
 
@@ -457,7 +457,7 @@
         &copy; Copyright 2016-2017, Prob140 under CC BY-NC 4.0.
       </li>
       <li>
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.7.2.
       </li>
     </ul>
     </div>
