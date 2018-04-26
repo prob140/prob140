@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>prob140.plots.Plot_pareto &mdash; prob140 0.3.5.1 documentation</title>
+    <title>prob140.multivariate_normal_regression &mdash; prob140 0.3.5.1 documentation</title>
     
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../_static/css/spc-extend.css">
@@ -28,9 +28,9 @@
     <link rel="index" title="Index" href="../genindex.html" >
     <link rel="search" title="Search" href="../search.html" >
     <link rel="top" title="prob140 0.3.5.1 documentation" href="../index.html" >
-    <link rel="up" title="Plots for Continuous Distributions" href="../plots.html" >
-    <link rel="next" title="prob140.plots.Plot_powerlaw" href="prob140.plots.Plot_powerlaw.html" >
-    <link rel="prev" title="prob140.plots.Plot_lognorm" href="prob140.plots.Plot_lognorm.html" > 
+    <link rel="up" title="3D Plotting" href="../3d_plots.html" >
+    <link rel="next" title="prob140.Plot_3d" href="prob140.Plot_3d.html" >
+    <link rel="prev" title="3D Plotting" href="../3d_plots.html" > 
   </head>
   <body>
 
@@ -56,7 +56,7 @@
 	
         <li class="active"><a href="../index.html">prob140 0.3.5.1 documentation</a></li>
 	
-          <li class="active"><a href="../plots.html" accesskey="U">Plots for Continuous Distributions</a></li> 
+          <li class="active"><a href="../3d_plots.html" accesskey="U">3D Plotting</a></li> 
     </ul>
               
               
@@ -66,11 +66,11 @@
            accesskey="I">index</a>
       </li>
       <li class="active">
-        <a href="prob140.plots.Plot_powerlaw.html" title="prob140.plots.Plot_powerlaw"
+        <a href="prob140.Plot_3d.html" title="prob140.Plot_3d"
            accesskey="N">next</a>
       </li>
       <li class="active">
-        <a href="prob140.plots.Plot_lognorm.html" title="prob140.plots.Plot_lognorm"
+        <a href="../3d_plots.html" title="3D Plotting"
            accesskey="P">previous</a>
       </li>
     </ul>
@@ -87,30 +87,31 @@
         <div class="bodywrapper">
           <div class="body" id="spc-section-body">
             
-  <div class="section" id="prob140-plots-plot-pareto">
-<h1>prob140.plots.Plot_pareto<a class="headerlink" href="#prob140-plots-plot-pareto" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="prob140-multivariate-normal-regression">
+<h1>prob140.multivariate_normal_regression<a class="headerlink" href="#prob140-multivariate-normal-regression" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="prob140.plots.Plot_pareto">
-<code class="descclassname">prob140.plots.</code><code class="descname">Plot_pareto</code><span class="sig-paren">(</span><em>x_limits</em>, <em>alpha</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prob140/plots.html#Plot_pareto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.plots.Plot_pareto" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots an alpha distribution.</p>
+<dt id="prob140.multivariate_normal_regression">
+<code class="descclassname">prob140.</code><code class="descname">multivariate_normal_regression</code><span class="sig-paren">(</span><em>mu</em>, <em>cov</em>, <em>n=100</em>, <em>figsize=(8</em>, <em>6)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prob140/plots.html#multivariate_normal_regression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prob140.multivariate_normal_regression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws a scatter plot of points drawn from a trivariate normal distribution
+and the corresponding regresson plane.</p>
+<p>Random vectors should be of the form [Y X1 X2]^T.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>x_limits</strong> <span class="classifier-delimiter">:</span> <span class="classifier">iterable</span></dt>
-<dd><p class="first last">Array, list, or tuple of size 2, containing the lower and upper bound
-to be plotted.</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>mu</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array</span></dt>
+<dd><p class="first last">[mu_Y, mu_X1, mu_X2].</p>
 </dd>
-<dt><strong>a</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">Shape.</p>
+<dt><strong>cov</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array</span></dt>
+<dd><p class="first last">3x3 covariance matrix.</p>
 </dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>None</strong></dt>
-<dd></dd>
+<dt><strong>n</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int (optional)</span></dt>
+<dd><p class="first last">Number of points to plot.</p>
+</dd>
+<dt><strong>figsize</strong> <span class="classifier-delimiter">:</span> <span class="classifier">tuple (optional)</span></dt>
+<dd><p class="first last">Size of figure.</p>
+</dd>
 </dl>
 </td>
 </tr>
