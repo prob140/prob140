@@ -72,7 +72,7 @@ mass function
 
 .. ipython:: python
 
-    from scipy.misc import comb
+    from scipy.special import comb
     def pmf(x):
         n = 10
         p = 0.3

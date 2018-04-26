@@ -220,6 +220,42 @@ def Scatter_multivariate_normal(mu, cov, n):
     ax.dist = 12
 
 
+def multivariate_normal_regression(mu, cov, n=100, figsize=(8, 6)):
+    """
+    Draws a scatter plot of points drawn from a trivariate normal distribution
+    and the corresponding regresson plane.
+
+    Random vectors should be of the form [Y X1 X2]^T.
+
+    Parameters
+    ----------
+    mu : array
+        [mu_Y, mu_X1, mu_X2].
+    cov : array
+        3x3 covariance matrix.
+    n : int (optional)
+        Number of points to plot.
+    figsize : tuple (optional)
+        Size of figure.
+    """
+    y, x1, x2 = stats.multivariate_normal.rvs(mu, cov, n).T
+    sigma_X = cov[1:, 1:]
+    sigma_Y = cov[1:, 0:1]
+    A = sigma_Y.T.dot(np.linalg.inv(sigma_X)).flatten()
+    d = max(np.sqrt(np.diag(cov))[1:]) * 4
+    X1 = np.linspace(mu[1] - d, mu[1] + d, 100)
+    X2 = np.linspace(mu[2] - d, mu[2] + d, 100)
+    X1, X2 = np.meshgrid(X1, X2)
+    Y = A[0] * (X1 - mu[1]) + A[1] * (X2 - mu[2]) + mu[0]
+    fig = plt.figure(figsize=figsize)
+    ax = fig.add_subplot(111, projection='3d')
+    ax.scatter(x1, x2, y, s=10)
+    ax.set_xlabel('$x1$')
+    ax.set_ylabel('$x2$')
+    ax.set_zlabel('$y$')
+    ax.plot_surface(X1, X2, Y, alpha=0.3, color='gold')
+
+
 def Plot_expon(x_limits, lamb, **kwargs):
     """
     Plots an exponential distribution
