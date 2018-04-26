@@ -14,3 +14,5 @@ git commit -m "Updating documentation"
 git push origin gh-pages
 
 git checkout master
+
+echo "Uploaded successfully!"
