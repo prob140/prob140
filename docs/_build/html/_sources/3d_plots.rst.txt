@@ -11,6 +11,7 @@ Use ``%matplotlib notebook`` or ``%matplotlib qt`` instead of
 .. autosummary::
     :toctree: _autosummary
 
+    multivariate_normal_regression
     Plot_3d
     Plot_bivariate_normal
     Scatter_multivariate_normal
