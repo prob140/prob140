@@ -6,7 +6,7 @@ A Berkeley library for probability theory.
 
 Written for `Prob140 (prob140.org) <prob140.org>`_  by Jason Zhang and Dibya Ghosh.
 
-For documentation and examples, visit `https://probability.gitlab.io/prob140/ <https://probability.gitlab.io/prob140/>`_
+For documentation and examples, visit `prob140.org/prob140 <http://prob140.org/prob140/>`_
 
 .. image:: https://gitlab.com/probability/prob140/badges/master/build.svg
     :target: https://gitlab.com/probability/prob140/pipelines
@@ -37,12 +37,6 @@ If you are using ``prob140`` in a notebook, use the following header:
     import matplotlib.pyplot as plt
     import numpy as np
     plt.style.use('fivethirtyeight')
-    
-If you wish to use the Pykov module, also include: 
-
-.. code-block:: python
-
-    from prob140.pykov import *
 
 
 Changelog
