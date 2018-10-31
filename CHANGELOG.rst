@@ -1,3 +1,8 @@
+v0.3.7.1 (2018-10-30)
+---------------------
+
+* Added kwargs to  `multivariate_normal_regression` and `Scatter_multivariate_normal`.
+
 v0.3.7.0 (2018-10-30)
 ---------------------
 

@@ -203,7 +203,7 @@ def Plot_bivariate_normal(mu, cov, **kwargs):
     Plot_3d(**options)
 
 
-def Scatter_multivariate_normal(mu, cov, n, elev=20, azim=-100):
+def Scatter_multivariate_normal(mu, cov, n, elev=20, azim=-100, **kwargs):
     """
     Draws scatterplot for a trivariate normal distribution.
 
@@ -223,8 +223,13 @@ def Scatter_multivariate_normal(mu, cov, n, elev=20, azim=-100):
     points = stats.multivariate_normal.rvs(mu, cov, n)
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(points[:, 0], points[:, 1], points[:, 2], alpha=0.5, s=10,
-               color='darkblue')
+    options = {
+        'alpha': 0.5,
+        's': 10,
+        'color': 'darkblue',
+    }
+    options.update(kwargs)
+    ax.scatter(points[:, 0], points[:, 1], points[:, 2], **options)
     ax.set_xlabel('Variable 1')
     ax.set_ylabel('Variable 2')
     ax.set_zlabel('Variable 3')
@@ -233,7 +238,7 @@ def Scatter_multivariate_normal(mu, cov, n, elev=20, azim=-100):
 
 
 def multivariate_normal_regression(mu, cov, n=100, figsize=(8, 6), elev=20,
-                                   azim=-100):
+                                   azim=-100, **kwargs):
     """
     Draws a scatter plot of points drawn from a trivariate normal distribution
     and the corresponding regresson plane.
@@ -270,7 +275,12 @@ def multivariate_normal_regression(mu, cov, n=100, figsize=(8, 6), elev=20,
     ax.set_xlabel('$x1$')
     ax.set_ylabel('$x2$')
     ax.set_zlabel('$y$')
-    ax.plot_surface(X1, X2, Y, alpha=0.3, color='gold')
+    options = {
+        'alpha': 0.3,
+        'color': 'gold',
+    }
+    options.update(kwargs)
+    ax.plot_surface(X1, X2, Y, **options)
     ax.view_init(elev, azim)
 
 
