@@ -125,9 +125,9 @@ def Plot_3d(x_limits, y_limits, f, interactive=False, figsize=(12, 8),
         If True, creates a widget to adjust elevation and azimuth.
         (default: False)
     elev : float (optional)
-        Elevation (default: 20).
-    axim : float (optional)
-        Azimuth (default: -100).
+        Elevation in degrees (default: 20).
+    azim : float (optional)
+        Azimuth in degrees (default: -100).
     kwargs
         Optional named arguments for `plot_surface`.
 
@@ -146,11 +146,9 @@ def Plot_3d(x_limits, y_limits, f, interactive=False, figsize=(12, 8),
         v = np.vectorize(f)
         Z = v(X, Y)
         ax.plot_surface(X, Y, Z, **kwargs)
-
         ax.set_xlabel('x')
         ax.set_ylabel('y')
         ax.set_zlabel('f(x, y)')
-
         ax.view_init(el, az)
 
     if interactive:
@@ -186,6 +184,10 @@ def Plot_bivariate_normal(mu, cov, **kwargs):
         Array of length 2 for mean.
     cov : array
         Covariance matrix of dimension 2x2.
+    elev : float (optional)
+        Elevation in degrees (default: 20).
+    azim : float (optional)
+        Azimuth in degrees (default: -100).
     """
     def normal_density(x, y):
         return stats.multivariate_normal.pdf([x, y], mean=mu, cov=cov)
@@ -201,7 +203,7 @@ def Plot_bivariate_normal(mu, cov, **kwargs):
     Plot_3d(**options)
 
 
-def Scatter_multivariate_normal(mu, cov, n):
+def Scatter_multivariate_normal(mu, cov, n, elev=20, azim=-100):
     """
     Draws scatterplot for a trivariate normal distribution.
 
@@ -213,6 +215,10 @@ def Scatter_multivariate_normal(mu, cov, n):
         3x3 Covariance Matrix.
     n : int
         Number of points to plot.
+    elev : float (optional)
+        Elevation in degrees (default: 20).
+    azim : float (optional)
+        Azimuth in degrees (default: -100).
     """
     points = stats.multivariate_normal.rvs(mu, cov, n)
     fig = plt.figure()
@@ -222,10 +228,12 @@ def Scatter_multivariate_normal(mu, cov, n):
     ax.set_xlabel('Variable 1')
     ax.set_ylabel('Variable 2')
     ax.set_zlabel('Variable 3')
+    ax.view_init(elev, azim)
     ax.dist = 12
 
 
-def multivariate_normal_regression(mu, cov, n=100, figsize=(8, 6)):
+def multivariate_normal_regression(mu, cov, n=100, figsize=(8, 6), elev=20,
+                                   azim=-100):
     """
     Draws a scatter plot of points drawn from a trivariate normal distribution
     and the corresponding regresson plane.
@@ -242,6 +250,10 @@ def multivariate_normal_regression(mu, cov, n=100, figsize=(8, 6)):
         Number of points to plot.
     figsize : tuple (optional)
         Size of figure.
+    elev : float (optional)
+        Elevation in degrees (default: 20).
+    azim : float (optional)
+        Azimuth in degrees (default: -100).
     """
     y, x1, x2 = stats.multivariate_normal.rvs(mu, cov, n).T
     sigma_X = cov[1:, 1:]
@@ -259,6 +271,7 @@ def multivariate_normal_regression(mu, cov, n=100, figsize=(8, 6)):
     ax.set_ylabel('$x2$')
     ax.set_zlabel('$y$')
     ax.plot_surface(X1, X2, Y, alpha=0.3, color='gold')
+    ax.view_init(elev, azim)
 
 
 def Plot_expon(x_limits, lamb, **kwargs):

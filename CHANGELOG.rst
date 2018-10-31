@@ -1,3 +1,8 @@
+v0.3.7.0 (2018-10-30)
+---------------------
+
+* `multivariate_normal_regression` and `Scatter_multivariate_normal` now also take in elevation and azimuth.
+
 v0.3.6.0 (2018-10-30)
 ---------------------
 
