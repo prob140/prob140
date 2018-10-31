@@ -106,7 +106,8 @@ def Plot_continuous(x_limits, func, *args, **kwargs):
     plt.ylabel('Percent per unit')
 
 
-def Plot_3d(x_limits, y_limits, f, interactive=False, figsize=(12, 8), **kwargs):
+def Plot_3d(x_limits, y_limits, f, interactive=False, figsize=(12, 8),
+            elev=20, azim=-100, **kwargs):
     """
     Plots a 3d graph.
 
@@ -123,6 +124,10 @@ def Plot_3d(x_limits, y_limits, f, interactive=False, figsize=(12, 8), **kwargs)
     interactive : boolean (optional)
         If True, creates a widget to adjust elevation and azimuth.
         (default: False)
+    elev : float (optional)
+        Elevation (default: 20).
+    axim : float (optional)
+        Azimuth (default: -100).
     kwargs
         Optional named arguments for `plot_surface`.
 
@@ -130,7 +135,7 @@ def Plot_3d(x_limits, y_limits, f, interactive=False, figsize=(12, 8), **kwargs)
     -------
     None
     """
-    def plot(elev, azim):
+    def plot(el, az):
 
         fig = plt.figure(figsize=figsize)
         ax = fig.add_subplot(111, projection='3d')
@@ -146,29 +151,29 @@ def Plot_3d(x_limits, y_limits, f, interactive=False, figsize=(12, 8), **kwargs)
         ax.set_ylabel('y')
         ax.set_zlabel('f(x, y)')
 
-        ax.view_init(elev, azim)
+        ax.view_init(el, az)
 
     if interactive:
         elevation_slider = widgets.FloatSlider(
-            value=20,
+            value=elev,
             min=0,
             max=90,
             step=1,
             description='elevation'
         )
         azimuth_slider = widgets.FloatSlider(
-            value=-100,
+            value=azim,
             min=-180,
             max=180,
             step=1,
             description='azimuth'
         )
 
-        @interact(elev=elevation_slider, azim=azimuth_slider)
-        def wrapper(elev, azim):
-            plot(elev, azim)
+        @interact(el=elevation_slider, az=azimuth_slider)
+        def wrapper(el, az):
+            plot(el, az)
     else:
-        plot(20, -100)
+        plot(elev, azim)
 
 
 def Plot_bivariate_normal(mu, cov, **kwargs):
