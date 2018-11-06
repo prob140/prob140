@@ -203,7 +203,8 @@ def Plot_bivariate_normal(mu, cov, **kwargs):
     Plot_3d(**options)
 
 
-def Scatter_multivariate_normal(mu, cov, n, elev=20, azim=-100, **kwargs):
+def Scatter_multivariate_normal(mu, cov, n=100, figsize=(8, 6), elev=20,
+                                azim=-100, **kwargs):
     """
     Draws scatterplot for a trivariate normal distribution.
 
@@ -221,24 +222,31 @@ def Scatter_multivariate_normal(mu, cov, n, elev=20, azim=-100, **kwargs):
         Azimuth in degrees (default: -100).
     """
     points = stats.multivariate_normal.rvs(mu, cov, n)
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
+    fig = plt.figure(figsize=figsize)
+
     options = {
         'alpha': 0.5,
         's': 10,
         'color': 'darkblue',
     }
     options.update(kwargs)
-    ax.scatter(points[:, 0], points[:, 1], points[:, 2], **options)
-    ax.set_xlabel('Variable 1')
-    ax.set_ylabel('Variable 2')
-    ax.set_zlabel('Variable 3')
-    ax.view_init(elev, azim)
-    ax.dist = 12
+    if points.shape[1] == 3:
+        ax = fig.add_subplot(111, projection='3d')
+        ax.scatter(points[:, 0], points[:, 1], points[:, 2], **options)
+        ax.set_xlabel('Variable 1')
+        ax.set_ylabel('Variable 2')
+        ax.set_zlabel('Variable 3')
+        ax.view_init(elev, azim)
+        ax.dist = 12
+    else:
+        ax = fig.add_subplot(111)
+        ax.scatter(points[:, 0], points[:, 1], **options)
+        ax.set_xlabel('Variable 1')
+        ax.set_ylabel('Variable 2')
 
 
-def multivariate_normal_regression(mu, cov, n=100, figsize=(8, 6), elev=20,
-                                   azim=-100, **kwargs):
+def Plot_multivariate_normal_regression(mu, cov, n=100, figsize=(8, 6), elev=25,
+                                        azim=-25, **kwargs):
     """
     Draws a scatter plot of points drawn from a trivariate normal distribution
     and the corresponding regresson plane.
@@ -256,9 +264,9 @@ def multivariate_normal_regression(mu, cov, n=100, figsize=(8, 6), elev=20,
     figsize : tuple (optional)
         Size of figure.
     elev : float (optional)
-        Elevation in degrees (default: 20).
+        Elevation in degrees (default: 25).
     azim : float (optional)
-        Azimuth in degrees (default: -100).
+        Azimuth in degrees (default: -25).
     """
     y, x1, x2 = stats.multivariate_normal.rvs(mu, cov, n).T
     sigma_X = cov[1:, 1:]
@@ -278,6 +286,8 @@ def multivariate_normal_regression(mu, cov, n=100, figsize=(8, 6), elev=20,
     options = {
         'alpha': 0.3,
         'color': 'gold',
+        'rstride': 10,
+        'cstride': 10,
     }
     options.update(kwargs)
     ax.plot_surface(X1, X2, Y, **options)
