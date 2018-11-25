@@ -5,7 +5,7 @@ from .markov_chains import MarkovChain
 from .single_variable import emp_dist
 
 from .plots import (
-    Plot_multivariate_normal_regression,
+    Plot_multivariate_normal_cond_exp,
     Plot_continuous,
     Plot_norm,
     Plot_3d,

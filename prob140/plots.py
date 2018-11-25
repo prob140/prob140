@@ -206,14 +206,14 @@ def Plot_bivariate_normal(mu, cov, **kwargs):
 def Scatter_multivariate_normal(mu, cov, n=100, figsize=(8, 6), elev=20,
                                 azim=-100, **kwargs):
     """
-    Draws scatterplot for a trivariate normal distribution.
+    Draws scatterplot for a bivariate or trivariate normal distribution.
 
     Parameters
     ----------
     mu : array
-        Array of length 3 corresponding to the means.
+        Array of length 2 or 3 corresponding to the means.
     cov : array
-        3x3 Covariance Matrix.
+        2x2 or 3x3 Covariance Matrix.
     n : int
         Number of points to plot.
     elev : float (optional)
@@ -245,8 +245,8 @@ def Scatter_multivariate_normal(mu, cov, n=100, figsize=(8, 6), elev=20,
         ax.set_ylabel('Variable 2')
 
 
-def Plot_multivariate_normal_regression(mu, cov, n=100, figsize=(8, 6), elev=25,
-                                        azim=-25, **kwargs):
+def Plot_multivariate_normal_cond_exp(mu, cov, n=100, figsize=(8, 6), elev=25,
+                                      azim=-25, **kwargs):
     """
     Draws a scatter plot of points drawn from a trivariate normal distribution
     and the corresponding regresson plane.

@@ -1,3 +1,13 @@
+v0.3.9.0 (2018-10-30)
+---------------------
+
+* Renamed `Plot_multivariate_normal_regression` to `Plot_multivariate_normal_cond_exp`.
+
+v0.3.8.0 (2018-11-05)
+---------------------
+
+* Renamed `multivariate_normal_regression` to `Plot_multivariate_normal_regression`
+
 v0.3.7.1 (2018-10-30)
 ---------------------
 
