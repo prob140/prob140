@@ -27,6 +27,7 @@ Table.prob_event = prob_event
 Table.event = event
 Table.domain = domain
 Table.probability = probability
+Table.probabilities = probabilities
 Table.probability_function = probability_function
 Table.normalized = normalized
 Table.ev = ev

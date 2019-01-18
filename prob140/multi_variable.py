@@ -9,6 +9,26 @@ from datascience import (
     Table,
 )
 
+def make_predicate(f):
+    """
+    Makes a predicate function similar to the predicates in the datascience library
+    e.g are.equal_to. 
+
+    Parameters
+    ----------
+    f : function
+        This function should take in two arguments x and y, where x corresponds to the left argument and y the right argument and output a boolean
+    
+    Returns
+    -------
+    g : Predicate
+        This can be used for the joint_dist.event('X', g, 'Y') (which will evaluate g(x,y))
+    """
+    def f1(y):
+        def f2(x):
+            return f(x,y)
+        return f2
+    return f1
 
 def conditional(array):
     value = array / sum(array[0: -1])
@@ -36,7 +56,6 @@ def evaluate(name):
     except Exception:
         return name[index + 1:]
 
-
 class JointDistribution(pd.DataFrame):
 
     @classmethod
@@ -56,6 +75,41 @@ class JointDistribution(pd.DataFrame):
         JointDistribution
         """
         return table.to_joint(reverse=reverse)
+
+    def total_probability(self):
+
+        """
+        Returns the sum of the probabilities in the joint distribution - this should always be 1 within rounding error
+
+        Returns
+        -------
+        float
+        """
+        probability_column_label = self._table.labels[self._table.num_columns-1]
+        return sum(self._table[probability_column_label])
+
+    def event(self, column_or_label, value_or_predicate=None, other=None):
+        """
+        Visualizes and returns probability of an event that can be specified using predicates (e.g. are.equal_to) in the datascience library
+
+        Uses the Table.where functionality under the hood - refer to datascience.tables.Table.where for full documentation
+
+        Parameters
+        ----------
+        column_or_label : str
+            See datascience documentation for Table.where
+        value_or_predicate : predicate
+            See datascience documentation for Table.where
+        other : str
+            See datascience documentation for Table.where
+        
+        Returns
+        -------
+        JointDistribution
+
+        """
+
+        return self._table.to_joint(where_args=(column_or_label, value_or_predicate, other))
 
     def get_possible_values(self, label=''):
         """
@@ -271,7 +325,7 @@ def multi_domain(table, *args):
 
 
 def to_joint(table, X_column_label=None, Y_column_label=None,
-             probability_column_label=None, reverse=True):
+             probability_column_label=None, reverse=True, where_args=None):
     """
     Converts a table of probabilities associated with two variables into a
     JointDistribution object
@@ -291,6 +345,8 @@ def to_joint(table, X_column_label=None, Y_column_label=None,
         Label for probabilities.
     reverse (optional) : bool
         If True, the vertical values will be reversed.
+    where_args (optional) : None
+        If not None, then the queried region will show only
 
     Returns
     -------
@@ -322,21 +378,30 @@ def to_joint(table, X_column_label=None, Y_column_label=None,
     if probability_column_label is None:
         probability_column_label = table.labels[table.num_columns-1]
 
-    total = sum(table[probability_column_label])
-
-    if round(total, 6) != 1:
-        warnings.warn('Your probabilities sum to {0}'.format(total))
-
     x_possibilities = sorted(set(table[X_column_label]))
     y_possibilities = sorted(set(table[Y_column_label]), reverse=reverse)
+    
+    if where_args is not None:
+        table = table.where(*where_args)
+
+    total = sum(table[probability_column_label])
+    
+    if where_args is not None:
+        print('P(Event) = {0}'.format(total))
+
+    if round(total, 6) != 1:
+        if where_args is None:
+            warnings.warn('Your probabilities sum to {0}'.format(total))
 
     xInd = table.column_index(X_column_label)
     yInd = table.column_index(Y_column_label)
     pInd = table.column_index(probability_column_label)
 
-    data = {poss: [0]*len(y_possibilities) for poss in x_possibilities}
+    data = {poss: ['']*len(y_possibilities) for poss in x_possibilities}
 
     for row in table.rows:
+        if data[row[xInd]][y_possibilities.index(row[yInd])] == '':
+            data[row[xInd]][y_possibilities.index(row[yInd])] = 0
         data[row[xInd]][y_possibilities.index(row[yInd])] += row[pInd]
 
     x_order = ['{}={}'.format(X_column_label, poss) for poss in x_possibilities]
@@ -353,5 +418,8 @@ def to_joint(table, X_column_label=None, Y_column_label=None,
 
     joint_dist._X_column_label = X_column_label
     joint_dist._Y_column_label = Y_column_label
-
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        joint_dist._table = table # Needed to surpress error (TODO: Find better way to put table info into pandas dataframe)
     return joint_dist
+

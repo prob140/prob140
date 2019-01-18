@@ -24,6 +24,10 @@ def check_valid_probability_table(table):
         'table must have 2 columns: a Values column and a Probability column'
     assert all(table.column(1) >= 0), 'Probabilities must be non-negative'
 
+def auto_joint(table):
+    if table.num_columns == 3:
+        return table.to_joint()
+    return table
 
 def _bin(dist, width=1, start=None, num_bins=-1):
     """
@@ -47,7 +51,7 @@ def _bin(dist, width=1, start=None, num_bins=-1):
 
     Examples
     --------
-    >>> x = Table().values([0, 0.5, 1]).probability([1 / 3, 1 / 3, 1 / 3])
+    >>> x = Table().values([0, 0.5, 1]).probabilities([1 / 3, 1 / 3, 1 / 3])
     >>> _bin(x)
     (array([ 0.,  1.]), array([ 0.66666667,  0.33333333]))
     >>> _bin(x, width=0.5)
@@ -198,8 +202,8 @@ def Plots(*labels_and_dists, width=1, edges=None, **vargs):
 
     Examples
     --------
-    >>> dist1 = Table().values([1, 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])
-    >>> dist2 = Table().values([3, 4, 5, 6]).probability([1/2, 1/8, 1/8, 1/4])
+    >>> dist1 = Table().values([1, 2, 3, 4]).probabilities([1/4, 1/4, 1/4, 1/4])
+    >>> dist2 = Table().values([3, 4, 5, 6]).probabilities([1/2, 1/8, 1/8, 1/4])
     >>> Plots('Distribution1', dist1, 'Distribution2', dist2)
     <histogram with dist1 and dist2>
     """
@@ -315,10 +319,10 @@ def probability_function(self, pfunc):
         warnings.warn('Probability cannot be negative')
     if round(sum(values), 6) != 1:
         warnings.warn('Probabilities sum to {0}'.format(sum(values)))
-    return self.with_column('Probability', values)
+    return auto_joint(self.with_column('Probability', values))
 
 
-def probability(self, values):
+def probabilities(self, values):
     """
     Assigns probabilities to domain values.
 
@@ -337,8 +341,12 @@ def probability(self, values):
 
     if round(sum(values), 6) != 1:
         warnings.warn('Probabilities sum to {0}'.format(sum(values)))
-    return self.with_column('Probability', values)
 
+    return auto_joint(self.with_column('Probability', values))
+
+def probability(self, values):
+    warnings.warn('.probability() is deprecated - please use .probabilities()')
+    return probabilities(values)
 
 def transition_function(self, pfunc):
     """
@@ -428,7 +436,7 @@ def prob_event(self, x):
     Examples
     --------
 
-    >>> dist = Table().values([1, 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])
+    >>> dist = Table().values([1, 2, 3, 4]).probabilities([1/4, 1/4, 1/4, 1/4])
     >>> dist.prob_event(2)
     0.25
     >>> dist.prob_event([2, 3])
@@ -463,7 +471,7 @@ def event(self, x):
 
     Examples
     --------
-    >>> dist = Table().values([1 2, 3, 4]).probability([1/4, 1/4, 1/4, 1/4])
+    >>> dist = Table().values([1 2, 3, 4]).probabilities([1/4, 1/4, 1/4, 1/4])
     >>> dist.event(2)
     Domain | Probability
     2      | 0.25
@@ -491,12 +499,12 @@ def normalized(self):
 
     Examples
     --------
-    >>> Table().values([1, 2, 3]).probability([1, 1, 1])
+    >>> Table().values([1, 2, 3]).probabilities([1, 1, 1])
     Value | Probability
     1     | 1
     2     | 1
     3     | 1
-    >>> Table().values([1, 2, 3]).probability([1, 1, 1]).normalized()
+    >>> Table().values([1, 2, 3]).probabilities([1, 1, 1]).normalized()
     Value | Probability
     1     | 0.333333
     2     | 0.333333
@@ -597,7 +605,7 @@ def ev(self):
 
     Examples
     --------
-    >>> dist = Table().values([1, 2, 4]).probability([0.5, 0.4, 0.1])
+    >>> dist = Table().values([1, 2, 4]).probabilities([0.5, 0.4, 0.1])
     >>> dist.ev()
     1.7
     >>> 1 * 0.5 + 2 * 0.4 + 4 * 0.1
@@ -622,7 +630,7 @@ def var(self):
 
     Examples
     --------
-    >>> dist = Table().values([1, 2, 4]).probability([0.5, 0.4, 0.1])
+    >>> dist = Table().values([1, 2, 4]).probabilities([0.5, 0.4, 0.1])
     >>> dist.var()
     0.81
     >>> (1 * 0.5 + 4 * 0.4 + 16 * 0.1) - (1.7) ** 2
@@ -648,7 +656,7 @@ def sd(self):
 
     Examples
     --------
-    >>> dist = Table().values([1, 2, 4]).probability([0.5, 0.4, 0.1])
+    >>> dist = Table().values([1, 2, 4]).probabilities([0.5, 0.4, 0.1])
     >>> dist.sd()
     0.9
     """
@@ -665,7 +673,7 @@ def remove_zeros(self):
 
     Examples
     --------
-    >>> dist = Table().values([2, 3, 4, 5]).probability([0.5, 0, 0.5, 0])
+    >>> dist = Table().values([2, 3, 4, 5]).probabilities([0.5, 0, 0.5, 0])
     >>> dist
     Value | Probability
     2     | 0.5
