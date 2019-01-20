@@ -87,21 +87,21 @@ class JointDistribution(pd.DataFrame):
         """
         probability_column_label = self._table.labels[self._table.num_columns-1]
         return sum(self._table[probability_column_label])
-
-    def event(self, column_or_label, value_or_predicate=None, other=None):
+    
+    def event(self, indicator_function, *column_or_columns):
         """
         Visualizes and returns probability of an event that can be specified using predicates (e.g. are.equal_to) in the datascience library
 
-        Uses the Table.where functionality under the hood - refer to datascience.tables.Table.where for full documentation
+        Uses the Table.where and Table.apply functionality under the hood - refer to datascience.tables.Table.where for full documentation
 
         Parameters
         ----------
+        indicator_function : function
+            A function that returns a boolean value to be used as the indicator for the event
         column_or_label : str
-            See datascience documentation for Table.where
-        value_or_predicate : predicate
-            See datascience documentation for Table.where
-        other : str
-            See datascience documentation for Table.where
+            Columns containing the arguments to ``indicator_function``
+            The number of columns must match the number of arguments
+            that ``fn`` expects.
         
         Returns
         -------
@@ -109,7 +109,9 @@ class JointDistribution(pd.DataFrame):
 
         """
 
-        return self._table.to_joint(where_args=(column_or_label, value_or_predicate, other))
+        which_ones = self._table.apply(indicator_function, *column_or_columns)
+        return self._table.to_joint(where_args=(which_ones,))
+
 
     def get_possible_values(self, label=''):
         """

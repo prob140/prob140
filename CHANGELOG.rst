@@ -1,3 +1,15 @@
+v0.4.1.0 (2019-01-20)
+---------------------
+
+* Updated syntax and behavior for `event` in JointDistribution objects
+
+v0.4.0.0 (2019-01-18)
+---------------------
+
+* Distribution tables with two variables are now automatically changed to joint distributions
+* Added `total_probability` to JointDistribution objects
+* Added `event` to JointDistribution objects
+
 v0.3.9.0 (2018-10-30)
 ---------------------
 
