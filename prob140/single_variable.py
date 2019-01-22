@@ -75,7 +75,7 @@ def _bin(dist, width=1, start=None, num_bins=-1):
     return new_domain, new_prob
 
 
-def Plot(dist, width=1, event=(), edges=None, show_ev=False, show_ave=False,
+def Plot(dist, width=1, event=None, edges=None, show_ev=False, show_ave=False,
          show_sd=False, **vargs):
     """
     Plots the histogram for a single distribution.
@@ -125,8 +125,10 @@ def Plot(dist, width=1, event=(), edges=None, show_ev=False, show_ave=False,
         options['lw'] = 0
     options.update(vargs)
 
-    if len(event) != 0:
+    if event is not None:
         # Events.
+        if callable(event):
+            event = dist.column(0)[np.nonzero(dist.apply(event, 0))]
 
         domain = set(dist.column(0))
         def prob(x):
@@ -346,7 +348,7 @@ def probabilities(self, values):
 
 def probability(self, values):
     warnings.warn('.probability() is deprecated - please use .probabilities()')
-    return probabilities(values)
+    return probabilities(self, values)
 
 def transition_function(self, pfunc):
     """
@@ -425,7 +427,7 @@ def prob_event(self, x):
     Parameters
     ----------
     x : float or Iterable
-        An event represented either as a specific value in the domain or a
+        An event represented either as an indicator function or a specific value in the domain or a
         subset of the domain
 
     Returns
@@ -445,6 +447,9 @@ def prob_event(self, x):
     1.0
     """
     check_valid_probability_table(self)
+    if callable(x):
+        return self.where(self.apply(x, 0)).column(1).sum()
+
     if isinstance(x, collections.Iterable):
         return sum(self.prob_event(k) for k in x)
     else:
@@ -460,8 +465,8 @@ def event(self, x):
 
     Parameters
     ----------
-    x : float or Iterable
-        An event represented either as a specific value in the domain or a
+    x : float or Iterable or function
+        An event represented either as an indicator function or a specific value in the domain or a
         subset of the domain
 
     Returns
@@ -481,10 +486,16 @@ def event(self, x):
     3      | 0.25
     """
     check_valid_probability_table(self)
+    if callable(x):
+        t = self.where(self.apply(x, 0))
+        print('P(Event) = {0}'.format(sum(t.column(1))))
+        return t
+
 
     if not isinstance(x, collections.Iterable):
         x = [x]
     probabilities = [self.prob_event(k) for k in x]
+    print('P(Event) = {0}'.format(sum(probabilities)))
     return Table().with_columns('Outcome', x, 'Probability', probabilities)
 
 

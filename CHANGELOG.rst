@@ -1,3 +1,15 @@
+v0.4.1.2 (2019-01-21)
+---------------------
+
+* `event` for Distribution tables now prints the total probability
+
+
+v0.4.1.1 (2019-01-21)
+---------------------
+
+* The `Plot` function and `prob_event` and `event` methods now can take events defined by indicator functions
+
+
 v0.4.1.0 (2019-01-20)
 ---------------------
 
