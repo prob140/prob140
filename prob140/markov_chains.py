@@ -126,7 +126,7 @@ class MarkovChain:
                 start[i, 0] = 0
 
         probabilities = start.T.dot(self.get_transition_matrix(steps=steps))
-        return Table().states(self.states).probability(probabilities[0])
+        return Table().states(self.states).probabilities(probabilities[0])
 
     def log_prob_of_path(self, starting_condition, path):
         """
@@ -156,7 +156,7 @@ class MarkovChain:
         >>> mc = MarkovChain.from_matrix(states, transition_matrix)
         >>> mc.log_prob_of_path('A', ['A', 'B', 'A'])
         -2.6310891599660815
-        >>> start = Table().states(['A', 'B']).probability([0.8, 0.2])
+        >>> start = Table().states(['A', 'B']).probabilities([0.8, 0.2])
         >>> mc.log_prob_of_path(start, ['A', 'B', 'A'])
         -0.55164761828624576
         """
@@ -208,7 +208,7 @@ class MarkovChain:
         0.072
         >>> 0.1 * 0.9 * 0.8
         0.072
-        >>> start = Table().states(['A', 'B']).probability([0.8, 0.2])
+        >>> start = Table().states(['A', 'B']).probabilities([0.8, 0.2])
         >>> mc.prob_of_path(start, ['A', 'B', 'A'])
         0.576
         >>> 0.8 * 0.9 * 0.8
@@ -313,7 +313,7 @@ class MarkovChain:
         indices = np.logical_and(np.isclose(probabilities, 0),
                                  probabilities < 0)
         probabilities[indices] = 0
-        return Table().values(self.states).probability(probabilities)
+        return Table().values(self.states).probabilities(probabilities)
 
     def expected_return_time(self):
         """

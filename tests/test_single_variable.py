@@ -12,10 +12,10 @@ from . import (
 )
 
 
-SIMPLE_DIST = Table().values([1, 2, 3]).probability([0.2, 0.3, 0.5])
-UNIFORM_DIST = Table().values(np.arange(100)).probability([0.01] * 100)
-NEGATIVE_DIST = Table().values([-2, -1, 0, 1]).probability([0.25] * 4)
-NONINTEGER_DIST = Table().values([-1.5, -0.5, 0.5, 1.5]).probability([0.25] * 4)
+SIMPLE_DIST = Table().values([1, 2, 3]).probabilities([0.2, 0.3, 0.5])
+UNIFORM_DIST = Table().values(np.arange(100)).probabilities([0.01] * 100)
+NEGATIVE_DIST = Table().values([-2, -1, 0, 1]).probabilities([0.25] * 4)
+NONINTEGER_DIST = Table().values([-1.5, -0.5, 0.5, 1.5]).probabilities([0.25] * 4)
 
 
 def test_construction():
@@ -23,7 +23,7 @@ def test_construction():
     domain = Table().values(np.array([1, 2, 3]))
     assert domain.num_columns == 1
 
-    dist1 = domain.probability(np.array([0.1, 0.2 , 0.7]))
+    dist1 = domain.probabilities(np.array([0.1, 0.2 , 0.7]))
     assert dist1.num_columns == 2
 
     dist2 = domain.probability_function(lambda x: x / 6)
@@ -31,13 +31,13 @@ def test_construction():
 
     # Negative probability.
     with pytest.warns(UserWarning):
-        domain.probability([0, 1.1, -0.1])
+        domain.probabilities([0, 1.1, -0.1])
     with pytest.warns(UserWarning):
         domain.probability_function(lambda x: -x / 6)
 
     # Probability doesn't sum to 1.
     with pytest.warns(UserWarning):
-        domain.probability([0.3, 0.1, 0.2])
+        domain.probabilities([0.3, 0.1, 0.2])
     with pytest.warns(UserWarning):
         domain.probability_function(lambda x: x)
 
@@ -84,7 +84,7 @@ def test_events():
 
 def test_normalized():
     with pytest.warns(UserWarning):
-        dist = Table().values([1, 2, 3]).probability([1] * 3)
+        dist = Table().values([1, 2, 3]).probabilities([1] * 3)
     assert_dist_equal(dist.normalized(), [1 / 3] * 3)
 
 
@@ -116,5 +116,5 @@ def test_sd():
 
 
 def test_remove_zeros():
-    dist = Table().values([2, 3, 4, 5]).probability([0.5, 0.0, 0.5, 0])
+    dist = Table().values([2, 3, 4, 5]).probabilities([0.5, 0.0, 0.5, 0])
     assert dist.remove_zeros().num_rows == 2

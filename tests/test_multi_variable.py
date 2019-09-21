@@ -14,16 +14,16 @@ from . import (
 )
 
 
-DIST1 = Table().values([0, 1], [2, 3, 4]).probability(
+DIST1 = Table().values([0, 1], [2, 3, 4]).probabilities(
     [0.1, 0.2, 0., 0.3, 0.4, 0.]).to_joint()
-DIST2 = Table().values('Coin1', ['H','T'], 'Coin2', ['H','T']).probability(
+DIST2 = Table().values('Coin1', ['H','T'], 'Coin2', ['H','T']).probabilities(
     [0.24, 0.36, 0.16, 0.24]).to_joint()
 
 
 def test_construction():
     # String values
     table_str = Table().values('X', ['H', 'T'], 'Y', ['H', 'T'])
-    table_str = table_str.probability(np.array([0.24, 0.36, 0.16, 0.24]))
+    table_str = table_str.probabilities(np.array([0.24, 0.36, 0.16, 0.24]))
     dist = table_str.to_joint()
     assert_joint_equal(dist, np.array([[0.36, 0.24], [0.24, 0.16]]))
     assert_equal(dist.get_possible_values(), [['H', 'T'], ['T', 'H']])
@@ -32,7 +32,7 @@ def test_construction():
     assert_equal(dist.get_possible_values(), [['H', 'T'], ['H', 'T']])
 
     # Int values
-    table_int = Table().values('X', [1], 'Y', [2]).probability([1])
+    table_int = Table().values('X', [1], 'Y', [2]).probabilities([1])
     dist = JointDistribution.from_table(table_int)
     x_values = dist.get_possible_values('X')
     assert_approx_equal(x_values, [1])
@@ -42,7 +42,7 @@ def test_construction():
     assert isinstance(y_values[0], int)
 
     # Float values
-    table_float = Table().values('X', [1.1], 'Y', [2.2]).probability([1])
+    table_float = Table().values('X', [1.1], 'Y', [2.2]).probabilities([1])
     dist = JointDistribution.from_table(table_float)
     x_values = dist.get_possible_values('X')
     assert isinstance(x_values[0], float)
@@ -50,12 +50,12 @@ def test_construction():
     # Negative probability values
     with pytest.warns(UserWarning):
         Table().values('X', [1, 2], 'Y', [3])\
-            .probability([-0.5, 1.5]).to_joint()
+            .probabilities([-0.5, 1.5]).to_joint()
 
     # Doesn't sum to 1
     with pytest.warns(UserWarning):
         Table().values('X', [1, 2], 'Y', [3])\
-            .probability([1., 1.]).to_joint()
+            .probabilities([1., 1.]).to_joint()
 
 
 def test_both_marginals():

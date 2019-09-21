@@ -16,7 +16,7 @@ MC_SIMPLE = MarkovChain.from_matrix(
     states=np.array(['A', 'B']),
     transition_matrix=np.array([[0.1, 0.9], [0.8, 0.2]])
 )
-START_SIMPLE = Table().states(['A', 'B']).probability([0.8, 0.2])
+START_SIMPLE = Table().states(['A', 'B']).probabilities([0.8, 0.2])
 
 def test_construction():
     # Transition matrix

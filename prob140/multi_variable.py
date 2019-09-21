@@ -157,7 +157,7 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> dist2 = Table().values('Coin1', ['H', 'T'], 'Coin2', ['H', 'T']).probability(np.array([0.24, 0.36, 0.16, 0.24])).to_joint()
+        >>> dist2 = Table().values('Coin1', ['H', 'T'], 'Coin2', ['H', 'T']).probabilities(np.array([0.24, 0.36, 0.16, 0.24])).to_joint()
         >>> dist2.marginal('Coin1')
                                 Coin1=H  Coin1=T
         Coin2=T                    0.36     0.24
@@ -202,7 +202,7 @@ class JointDistribution(pd.DataFrame):
         else:
             prob = marginal[:, -1]
         domain = self.get_possible_values(label)
-        return Table().values(domain).probability(prob)
+        return Table().values(domain).probabilities(prob)
 
     def both_marginals(self):
         """
@@ -214,7 +214,7 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> dist1 = Table().values([0, 1], [2, 3]).probability([0.1, 0.2, 0.3, 0.4]).to_joint()
+        >>> dist1 = Table().values([0, 1], [2, 3]).probabilities([0.1, 0.2, 0.3, 0.4]).to_joint()
         >>> dist1.both_marginals()
                             X=0  X=1  Sum: Marginal of Y
         Y=3                 0.2  0.4                 0.6
@@ -244,7 +244,7 @@ class JointDistribution(pd.DataFrame):
 
         Examples
         --------
-        >>> coins = Table().values('Coin1', ['H', 'T'], 'Coin2', ['H','T']).probability(np.array([0.24, 0.36, 0.16,0.24])).to_joint()
+        >>> coins = Table().values('Coin1', ['H', 'T'], 'Coin2', ['H','T']).probabilities(np.array([0.24, 0.36, 0.16,0.24])).to_joint()
         >>> coins.conditional_dist('Coin1', 'Coin2')
                                   Coin1=H  Coin1=T  Sum
         Dist. of Coin1 | Coin2=H      0.6      0.4  1.0
