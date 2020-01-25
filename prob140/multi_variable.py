@@ -196,7 +196,7 @@ class JointDistribution(pd.DataFrame):
         Table
             Single variable distribution of label.
         """
-        marginal = self.marginal(label).as_matrix()
+        marginal = self.marginal(label).to_numpy()
         if label == self._X_column_label:
             prob = marginal[-1, :]
         else:
@@ -261,7 +261,7 @@ class JointDistribution(pd.DataFrame):
             both = self.both_marginals()
             new = np.append(both.index[0: -1], 'Sum')
             y = both.apply(conditional, axis=0).set_index(new)
-            matrix = y.as_matrix()[:-1, :]
+            matrix = y.to_numpy()[:-1, :]
             y_labels = list(self.index)
             domain = np.array([evaluate(lab) for lab in y_labels])
             exp_values = [sum(matrix[:, i] * domain)
@@ -285,7 +285,7 @@ class JointDistribution(pd.DataFrame):
             x = both.apply(conditional, axis=1).rename(columns={
                 'Sum: Marginal of {0}'.format(self._Y_column_label): 'Sum'})
 
-            matrix = x.as_matrix()[:, :-1]
+            matrix = x.to_numpy()[:, :-1]
             x_labels = list(self)
             domain = np.array([evaluate(lab) for lab in x_labels])
             exp_values = [sum(matrix[i] * domain) for i in range(len(matrix))]
