@@ -27,7 +27,7 @@ def check_valid_probability_table(table):
 def auto_joint(table):
     if table.num_columns == 3:
         return table.to_joint()
-    return table
+    return table.sort("Value", descending=False)
 
 def _bin(dist, width=1, start=None, num_bins=-1):
     """

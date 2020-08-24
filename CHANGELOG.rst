@@ -1,3 +1,8 @@
+v0.4.1.5 (2020-08-24)
+---------------------
+
+* Single-variable distributions now show values in ascending order (`auto_joint` now sorts before returning if only one variable)
+
 v0.4.1.4 (2020-01-24)
 ---------------------
 
