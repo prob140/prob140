@@ -134,7 +134,13 @@ def Plot(dist, width=1, event=None, edges=None, show_ev=False, show_ave=False,
         def prob(x):
             return np.array([dist.prob_event(a) for a in list(x)])
 
-        if isinstance(event[0], collections.Iterable):
+        # handle collection package update
+        try:
+            iter_class = collections.Iterable
+        except AttributeError:
+            iter_class = collections.abc.Iterable
+            
+        if isinstance(event[0], iter_class):
             # If event is a list of lists.
             colors = list(itertools.islice(itertools.cycle(dist.chart_colors),
                                            len(event) + 1))
@@ -449,8 +455,13 @@ def prob_event(self, x):
     check_valid_probability_table(self)
     if callable(x):
         return self.where(self.apply(x, 0)).column(1).sum()
-
-    if isinstance(x, collections.Iterable):
+    # handle collection package update
+    try:
+        iter_class = collections.Iterable
+    except AttributeError:
+        iter_class = collections.abc.Iterable
+        
+    if isinstance(x, iter_class):
         return sum(self.prob_event(k) for k in x)
     else:
         domain = self.column(0)
@@ -491,8 +502,13 @@ def event(self, x):
         print('P(Event) = {0}'.format(sum(t.column(1))))
         return t
 
-
-    if not isinstance(x, collections.Iterable):
+    # handle collection package update
+    try:
+        iter_class = collections.Iterable
+    except AttributeError:
+        iter_class = collections.abc.Iterable
+        
+    if not isinstance(x, iter_class):
         x = [x]
     probabilities = [self.prob_event(k) for k in x]
     print('P(Event) = {0}'.format(sum(probabilities)))
