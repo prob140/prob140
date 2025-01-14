@@ -1,3 +1,8 @@
+v0.4.1.6 (2025-01-13)
+---------------------
+
+* Updated plotting function to be compatible with new collection pacakge
+
 v0.4.1.5 (2020-08-24)
 ---------------------
 
